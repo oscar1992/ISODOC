@@ -1,0 +1,429 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.2-hudson-740-. --><xs:schema xmlns:tns="http://ws.siscomputo.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://ws.siscomputo.com/">
+
+<xs:element name="ActualizaGrupoPermisos" type="tns:ActualizaGrupoPermisos" />
+
+<xs:element name="ActualizaGrupoPermisosResponse" type="tns:ActualizaGrupoPermisosResponse" />
+
+<xs:element name="ActualizaUsuarioGrupoPermisos" type="tns:ActualizaUsuarioGrupoPermisos" />
+
+<xs:element name="ActualizaUsuarioGrupoPermisosResponse" type="tns:ActualizaUsuarioGrupoPermisosResponse" />
+
+<xs:element name="ActualizarModulo" type="tns:ActualizarModulo" />
+
+<xs:element name="ActualizarModuloResponse" type="tns:ActualizarModuloResponse" />
+
+<xs:element name="ActualizarPermiso" type="tns:ActualizarPermiso" />
+
+<xs:element name="ActualizarPermisoGrupoPermiso" type="tns:ActualizarPermisoGrupoPermiso" />
+
+<xs:element name="ActualizarPermisoGrupoPermisoResponse" type="tns:ActualizarPermisoGrupoPermisoResponse" />
+
+<xs:element name="ActualizarPermisoResponse" type="tns:ActualizarPermisoResponse" />
+
+<xs:element name="ActualizarUsuario" type="tns:ActualizarUsuario" />
+
+<xs:element name="ActualizarUsuarioResponse" type="tns:ActualizarUsuarioResponse" />
+
+<xs:element name="InsertarGrupoPermisos" type="tns:InsertarGrupoPermisos" />
+
+<xs:element name="InsertarGrupoPermisosResponse" type="tns:InsertarGrupoPermisosResponse" />
+
+<xs:element name="InsertarModulo" type="tns:InsertarModulo" />
+
+<xs:element name="InsertarModuloResponse" type="tns:InsertarModuloResponse" />
+
+<xs:element name="InsertarPermiso" type="tns:InsertarPermiso" />
+
+<xs:element name="InsertarPermisoResponse" type="tns:InsertarPermisoResponse" />
+
+<xs:element name="InsertarUsuario" type="tns:InsertarUsuario" />
+
+<xs:element name="InsertarUsuarioGrupoPermisos" type="tns:InsertarUsuarioGrupoPermisos" />
+
+<xs:element name="InsertarUsuarioGrupoPermisosResponse" type="tns:InsertarUsuarioGrupoPermisosResponse" />
+
+<xs:element name="InsertarUsuarioResponse" type="tns:InsertarUsuarioResponse" />
+
+<xs:element name="Insertar_Permiso_Grupo_Permisos" type="tns:Insertar_Permiso_Grupo_Permisos" />
+
+<xs:element name="Insertar_Permiso_Grupo_PermisosResponse" type="tns:Insertar_Permiso_Grupo_PermisosResponse" />
+
+<xs:element name="Lista_GrupoPermisos" type="tns:Lista_GrupoPermisos" />
+
+<xs:element name="Lista_GrupoPermisosResponse" type="tns:Lista_GrupoPermisosResponse" />
+
+<xs:element name="Lista_Modulo" type="tns:Lista_Modulo" />
+
+<xs:element name="Lista_ModuloResponse" type="tns:Lista_ModuloResponse" />
+
+<xs:element name="Lista_Permiso" type="tns:Lista_Permiso" />
+
+<xs:element name="Lista_PermisoResponse" type="tns:Lista_PermisoResponse" />
+
+<xs:element name="Lista_Permiso_Grupo_Permiso" type="tns:Lista_Permiso_Grupo_Permiso" />
+
+<xs:element name="Lista_Permiso_Grupo_PermisoResponse" type="tns:Lista_Permiso_Grupo_PermisoResponse" />
+
+<xs:element name="Lista_Permiso_Grupo_Permiso_porGrupo" type="tns:Lista_Permiso_Grupo_Permiso_porGrupo" />
+
+<xs:element name="Lista_Permiso_Grupo_Permiso_porGrupoResponse" type="tns:Lista_Permiso_Grupo_Permiso_porGrupoResponse" />
+
+<xs:element name="Lista_UsuarioGrupoPermisos" type="tns:Lista_UsuarioGrupoPermisos" />
+
+<xs:element name="Lista_UsuarioGrupoPermisosResponse" type="tns:Lista_UsuarioGrupoPermisosResponse" />
+
+<xs:element name="Lista_Usuarios" type="tns:Lista_Usuarios" />
+
+<xs:element name="Lista_UsuariosResponse" type="tns:Lista_UsuariosResponse" />
+
+<xs:element name="Login" type="tns:Login" />
+
+<xs:element name="LoginResponse" type="tns:LoginResponse" />
+
+<xs:element name="Permisos" type="tns:Permisos" />
+
+<xs:element name="PermisosResponse" type="tns:PermisosResponse" />
+
+<xs:complexType name="Lista_GrupoPermisos">
+<xs:sequence />
+</xs:complexType>
+
+<xs:complexType name="Lista_GrupoPermisosResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:grupoPermisosEntity" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="grupoPermisosEntity">
+<xs:sequence>
+<xs:element name="idGrupoPermisos" type="xs:int" />
+<xs:element name="nombrePermisos" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Lista_Permiso_Grupo_Permiso_porGrupo">
+<xs:sequence>
+<xs:element name="Grupo_Permiso" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Lista_Permiso_Grupo_Permiso_porGrupoResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:permisoGrupoPermisoEntity" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="permisoGrupoPermisoEntity">
+<xs:sequence>
+<xs:element name="idGrupoPermisos" type="tns:grupoPermisosEntity" minOccurs="0" />
+<xs:element name="idPermiso" type="tns:permisoEntity" minOccurs="0" />
+<xs:element name="idPermisoGrupoPermisos" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="permisoEntity">
+<xs:sequence>
+<xs:element name="idModulo" type="tns:moduloEntity" minOccurs="0" />
+<xs:element name="idPermiso" type="xs:int" />
+<xs:element name="nombrePermiso" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="moduloEntity">
+<xs:sequence>
+<xs:element name="iconoModulo" type="xs:string" minOccurs="0" />
+<xs:element name="idModulo" type="xs:int" />
+<xs:element name="nombreModulo" type="xs:string" minOccurs="0" />
+<xs:element name="rutaModulo" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="InsertarUsuario">
+<xs:sequence>
+<xs:element name="nombre" type="xs:string" minOccurs="0" />
+<xs:element name="correo" type="xs:string" minOccurs="0" />
+<xs:element name="contrasena" type="xs:string" minOccurs="0" />
+<xs:element name="id_area" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="InsertarUsuarioResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:usuariosEntity" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="usuariosEntity">
+<xs:sequence>
+<xs:element name="actualizador" type="xs:int" />
+<xs:element name="contrasena" type="xs:string" minOccurs="0" />
+<xs:element name="correo" type="xs:string" minOccurs="0" />
+<xs:element name="creador" type="xs:int" />
+<xs:element name="estado" type="xs:boolean" />
+<xs:element name="idArea" type="xs:int" />
+<xs:element name="idUsuario" type="xs:int" />
+<xs:element name="nombreUsuario" type="xs:string" minOccurs="0" />
+<xs:element name="ultimoIngreso" type="xs:dateTime" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ActualizarPermiso">
+<xs:sequence>
+<xs:element name="idPermiso" type="xs:int" />
+<xs:element name="NombrePermiso" type="xs:string" minOccurs="0" />
+<xs:element name="idModulo" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ActualizarPermisoResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:permisoEntity" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Lista_Permiso_Grupo_Permiso">
+<xs:sequence />
+</xs:complexType>
+
+<xs:complexType name="Lista_Permiso_Grupo_PermisoResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:permisoGrupoPermisoEntity" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Lista_Permiso">
+<xs:sequence />
+</xs:complexType>
+
+<xs:complexType name="Lista_PermisoResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:permisoEntity" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="InsertarUsuarioGrupoPermisos">
+<xs:sequence>
+<xs:element name="id_usuario" type="xs:int" />
+<xs:element name="id_grupoPermiso" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="InsertarUsuarioGrupoPermisosResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:usuarioGrupoPermisosEntity" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="usuarioGrupoPermisosEntity">
+<xs:sequence>
+<xs:element name="idGrupoPermisos" type="tns:grupoPermisosEntity" minOccurs="0" />
+<xs:element name="idUsuario" type="tns:usuariosEntity" minOccurs="0" />
+<xs:element name="idUsuarioGrupoPermisos" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ActualizaUsuarioGrupoPermisos">
+<xs:sequence>
+<xs:element name="idugp" type="xs:int" />
+<xs:element name="idUsuarios" type="xs:int" />
+<xs:element name="idGrupoPermisos" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ActualizaUsuarioGrupoPermisosResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:usuarioGrupoPermisosEntity" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="InsertarModulo">
+<xs:sequence>
+<xs:element name="nombre_modulo" type="xs:string" minOccurs="0" />
+<xs:element name="ruta_modulo" type="xs:string" minOccurs="0" />
+<xs:element name="ruta_icono" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="InsertarModuloResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:moduloEntity" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ActualizarModulo">
+<xs:sequence>
+<xs:element name="idModulo" type="xs:int" />
+<xs:element name="nombreModulo" type="xs:string" minOccurs="0" />
+<xs:element name="rutaModulo" type="xs:string" minOccurs="0" />
+<xs:element name="iconoMOdulo" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ActualizarModuloResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:moduloEntity" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Permisos">
+<xs:sequence>
+<xs:element name="nombre" type="xs:string" minOccurs="0" />
+<xs:element name="pass" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="PermisosResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:usuarioPermisos" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="usuarioPermisos">
+<xs:sequence>
+<xs:element name="listaper" type="tns:permisoEntity" nillable="true" minOccurs="0" maxOccurs="unbounded" />
+<xs:element name="usu" type="tns:usuariosEntity" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Insertar_Permiso_Grupo_Permisos">
+<xs:sequence>
+<xs:element name="id_permiso" type="xs:int" />
+<xs:element name="id_grupo_permisos" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Insertar_Permiso_Grupo_PermisosResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:permisoGrupoPermisoEntity" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ActualizarPermisoGrupoPermiso">
+<xs:sequence>
+<xs:element name="id_pgp" type="xs:int" />
+<xs:element name="id_permiso" type="xs:int" />
+<xs:element name="id_grupoPermisos" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ActualizarPermisoGrupoPermisoResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:permisoGrupoPermisoEntity" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Lista_Modulo">
+<xs:sequence />
+</xs:complexType>
+
+<xs:complexType name="Lista_ModuloResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:moduloEntity" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="InsertarGrupoPermisos">
+<xs:sequence>
+<xs:element name="nombreGrupoPermisos" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="InsertarGrupoPermisosResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:grupoPermisosEntity" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Login">
+<xs:sequence>
+<xs:element name="nombre" type="xs:string" minOccurs="0" />
+<xs:element name="pass" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="LoginResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:objetoLogin" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="objetoLogin">
+<xs:complexContent>
+<xs:extension base="tns:oRespuestaEntity">
+<xs:sequence>
+<xs:element name="autorizacion" type="xs:boolean" />
+<xs:element name="idUsuario" type="xs:int" />
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+
+<xs:complexType name="oRespuestaEntity">
+<xs:sequence>
+<xs:element name="codigoRespuesta" type="xs:int" minOccurs="0" />
+<xs:element name="msgRespuesta" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ActualizaGrupoPermisos">
+<xs:sequence>
+<xs:element name="id_grupoPermisos" type="xs:int" />
+<xs:element name="Nombre_Permisos" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ActualizaGrupoPermisosResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:grupoPermisosEntity" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Lista_UsuarioGrupoPermisos">
+<xs:sequence />
+</xs:complexType>
+
+<xs:complexType name="Lista_UsuarioGrupoPermisosResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:usuarioGrupoPermisosEntity" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ActualizarUsuario">
+<xs:sequence>
+<xs:element name="idUsu" type="xs:int" />
+<xs:element name="nombreUsuario" type="xs:string" minOccurs="0" />
+<xs:element name="correo" type="xs:string" minOccurs="0" />
+<xs:element name="contrasena" type="xs:string" minOccurs="0" />
+<xs:element name="id_area" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ActualizarUsuarioResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:usuariosEntity" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Lista_Usuarios">
+<xs:sequence />
+</xs:complexType>
+
+<xs:complexType name="Lista_UsuariosResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:anyType" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="InsertarPermiso">
+<xs:sequence>
+<xs:element name="nombre" type="xs:string" minOccurs="0" />
+<xs:element name="id_modulo" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="InsertarPermisoResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:permisoEntity" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

@@ -1,0 +1,76 @@
+.navbar-inverse{
+    background: #e7e7e7;
+    border: none;
+    alignment-adjust: central;
+    margin-bottom: 0;
+}
+.navbar-inverse .navbar-nav>li>a{
+    font-family: Helvetica, Arial, sans-serif;
+    color: #777;
+    font-size: 13px;
+    padding: 5px 5px;
+    text-shadow: none;
+    max-width: 300px;
+    text-align: center;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover{
+    color: #000000;
+}
+
+.navbar-inverse .navbar-nav>ul{
+    text-align: center;
+}
+.titulo{
+    background: #337AB7;
+    height: 30px;
+}
+
+collapse .navbar-collapse{
+    text-align: center;
+}
+
+.nombre{
+    padding-top: 5px;
+    color: #ffffff;
+    background: #337AB7;    
+    alignment-adjust: central;
+    text-align: center;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 18px;
+}
+
+.imagen{
+    
+}
+
+.imagen:hover{
+    
+    background-image: url(/ISODOC/imagenes/modulos/hover.png);
+}
+
+.imgaenTitulo{
+    float: left;
+    
+}
+
+.botonMenuLateral{
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 12px;
+  background: #337AB7;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  border: solid #1f628d 0px;
+  width: 100%;
+}
+
+.botonMenuLateral:hover{
+  background: #999999;
+  text-decoration: none;
+  border: solid #1f628d 0px;
+}
+
+.list-group{
+    margin: 0%;
+}

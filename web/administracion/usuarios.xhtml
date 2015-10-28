@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition template="/plantillas/PlantillaAdministracion.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form id="UsuarioForm">
+                    <div class="prueba" style="color: white; ">
+                        <p:growl id="msgs" showDetail="true" life="3000"/>
+                    </div>
+                    <p:dataTable var="usuario" value="#{Usuario.list}" filteredValue="#{Usuario.listfiltro}" editable="true" 
+                                 reflow="true" widgetVar="TablaUsuarios" id="tablaUsuarios" 
+                                 selectionMode="single" selection="#{Usuario.usuarioObjeto}" rowKey="#{usuario.idUsuario}"
+                                 class="TABLA" paginator="true" rows="7">
+                        <f:facet name="header" >
+                            <p:outputPanel class="facet">
+                                <h:outputText value="CONSULTA DE USUARIOS" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                                <p:inputText id="globalFilter" onkeyup="PF('TablaUsuarios').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                                <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                            </p:outputPanel>
+                        </f:facet>
+                        <p:ajax event="rowSelect" listener="#{Usuario.onRowSelect}" update=":UsuarioForm:msgs,:ActualizarModal:actualizarUsuarioModal" oncomplete="PF('actualizarUsuario').show()"/>
+                        <p:column headerText="Nombre" filterBy="#{usuario.nombre}">                                                        
+                                <h:outputText value="#{usuario.nombre}"/>                                      
+                        </p:column>
+                        <p:column headerText="Apellido" filterBy="#{usuario.apellido}">
+                            <h:outputText value="#{usuario.apellido}"/>
+                        </p:column>
+                        <p:column headerText="Nombre Acceso" filterBy="#{usuario.nombreUsuario}">
+                            <h:outputText value="#{usuario.nombreUsuario}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Email" filterBy="#{usuario.email}">
+                            <h:outputText value="#{usuario.email}"/>
+                        </p:column>
+                        <p:column style="width:90px;text-align: center" rendered="false">
+                            <p:commandButton update=":ActualizarModal:actualizarUsuarioModal" oncomplete="PF('actualizarUsuario').show()" class="iconoBuscar" title="View" value="">
+                                <f:setPropertyActionListener value="#{usuario}" target="#{Usuario.usuarioObjeto}" />
+                            </p:commandButton>
+                        </p:column>
+                        <p:column style="width: 32px;text-align: center">
+                            <p:commandButton update="EliminarModal:eliminarUsuarioModal"  oncomplete="PF('eliminarUsuario').show()" class="iconoBuscar" value=" ">
+                                <f:setPropertyActionListener value="#{usuario}" target="#{Usuario.usuarioObjeto}" />                                
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                    <br/>
+                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarUsuario').show();" update=":UsuarioForm:msgs" class="botonNormal"  ></p:commandButton>
+                </h:form>
+
+                <h:form id="IngresarModal">      
+                    <p:dialog header="Insertar Usuario" widgetVar="insertarUsuario" modal="true" id="insertarUsuarioModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+
+                            <h:outputText value="Nombre del Usuario"></h:outputText>
+                            <p:inputText required="true" label="Nombre de usuario" value="#{Usuario.usuarioObjeto.nombre}"/> 
+                            <h:outputText value="Apellido del Usuario "></h:outputText>
+                            <p:inputText required="true" label="Apellido de usuario" value="#{Usuario.usuarioObjeto.apellido}"/> 
+                            <h:outputText value="Nombre de Acceso "></h:outputText>
+                            <p:inputText required="true" label="Nombre de Acceso" value="#{Usuario.usuarioObjeto.nombreUsuario}"/> 
+                            <h:outputText value="Contraseña "></h:outputText>
+                            <p:inputText required="true" label="Contraseña de usuario" value="#{Usuario.usuarioObjeto.clave}"/> 
+                            
+                            <h:outputText value="Correo "></h:outputText>
+                            <p:inputText required="true" label="Correo de usuario" value="#{Usuario.usuarioObjeto.email}"/>                                 
+                            <h:outputText value="Número de teléfono "></h:outputText>
+                            <p:inputText required="true" label="Teléfono de usuario" value="#{Usuario.usuarioObjeto.telefono}"/> 
+                            <h:outputText value="Número de identificación "></h:outputText>
+                            <p:inputText required="true" label="Número de identificación de usuario" value="#{Usuario.usuarioObjeto.numeroIdentificacion}"/> 
+                            <h:outputText value="Estado "></h:outputText>
+                            <p:inputText value="#{Usuario.usuarioObjeto.estado}"/> 
+
+                            <p:commandButton  value="Ingresar" update=":UsuarioForm:tablaUsuarios,:IngresarModal:insertarUsuarioModal" actionListener="#{Usuario.ingresarUsuario()}" validateClient="true" class="botonNormal"/>
+
+                        </p:panelGrid>
+                    </p:dialog>
+                </h:form>
+                <h:form id="ActualizarModal">      
+                    <p:dialog header="Actualizar Usuario" widgetVar="actualizarUsuario" modal="true" id="actualizarUsuarioModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+
+                            <h:outputText value="Nombre del Usuario"></h:outputText>
+                            <p:inputText required="true" label="Nombre de usuario" value="#{Usuario.usuarioObjeto.nombre}"/> 
+                            <h:outputText value="Apellido del Usuario "></h:outputText>
+                            <p:inputText required="true" label="Apellido de usuario" value="#{Usuario.usuarioObjeto.apellido}"/> 
+                            <h:outputText value="Nombre de Acceso "></h:outputText>
+                            <p:inputText required="true" label="Nombre de Acceso" value="#{Usuario.usuarioObjeto.nombreUsuario}"/> 
+                            <h:outputText value="Contraseña "></h:outputText>
+                            <p:inputText required="true" label="Contraseña de usuario" value="#{Usuario.usuarioObjeto.clave}"/> 
+                            
+                            <h:outputText value="Correo "></h:outputText>
+                            <p:inputText required="true" label="Correo de usuario" value="#{Usuario.usuarioObjeto.email}"/>                                 
+                            <h:outputText value="Número de teléfono "></h:outputText>
+                            <p:inputText required="true" label="Teléfono de usuario" value="#{Usuario.usuarioObjeto.telefono}"/> 
+                            <h:outputText value="Número de identificación "></h:outputText>
+                            <p:inputText required="true" label="Número de identificación de usuario" value="#{Usuario.usuarioObjeto.numeroIdentificacion}"/> 
+                            <h:outputText value="Estado "></h:outputText>
+                            <p:inputText value="#{Usuario.usuarioObjeto.estado}"/> 
+
+                            <p:commandButton  value="Actualizar" update=":UsuarioForm:tablaUsuarios,:IngresarModal:insertarUsuarioModal,UsuarioForm:msgs" actionListener="#{Usuario.actualizarUsuario()}" validateClient="true" class="botonNormal" />
+                        </p:panelGrid>
+                        <h:inputHidden  value="#{Usuario.usuarioObjeto.idUsuario}"></h:inputHidden>          
+                    </p:dialog>
+                </h:form>
+                <h:form id="EliminarModal">      
+                    <p:dialog header="Eliminar Usuario" widgetVar="eliminarUsuario" modal="true" id="eliminarUsuarioModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            <p:outputLabel value="#{Usuario.usuarioObjeto.nombre} #{Usuario.usuarioObjeto.apellido}"/>  
+                        </p:panelGrid>
+                        <p:commandButton value="Eliminar" update=":UsuarioForm:tablaUsuarios,:IngresarModal:insertarUsuarioModal,UsuarioForm:msgs" actionListener="#{Usuario.eliminarUsuario()}" validateClient="true" class="botonNormal" />
+                        <h:inputHidden value="#{Usuario.usuarioObjeto.apellido}"></h:inputHidden>
+                        
+                        <h:inputHidden value="#{Usuario.usuarioObjeto.clave}"></h:inputHidden>
+                        <h:inputHidden value="#{Usuario.usuarioObjeto.email}"></h:inputHidden>
+                        <h:inputHidden value="#{Usuario.usuarioObjeto.estado}"></h:inputHidden>
+                        <h:inputHidden value="#{Usuario.usuarioObjeto.idActualizador}"></h:inputHidden>
+                        <h:inputHidden value="#{Usuario.usuarioObjeto.idCreador}"></h:inputHidden>
+                        <h:inputHidden value="#{Usuario.usuarioObjeto.idUsuario}"></h:inputHidden>
+                        <h:inputHidden value="#{Usuario.usuarioObjeto.nombre}"></h:inputHidden>
+                        <h:inputHidden value="#{Usuario.usuarioObjeto.numeroIdentificacion}"></h:inputHidden>
+                        <h:inputHidden value="#{Usuario.usuarioObjeto.telefono}"></h:inputHidden>
+                    </p:dialog>
+                </h:form>
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>

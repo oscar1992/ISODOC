@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition template="/plantillas/PlantillaAdministracion.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form id="AreasForm">
+                    <div class="prueba" style="color: white; ">
+                        <p:growl id="msgs" showDetail="true" life="3000"/>
+                    </div>
+                    <p:dataTable var="area" value="#{Areas.lista}" filteredValue="#{Areas.listaFiltro}" reflow="true" widgetVar="TablaAreas"
+                                 id="tablaAreas" selectionMode="single" selection="#{Areas.areaObjeto}" rowKey="#{area.idArea}" class="TABLA"
+                                 paginator="true" rows="7">
+                        <f:facet name="header">
+                            <h:outputText value="CONSULTA DE AREAS" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                            <p:inputText id="globalFilter" onkeyup="PF('TablaAreas').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                            <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                        </f:facet>
+                        <p:ajax event="rowSelect" listener="#{Areas.onRowSelect}" update=":AreasForm:msgs,:ActualizarModal:actualizarAreaModal" oncomplete="PF('actualizarArea').show()"/>
+                        <p:column headerText="Nombre de Área" filterBy="#{area.nombreArea}">
+                            <h:outputText value="#{area.nombreArea}"/>
+                        </p:column>
+                        <p:column headerText="Código de Área" filterBy="#{area.codigoArea}">
+                            <h:outputText value="#{area.codigoArea}"/>
+                        </p:column>
+                        <p:column headerText="Estado de Área" filterBy="#{area.estadoArea}">
+                            <h:outputText value="#{area.estadoArea}"/>
+                        </p:column>    
+                        <p:column headerText="Sede del Área" filterBy="#{area.idSede.nombreSede}">
+                            <h:outputText value="#{area.idSede.nombreSede}"/>
+                        </p:column>    
+                        <p:column style="width: 32px;text-align: center">
+                            <p:commandButton  update="EliminarModal:eliminarAreaModal"  oncomplete="PF('eliminarArea').show()" class="iconoBuscar" value=" ">
+                                <f:setPropertyActionListener value="#{area}" target="#{Areas.areaObjeto}" /> 
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                    <br/>
+                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarArea').show();" update=":AreasForm:msgs" class="botonNormal"></p:commandButton>
+                </h:form>
+                <h:form id="IngresarModal">
+                    <p:dialog header="Insertar Area" widgetVar="insertarArea" modal="true" id="insertarAreaModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        #{Areas.nuevoAreaObjeto()}
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            
+                            <h:outputText value="Nombre de Área"></h:outputText>
+                            <p:inputText required="true" label="Nombre de Área" value="#{Areas.areaObjeto.nombreArea}"/>
+                            <h:outputText value="Código de Área"></h:outputText>
+                            <p:inputText required="true" label="Cóodigo de Área" value="#{Areas.areaObjeto.codigoArea}"/>                            
+                            <h:outputText value="Selecione el estado"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarArea" value="#{Areas.areaObjeto.estadoArea}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="false"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+                            <h:outputText value="Selecione la Sede "></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarAreaSede" value="#{Areas.areaObjeto.idSede.idSede}" style="width: 150px;" >
+                                <f:selectItem itemLabel="Selecione Sede" itemValue="" noSelectionOption="false"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaSedes}"/>
+                            </p:selectOneMenu>
+                            
+                            <p:commandButton value="Ingresar" update=":AreasForm:tablaAreas" actionListener="#{Areas.ingresarArea()}" validateClient="true" class="botonNormal"/>
+                        </p:panelGrid>
+                    </p:dialog>
+                </h:form>
+                <h:form id="ActualizarModal">
+                    <p:dialog header="Actualizar Area" widgetVar="actualizarArea" modal="true" id="actualizarAreaModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            <h:outputText value="Nombre de Área"></h:outputText>
+                            <p:inputText required="true" label="Nombre de Área" value="#{Areas.areaObjeto.nombreArea}"/>
+                            <h:outputText value="Código de Área"></h:outputText>
+                            <p:inputText required="true" label="Cóodigo de Área" value="#{Areas.areaObjeto.codigoArea}"/>                            
+                            <h:outputText value="Selecione el estado"></h:outputText>
+                            <p:selectOneMenu id="desplegableActualizarArea" value="#{Areas.areaObjeto.estadoArea}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+                            <h:outputText value="Selecione la sede #{Areas.areaObjeto.idSede.nombreSede}ss"></h:outputText>
+                            <p:selectOneMenu id="desplegableActualizarAreaSede" value="#{Areas.areaObjeto.idSede.idSede}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Sede" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaSedes}"/>
+                            </p:selectOneMenu>
+                            <p:commandButton  value="Actualizar" update=":AreasForm:tablaAreas,:IngresarModal:insertarAreaModal,AreasForm:msgs" actionListener="#{Areas.actualizarArea()}" validateClient="true" class="botonNormal" />
+                        </p:panelGrid>
+                    </p:dialog>
+                </h:form>
+                <h:form id="EliminarModal">
+                    <p:dialog  header="Eliminar Area" widgetVar="eliminarArea" modal="true" id="eliminarAreaModal" responsive="true">
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            <p:outputLabel value="#{Areas.areaObjeto.nombreArea}"/>
+                        </p:panelGrid>
+                        <p:commandButton value="Eliminar" update=":AreasForm:tablaAreas,:IngresarModal:insertarAreaModal,AreasForm:msgs" actionListener="#{Areas.eliminarArea()}" validateClient="true" class="botonNormal" />
+                        <h:inputHidden value="#{Areas.areaObjeto.codigoArea}"></h:inputHidden>
+                        <h:inputHidden value="#{Areas.areaObjeto.estadoArea}"></h:inputHidden>
+                        
+                    </p:dialog>
+                </h:form>
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>

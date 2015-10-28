@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+       
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    </h:head>
+    <h:body>        
+        <ui:composition>
+            <h:form id="formMenuLateral">
+                <ul class="list-group">
+                    <ui:repeat value="#{Menus.menuLateral}" var="itemN1">
+                        <li class="list-group">
+                            <button type="button" class="botonMenuLateral" data-toggle="collapse" data-target="#p#{itemN1.idPermiso}">
+                                #{itemN1.nombrePermiso}
+                            </button>                                
+                        </li>
+                        <div id="p#{itemN1.idPermiso}" class="collapse">
+                            <ul class="list-group">
+                                <ui:repeat value="#{itemN1.subNivel}" var="itemN2">
+                                    <li class="list-group">
+                                        <h:outputLink value="#{itemN2.ruta}" >
+                                            #{itemN2.nombrePermiso}
+                                        </h:outputLink>
+                                    </li>
+                                </ui:repeat>                                    
+                                    
+                            </ul>
+                        </div>
+                    </ui:repeat>
+                </ul>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>
