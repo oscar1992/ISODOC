@@ -7,11 +7,13 @@ package co.com.siscomputo.administracion.bean;
 
 import co.com.siscomputo.administracion.logic.LoginLogic;
 import co.com.siscomputo.administracion.logic.MenuLogic;
+import co.com.siscomputo.administracion.logic.UsuarioLogic;
 import co.com.siscomputo.endpoint.MenuModuloEntity;
 import co.com.siscomputo.endpoint.ObjetoLogin;
 import co.com.siscomputo.endpoint.UsuarioEntity;
 import co.com.siscomputo.utilidades.MensajesJSF;
 import java.util.ArrayList;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.bean.ViewScoped;
@@ -27,8 +29,6 @@ public class AccesoBean {
     private String nombreUsuario;
     private String claveUsuario;
     private UsuarioEntity objetoUsuario;
-    
-    
 
     private ObjetoLogin objetoLogin;
 
@@ -55,7 +55,11 @@ public class AccesoBean {
     public void setObjetoLogin(ObjetoLogin objetoLogin) {
         this.objetoLogin = objetoLogin;
     }
-
+     
+    public void recupera(){       
+        objetoUsuario = (UsuarioEntity) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        objetoUsuario.setClave("");
+    }
     /**
      * Métedo que evalua si el usuario tiene acceso al sistema
      *
@@ -68,28 +72,31 @@ public class AccesoBean {
             String validaIngreso = loginLogic.ingresar(this.nombreUsuario, this.claveUsuario);
             if ("Ok".equalsIgnoreCase(validaIngreso)) {
                 objetoLogin = loginLogic.getObjetoLogin();
-                if (objetoLogin.isAcceso()) {
-                    
-                    if("Ok".equalsIgnoreCase(loginLogic.datosUsuario(objetoLogin.getIdUsuario()))){
-                        objetoUsuario=loginLogic.getUsuarioObject();
-                    }
-                    System.out.println("TT: "+objetoUsuario.getUltimoIngreso());
-                    if(objetoUsuario.getUltimoIngreso().equals("NULL")){
-                        url = "/inicio/primerIngreso?faces-redirect=true";
-                    }else{
-                        url = "/inicio/principal?faces-redirect=true";
-                    }
-                    MensajesJSF.muestraMensajes("Bienvenido", "Mensaje");
-                    
-                    MenuLogic menuLogic = new MenuLogic();
-                    ArrayList<MenuModuloEntity> menu = menuLogic.obtieneMenuPorUsuario(objetoLogin.getIdUsuario());
-                    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idUsuario", objetoLogin.getIdUsuario());
-                    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("menu", menu);
+                if ("InicioNuevo".equalsIgnoreCase(objetoLogin.getTrazaRespuesta())) {
+                    UsuarioLogic usuarioLogic=new UsuarioLogic();
+                    objetoUsuario = usuarioLogic.usuarioPorID(objetoLogin.getIdUsuario());                    
                     FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", objetoUsuario);
+                    url = "/inicio/primerIngreso?faces-redirect=true";
                 } else {
-                    MensajesJSF.muestraMensajes("Error de credenciales", "Error");
-                    url = "index";
+                    if (objetoLogin.isAcceso()) {
+                        if ("Ok".equalsIgnoreCase(loginLogic.datosUsuario(objetoLogin.getIdUsuario()))) {
+                            objetoUsuario = loginLogic.getUsuarioObject();
+                        }
+                        url = "/inicio/principal?faces-redirect=true";
+
+                        MensajesJSF.muestraMensajes("Bienvenido", "Mensaje");
+
+                        MenuLogic menuLogic = new MenuLogic();
+                        ArrayList<MenuModuloEntity> menu = menuLogic.obtieneMenuPorUsuario(objetoLogin.getIdUsuario());
+                        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idUsuario", objetoLogin.getIdUsuario());
+                        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("menu", menu);                        
+                        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", objetoUsuario);
+                    } else {
+                        MensajesJSF.muestraMensajes("Error de credenciales", "Error");
+                        url = "index";
+                    }
                 }
+
             } else {
                 MensajesJSF.muestraMensajes("Error de Conexión con el WebService", "Error");
             }
@@ -98,18 +105,27 @@ public class AccesoBean {
         }
         return url;
     }
+
     /**
      * Método que cierra la sesión actual
      */
-    public void cerrarSesion(){
+    public void cerrarSesion() {
         //FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
     }
-    
+
     public UsuarioEntity getObjetoUsuario() {
         return objetoUsuario;
     }
 
     public void setObjetoUsuario(UsuarioEntity objetoUsuario) {
         this.objetoUsuario = objetoUsuario;
+    }
+    /**
+     * M+etodo que cambia la contrasela la primera vez
+     */
+    public String contrasenaNueva(){
+        UsuarioLogic usuarioLogic=new UsuarioLogic();
+        usuarioLogic.actualizarUsuario(objetoUsuario);
+        return "/ISODOC/index";
     }
 }

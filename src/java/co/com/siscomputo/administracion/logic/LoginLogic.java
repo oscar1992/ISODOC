@@ -66,6 +66,7 @@ public class LoginLogic {
     }
     /**
      * Método que trae los datos de usuario que ingresa
+     * @param idUsuario
      * @return 
      */
     public String datosUsuario(int idUsuario){

@@ -121,4 +121,9 @@ public class UsuarioLogic {
         }
         return rta;
     }
+    
+    public UsuarioEntity usuarioPorID(int idusuario){
+         webService();
+         return port.usuarioPorId(idusuario);
+    }
 }
