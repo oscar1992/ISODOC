@@ -84,8 +84,8 @@ public class SedeBean implements Serializable{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        RequestContext.getCurrentInstance().execute("PF('insertarSede').hide()");
         sedeObjeto=new SedeEntity();
+        RequestContext.getCurrentInstance().execute("PF('insertarSede').hide()");        
     }
     /**
      * Método que añade a la lista la sede en la vista

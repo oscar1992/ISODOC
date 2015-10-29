@@ -52,8 +52,14 @@ public class EmpresaBean {
     }
     @PostConstruct
     public void init(){
-        
+        consultarEmpresas();
     }
+
+    public EmpresaBean() {
+        empresaObjeto=new EmpresaEntity();
+    }
+    
+    
     /**
      * Método que trae la lista de Empresas del servicio web
      */
@@ -147,7 +153,10 @@ public class EmpresaBean {
         empresaObjeto=new EmpresaEntity();
         RequestContext.getCurrentInstance().execute("PF('eliminarEmpresa').hide()");
     }
-    
+    /**
+     * Método que elimina una Empresa en la tabla visual
+     * @param empresaEntity 
+     */
     public void eliminarEmpresaLista(EmpresaEntity empresaEntity){
         Iterator itr=lista.iterator();
         while (itr.hasNext()) {

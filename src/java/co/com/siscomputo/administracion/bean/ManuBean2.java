@@ -9,6 +9,7 @@ import co.com.siscomputo.endpoint.MenuModuloEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.PermisosEntity;
 import co.com.siscomputo.endpoint.UsuarioEntity;
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -21,7 +22,7 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "Menus")
 @ViewScoped
-public class ManuBean2 {
+public class ManuBean2 implements Serializable{
     private ArrayList<MenuModuloEntity> menu;
     private int idUsuario;
     private int idModulo;

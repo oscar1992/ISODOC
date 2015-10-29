@@ -18,8 +18,8 @@
                     <p:dataTable var="sede" value="#{Sedes.lista}" filteredValue="#{Sedes.listaFiltro}" reflow="true" widgetVar="TablaSedes" id="tablaSedes" selectionMode="single"
                                  selection="#{Sedes.sedeObjeto}" rowKey="#{sede.idSede}" class="TABLA" paginator="true" rows="7">
                         <p:ajax event="rowSelect" listener="#{Sedes.onRowSelect}" update=":SedesForm:msgs,:ActualizarModal:actualizarSedeModal" oncomplete="PF('actualizarSede').show()"/>
-                        <f:facet name="header">
-                            <h:outputText value="CONSULTA DE PERFILES" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                        <f:facet name="header"><p:ajax event="rowSelect" listener="#{Sedes.onRowSelect}" update=":SedesForm:msgs,:ActualizarModal:actualizarSedeModal" oncomplete="PF('actualizarSede').show()"/>
+                            <h:outputText value="CONSULTA DE SEDES" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
                             <p:inputText id="globalFilter" onkeyup="PF('TablaSedes').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
                             <h:outputText value="Buscar" style="color: #FFF; float: right"/>
                         </f:facet>
@@ -52,7 +52,7 @@
                             <h:outputText value="Código de la sede"></h:outputText>
                             <p:inputText required="true" label="Nombre de la Sede" value="#{Sedes.sedeObjeto.codigoSede}"/>
                             <h:outputText value="Estado de la sede"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarPerfil" value="#{Sedes.sedeObjeto.estadoSede}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableIngresarSede" value="#{Sedes.sedeObjeto.estadoSede}" style="width: 150px;">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
@@ -72,18 +72,18 @@
                             <p:selectOneMenu id="desplegableIngresarPerfil" value="#{Sedes.sedeObjeto.estadoSede}" style="width: 150px;">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
-                            </p:selectOneMenu>s
+                            </p:selectOneMenu>
                         </p:panelGrid>
                         <p:commandButton  value="Actualizar" update=":SedesForm:tablaSedes,:IngresarModal:insertarSedeModal,SedesForm:msgs" actionListener="#{Sedes.actualizarSede()}" validateClient="true" class="botonNormal" />
                     </p:dialog>
                 </h:form>
                 <h:form id="EliminarModal">
-                    <p:dialog header="Eliminar Rol" widgetVar="eliminarPerfil" modal="true" id="eliminarSedeModal" responsive="true">
+                    <p:dialog header="Eliminar Rol" widgetVar="eliminarSede" modal="true" id="eliminarSedeModal" responsive="true">
                         <p:messages autoUpdate="true"/>
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
                             <p:outputLabel value="#{Sedes.sedeObjeto.nombreSede}"/>
                         </p:panelGrid>
-                        <p:commandButton value="Eliminar" update=":SedesForm:tablaSedes,:IngresarModal:insertarSedeModal,SedesForm:msgs" actionListener="#{Perfiles.eliminarRol()}" validateClient="true" class="botonNormal" />
+                        <p:commandButton value="Eliminar" update=":SedesForm:tablaSedes,:IngresarModal:insertarSedeModal,SedesForm:msgs" actionListener="#{Sedes.eliminarSede()}" validateClient="true" class="botonNormal" />
                         <h:inputHidden value="#{Sedes.sedeObjeto.codigoSede}"></h:inputHidden>
                         <h:inputHidden value="#{Sedes.sedeObjeto.estadoSede}"></h:inputHidden>
                         <h:inputHidden value="#{Sedes.sedeObjeto.idSede}"></h:inputHidden>

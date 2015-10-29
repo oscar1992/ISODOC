@@ -35,6 +35,7 @@ public class ObjectFactory {
     private final static QName _ActualizaSedeResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizaSedeResponse");
     private final static QName _InsertarAreaResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarAreaResponse");
     private final static QName _ListaPais_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaPais");
+    private final static QName _DeptoPorIdResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "deptoPorIdResponse");
     private final static QName _ActualizaSedeEmpresa_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizaSedeEmpresa");
     private final static QName _ActualizarDepartamenoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarDepartamenoResponse");
     private final static QName _InsertarArea_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarArea");
@@ -45,6 +46,7 @@ public class ObjectFactory {
     private final static QName _ListaSedeEmpresa_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaSedeEmpresa");
     private final static QName _ListaModulos_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaModulos");
     private final static QName _Login_QNAME = new QName("http://endpoint.siscomputo.com.co/", "login");
+    private final static QName _PaisPorIdResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "paisPorIdResponse");
     private final static QName _ListaUsuarios_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaUsuarios");
     private final static QName _ListaAreasResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaAreasResponse");
     private final static QName _ActualizarPais_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarPais");
@@ -67,10 +69,12 @@ public class ObjectFactory {
     private final static QName _IngresaSede_QNAME = new QName("http://endpoint.siscomputo.com.co/", "ingresaSede");
     private final static QName _ListaRolesResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaRolesResponse");
     private final static QName _ActualizaSedeEmpresaResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizaSedeEmpresaResponse");
+    private final static QName _DeptoPorId_QNAME = new QName("http://endpoint.siscomputo.com.co/", "deptoPorId");
     private final static QName _ActualizarDepartameno_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarDepartameno");
     private final static QName _ListaSedeEmpresaResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaSedeEmpresaResponse");
     private final static QName _ActualizarArea_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarArea");
     private final static QName _ActualizarEmpresaResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarEmpresaResponse");
+    private final static QName _PaisPorId_QNAME = new QName("http://endpoint.siscomputo.com.co/", "paisPorId");
     private final static QName _ListaDepartamenoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaDepartamenoResponse");
     private final static QName _IngresaSedeResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "ingresaSedeResponse");
     private final static QName _ListaRoles_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaRoles");
@@ -351,6 +355,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link DeptoPorId }
+     * 
+     */
+    public DeptoPorId createDeptoPorId() {
+        return new DeptoPorId();
+    }
+
+    /**
      * Create an instance of {@link ActualizarDepartameno }
      * 
      */
@@ -380,6 +392,14 @@ public class ObjectFactory {
      */
     public ActualizarEmpresaResponse createActualizarEmpresaResponse() {
         return new ActualizarEmpresaResponse();
+    }
+
+    /**
+     * Create an instance of {@link PaisPorId }
+     * 
+     */
+    public PaisPorId createPaisPorId() {
+        return new PaisPorId();
     }
 
     /**
@@ -460,6 +480,14 @@ public class ObjectFactory {
      */
     public Login createLogin() {
         return new Login();
+    }
+
+    /**
+     * Create an instance of {@link PaisPorIdResponse }
+     * 
+     */
+    public PaisPorIdResponse createPaisPorIdResponse() {
+        return new PaisPorIdResponse();
     }
 
     /**
@@ -620,6 +648,14 @@ public class ObjectFactory {
      */
     public ListaPais createListaPais() {
         return new ListaPais();
+    }
+
+    /**
+     * Create an instance of {@link DeptoPorIdResponse }
+     * 
+     */
+    public DeptoPorIdResponse createDeptoPorIdResponse() {
+        return new DeptoPorIdResponse();
     }
 
     /**
@@ -898,6 +934,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DeptoPorIdResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "deptoPorIdResponse")
+    public JAXBElement<DeptoPorIdResponse> createDeptoPorIdResponse(DeptoPorIdResponse value) {
+        return new JAXBElement<DeptoPorIdResponse>(_DeptoPorIdResponse_QNAME, DeptoPorIdResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ActualizaSedeEmpresa }{@code >}}
      * 
      */
@@ -985,6 +1030,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "login")
     public JAXBElement<Login> createLogin(Login value) {
         return new JAXBElement<Login>(_Login_QNAME, Login.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link PaisPorIdResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "paisPorIdResponse")
+    public JAXBElement<PaisPorIdResponse> createPaisPorIdResponse(PaisPorIdResponse value) {
+        return new JAXBElement<PaisPorIdResponse>(_PaisPorIdResponse_QNAME, PaisPorIdResponse.class, null, value);
     }
 
     /**
@@ -1186,6 +1240,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DeptoPorId }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "deptoPorId")
+    public JAXBElement<DeptoPorId> createDeptoPorId(DeptoPorId value) {
+        return new JAXBElement<DeptoPorId>(_DeptoPorId_QNAME, DeptoPorId.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarDepartameno }{@code >}}
      * 
      */
@@ -1219,6 +1282,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarEmpresaResponse")
     public JAXBElement<ActualizarEmpresaResponse> createActualizarEmpresaResponse(ActualizarEmpresaResponse value) {
         return new JAXBElement<ActualizarEmpresaResponse>(_ActualizarEmpresaResponse_QNAME, ActualizarEmpresaResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link PaisPorId }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "paisPorId")
+    public JAXBElement<PaisPorId> createPaisPorId(PaisPorId value) {
+        return new JAXBElement<PaisPorId>(_PaisPorId_QNAME, PaisPorId.class, null, value);
     }
 
     /**

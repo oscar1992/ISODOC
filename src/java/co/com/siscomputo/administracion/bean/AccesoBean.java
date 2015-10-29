@@ -69,11 +69,18 @@ public class AccesoBean {
             if ("Ok".equalsIgnoreCase(validaIngreso)) {
                 objetoLogin = loginLogic.getObjetoLogin();
                 if (objetoLogin.isAcceso()) {
+                    
                     if("Ok".equalsIgnoreCase(loginLogic.datosUsuario(objetoLogin.getIdUsuario()))){
                         objetoUsuario=loginLogic.getUsuarioObject();
                     }
+                    System.out.println("TT: "+objetoUsuario.getUltimoIngreso());
+                    if(objetoUsuario.getUltimoIngreso().equals("NULL")){
+                        url = "/inicio/primerIngreso?faces-redirect=true";
+                    }else{
+                        url = "/inicio/principal?faces-redirect=true";
+                    }
                     MensajesJSF.muestraMensajes("Bienvenido", "Mensaje");
-                    url = "/inicio/principal?faces-redirect=true";
+                    
                     MenuLogic menuLogic = new MenuLogic();
                     ArrayList<MenuModuloEntity> menu = menuLogic.obtieneMenuPorUsuario(objetoLogin.getIdUsuario());
                     FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idUsuario", objetoLogin.getIdUsuario());

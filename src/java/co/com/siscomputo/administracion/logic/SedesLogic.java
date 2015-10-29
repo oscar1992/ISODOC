@@ -66,7 +66,10 @@ public class SedesLogic {
         webService();
         return port.sedePorId(idSede);
     }
-    
+    /**
+     * Método que trae la lista de Sedes
+     * @return 
+     */
     public ArrayList<SedeEntity> listaSedes(){
         ArrayList<SedeEntity> lista=new ArrayList<>();
         ArrayList<Object> listaObjeto;
@@ -78,6 +81,11 @@ public class SedesLogic {
         }
         return lista;
     }
+    /**
+     * Método que permite ingresar una Sede
+     * @param sede
+     * @return 
+     */
     public SedeEntity ingresaSede(SedeEntity sede){
         webService();
         SedeEntity sedeRta=null;
@@ -88,7 +96,11 @@ public class SedesLogic {
         }
         return sedeRta;
     }
-    
+    /**
+     * Método que actualizae una sede
+     * @param sede
+     * @return 
+     */
     public String actualizarSede(SedeEntity sede){
         webService();
         String rta="";

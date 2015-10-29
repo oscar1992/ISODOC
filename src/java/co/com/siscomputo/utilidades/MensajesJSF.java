@@ -13,23 +13,24 @@ import javax.faces.context.FacesContext;
  * @author LENOVO
  */
 public class MensajesJSF {
+
     /**
      * Funcion la cual muestra los mensajes
+     *
      * @param mensaje
-     * @param tipo 
+     * @param tipo
      */
-    public static void muestraMensajes(String mensaje, String tipo){
-           FacesMessage message=null;
-        if("Error".equalsIgnoreCase(tipo)){
-            message=new FacesMessage(FacesMessage.SEVERITY_ERROR, mensaje, null);
-        }else if("Mensaje".equalsIgnoreCase(tipo)){
-            message=new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje, null);
-        }else{
-            message=new FacesMessage(FacesMessage.SEVERITY_WARN, mensaje, null);
+    public static void muestraMensajes(String mensaje, String tipo) {
+        FacesMessage message = null;
+        if ("Error".equalsIgnoreCase(tipo)) {
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensaje, null);
+        } else if ("Mensaje".equalsIgnoreCase(tipo)) {
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje, null);
+        } else {
+            message = new FacesMessage(FacesMessage.SEVERITY_WARN, mensaje, null);
         }
-        
-        
+
         FacesContext.getCurrentInstance().addMessage(null, message);
-     
+
     }
 }

@@ -5,21 +5,21 @@
  */
 package co.com.siscomputo.administracion.logic;
 
-import co.com.siscomputo.endpoint.EmpresaEntity;
+import co.com.siscomputo.endpoint.CiudadEntity;
 import co.com.siscomputo.endpoint.Usuario;
 import co.com.siscomputo.endpoint.Usuario_Service;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.PostConstruct;
 
 /**
  *
  * @author LENOVO
  */
-public class EmpresaLogic {
+public class CiudadLogic {
     private Usuario_Service webService;
     private Usuario port;
-    private List empresas;
+    private List ciudades;
+    
     
     /**
      * Funcion con la cual inicializo el service y el port de los WebServices
@@ -29,61 +29,53 @@ public class EmpresaLogic {
         port = webService.getUsuarioPort();
     }
 
-    public EmpresaLogic() {
-        init();
-    }
-    @PostConstruct
-    private void init() {
-        
+    public List getCiudades() {
+        return ciudades;
     }
 
-    public List getEmpresas() {
-        return empresas;
-    }
-
-    public void setEmpresas(List empresas) {
-        this.empresas = empresas;
+    public void setCiudades(List ciudades) {
+        this.ciudades = ciudades;
     }
     /**
-     * Método que trae la lista de Empresas
+     * Método que trae la lista de Ciudades
      * @return 
      */
-    public ArrayList<EmpresaEntity> listaEmpresas(){
-        ArrayList<EmpresaEntity> lista=new ArrayList<>();
+    public ArrayList<CiudadEntity>listaCiudades(){
+        ArrayList<CiudadEntity> lista=new ArrayList<>();
         ArrayList<Object> listaObjeto;
         webService();
-        listaObjeto=(ArrayList < Object>)port.listaEmpresa().getRetorna();
+        listaObjeto=(ArrayList<Object>) port.listaCiudades().getRetorna();
         for(Object item:listaObjeto){
-            EmpresaEntity empresa=(EmpresaEntity)item;
-            lista.add(empresa);
+            CiudadEntity ciudad=(CiudadEntity)item;
+            lista.add(ciudad);
         }
         return lista;
     }
     /**
-     * Método que permite ingresar un area
-     * @param empresa 
+     * Método que permite ingresar una Sede
+     * @param ciudad
      * @return 
      */
-    public EmpresaEntity ingresarEmpresa(EmpresaEntity empresa){
+    public CiudadEntity ingresaCiudad(CiudadEntity ciudad){
         webService();
-        EmpresaEntity emprRta=null;
+        CiudadEntity ciudadRta=null;
         try {
-            emprRta=port.ingresarEmpresa(empresa);
+            ciudadRta=port.insertarCiudad(ciudad);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return emprRta;
+        return ciudadRta;
     }
     /**
-     * Método que actualizae un área
-     * @param empresa
+     * Método que actualizae una ciudad
+     * @param ciudad
      * @return 
      */
-    public String actualizarEmpresa(EmpresaEntity empresa){
+    public String actualizarCiudad(CiudadEntity ciudad){
         webService();
         String rta="";
         try {
-            if(port.actualizarEmpresa(empresa)!=null){
+            if(port.actualizarCiudad(ciudad)!=null){
                 rta="Ok";
             }else{
                 rta="Error";
@@ -94,6 +86,4 @@ public class EmpresaLogic {
         }
         return rta;
     }
-    
-    
 }

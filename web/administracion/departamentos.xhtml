@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition template="/plantillas/PlantillaAdministracion.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form id="DepartamentosForm">
+                    <div class="prueba" style="color: white; ">
+                        <p:growl id="msgs" showDetail="true" life="3000"/>
+                    </div>
+                    <p:dataTable var="departamentos" value="#{Departamentos.lista}" reflow="true" widgetVar="TablaDepartamentos" id="tablaDepartamentos" selectionMode="single"
+                                 selection="#{Departamentos.departamentoObjeto}" rowKey="#{departamentos.idDepartamento}" class="TABLA" paginator="true" rows="7">
+                            <p:ajax event="rowSelect" listener="#{Departamentos.onRowSelect}" update=":DepartamentosForm:msgs,:ActualizarModal:actualizarDepartamentoModal" oncomplete="PF('actualizarDepartamento').show()"/>
+                            <f:facet name="header">
+                                <h:outputText value="CONSULTA DE DEPARTAMENTOS" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                                <p:inputText id="globalFilter" onkeyup="PF('TablaDepartamentos').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                                <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                            </f:facet>
+                            
+                            <p:column headerText="Nobre del Departamentos" filterBy="#{departamentos.nombreDepartamento}">
+                                <h:outputText value="#{departamentos.nombreDepartamento}"/>
+                            </p:column>
+                            <p:column headerText="Código del Departamentos" filterBy="#{departamentos.codigoDepartamento}">
+                                <h:outputText value="#{departamentos.codigoDepartamento}"/>
+                            </p:column>
+                            <p:column headerText="Estado del Departamentos" filterBy="#{departamentos.estadoDepartamento}">
+                                <h:outputText value="Activo" rendered="#{departamentos.estadoDepartamento == 'A'}"/>
+                                <h:outputText value="Inctivo" rendered="#{departamentos.estadoDepartamento == 'I'}"/> 
+                            </p:column>
+                            <p:column headerText="País del Departamentos" filterBy="#{departamentos.idPais.nombrePais}">
+                                <h:outputText value="#{departamentos.idPais.nombrePais}"/>
+                            </p:column>
+                            
+                            <p:column style="width: 32px;text-align: center">
+                                <p:commandButton update="EliminarModal:eliminarDepartamentoModal"  oncomplete="PF('eliminarDepartamento').show()" class="iconoBuscar" value=" ">
+                                    <f:setPropertyActionListener value="#{departamentos}" target="#{Departamentos.departamentoObjeto}" /> 
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                        <br/>
+                        <p:commandButton value="Insertar" type="button" onclick="PF('insertarDepartamento').show();" update=":DepartamentoForm:msgs" class="botonNormal"></p:commandButton>
+                    
+                </h:form>
+                <h:form id="IngresarModal">
+                    <p:dialog header="Insertar Departamento" widgetVar="insertarDepartamento" modal="true" id="insertarDepartamentoModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        #{Departamentos.nuevoDepartamentoObjeto()}
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            <h:outputText value="Nombre del Departamento"></h:outputText>
+                            <p:inputText required="true" label="nombre del Departamento" value="#{Departamentos.departamentoObjeto.nombreDepartamento}"/>
+                            <h:outputText value="Código del Departamento"></h:outputText>
+                            <p:inputText required="true" label="codigo del Departamento" value="#{Departamentos.departamentoObjeto.codigoDepartamento}"/>
+                            <h:outputText value="Estado del Departamento"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarSede" value="#{Departamentos.departamentoObjeto.estadoDepartamento}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+                            <h:outputText value="País del Departamento"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarDepartamentoPais" value="#{Departamentos.departamentoObjeto.idPais.idPais}" style="width: 150px;" >
+                                <f:selectItem itemLabel="Selecione Pais" itemValue="" noSelectionOption="false"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaPaises}"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>                        
+                        <p:commandButton value="Ingresar" update=":DepartamentosForm:tablaDepartamentos" actionListener="#{Departamentos.ingresarDepartamento()}" validateClient="true" class="botonNormal"/>
+                    </p:dialog>
+                </h:form>
+                <h:form id="ActualizarModal">
+                    <p:dialog header="Actualizar Departamento" widgetVar="actualizarDepartamento" modal="true" id="actualizarDepartamentoModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            <h:outputText value="Nombre del Departamento"></h:outputText>
+                            <p:inputText required="true" label="nombre del Departamento" value="#{Departamentos.departamentoObjeto.nombreDepartamento}"/>
+                            <h:outputText value="Código del Departamento"></h:outputText>
+                            <p:inputText required="true" label="codigo del Departamento" value="#{Departamentos.departamentoObjeto.codigoDepartamento}"/>
+                            <h:outputText value="Estado del Departamento"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarSede" value="#{Departamentos.departamentoObjeto.estadoDepartamento}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+                            <h:outputText value="País del Departamento"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarDepartamentoPais" value="#{Departamentos.departamentoObjeto.idPais.idPais}" style="width: 150px;" >
+                                <f:selectItem itemLabel="Selecione Sede" itemValue="" noSelectionOption="false"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaPaises}"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                        <p:commandButton  value="Actualizar" update=":DepartamentosForm:tablaDepartamentos,:IngresarModal:insertarDepartamentoModal,DepartamentosForm:msgs" actionListener="#{Departamentos.actualizarDepartamento()}" validateClient="true" class="botonNormal" />
+                    </p:dialog>
+                </h:form>
+                <h:form id="EliminarModal">
+                    <p:dialog header="Eliminar Departamento" widgetVar="eliminarDepartamento" modal="true" id="eliminarDepartamentoModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            <p:outputLabel value="#{Departamentos.departamentoObjeto.nombreDepartamento}"/>
+                        </p:panelGrid>
+                        <p:commandButton value="Eliminar" update=":DepartamentosForm:tablaDepartamentos,:IngresarModal:insertarDepartamentoModal,DepartamentosForm:msgs" actionListener="#{Departamentos.eliminarDepartamento()}" validateClient="true" class="botonNormal" />
+                        <h:inputHidden value="#{Departamentos.departamentoObjeto.codigoDepartamento}"></h:inputHidden>
+                        <h:inputHidden value="#{Departamentos.departamentoObjeto.estadoDepartamento}"></h:inputHidden>
+                        <h:inputHidden value="#{Departamentos.departamentoObjeto.idDepartamento}"></h:inputHidden>
+                    </p:dialog>
+                </h:form>
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>

@@ -31,7 +31,8 @@
                             <h:outputText value="#{area.codigoArea}"/>
                         </p:column>
                         <p:column headerText="Estado de Área" filterBy="#{area.estadoArea}">
-                            <h:outputText value="#{area.estadoArea}"/>
+                            <h:outputText value="Activo" rendered="#{area.estadoArea == 'A'}"/>
+                            <h:outputText value="Inactivo" rendered="#{area.estadoArea == 'I'}"/>  
                         </p:column>    
                         <p:column headerText="Sede del Área" filterBy="#{area.idSede.nombreSede}">
                             <h:outputText value="#{area.idSede.nombreSede}"/>
