@@ -19,16 +19,19 @@
                         <p:tab title="Modulo #{modulo.modulo.nombre}">
                             <p:accordionPanel value="#{modulo.permisoNivel1}" var="nivel1">
                                 <p:tab title="Nivel1 #{nivel1.nombrePermiso}">
-                                    <h:panelGrid columns="8" styleClass="table table-bordered" >
-                                        <ui:repeat value="#{modulo.permisoNivel2}" var="nivel2">                                             
-                                            <p:selectManyCheckbox rendered="#{nivel2.asociadoMenu==nivel1.idPermiso}">
-                                                <p:selectManyCheckbox  layout="responsive" columns="4">
-                                                    <f:selectItems  var="permiso" itemLabel="#{nivel2.nombrePermiso}" itemValue=""/>
-                                                </p:selectManyCheckbox>
+                                    <ui:repeat value="#{modulo.permisoNivel2}" var="nivel2">
+                                        <h:panelGrid columns="8" styleClass="table table-bordered" rendered="#{nivel2.asociadoMenu==nivel1.idPermiso}">
+                                            <h:outputText value="#{nivel2.nombrePermiso}"></h:outputText>
+                                            <p:selectManyCheckbox value="#{modulo.permisoNivel3}">                                                
+                                                <ui:repeat value="#{modulo.permisoNivel3}" var="nivel3">
+                                                    <f:selectItem itemLabel="#{nivel3.nombrePermiso}" itemValue="#{nivel3.idPermiso}"/>
+                                                </ui:repeat>
                                             </p:selectManyCheckbox>
-
-                                        </ui:repeat>
-                                    </h:panelGrid>
+                                            <ui:repeat value="#{modulo.permisoNivel3}" var="nivel3">
+                                                <h:outputText value="X#{nivel3.nombrePermiso}" rendered="#{nivel3.asociadoMenu==nivel2.idPermiso}"></h:outputText>
+                                            </ui:repeat>
+                                        </h:panelGrid>
+                                    </ui:repeat>
                                 </p:tab>
                             </p:accordionPanel>
                         </p:tab>
