@@ -36,7 +36,10 @@
                         <p:column headerText="Nombre Acceso" filterBy="#{usuario.nombreUsuario}">
                             <h:outputText value="#{usuario.nombreUsuario}"/>
                         </p:column>
-                        
+                        <p:column headerText="Estado de la Empresa" filterBy="#{usuario.estado}">
+                            <h:outputText value="Activo" rendered="#{usuario.estado == 'A'}"/>
+                            <h:outputText value="Inactivo" rendered="#{usuario.estado == 'I'}"/>                            
+                        </p:column>
                         <p:column headerText="Email" filterBy="#{usuario.email}">
                             <h:outputText value="#{usuario.email}"/>
                         </p:column>
@@ -75,9 +78,11 @@
                             <p:inputText required="true" label="Teléfono de usuario" value="#{Usuario.usuarioObjeto.telefono}"/> 
                             <h:outputText value="Número de identificación "></h:outputText>
                             <p:inputText required="true" label="Número de identificación de usuario" value="#{Usuario.usuarioObjeto.numeroIdentificacion}"/> 
-                            <h:outputText value="Estado "></h:outputText>
-                            <p:inputText value="#{Usuario.usuarioObjeto.estado}"/> 
-
+                            <h:outputText value="Estado "></h:outputText>                            
+                            <p:selectOneMenu id="desplegableIngresarusuario" value="#{Usuario.usuarioObjeto.estado}" style="width: 150px;" >
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="false"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
                             <p:commandButton  value="Ingresar" update=":UsuarioForm:tablaUsuarios,:IngresarModal:insertarUsuarioModal" actionListener="#{Usuario.ingresarUsuario()}" validateClient="true" class="botonNormal"/>
 
                         </p:panelGrid>
@@ -85,7 +90,7 @@
                 </h:form>
                 <h:form id="ActualizarModal">      
                     <p:dialog header="Actualizar Usuario" widgetVar="actualizarUsuario" modal="true" id="actualizarUsuarioModal" responsive="true">
-                        <p:messages autoUpdate="true"/>
+                        <p:messages autoUpdate="false"/>
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
 
                             <h:outputText value="Nombre del Usuario"></h:outputText>
@@ -104,7 +109,10 @@
                             <h:outputText value="Número de identificación "></h:outputText>
                             <p:inputText required="true" label="Número de identificación de usuario" value="#{Usuario.usuarioObjeto.numeroIdentificacion}"/> 
                             <h:outputText value="Estado "></h:outputText>
-                            <p:inputText value="#{Usuario.usuarioObjeto.estado}"/> 
+                            <p:selectOneMenu id="desplegableIngresarusuario" value="#{Usuario.usuarioObjeto.estado}" style="width: 150px;" >
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="false"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
 
                             <p:commandButton  value="Actualizar" update=":UsuarioForm:tablaUsuarios,:IngresarModal:insertarUsuarioModal,UsuarioForm:msgs" actionListener="#{Usuario.actualizarUsuario()}" validateClient="true" class="botonNormal" />
                         </p:panelGrid>
@@ -114,7 +122,8 @@
                 <h:form id="EliminarModal">      
                     <p:dialog header="Eliminar Usuario" widgetVar="eliminarUsuario" modal="true" id="eliminarUsuarioModal" responsive="true">
                         <p:messages autoUpdate="true"/>
-                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                        <p:outputLabel value="Esta seguro de eliminar:"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">                            
                             <p:outputLabel value="#{Usuario.usuarioObjeto.nombre} #{Usuario.usuarioObjeto.apellido}"/>  
                         </p:panelGrid>
                         <p:commandButton value="Eliminar" update=":UsuarioForm:tablaUsuarios,:IngresarModal:insertarUsuarioModal,UsuarioForm:msgs" actionListener="#{Usuario.eliminarUsuario()}" validateClient="true" class="botonNormal" />

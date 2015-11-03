@@ -310,3 +310,21 @@
     width: 20px;
     height: 20px;
 }
+
+
+
+.ui-accordion-header{
+    background-color: #999999;
+}
+
+.ui-accordion-header .ui-accordion-header{
+    background-color: #ac2925;
+}
+.ui-accordion .ui-accordion-header:hover{ 
+    background-color: #b0b0b0;
+}
+
+.table>tbody>tr>td{
+    width: 100px;
+    padding-right: 0;
+}

@@ -32,7 +32,7 @@
                         </p:column>
                         <p:column headerText="Estado de Rol" filterBy="#{ciudad.estadoCiudad}">
                             <h:outputText value="Activo" rendered="#{ciudad.estadoCiudad== 'A'}"/>
-                            <h:outputText value="Inctivo" rendered="#{ciudad.estadoCiudad == 'I'}"/>                            
+                            <h:outputText value="Inactivo" rendered="#{ciudad.estadoCiudad == 'I'}"/>                            
                         </p:column>
                         <p:column style="width: 32px;text-align: center">
                             <p:commandButton update="EliminarModal:eliminarCiudadModal"  oncomplete="PF('eliminarCiudad').show()" class="iconoBuscar" value=" ">
@@ -54,16 +54,17 @@
                             <p:inputText required="true" label="Nombre de la Ciudad" value="#{Ciudades.ciudadObjeto.codigoCiudad}"/>
                             <h:outputText value="Estado de la Ciudad"></h:outputText>
                             <p:selectOneMenu id="desplegableIngresarCiudad" value="#{Ciudades.ciudadObjeto.estadoCiudad}" style="width: 150px;">
-                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="false"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
                             <h:outputText value="Departamento de la Ciudad"></h:outputText>
                             <p:selectOneMenu id="desplegableIngresarDeptoCiudad" value="#{Ciudades.ciudadObjeto.ciudadDepartamento.idDepartamento}" style="width: 150px;">
-                                <f:selectItem itemLabel="Selecione Departamento" itemValue="" noSelectionOption="true"/>
+                                <f:selectItem itemLabel="Selecione Departamento" itemValue="" noSelectionOption="false"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaDepartamentos}"/>
                             </p:selectOneMenu>
                         </p:panelGrid>
-                        <p:commandButton value="Ingresar" update=":CiudadesForm:tablaCiudades" actionListener="#{Ciudades.ingresarCiudad()}" validateClient="true" class="botonNormal"/>
+                        <p:commandButton value="Ingresar" update=":CiudadesForm:tablaCiudades,:IngresarModal:insertarCiudadModal,CiudadesForm:msgs" actionListener="#{Ciudades.ingresarCiudad()}" validateClient="true" class="botonNormal"/>
+                        
                     </p:dialog>
                 </h:form>
                 <h:form id="ActualizarModal">
@@ -75,7 +76,7 @@
                             <h:outputText value="Código de la Ciudad"></h:outputText>
                             <p:inputText required="true" label="Nombre de la Ciudad" value="#{Ciudades.ciudadObjeto.codigoCiudad}"/>
                             <h:outputText value="Estado de la Ciudad"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarPerfil" value="#{Ciudades.ciudadObjeto.codigoCiudad}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableActualizarCiudad" value="#{Ciudades.ciudadObjeto.estadoCiudad}" style="width: 150px;">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
@@ -85,20 +86,21 @@
                                 <f:selectItems value="#{ListaAdministracionBean.listaDepartamentos}"/>
                             </p:selectOneMenu>
                         </p:panelGrid>
-                        <p:commandButton  value="Actualizar" update=":CiudadesForm:tablaCiudades,:IngresarModal:insertarCiudadModal,CiudadesForm:msgs" actionListener="#{Ciudades.actualizarCiudad()}" validateClient="true" class="botonNormal" />
+                        <p:commandButton  value="Actualizar" update=":CiudadesForm:tablaCiudades,:ActualizarModal:actualizarCiudadModal,CiudadesForm:msgs" actionListener="#{Ciudades.actualizarCiudad()}" validateClient="true" class="botonNormal" />
                     </p:dialog>
                 </h:form>
                 <h:form id="EliminarModal">
-                    <p:dialog header="Eliminar Rol" widgetVar="eliminarCiudad" modal="true" id="eliminarCiudadModal" responsive="true">
+                    <p:dialog header="Eliminar Ciudad" widgetVar="eliminarCiudad" modal="true" id="eliminarCiudadModal" responsive="true">
                         <p:messages autoUpdate="true"/>
+                        <p:outputLabel value="Esta seguro de eliminar:"/>
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
                             <p:outputLabel value="#{Ciudades.ciudadObjeto.nombreCiudad}"/>
                         </p:panelGrid>
-                        <p:commandButton value="Eliminar" update=":CiudadesForm:tablaCiudades,:IngresarModal:insertarCiudadModal,CiudadesForm:msgs" actionListener="#{Ciudades.eliminarCiudad()}" validateClient="true" class="botonNormal" />
+                        <p:commandButton value="Eliminar" update=":CiudadesForm:tablaCiudades,:EliminarModal:eliminarCiudadModal,CiudadesForm:msgs" actionListener="#{Ciudades.eliminarCiudad()}" validateClient="true" class="botonNormal" />
                         <h:inputHidden value="#{Ciudades.ciudadObjeto.codigoCiudad}"></h:inputHidden>
                         <h:inputHidden value="#{Ciudades.ciudadObjeto.estadoCiudad}"></h:inputHidden>
                         <h:inputHidden value="#{Ciudades.ciudadObjeto.idCiudad}"></h:inputHidden>
-                        <h:inputHidden value="#{Ciudades.ciudadObjeto.ciudadDepartamento}"></h:inputHidden>
+                        <h:inputHidden value="#{Ciudades.ciudadObjeto.ciudadDepartamento.idDepartamento}"></h:inputHidden>
                     </p:dialog>
                 </h:form>
             </h:body>

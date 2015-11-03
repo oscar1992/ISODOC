@@ -7,7 +7,6 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 
-
     <ui:composition template="/plantillas/PlantillaAdministracion.xhtml">
         <ui:define name="content">
             <h:body>
@@ -43,6 +42,7 @@
                     <p:commandButton value="Insertar" type="button" onclick="PF('insertarEmpresa').show();" update=":EmpresasForm:msgs" class="botonNormal"></p:commandButton>
                 </h:form>
                 <h:form id="IngresarModal">
+                    #{Empresas.nuevaEmpresa()}
                     <p:dialog header="Insertar Empresa" widgetVar="insertarEmpresa" modal="true" id="insertarEmpresaModal" responsive="true">
                         <p:messages autoUpdate="true"/>
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
@@ -55,7 +55,7 @@
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
-                            <p:commandButton value="Ingresar" update=":EmpresasForm:tablaEmpresas" actionListener="#{Empresas.ingresarEmpresa()}" validateClient="true" class="botonNormal"/>
+                            <p:commandButton value="Ingresar" update=":EmpresasForm:tablaEmpresas,:IngresarModal:insertarEmpresaModal,EmpresasForm:msgs" actionListener="#{Empresas.ingresarEmpresa()}" validateClient="true" class="botonNormal"/>
                         </p:panelGrid>
                     </p:dialog>
                 </h:form>
@@ -72,17 +72,18 @@
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
-                            <p:commandButton  value="Actualizar" update=":EmpresasForm:tablaEmpresas,:IngresarModal:insertarEmpresaModal,EmpresasForm:msgs" actionListener="#{Empresas.actualizarEmpresa()}" validateClient="true" class="botonNormal" />
+                            <p:commandButton  value="Actualizar" update=":EmpresasForm:tablaEmpresas,:ActualizarModal:actualizarEmpresaModal,EmpresasForm:msgs" actionListener="#{Empresas.actualizarEmpresa()}" validateClient="true" class="botonNormal" />
                         </p:panelGrid>
                     </p:dialog>
                 </h:form>
                 <h:form id="EliminarModal">
-                    <p:dialog header="Actualizar Empresa" widgetVar="eliminarEmpresa" modal="true" id="eliminarEmpresaModal" responsive="true">
+                    <p:dialog header="Eliminar Empresa" widgetVar="eliminarEmpresa" modal="true" id="eliminarEmpresaModal" responsive="true">
                         <p:messages autoUpdate="true"/>
+                        <p:outputLabel value="Esta seguro de eliminar:"/>
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
                             <p:outputLabel value="#{Empresas.empresaObjeto.nombreEmpresa}"/>
                         </p:panelGrid>
-                        <p:commandButton value="Eliminar" update=":EmpresasForm:tablaEmpresas,:IngresarModal:insertarEmpresaModal,EmpresasForm:msgs" actionListener="#{Empresas.eliminarEmpresa()}" validateClient="true" class="botonNormal" />
+                        <p:commandButton value="Eliminar" update=":EmpresasForm:tablaEmpresas,:EliminarModal:eliminarEmpresaModal,EmpresasForm:msgs" actionListener="#{Empresas.eliminarEmpresa()}" validateClient="true" class="botonNormal" />
                         <h:inputHidden value="#{Empresas.empresaObjeto.codigoEmpresa}"></h:inputHidden>
                         <h:inputHidden value="#{Empresas.empresaObjeto.estadoEmpresa}"></h:inputHidden>
                         <h:inputHidden value="#{Empresas.empresaObjeto.idEmpresa}"></h:inputHidden>

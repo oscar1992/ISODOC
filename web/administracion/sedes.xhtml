@@ -17,13 +17,13 @@
                     </div>
                     <p:dataTable var="sede" value="#{Sedes.lista}" filteredValue="#{Sedes.listaFiltro}" reflow="true" widgetVar="TablaSedes" id="tablaSedes" selectionMode="single"
                                  selection="#{Sedes.sedeObjeto}" rowKey="#{sede.idSede}" class="TABLA" paginator="true" rows="7">
-                        <p:ajax event="rowSelect" listener="#{Sedes.onRowSelect}" update=":SedesForm:msgs,:ActualizarModal:actualizarSedeModal" oncomplete="PF('actualizarSede').show()"/>
-                        <f:facet name="header"><p:ajax event="rowSelect" listener="#{Sedes.onRowSelect}" update=":SedesForm:msgs,:ActualizarModal:actualizarSedeModal" oncomplete="PF('actualizarSede').show()"/>
+                        
+                        <f:facet name="header"><p:ajax event="rowSelect" listener="#{Sedes.onRowSelect(event)}" update=":SedesForm:msgs,:ActualizarModal:actualizarSedeModal" oncomplete="PF('actualizarSede').show()"/>
                             <h:outputText value="CONSULTA DE SEDES" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
                             <p:inputText id="globalFilter" onkeyup="PF('TablaSedes').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
                             <h:outputText value="Buscar" style="color: #FFF; float: right"/>
                         </f:facet>
-
+                        <p:ajax event="rowSelect" listener="#{Sedes.onRowSelect}" update=":SedesForm:msgs,:ActualizarModal:actualizarSedeModal" oncomplete="PF('actualizarSede').show()"/>
                         <p:column headerText="Nombre de la Sede" filterBy="#{sede.nombreSede}">
                             <h:outputText value="#{sede.nombreSede}"/>
                         </p:column>
@@ -44,6 +44,7 @@
                     <p:commandButton value="Insertar" type="button" onclick="PF('insertarSede').show();" update=":SedesForm:msgs" class="botonNormal"></p:commandButton>
                 </h:form>
                 <h:form id="IngresarModal">
+                    #{Sedes.nuevaSedeObjeto()}
                     <p:dialog header="Insertar Sede" widgetVar="insertarSede" modal="true" id="insertarSedeModal" responsive="true">
                         <p:messages autoUpdate="true"/>
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
@@ -57,7 +58,7 @@
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
                         </p:panelGrid>
-                        <p:commandButton value="Ingresar" update=":SedesForm:tablaSedes" actionListener="#{Sedes.ingresarSede()}" validateClient="true" class="botonNormal"/>
+                        <p:commandButton value="Ingresar" update=":SedesForm:tablaSedes,:IngresarModal:insertarSedeModal,SedesForm:msgs" actionListener="#{Sedes.ingresarSede()}" validateClient="true" class="botonNormal"/>
                     </p:dialog>
                 </h:form>
                 <h:form id="ActualizarModal">
@@ -74,16 +75,17 @@
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
                         </p:panelGrid>
-                        <p:commandButton  value="Actualizar" update=":SedesForm:tablaSedes,:IngresarModal:insertarSedeModal,SedesForm:msgs" actionListener="#{Sedes.actualizarSede()}" validateClient="true" class="botonNormal" />
+                        <p:commandButton  value="Actualizar" update=":SedesForm:tablaSedes,:ActualizarModal:actualizarSedeModal,:SedesForm:msgs" actionListener="#{Sedes.actualizarSede()}" validateClient="true" class="botonNormal" />
                     </p:dialog>
                 </h:form>
                 <h:form id="EliminarModal">
-                    <p:dialog header="Eliminar Rol" widgetVar="eliminarSede" modal="true" id="eliminarSedeModal" responsive="true">
+                    <p:dialog header="Eliminar Sede" widgetVar="eliminarSede" modal="true" id="eliminarSedeModal" responsive="true">
                         <p:messages autoUpdate="true"/>
+                        <p:outputLabel value="Esta seguro de eliminar:"/>
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
                             <p:outputLabel value="#{Sedes.sedeObjeto.nombreSede}"/>
                         </p:panelGrid>
-                        <p:commandButton value="Eliminar" update=":SedesForm:tablaSedes,:IngresarModal:insertarSedeModal,SedesForm:msgs" actionListener="#{Sedes.eliminarSede()}" validateClient="true" class="botonNormal" />
+                        <p:commandButton value="Eliminar" update=":SedesForm:tablaSedes,:EliminarModal:eliminarSedeModal,:SedesForm:msgs" actionListener="#{Sedes.eliminarSede()}" validateClient="true" class="botonNormal" />
                         <h:inputHidden value="#{Sedes.sedeObjeto.codigoSede}"></h:inputHidden>
                         <h:inputHidden value="#{Sedes.sedeObjeto.estadoSede}"></h:inputHidden>
                         <h:inputHidden value="#{Sedes.sedeObjeto.idSede}"></h:inputHidden>

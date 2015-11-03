@@ -84,7 +84,7 @@ public class SedeBean implements Serializable{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        sedeObjeto=new SedeEntity();
+        nuevaSedeObjeto();
         RequestContext.getCurrentInstance().execute("PF('insertarSede').hide()");        
     }
     /**
@@ -108,6 +108,7 @@ public class SedeBean implements Serializable{
         }else if("Error".equalsIgnoreCase(valida)){
             
         }
+        nuevaSedeObjeto();
         RequestContext.getCurrentInstance().execute("PF('actualizarSede').hide()");
     }
     /**
@@ -137,7 +138,8 @@ public class SedeBean implements Serializable{
      * @param event 
      */
     public void onRowSelect(SelectEvent event){
-        sedeObjeto=(SedeEntity) event.getObject();        
+        //sedeObjeto=(SedeEntity) event.getObject();        
+        System.out.println("OBJETO: "+sedeObjeto.getNombreSede());
     }
     /**
      * Método que "elimina" una sede actualizando su estado
@@ -149,6 +151,7 @@ public class SedeBean implements Serializable{
         eliminarSedeLista(sedeObjeto);
         sedeObjeto=new SedeEntity();
         RequestContext.getCurrentInstance().execute("PF('eliminarSede').hide()");
+        nuevaSedeObjeto();
     }
     /**
      * Método que elimina visualmente una sede

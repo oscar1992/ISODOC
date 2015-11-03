@@ -91,6 +91,7 @@ public class PaisBean implements Serializable{
              e.printStackTrace();
          }
          RequestContext.getCurrentInstance().execute("PF('insertarPais').hide()");
+         nuevoPais();
      }
     /**
      * Método que añade a la lista el país en la vista
@@ -111,6 +112,7 @@ public class PaisBean implements Serializable{
         }else if("Error".equalsIgnoreCase(valida)){
             
         }
+        paisObjeto=new PaisEntity();
         RequestContext.getCurrentInstance().execute("PF('actualizarPais').hide()");
     }
     /**
@@ -119,18 +121,18 @@ public class PaisBean implements Serializable{
      */
     private void actualizarListaPais(PaisEntity paisObjeto) {
         try {
-            ArrayList<PaisEntity>listaa=new ArrayList<>();
+            ArrayList<PaisEntity>listaaux=new ArrayList<>();
             if(lista!=null){
                 for(PaisEntity item:lista){
                     if(paisObjeto.getIdPais()==item.getIdPais()){
-                        listaa.add(paisObjeto);
+                        listaaux.add(paisObjeto);
                     }else{
-                        listaa.add(item);
+                        listaaux.add(item);
                     }
                 }
             }
             this.lista=new ArrayList<>();
-            this.lista=listaa;
+            this.lista=listaaux;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -165,5 +167,10 @@ public class PaisBean implements Serializable{
                 itr.remove();
             }
         }
+    }
+    
+    public void nuevoPais(){
+        paisObjeto=new PaisEntity();
+        System.out.println("PAIS: "+paisObjeto.getNombrePais());
     }
 }

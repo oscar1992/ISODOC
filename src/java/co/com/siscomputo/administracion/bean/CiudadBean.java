@@ -25,12 +25,13 @@ import org.primefaces.event.SelectEvent;
 @ManagedBean(name = "Ciudades")
 @ViewScoped
 public class CiudadBean {
+
     private ArrayList<CiudadEntity> lista;
     private ArrayList<CiudadEntity> listaFiltro;
     private CiudadEntity ciudadObjeto;
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         consultarCiudades();
     }
 
@@ -57,108 +58,123 @@ public class CiudadBean {
     public void setCiudadObjeto(CiudadEntity ciudadObjeto) {
         this.ciudadObjeto = ciudadObjeto;
     }
+
     /**
      * Método que trae la lista de ciudades del servicio web
      */
-    public void consultarCiudades(){
+    public void consultarCiudades() {
         try {
-            CiudadLogic ciudadLogic=new CiudadLogic();
-            lista=ciudadLogic.listaCiudades();
+            CiudadLogic ciudadLogic = new CiudadLogic();
+            lista = ciudadLogic.listaCiudades();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Método que ingresa una Ciudad nueva a traves del servicio web
      */
-    public void ingresarCiudad(){
+    public void ingresarCiudad() {
         try {
-            CiudadLogic ciudadLogic=new CiudadLogic();
-            CiudadEntity ciudadEntity=ciudadLogic.ingresaCiudad(ciudadObjeto);
-            FacesMessage msg=null;
-            if(ciudadEntity!=null){
-                msg=new FacesMessage("", "Ciudad ingresada Correctamente: "+ciudadEntity.getNombreCiudad());
+            CiudadLogic ciudadLogic = new CiudadLogic();
+            CiudadEntity ciudadEntity = ciudadLogic.ingresaCiudad(ciudadObjeto);
+            FacesMessage msg = null;
+            if (ciudadEntity != null) {
+                msg = new FacesMessage("", "Ciudad ingresada Correctamente: " + ciudadEntity.getNombreCiudad());
                 adicionarCiudadLista(ciudadEntity);
-            }else{
-                msg=new FacesMessage("", "Ciudad ingresada Incorrectamente: "+ciudadEntity.getNombreCiudad());
+            } else {
+                msg = new FacesMessage("", "Ciudad ingresada Incorrectamente: " + ciudadEntity.getNombreCiudad());
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         ciudadObjeto = new CiudadEntity();
-        RequestContext.getCurrentInstance().execute("PF('insertarCiudad').hide()");        
+        RequestContext.getCurrentInstance().execute("PF('insertarCiudad').hide()");
     }
+
     /**
      * Método que añade a la lista la Ciudad en la vista
-     * @param ciudadEntity 
+     *
+     * @param ciudadEntity
      */
     private void adicionarCiudadLista(CiudadEntity ciudadEntity) {
         lista.add(ciudadEntity);
     }
+
     /**
      * Método que envia una ciudad para ser actualizada
      */
-    public void actualizarCiudad(){
-        CiudadLogic ciudadLogic=new CiudadLogic();
-        String valida= ciudadLogic.actualizarCiudad(ciudadObjeto);
-        FacesMessage msg=null;
-        if("Ok".equalsIgnoreCase(valida)){
+    public void actualizarCiudad() {
+        CiudadLogic ciudadLogic = new CiudadLogic();
+        String valida = ciudadLogic.actualizarCiudad(ciudadObjeto);
+        FacesMessage msg = null;
+        if ("Ok".equalsIgnoreCase(valida)) {
             actualizarListaCiudad(ciudadObjeto);
-        }else if("Error".equalsIgnoreCase(valida)){
-            
+        } else if ("Error".equalsIgnoreCase(valida)) {
+
         }
+        nuevaCiuidadObjeto();
         RequestContext.getCurrentInstance().execute("PF('actualizarCiudad').hide()");
     }
+
     /**
      * Método que añade a la lista la Ciudad en la vista
-     * @param ciudadObjeto 
+     *
+     * @param ciudadObjeto
      */
     private void actualizarListaCiudad(CiudadEntity ciudadObjeto) {
         try {
-            ArrayList<CiudadEntity>listaa=new ArrayList<>();
-            if(lista != null){
-                for(CiudadEntity item:lista){
-                    if(ciudadObjeto.getIdCiudad()==item.getIdCiudad()){
-                        DepartamentoLogic departamentoLogic=new DepartamentoLogic();
-                        DepartamentoEntity departamento=departamentoLogic.deptoPorID(ciudadObjeto.getCiudadDepartamento().getIdDepartamento());
-                        listaa.add(ciudadObjeto);
-                    }else{
-                        listaa.add(item);
+            ArrayList<CiudadEntity> listaaux = new ArrayList<>();
+            if (lista != null) {
+                for (CiudadEntity item : lista) {
+                    if (ciudadObjeto.getIdCiudad() == item.getIdCiudad()) {
+                        DepartamentoLogic departamentoLogic = new DepartamentoLogic();
+                        DepartamentoEntity departamento = departamentoLogic.deptoPorID(ciudadObjeto.getCiudadDepartamento().getIdDepartamento());
+                        listaaux.add(ciudadObjeto);
+                    } else {
+                        listaaux.add(item);
                     }
                 }
             }
-            this.lista=null;
-            this.lista=listaa;
+            this.lista = null;
+            this.lista = listaaux;
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Método que se llama con la selección de una Ciudad
-     * @param event 
+     *
+     * @param event
      */
     public void onRowSelect(SelectEvent event) {
-        ciudadObjeto=(CiudadEntity)event.getObject();
-        if(ciudadObjeto.getCiudadDepartamento()==null){
-            DepartamentoEntity departamento=new DepartamentoEntity();
+        //ciudadObjeto=(CiudadEntity)event.getObject();
+        if (ciudadObjeto.getCiudadDepartamento() == null) {
+            DepartamentoEntity departamento = new DepartamentoEntity();
             departamento.setIdDepartamento(-1);
             ciudadObjeto.setCiudadDepartamento(departamento);
         }
     }
+
     /**
      * Método que "elimna" una Ciudad actualizando su estado
      */
-    public void eliminarCiudad(){
-        CiudadLogic ciudadLogic=new CiudadLogic();
+    public void eliminarCiudad() {
+        System.out.println("CIUD: "+ciudadObjeto.getNombreCiudad()+"-"+ciudadObjeto.getIdCiudad());
+        CiudadLogic ciudadLogic = new CiudadLogic();
         ciudadObjeto.setEstadoCiudad("E");
         ciudadLogic.actualizarCiudad(ciudadObjeto);
         eliminarCiudadLista(ciudadObjeto);
-        ciudadObjeto=new CiudadEntity();
+        ciudadObjeto = new CiudadEntity();
         RequestContext.getCurrentInstance().execute("PF('eliminarCiudad').hide()");
+        nuevaCiuidadObjeto();
     }
+
     /**
      * Método que elimina visualmente una Ciudad
-     * @param ciudadObjeto 
+     *
+     * @param ciudadObjeto
      */
     private void eliminarCiudadLista(CiudadEntity ciudadObjeto) {
         Iterator itr = lista.iterator();
@@ -170,13 +186,17 @@ public class CiudadBean {
 
         }
     }
+
     /**
      * Método que limpia el objeto después de ser usado por algún otro método
      */
-    public void nuevaCiuidadObjeto(){
-        ciudadObjeto=new CiudadEntity();
-        DepartamentoEntity departamento=new DepartamentoEntity();
-        departamento.setIdDepartamento(-1);
-        ciudadObjeto.setCiudadDepartamento(departamento);
+    public void nuevaCiuidadObjeto() {
+        ciudadObjeto = new CiudadEntity();
+        
+            DepartamentoEntity departamento = new DepartamentoEntity();
+            departamento.setIdDepartamento(-1);
+            ciudadObjeto.setCiudadDepartamento(departamento);
+        
+
     }
 }

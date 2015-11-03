@@ -89,7 +89,7 @@ public class EmpresaBean {
             e.printStackTrace();
         }
         RequestContext.getCurrentInstance().execute("PF('insertarEmpresa').hide()");
-        empresaObjeto=new EmpresaEntity();
+        nuevaEmpresa();
     }
     /**
      * Método que añade a la lista la sede en la vista
@@ -110,6 +110,7 @@ public class EmpresaBean {
         }else if("Error".equalsIgnoreCase(valida)){
             
         }
+        nuevaEmpresa();
         RequestContext.getCurrentInstance().execute("PF('actualizarEmpresa').hide()");
     }
     /**
@@ -118,18 +119,18 @@ public class EmpresaBean {
      */
     private void actualizarListaEmpresa(EmpresaEntity empresaObjeto) {
         try {
-            ArrayList<EmpresaEntity>listaa=new ArrayList<>();
+            ArrayList<EmpresaEntity>listaaux=new ArrayList<>();
             if(lista!=null){
                 for(EmpresaEntity item:lista){
                     if(empresaObjeto.getIdEmpresa()==item.getIdEmpresa()){
-                        listaa.add(empresaObjeto);
+                        listaaux.add(empresaObjeto);
                     }else{
-                        listaa.add(item);
+                        listaaux.add(item);
                     }
                 }
             }
             this.lista=new ArrayList<>();
-            this.lista=listaa;
+            this.lista=listaaux;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -150,7 +151,7 @@ public class EmpresaBean {
         empresaObjeto.setEstadoEmpresa("E");
         empresaLogic.actualizarEmpresa(empresaObjeto);
         eliminarEmpresaLista(empresaObjeto);
-        empresaObjeto=new EmpresaEntity();
+        nuevaEmpresa();
         RequestContext.getCurrentInstance().execute("PF('eliminarEmpresa').hide()");
     }
     /**
@@ -166,5 +167,9 @@ public class EmpresaBean {
             }
             
         }
+    }
+    
+    public void nuevaEmpresa(){
+        empresaObjeto=new EmpresaEntity();
     }
 }

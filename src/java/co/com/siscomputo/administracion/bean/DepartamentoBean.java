@@ -25,6 +25,7 @@ import org.primefaces.event.SelectEvent;
 @ManagedBean(name = "Departamentos")
 @ViewScoped
 public class DepartamentoBean {
+
     private ArrayList<DepartamentoEntity> lista;
     private ArrayList<DepartamentoEntity> listaFiltro;
     private DepartamentoEntity departamentoObjeto;
@@ -52,136 +53,153 @@ public class DepartamentoBean {
     public void setDepartamentoObjeto(DepartamentoEntity departamentoObjeto) {
         this.departamentoObjeto = departamentoObjeto;
     }
+
     @PostConstruct
-    public void init(){
+    public void init() {
         consultarDepartamentos();
     }
 
     public DepartamentoBean() {
-        departamentoObjeto=new DepartamentoEntity();
+        departamentoObjeto = new DepartamentoEntity();
         departamentoObjeto.setIdPais(new PaisEntity());
     }
+
     /**
      * Método que trae la lista de Empresas del servicio web
      */
-    public void consultarDepartamentos(){
+    public void consultarDepartamentos() {
         try {
-            DepartamentoLogic departamentoLogic=new DepartamentoLogic();
-            lista=departamentoLogic.listaDepartamentos();
+            DepartamentoLogic departamentoLogic = new DepartamentoLogic();
+            lista = departamentoLogic.listaDepartamentos();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Método que ingresa un Departamento nueva a traves del servicio web
      */
-    public void ingresarDepartamento(){
+    public void ingresarDepartamento() {
         try {
-            DepartamentoLogic departamentoLogic=new DepartamentoLogic();
-            DepartamentoEntity departamentoEntity=departamentoLogic.ingresaDepartameto(departamentoObjeto);
-            FacesMessage msg=null;
-            if(departamentoEntity!=null){
-                msg=new FacesMessage("", "Departamento Ingresado Correctamente: "+departamentoEntity.getNombreDepartamento());
+            DepartamentoLogic departamentoLogic = new DepartamentoLogic();
+            DepartamentoEntity departamentoEntity = departamentoLogic.ingresaDepartameto(departamentoObjeto);
+            FacesMessage msg = null;
+            if (departamentoEntity != null) {
+                msg = new FacesMessage("", "Departamento Ingresado Correctamente: " + departamentoEntity.getNombreDepartamento());
                 adicionarDepartamentoLista(departamentoEntity);
-            }else{
-                msg=new FacesMessage("", "Departamento Ingresado Incorrectamente: "+departamentoEntity.getNombreDepartamento());
+            } else {
+                msg = new FacesMessage("", "Departamento Ingresado Incorrectamente: " + departamentoEntity.getNombreDepartamento());
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        departamentoObjeto=new DepartamentoEntity();
+        nuevoDepartamentoObjeto();
         RequestContext.getCurrentInstance().execute("PF('insertarDepartamento').hide()");
-        
+
     }
+
     /**
      * Método que añade a la lista el departamento en la vista
-     * @param departamentoEntity 
+     *
+     * @param departamentoEntity
      */
     private void adicionarDepartamentoLista(DepartamentoEntity departamentoEntity) {
+        PaisesLogic paisesLogic = new PaisesLogic();
+        PaisEntity pais = paisesLogic.paisPorId(departamentoObjeto.getIdPais().getIdPais());
+        departamentoEntity.setIdPais(pais);
         lista.add(departamentoEntity);
     }
+
     /**
      * Método que envia un Departamento para ser actualizado
      */
-    public void actualizarDepartamento(){
-        DepartamentoLogic departamentoLogic=new DepartamentoLogic();
-        String valida=departamentoLogic.actualizarDepartamento(departamentoObjeto);
-        FacesMessage msg=null;
-        if("Ok".equalsIgnoreCase(valida)){
+    public void actualizarDepartamento() {
+        DepartamentoLogic departamentoLogic = new DepartamentoLogic();
+        String valida = departamentoLogic.actualizarDepartamento(departamentoObjeto);
+        FacesMessage msg = null;
+        if ("Ok".equalsIgnoreCase(valida)) {
             actualizarListaDepartamento(departamentoObjeto);
-        }else if("Error".equalsIgnoreCase(valida)){
-            
+        } else if ("Error".equalsIgnoreCase(valida)) {
+
         }
         RequestContext.getCurrentInstance().execute("PF('actualizarDepartamento').hide()");
     }
+
     /**
      * Método que actualiza la lista visual de la tabla
-     * @param departamentoObjeto 
+     *
+     * @param departamentoObjeto
      */
     private void actualizarListaDepartamento(DepartamentoEntity departamentoObjeto) {
         try {
-            ArrayList<DepartamentoEntity>listaa=new ArrayList<>();
-            if(lista!=null){
-                for(DepartamentoEntity item:lista){
-                    if(departamentoObjeto.getIdDepartamento()==item.getIdDepartamento()){
-                        PaisesLogic paisesLogic=new PaisesLogic();
-                        PaisEntity pais=paisesLogic.paisPorId(departamentoObjeto.getIdPais().getIdPais());
+            ArrayList<DepartamentoEntity> listaaux = new ArrayList<>();
+            if (lista != null) {
+                for (DepartamentoEntity item : lista) {
+                    if (departamentoObjeto.getIdDepartamento() == item.getIdDepartamento()) {
+                        PaisesLogic paisesLogic = new PaisesLogic();
+                        PaisEntity pais = paisesLogic.paisPorId(departamentoObjeto.getIdPais().getIdPais());
                         departamentoObjeto.setIdPais(pais);
-                        listaa.add(departamentoObjeto);
-                    }else{
-                        listaa.add(item);
+                        listaaux.add(departamentoObjeto);
+                    } else {
+                        listaaux.add(item);
                     }
                 }
             }
-            this.lista=new ArrayList<>();
-            this.lista=listaa;
+            this.lista = new ArrayList<>();
+            this.lista = listaaux;
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Método que se llama con la selsción de un Departamento
-     * @param event 
+     *
+     * @param event
      */
-    public void onRowSelect(SelectEvent event){
-        departamentoObjeto=(DepartamentoEntity)event.getObject();
-        if(departamentoObjeto.getIdPais()==null){
-            PaisEntity pais=new PaisEntity();
+    public void onRowSelect(SelectEvent event) {
+        departamentoObjeto = (DepartamentoEntity) event.getObject();
+        if (departamentoObjeto.getIdPais() == null) {
+            PaisEntity pais = new PaisEntity();
             pais.setIdPais(-1);;
             departamentoObjeto.setIdPais(pais);
         }
     }
+
     /**
      * Método que "elimina" un Departamento actualizando su estado
      */
-    public void eliminarDepartamento(){
-        DepartamentoLogic departamentoLogic=new DepartamentoLogic();
+    public void eliminarDepartamento() {
+        DepartamentoLogic departamentoLogic = new DepartamentoLogic();
         departamentoObjeto.setEstadoDepartamento("E");
         departamentoLogic.actualizarDepartamento(departamentoObjeto);
         eliminarDepartamentoLista(departamentoObjeto);
-        departamentoObjeto=new DepartamentoEntity();
+        departamentoObjeto = new DepartamentoEntity();
         RequestContext.getCurrentInstance().execute("PF('eliminarDepartamento').hide()");
-        
+        nuevoDepartamentoObjeto();
     }
+
     /**
      * Método que elimina una Empresa en la tabla visual
-     * @param departamentoObjeto 
+     *
+     * @param departamentoObjeto
      */
     private void eliminarDepartamentoLista(DepartamentoEntity departamentoObjeto) {
-        Iterator itr=lista.iterator();
+        Iterator itr = lista.iterator();
         while (itr.hasNext()) {
-            DepartamentoEntity departamentoEntity=(DepartamentoEntity)itr.next();
-            if(departamentoEntity.getIdDepartamento()==departamentoObjeto.getIdDepartamento()){
+            DepartamentoEntity departamentoEntity = (DepartamentoEntity) itr.next();
+            if (departamentoEntity.getIdDepartamento() == departamentoObjeto.getIdDepartamento()) {
                 itr.remove();
             }
-            
+
         }
     }
-    
-    public void nuevoDepartamentoObjeto(){
-        departamentoObjeto=new DepartamentoEntity();
-        PaisEntity pais=new PaisEntity();
+
+    public void nuevoDepartamentoObjeto() {
+        departamentoObjeto = new DepartamentoEntity();
+        PaisEntity pais = new PaisEntity();
         pais.setIdPais(-1);
         departamentoObjeto.setIdPais(pais);
+        System.out.println("NULEA: " + departamentoObjeto.getNombreDepartamento());
     }
 }

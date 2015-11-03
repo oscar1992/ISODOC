@@ -50,9 +50,11 @@
                 </h:form>
                 <h:form id="IngresarModal">
                     <p:dialog header="Insertar Departamento" widgetVar="insertarDepartamento" modal="true" id="insertarDepartamentoModal" responsive="true">
-                        <p:messages autoUpdate="true"/>
                         #{Departamentos.nuevoDepartamentoObjeto()}
+                        
+                        <p:messages autoUpdate="true"/>                        
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            
                             <h:outputText value="Nombre del Departamento"></h:outputText>
                             <p:inputText required="true" label="nombre del Departamento" value="#{Departamentos.departamentoObjeto.nombreDepartamento}"/>
                             <h:outputText value="Código del Departamento"></h:outputText>
@@ -68,7 +70,7 @@
                                 <f:selectItems value="#{ListaAdministracionBean.listaPaises}"/>
                             </p:selectOneMenu>
                         </p:panelGrid>                        
-                        <p:commandButton value="Ingresar" update=":DepartamentosForm:tablaDepartamentos" actionListener="#{Departamentos.ingresarDepartamento()}" validateClient="true" class="botonNormal"/>
+                        <p:commandButton value="Ingresar" update=":DepartamentosForm:tablaDepartamentos,:IngresarModal:insertarDepartamentoModal" actionListener="#{Departamentos.ingresarDepartamento()}" validateClient="true" class="botonNormal"/>
                     </p:dialog>
                 </h:form>
                 <h:form id="ActualizarModal">
@@ -96,6 +98,7 @@
                 <h:form id="EliminarModal">
                     <p:dialog header="Eliminar Departamento" widgetVar="eliminarDepartamento" modal="true" id="eliminarDepartamentoModal" responsive="true">
                         <p:messages autoUpdate="true"/>
+                        <p:outputLabel value="Esta seguro de eliminar:"/>
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
                             <p:outputLabel value="#{Departamentos.departamentoObjeto.nombreDepartamento}"/>
                         </p:panelGrid>

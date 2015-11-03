@@ -125,21 +125,21 @@ public class AreaBean {
 
     public void actualizarListaAres(AreaEntity areaObjeto) {
         try {
-            ArrayList<AreaEntity> listaa = new ArrayList<>();
+            ArrayList<AreaEntity> listaaux = new ArrayList<>();
             if (lista != null) {
                 for (AreaEntity item : lista) {
                     if (areaObjeto.getIdArea() == item.getIdArea()) {
                         SedesLogic sedesLogic=new SedesLogic();
                         SedeEntity sede=sedesLogic.sedePorId(areaObjeto.getIdSede().getIdSede());
                         areaObjeto.setIdSede(sede);
-                        listaa.add(areaObjeto);
+                        listaaux.add(areaObjeto);
                     } else {
-                        listaa.add(item);
+                        listaaux.add(item);
                     }
                 }
             }
             this.lista = null;
-            this.lista = listaa;
+            this.lista = listaaux;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -150,7 +150,7 @@ public class AreaBean {
      *
      * @param event
      */
-    public void onRowSelect(SelectEvent event) {
+public void onRowSelect(SelectEvent event) {
         areaObjeto = (AreaEntity) event.getObject();
         if (areaObjeto.getIdSede() == null) {
             SedeEntity sede = new SedeEntity();

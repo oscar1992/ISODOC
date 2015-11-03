@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition template="/plantillas/PlantillaAdministracion.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form id="asignarPermisosForm">
+                    <div class="prueba" style="color: white; ">
+                        <p:growl id="msgs" showDetail="true" life="3000"/>
+                    </div>
+                    <p:accordionPanel value="#{PermisosDisponibles.lista}" var="modulo" multiple="true">
+                        <p:tab title="Modulo #{modulo.modulo.nombre}">
+                            <p:accordionPanel value="#{modulo.permisoNivel1}" var="nivel1">
+                                <p:tab title="Nivel1 #{nivel1.nombrePermiso}">
+                                    <h:panelGrid columns="8" styleClass="table table-bordered" >
+                                        <ui:repeat value="#{modulo.permisoNivel2}" var="nivel2">                                             
+                                            <p:selectManyCheckbox rendered="#{nivel2.asociadoMenu==nivel1.idPermiso}">
+                                                <p:selectManyCheckbox  layout="responsive" columns="4">
+                                                    <f:selectItems  var="permiso" itemLabel="#{nivel2.nombrePermiso}" itemValue=""/>
+                                                </p:selectManyCheckbox>
+                                            </p:selectManyCheckbox>
+
+                                        </ui:repeat>
+                                    </h:panelGrid>
+                                </p:tab>
+                            </p:accordionPanel>
+                        </p:tab>
+                    </p:accordionPanel>
+                </h:form>
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html> 

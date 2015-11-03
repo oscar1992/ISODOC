@@ -7,7 +7,6 @@ package co.com.siscomputo.administracion.bean;
 
 import co.com.siscomputo.endpoint.MenuModuloEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
-import co.com.siscomputo.endpoint.PermisosEntity;
 import co.com.siscomputo.endpoint.UsuarioEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,25 +21,26 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "Menus")
 @ViewScoped
-public class ManuBean2 implements Serializable{
+public class MenuBean implements Serializable {
+
     private ArrayList<MenuModuloEntity> menu;
     private int idUsuario;
     private int idModulo;
     private String nombreModulo;
     private UsuarioEntity usuarioActual;
     private ArrayList<MenuPermisosEntity> menuLateral;
-    
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         cargaMenu();
         setMenuLateral();
     }
-    
-    public ManuBean2() {
+
+    public MenuBean() {
+
         init();
     }
-   
+
     public ArrayList<MenuModuloEntity> getMenu() {
         return menu;
     }
@@ -60,13 +60,13 @@ public class ManuBean2 implements Serializable{
     public int getIdModulo() {
         return idModulo;
     }
-    
-    public String setRutaModulo(String ruta){
+
+    public String setRutaModulo(String ruta) {
         return ruta;
     }
-    
-    public void setIdModulo(int idModulo){        
-        this.idModulo=idModulo;
+
+    public void setIdModulo(int idModulo) {
+        this.idModulo = idModulo;
         setMenuLateral();
     }
 
@@ -89,19 +89,24 @@ public class ManuBean2 implements Serializable{
     public ArrayList<MenuPermisosEntity> getMenuLateral() {
         return menuLateral;
     }
-
-    public void setMenuLateral() {   
-        for(MenuModuloEntity item:menu){
-            if(idModulo==item.getIdModulo()){                
-                this.menuLateral = (ArrayList<MenuPermisosEntity>) item.getSubNivel();
+    /**
+     * Método que cambia el menú lateral
+     */
+    public void setMenuLateral() {
+        
+            for (MenuModuloEntity item : menu) {
+                
+                if (idModulo == item.getIdModulo()) {
+                    
+                    nombreModulo = item.getNombre();
+                    this.menuLateral = (ArrayList<MenuPermisosEntity>) item.getSubNivel();
+                }
             }
-        }
+        
     }
-    
-    
-    
-    
-    public void cargaMenu(){
-        menu=(ArrayList<MenuModuloEntity>) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("menu");
+
+    public void cargaMenu() {
+        menu = (ArrayList<MenuModuloEntity>) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("menu");
+
     }
 }

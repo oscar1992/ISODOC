@@ -172,5 +172,11 @@ public class RolesBean implements Serializable{
             
         }
     }
+    /**
+     * Método para limpiar el objeto después de ser usado por otro método
+     */
+    public void nuevoObjetoPerfil(){
+        rolesObjeto=new RolesEntity();
+    }
 }
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               

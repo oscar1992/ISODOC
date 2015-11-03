@@ -58,16 +58,16 @@
                             <p:inputText required="true" label="Cóodigo de Área" value="#{Areas.areaObjeto.codigoArea}"/>                            
                             <h:outputText value="Selecione el estado"></h:outputText>
                             <p:selectOneMenu id="desplegableIngresarArea" value="#{Areas.areaObjeto.estadoArea}" style="width: 150px;">
-                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="false"/>
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="1" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
                             <h:outputText value="Selecione la Sede "></h:outputText>
                             <p:selectOneMenu id="desplegableIngresarAreaSede" value="#{Areas.areaObjeto.idSede.idSede}" style="width: 150px;" >
-                                <f:selectItem itemLabel="Selecione Sede" itemValue="" noSelectionOption="false"/>
+                                <f:selectItem itemLabel="Selecione Sede" itemValue="1" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaSedes}"/>
                             </p:selectOneMenu>
                             
-                            <p:commandButton value="Ingresar" update=":AreasForm:tablaAreas" actionListener="#{Areas.ingresarArea()}" validateClient="true" class="botonNormal"/>
+                            <p:commandButton value="Ingresar" update=":AreasForm:tablaAreas,:IngresarModal:insertarAreaModal" actionListener="#{Areas.ingresarArea()}" validateClient="true" class="botonNormal"/>
                         </p:panelGrid>
                     </p:dialog>
                 </h:form>
@@ -81,12 +81,12 @@
                             <p:inputText required="true" label="Cóodigo de Área" value="#{Areas.areaObjeto.codigoArea}"/>                            
                             <h:outputText value="Selecione el estado"></h:outputText>
                             <p:selectOneMenu id="desplegableActualizarArea" value="#{Areas.areaObjeto.estadoArea}" style="width: 150px;">
-                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="1" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
-                            <h:outputText value="Selecione la sede #{Areas.areaObjeto.idSede.nombreSede}ss"></h:outputText>
+                            <h:outputText value="Selecione la sede #{Areas.areaObjeto.idSede.nombreSede}"></h:outputText>
                             <p:selectOneMenu id="desplegableActualizarAreaSede" value="#{Areas.areaObjeto.idSede.idSede}" style="width: 150px;">
-                                <f:selectItem itemLabel="Selecione Sede" itemValue="" noSelectionOption="true"/>
+                                <f:selectItem itemLabel="Selecione Sede" itemValue="1" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaSedes}"/>
                             </p:selectOneMenu>
                             <p:commandButton  value="Actualizar" update=":AreasForm:tablaAreas,:IngresarModal:insertarAreaModal,AreasForm:msgs" actionListener="#{Areas.actualizarArea()}" validateClient="true" class="botonNormal" />
@@ -95,6 +95,7 @@
                 </h:form>
                 <h:form id="EliminarModal">
                     <p:dialog  header="Eliminar Area" widgetVar="eliminarArea" modal="true" id="eliminarAreaModal" responsive="true">
+                        <p:outputLabel value="Esta seguro de eliminar:"/>
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
                             <p:outputLabel value="#{Areas.areaObjeto.nombreArea}"/>
                         </p:panelGrid>

@@ -45,6 +45,7 @@
                     
                 </h:form>
                 <h:form id="IngresarModal">
+                    #{Paises.nuevoPais()};
                     <p:dialog header="Insertar Pais" widgetVar="insertarPais" modal="true" id="insertarPaisModal" responsive="true">
                         <p:messages autoUpdate="true"/>
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
@@ -58,7 +59,7 @@
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
                         </p:panelGrid>
-                        <p:commandButton value="Ingresar" update=":PaisesForm:tablaPaises" actionListener="#{Paises.ingresarPais()}" validateClient="true" class="botonNormal"/>
+                        <p:commandButton value="Ingresar" update=":PaisesForm:tablaPaises,:IngresarModal:insertarPaisModal,PaisesForm:msgs" actionListener="#{Paises.ingresarPais()}" validateClient="true" class="botonNormal"/>
                     </p:dialog>
                 </h:form>
                 <h:form id="ActualizarModal">
@@ -75,16 +76,17 @@
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
                         </p:panelGrid>
-                        <p:commandButton  value="Actualizar" update=":PaisesForm:tablaPaises,:IngresarModal:insertarPaisModal,PaisesForm:msgs" actionListener="#{Paises.actualizarPais()}" validateClient="true" class="botonNormal" />
+                        <p:commandButton  value="Actualizar" update=":PaisesForm:tablaPaises,:ActualizarModal:actualizarPaisModal,PaisesForm:msgs" actionListener="#{Paises.actualizarPais()}" validateClient="true" class="botonNormal" />
                     </p:dialog>
                 </h:form>
                 <h:form id="EliminarModal">
                     <p:dialog header="Eliminar Pais" widgetVar="eliminarPais" modal="true" id="eliminarPaisModal" responsive="true">
                         <p:messages autoUpdate="true"/>
+                        <p:outputLabel value="Esta seguro de eliminar:"/>
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
                             <p:outputLabel value="#{Paises.paisObjeto.nombrePais}"/>
                         </p:panelGrid>
-                        <p:commandButton value="Eliminar" update=":PaisesForm:tablaPaises,:IngresarModal:insertarPaisModal,PaisesForm:msgs" actionListener="#{Paises.eliminarPais()}" validateClient="true" class="botonNormal" />
+                        <p:commandButton value="Eliminar" update=":PaisesForm:tablaPaises,:EliminarModal:eliminarPaisModal,PaisesForm:msgs" actionListener="#{Paises.eliminarPais()}" validateClient="true" class="botonNormal" />
                         <h:inputHidden value="#{Paises.paisObjeto.codPais}"></h:inputHidden>
                         <h:inputHidden value="#{Paises.paisObjeto.estadoPais}"></h:inputHidden>
                         <h:inputHidden value="#{Paises.paisObjeto.idPais}"></h:inputHidden>

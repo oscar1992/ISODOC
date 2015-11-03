@@ -13,7 +13,6 @@ import co.com.siscomputo.endpoint.ObjetoLogin;
 import co.com.siscomputo.endpoint.UsuarioEntity;
 import co.com.siscomputo.utilidades.MensajesJSF;
 import java.util.ArrayList;
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.bean.ViewScoped;
