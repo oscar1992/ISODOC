@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        
+        <script src="/ISODOC/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="/ISODOC/js/bootstrap-datepicker.js" type="text/javascript"></script>
+        <script src="/ISODOC/js/jquery.smartmenus.js" type="text/javascript"></script>
+        <script src="/ISODOC/js/jquery.smartmenus.bootstrap.js" type="text/javascript"></script>
+        <link href="/ISODOC/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="/ISODOC/css/datepicker3.css" rel="stylesheet" type="text/css"/>
+        <link href="/ISODOC/css/jquery.smartmenus.bootstrap.css" rel="stylesheet" type="text/css"/>    
+        <link href="/ISODOC/css/bootstrap-theme.css" rel="stylesheet" type="text/css"/>
+        <link href="/ISODOC/estilos/estilosIndicadores/estilosIndicadores.css" rel="stylesheet" type="text/css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=yes" />
+        <style>
+            @media only screen and (max-width: 768px) {
+                /* For mobile phones: */
+                [class*="escritorio"] {
+                    display: none;
+                }
+                
+            }
+            @media only screen and (min-width: 768px) {
+                [class*="responsive"] {
+                    display: none;
+                }
+            }
+            
+        </style>
+        
+    </h:head>
+
+    <h:body>
+        <div class="row">
+            <ui:include src="Cabecera.xhtml"/>
+        </div>
+        <div class="row ">
+            <div class="col-xs-1 col-sm-1 col-md-2 col-lg-2 escritorio">
+                <ui:include src="MenuLateral.xhtml"/>
+            </div>
+            <div class=" col-xs-12 col-sm-12 col-md-10 col-lg-10">
+                <ui:insert name="content">Contenidooo</ui:insert>
+            </div>
+        </div>
+    </h:body>
+
+</html>

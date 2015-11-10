@@ -27,6 +27,93 @@ public interface Usuario {
 
     /**
      * 
+     * @param usuario
+     * @return
+     *     returns co.com.siscomputo.endpoint.UsuarioEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "actualizarUsuario", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarUsuario")
+    @ResponseWrapper(localName = "actualizarUsuarioResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarUsuarioResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/actualizarUsuarioRequest", output = "http://endpoint.siscomputo.com.co/Usuario/actualizarUsuarioResponse")
+    public UsuarioEntity actualizarUsuario(
+        @WebParam(name = "Usuario", targetNamespace = "")
+        UsuarioEntity usuario);
+
+    /**
+     * 
+     * @param departamento
+     * @return
+     *     returns co.com.siscomputo.endpoint.DepartamentoEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "insertarDepartameno", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.InsertarDepartameno")
+    @ResponseWrapper(localName = "insertarDepartamenoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.InsertarDepartamenoResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/insertarDepartamenoRequest", output = "http://endpoint.siscomputo.com.co/Usuario/insertarDepartamenoResponse")
+    public DepartamentoEntity insertarDepartameno(
+        @WebParam(name = "departamento", targetNamespace = "")
+        DepartamentoEntity departamento);
+
+    /**
+     * 
+     * @param departamento
+     * @return
+     *     returns co.com.siscomputo.endpoint.DepartamentoEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "actualizarDepartameno", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarDepartameno")
+    @ResponseWrapper(localName = "actualizarDepartamenoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarDepartamenoResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/actualizarDepartamenoRequest", output = "http://endpoint.siscomputo.com.co/Usuario/actualizarDepartamenoResponse")
+    public DepartamentoEntity actualizarDepartameno(
+        @WebParam(name = "departamento", targetNamespace = "")
+        DepartamentoEntity departamento);
+
+    /**
+     * 
+     * @param empresa
+     * @return
+     *     returns co.com.siscomputo.endpoint.EmpresaEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "actualizarEmpresa", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarEmpresa")
+    @ResponseWrapper(localName = "actualizarEmpresaResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarEmpresaResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/actualizarEmpresaRequest", output = "http://endpoint.siscomputo.com.co/Usuario/actualizarEmpresaResponse")
+    public EmpresaEntity actualizarEmpresa(
+        @WebParam(name = "empresa", targetNamespace = "")
+        EmpresaEntity empresa);
+
+    /**
+     * 
+     * @return
+     *     returns java.util.List<co.com.siscomputo.endpoint.ListaAsignaPermisosModulo>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "listaPermisosDisponibles", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaPermisosDisponibles")
+    @ResponseWrapper(localName = "listaPermisosDisponiblesResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaPermisosDisponiblesResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/listaPermisosDisponiblesRequest", output = "http://endpoint.siscomputo.com.co/Usuario/listaPermisosDisponiblesResponse")
+    public List<ListaAsignaPermisosModulo> listaPermisosDisponibles();
+
+    /**
+     * 
+     * @param usuarioRol
+     * @return
+     *     returns co.com.siscomputo.endpoint.UsuarioRolEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "actualizarUsuarioRol", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarUsuarioRol")
+    @ResponseWrapper(localName = "actualizarUsuarioRolResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarUsuarioRolResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/actualizarUsuarioRolRequest", output = "http://endpoint.siscomputo.com.co/Usuario/actualizarUsuarioRolResponse")
+    public UsuarioRolEntity actualizarUsuarioRol(
+        @WebParam(name = "usuarioRol", targetNamespace = "")
+        UsuarioRolEntity usuarioRol);
+
+    /**
+     * 
      * @param pass
      * @param nombre
      * @return
@@ -42,6 +129,357 @@ public interface Usuario {
         String nombre,
         @WebParam(name = "pass", targetNamespace = "")
         String pass);
+
+    /**
+     * 
+     * @return
+     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "listaSedeEmpresa", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaSedeEmpresa")
+    @ResponseWrapper(localName = "listaSedeEmpresaResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaSedeEmpresaResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/listaSedeEmpresaRequest", output = "http://endpoint.siscomputo.com.co/Usuario/listaSedeEmpresaResponse")
+    public ObjetoRetornaEntity listaSedeEmpresa();
+
+    /**
+     * 
+     * @return
+     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "listaPais", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaPais")
+    @ResponseWrapper(localName = "listaPaisResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaPaisResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/listaPaisRequest", output = "http://endpoint.siscomputo.com.co/Usuario/listaPaisResponse")
+    public ObjetoRetornaEntity listaPais();
+
+    /**
+     * 
+     * @return
+     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "listaEmpresa", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaEmpresa")
+    @ResponseWrapper(localName = "listaEmpresaResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaEmpresaResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/listaEmpresaRequest", output = "http://endpoint.siscomputo.com.co/Usuario/listaEmpresaResponse")
+    public ObjetoRetornaEntity listaEmpresa();
+
+    /**
+     * 
+     * @param festivo
+     * @return
+     *     returns co.com.siscomputo.endpoint.FestivosEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "ingresaFestivo", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.IngresaFestivo")
+    @ResponseWrapper(localName = "ingresaFestivoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.IngresaFestivoResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/ingresaFestivoRequest", output = "http://endpoint.siscomputo.com.co/Usuario/ingresaFestivoResponse")
+    public FestivosEntity ingresaFestivo(
+        @WebParam(name = "festivo", targetNamespace = "")
+        FestivosEntity festivo);
+
+    /**
+     * 
+     * @param macro
+     * @return
+     *     returns co.com.siscomputo.endpoint.MacroprocesosEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "macroPorId", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.MacroPorId")
+    @ResponseWrapper(localName = "macroPorIdResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.MacroPorIdResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/macroPorIdRequest", output = "http://endpoint.siscomputo.com.co/Usuario/macroPorIdResponse")
+    public MacroprocesosEntity macroPorId(
+        @WebParam(name = "macro", targetNamespace = "")
+        int macro);
+
+    /**
+     * 
+     * @param proceso
+     * @return
+     *     returns co.com.siscomputo.endpoint.ProcesosEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "procesoPorID", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ProcesoPorID")
+    @ResponseWrapper(localName = "procesoPorIDResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ProcesoPorIDResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/procesoPorIDRequest", output = "http://endpoint.siscomputo.com.co/Usuario/procesoPorIDResponse")
+    public ProcesosEntity procesoPorID(
+        @WebParam(name = "proceso", targetNamespace = "")
+        int proceso);
+
+    /**
+     * 
+     * @param proceso
+     * @return
+     *     returns co.com.siscomputo.endpoint.ProcesosEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "actualizaProceso", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizaProceso")
+    @ResponseWrapper(localName = "actualizaProcesoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizaProcesoResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/actualizaProcesoRequest", output = "http://endpoint.siscomputo.com.co/Usuario/actualizaProcesoResponse")
+    public ProcesosEntity actualizaProceso(
+        @WebParam(name = "proceso", targetNamespace = "")
+        ProcesosEntity proceso);
+
+    /**
+     * 
+     * @param idFestivo
+     * @return
+     *     returns co.com.siscomputo.endpoint.FestivosEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "festtivoPorId", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.FesttivoPorId")
+    @ResponseWrapper(localName = "festtivoPorIdResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.FesttivoPorIdResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/festtivoPorIdRequest", output = "http://endpoint.siscomputo.com.co/Usuario/festtivoPorIdResponse")
+    public FestivosEntity festtivoPorId(
+        @WebParam(name = "idFestivo", targetNamespace = "")
+        int idFestivo);
+
+    /**
+     * 
+     * @param idUsuario
+     * @return
+     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "listaPermisos", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaPermisos")
+    @ResponseWrapper(localName = "listaPermisosResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaPermisosResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/listaPermisosRequest", output = "http://endpoint.siscomputo.com.co/Usuario/listaPermisosResponse")
+    public ObjetoRetornaEntity listaPermisos(
+        @WebParam(name = "id_usuario", targetNamespace = "")
+        int idUsuario);
+
+    /**
+     * 
+     * @param idUsuario
+     * @return
+     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "listaModulos", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaModulos")
+    @ResponseWrapper(localName = "listaModulosResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaModulosResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/listaModulosRequest", output = "http://endpoint.siscomputo.com.co/Usuario/listaModulosResponse")
+    public ObjetoRetornaEntity listaModulos(
+        @WebParam(name = "id_usuario", targetNamespace = "")
+        int idUsuario);
+
+    /**
+     * 
+     * @param idUsuario
+     * @return
+     *     returns co.com.siscomputo.endpoint.UsuarioEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "usuarioPorId", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.UsuarioPorId")
+    @ResponseWrapper(localName = "usuarioPorIdResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.UsuarioPorIdResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/usuarioPorIdRequest", output = "http://endpoint.siscomputo.com.co/Usuario/usuarioPorIdResponse")
+    public UsuarioEntity usuarioPorId(
+        @WebParam(name = "idUsuario", targetNamespace = "")
+        int idUsuario);
+
+    /**
+     * 
+     * @return
+     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "listaCiudades", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaCiudades")
+    @ResponseWrapper(localName = "listaCiudadesResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaCiudadesResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/listaCiudadesRequest", output = "http://endpoint.siscomputo.com.co/Usuario/listaCiudadesResponse")
+    public ObjetoRetornaEntity listaCiudades();
+
+    /**
+     * 
+     * @return
+     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "listafestivos", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.Listafestivos")
+    @ResponseWrapper(localName = "listafestivosResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListafestivosResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/listafestivosRequest", output = "http://endpoint.siscomputo.com.co/Usuario/listafestivosResponse")
+    public ObjetoRetornaEntity listafestivos();
+
+    /**
+     * 
+     * @param macro
+     * @return
+     *     returns co.com.siscomputo.endpoint.MacroprocesosEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "ingresaMacroProceso", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.IngresaMacroProceso")
+    @ResponseWrapper(localName = "ingresaMacroProcesoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.IngresaMacroProcesoResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/ingresaMacroProcesoRequest", output = "http://endpoint.siscomputo.com.co/Usuario/ingresaMacroProcesoResponse")
+    public MacroprocesosEntity ingresaMacroProceso(
+        @WebParam(name = "macro", targetNamespace = "")
+        MacroprocesosEntity macro);
+
+    /**
+     * 
+     * @param macro
+     * @return
+     *     returns co.com.siscomputo.endpoint.MacroprocesosEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "actualizaMacroProceso", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizaMacroProceso")
+    @ResponseWrapper(localName = "actualizaMacroProcesoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizaMacroProcesoResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/actualizaMacroProcesoRequest", output = "http://endpoint.siscomputo.com.co/Usuario/actualizaMacroProcesoResponse")
+    public MacroprocesosEntity actualizaMacroProceso(
+        @WebParam(name = "macro", targetNamespace = "")
+        MacroprocesosEntity macro);
+
+    /**
+     * 
+     * @return
+     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "listaMacroProcesos", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaMacroProcesos")
+    @ResponseWrapper(localName = "listaMacroProcesosResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaMacroProcesosResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/listaMacroProcesosRequest", output = "http://endpoint.siscomputo.com.co/Usuario/listaMacroProcesosResponse")
+    public ObjetoRetornaEntity listaMacroProcesos();
+
+    /**
+     * 
+     * @return
+     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "listaProcesos", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaProcesos")
+    @ResponseWrapper(localName = "listaProcesosResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaProcesosResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/listaProcesosRequest", output = "http://endpoint.siscomputo.com.co/Usuario/listaProcesosResponse")
+    public ObjetoRetornaEntity listaProcesos();
+
+    /**
+     * 
+     * @param subproceso
+     * @return
+     *     returns co.com.siscomputo.endpoint.SubprocesoEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "subProcesoPorID", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.SubProcesoPorID")
+    @ResponseWrapper(localName = "subProcesoPorIDResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.SubProcesoPorIDResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/subProcesoPorIDRequest", output = "http://endpoint.siscomputo.com.co/Usuario/subProcesoPorIDResponse")
+    public SubprocesoEntity subProcesoPorID(
+        @WebParam(name = "subproceso", targetNamespace = "")
+        int subproceso);
+
+    /**
+     * 
+     * @param idUsuario
+     */
+    @WebMethod
+    @RequestWrapper(localName = "limpiaUsuarioRoles", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.LimpiaUsuarioRoles")
+    @ResponseWrapper(localName = "limpiaUsuarioRolesResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.LimpiaUsuarioRolesResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/limpiaUsuarioRolesRequest", output = "http://endpoint.siscomputo.com.co/Usuario/limpiaUsuarioRolesResponse")
+    public void limpiaUsuarioRoles(
+        @WebParam(name = "idUsuario", targetNamespace = "")
+        int idUsuario);
+
+    /**
+     * 
+     * @param idUsuario
+     * @return
+     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "listaPermisosFiltrados", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaPermisosFiltrados")
+    @ResponseWrapper(localName = "listaPermisosFiltradosResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaPermisosFiltradosResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/listaPermisosFiltradosRequest", output = "http://endpoint.siscomputo.com.co/Usuario/listaPermisosFiltradosResponse")
+    public ObjetoRetornaEntity listaPermisosFiltrados(
+        @WebParam(name = "idUsuario", targetNamespace = "")
+        int idUsuario);
+
+    /**
+     * 
+     * @param idUsuario
+     * @return
+     *     returns java.util.List<co.com.siscomputo.endpoint.MenuModuloEntity>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "menuDatosporUsuario", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.MenuDatosporUsuario")
+    @ResponseWrapper(localName = "menuDatosporUsuarioResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.MenuDatosporUsuarioResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/menuDatosporUsuarioRequest", output = "http://endpoint.siscomputo.com.co/Usuario/menuDatosporUsuarioResponse")
+    public List<MenuModuloEntity> menuDatosporUsuario(
+        @WebParam(name = "idUsuario", targetNamespace = "")
+        int idUsuario);
+
+    /**
+     * 
+     * @param sedee
+     * @return
+     *     returns co.com.siscomputo.endpoint.SedeEmpresaEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "actualizaSedeEmpresa", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizaSedeEmpresa")
+    @ResponseWrapper(localName = "actualizaSedeEmpresaResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizaSedeEmpresaResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/actualizaSedeEmpresaRequest", output = "http://endpoint.siscomputo.com.co/Usuario/actualizaSedeEmpresaResponse")
+    public SedeEmpresaEntity actualizaSedeEmpresa(
+        @WebParam(name = "sedee", targetNamespace = "")
+        SedeEmpresaEntity sedee);
+
+    /**
+     * 
+     * @param festivo
+     * @return
+     *     returns co.com.siscomputo.endpoint.FestivosEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "actualizarFestivo", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarFestivo")
+    @ResponseWrapper(localName = "actualizarFestivoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarFestivoResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/actualizarFestivoRequest", output = "http://endpoint.siscomputo.com.co/Usuario/actualizarFestivoResponse")
+    public FestivosEntity actualizarFestivo(
+        @WebParam(name = "festivo", targetNamespace = "")
+        FestivosEntity festivo);
+
+    /**
+     * 
+     * @param usuarioMacroproceso
+     * @return
+     *     returns co.com.siscomputo.endpoint.UsuarioMacroprocesoEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "ingresarUsuarioMacroproceso", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.IngresarUsuarioMacroproceso")
+    @ResponseWrapper(localName = "ingresarUsuarioMacroprocesoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.IngresarUsuarioMacroprocesoResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/ingresarUsuarioMacroprocesoRequest", output = "http://endpoint.siscomputo.com.co/Usuario/ingresarUsuarioMacroprocesoResponse")
+    public UsuarioMacroprocesoEntity ingresarUsuarioMacroproceso(
+        @WebParam(name = "usuarioMacroproceso", targetNamespace = "")
+        UsuarioMacroprocesoEntity usuarioMacroproceso);
+
+    /**
+     * 
+     * @param usuarioRol
+     * @return
+     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "insertarUsuarioRol", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.InsertarUsuarioRol")
+    @ResponseWrapper(localName = "insertarUsuarioRolResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.InsertarUsuarioRolResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/insertarUsuarioRolRequest", output = "http://endpoint.siscomputo.com.co/Usuario/insertarUsuarioRolResponse")
+    public ObjetoRetornaEntity insertarUsuarioRol(
+        @WebParam(name = "usuarioRol", targetNamespace = "")
+        List<UsuarioRolEntity> usuarioRol);
 
     /**
      * 
@@ -102,6 +540,51 @@ public interface Usuario {
 
     /**
      * 
+     * @param ciudad
+     * @return
+     *     returns co.com.siscomputo.endpoint.CiudadEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "insertarCiudad", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.InsertarCiudad")
+    @ResponseWrapper(localName = "insertarCiudadResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.InsertarCiudadResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/insertarCiudadRequest", output = "http://endpoint.siscomputo.com.co/Usuario/insertarCiudadResponse")
+    public CiudadEntity insertarCiudad(
+        @WebParam(name = "ciudad", targetNamespace = "")
+        CiudadEntity ciudad);
+
+    /**
+     * 
+     * @param ciudad
+     * @return
+     *     returns co.com.siscomputo.endpoint.CiudadEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "actualizarCiudad", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarCiudad")
+    @ResponseWrapper(localName = "actualizarCiudadResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarCiudadResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/actualizarCiudadRequest", output = "http://endpoint.siscomputo.com.co/Usuario/actualizarCiudadResponse")
+    public CiudadEntity actualizarCiudad(
+        @WebParam(name = "ciudad", targetNamespace = "")
+        CiudadEntity ciudad);
+
+    /**
+     * 
+     * @param idPais
+     * @return
+     *     returns co.com.siscomputo.endpoint.PaisEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "paisPorId", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.PaisPorId")
+    @ResponseWrapper(localName = "paisPorIdResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.PaisPorIdResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/paisPorIdRequest", output = "http://endpoint.siscomputo.com.co/Usuario/paisPorIdResponse")
+    public PaisEntity paisPorId(
+        @WebParam(name = "idPais", targetNamespace = "")
+        int idPais);
+
+    /**
+     * 
      * @param empresa
      * @return
      *     returns co.com.siscomputo.endpoint.EmpresaEntity
@@ -114,6 +597,18 @@ public interface Usuario {
     public EmpresaEntity ingresarEmpresa(
         @WebParam(name = "empresa", targetNamespace = "")
         EmpresaEntity empresa);
+
+    /**
+     * 
+     * @return
+     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "listaRoles", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaRoles")
+    @ResponseWrapper(localName = "listaRolesResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaRolesResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/listaRolesRequest", output = "http://endpoint.siscomputo.com.co/Usuario/listaRolesResponse")
+    public ObjetoRetornaEntity listaRoles();
 
     /**
      * 
@@ -147,63 +642,33 @@ public interface Usuario {
 
     /**
      * 
-     * @param departamento
+     * @param idRol
      * @return
-     *     returns co.com.siscomputo.endpoint.DepartamentoEntity
+     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "insertarDepartameno", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.InsertarDepartameno")
-    @ResponseWrapper(localName = "insertarDepartamenoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.InsertarDepartamenoResponse")
-    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/insertarDepartamenoRequest", output = "http://endpoint.siscomputo.com.co/Usuario/insertarDepartamenoResponse")
-    public DepartamentoEntity insertarDepartameno(
-        @WebParam(name = "departamento", targetNamespace = "")
-        DepartamentoEntity departamento);
+    @RequestWrapper(localName = "listaRolPermiso", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaRolPermiso")
+    @ResponseWrapper(localName = "listaRolPermisoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaRolPermisoResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/listaRolPermisoRequest", output = "http://endpoint.siscomputo.com.co/Usuario/listaRolPermisoResponse")
+    public ObjetoRetornaEntity listaRolPermiso(
+        @WebParam(name = "idRol", targetNamespace = "")
+        int idRol);
 
     /**
      * 
-     * @param departamento
+     * @param proceso
      * @return
-     *     returns co.com.siscomputo.endpoint.DepartamentoEntity
+     *     returns co.com.siscomputo.endpoint.ProcesosEntity
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "actualizarDepartameno", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarDepartameno")
-    @ResponseWrapper(localName = "actualizarDepartamenoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarDepartamenoResponse")
-    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/actualizarDepartamenoRequest", output = "http://endpoint.siscomputo.com.co/Usuario/actualizarDepartamenoResponse")
-    public DepartamentoEntity actualizarDepartameno(
-        @WebParam(name = "departamento", targetNamespace = "")
-        DepartamentoEntity departamento);
-
-    /**
-     * 
-     * @param empresa
-     * @return
-     *     returns co.com.siscomputo.endpoint.EmpresaEntity
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "actualizarEmpresa", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarEmpresa")
-    @ResponseWrapper(localName = "actualizarEmpresaResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarEmpresaResponse")
-    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/actualizarEmpresaRequest", output = "http://endpoint.siscomputo.com.co/Usuario/actualizarEmpresaResponse")
-    public EmpresaEntity actualizarEmpresa(
-        @WebParam(name = "empresa", targetNamespace = "")
-        EmpresaEntity empresa);
-
-    /**
-     * 
-     * @param usuario
-     * @return
-     *     returns co.com.siscomputo.endpoint.UsuarioEntity
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "actualizarUsuario", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarUsuario")
-    @ResponseWrapper(localName = "actualizarUsuarioResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarUsuarioResponse")
-    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/actualizarUsuarioRequest", output = "http://endpoint.siscomputo.com.co/Usuario/actualizarUsuarioResponse")
-    public UsuarioEntity actualizarUsuario(
-        @WebParam(name = "Usuario", targetNamespace = "")
-        UsuarioEntity usuario);
+    @RequestWrapper(localName = "ingresaProceso", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.IngresaProceso")
+    @ResponseWrapper(localName = "ingresaProcesoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.IngresaProcesoResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/ingresaProcesoRequest", output = "http://endpoint.siscomputo.com.co/Usuario/ingresaProcesoResponse")
+    public ProcesosEntity ingresaProceso(
+        @WebParam(name = "proceso", targetNamespace = "")
+        ProcesosEntity proceso);
 
     /**
      * 
@@ -237,18 +702,6 @@ public interface Usuario {
 
     /**
      * 
-     * @return
-     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "listaRoles", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaRoles")
-    @ResponseWrapper(localName = "listaRolesResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaRolesResponse")
-    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/listaRolesRequest", output = "http://endpoint.siscomputo.com.co/Usuario/listaRolesResponse")
-    public ObjetoRetornaEntity listaRoles();
-
-    /**
-     * 
      * @param sede
      * @return
      *     returns co.com.siscomputo.endpoint.SedeEntity
@@ -279,6 +732,18 @@ public interface Usuario {
 
     /**
      * 
+     * @return
+     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "listaSubProcesos", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaSubProcesos")
+    @ResponseWrapper(localName = "listaSubProcesosResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaSubProcesosResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/listaSubProcesosRequest", output = "http://endpoint.siscomputo.com.co/Usuario/listaSubProcesosResponse")
+    public ObjetoRetornaEntity listaSubProcesos();
+
+    /**
+     * 
      * @param usuario
      * @return
      *     returns co.com.siscomputo.endpoint.UsuarioEntity
@@ -306,6 +771,21 @@ public interface Usuario {
 
     /**
      * 
+     * @param idUsuario
+     * @return
+     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "listaUsuarioRol", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaUsuarioRol")
+    @ResponseWrapper(localName = "listaUsuarioRolResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaUsuarioRolResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/listaUsuarioRolRequest", output = "http://endpoint.siscomputo.com.co/Usuario/listaUsuarioRolResponse")
+    public ObjetoRetornaEntity listaUsuarioRol(
+        @WebParam(name = "idUsuario", targetNamespace = "")
+        int idUsuario);
+
+    /**
+     * 
      * @return
      *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
      */
@@ -318,171 +798,33 @@ public interface Usuario {
 
     /**
      * 
-     * @param idUsuario
+     * @param subproceso
      * @return
-     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
+     *     returns co.com.siscomputo.endpoint.SubprocesoEntity
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "listaPermisos", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaPermisos")
-    @ResponseWrapper(localName = "listaPermisosResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaPermisosResponse")
-    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/listaPermisosRequest", output = "http://endpoint.siscomputo.com.co/Usuario/listaPermisosResponse")
-    public ObjetoRetornaEntity listaPermisos(
-        @WebParam(name = "id_usuario", targetNamespace = "")
-        int idUsuario);
+    @RequestWrapper(localName = "ingresaSubProceso", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.IngresaSubProceso")
+    @ResponseWrapper(localName = "ingresaSubProcesoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.IngresaSubProcesoResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/ingresaSubProcesoRequest", output = "http://endpoint.siscomputo.com.co/Usuario/ingresaSubProcesoResponse")
+    public SubprocesoEntity ingresaSubProceso(
+        @WebParam(name = "subproceso", targetNamespace = "")
+        SubprocesoEntity subproceso);
 
     /**
      * 
-     * @param idUsuario
+     * @param subproceso
      * @return
-     *     returns co.com.siscomputo.endpoint.UsuarioEntity
+     *     returns co.com.siscomputo.endpoint.SubprocesoEntity
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "usuarioPorId", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.UsuarioPorId")
-    @ResponseWrapper(localName = "usuarioPorIdResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.UsuarioPorIdResponse")
-    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/usuarioPorIdRequest", output = "http://endpoint.siscomputo.com.co/Usuario/usuarioPorIdResponse")
-    public UsuarioEntity usuarioPorId(
-        @WebParam(name = "idUsuario", targetNamespace = "")
-        int idUsuario);
-
-    /**
-     * 
-     * @return
-     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "listaPais", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaPais")
-    @ResponseWrapper(localName = "listaPaisResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaPaisResponse")
-    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/listaPaisRequest", output = "http://endpoint.siscomputo.com.co/Usuario/listaPaisResponse")
-    public ObjetoRetornaEntity listaPais();
-
-    /**
-     * 
-     * @param idUsuario
-     * @return
-     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "listaModulos", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaModulos")
-    @ResponseWrapper(localName = "listaModulosResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaModulosResponse")
-    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/listaModulosRequest", output = "http://endpoint.siscomputo.com.co/Usuario/listaModulosResponse")
-    public ObjetoRetornaEntity listaModulos(
-        @WebParam(name = "id_usuario", targetNamespace = "")
-        int idUsuario);
-
-    /**
-     * 
-     * @return
-     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "listaEmpresa", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaEmpresa")
-    @ResponseWrapper(localName = "listaEmpresaResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaEmpresaResponse")
-    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/listaEmpresaRequest", output = "http://endpoint.siscomputo.com.co/Usuario/listaEmpresaResponse")
-    public ObjetoRetornaEntity listaEmpresa();
-
-    /**
-     * 
-     * @param ciudad
-     * @return
-     *     returns co.com.siscomputo.endpoint.CiudadEntity
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "actualizarCiudad", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarCiudad")
-    @ResponseWrapper(localName = "actualizarCiudadResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarCiudadResponse")
-    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/actualizarCiudadRequest", output = "http://endpoint.siscomputo.com.co/Usuario/actualizarCiudadResponse")
-    public CiudadEntity actualizarCiudad(
-        @WebParam(name = "ciudad", targetNamespace = "")
-        CiudadEntity ciudad);
-
-    /**
-     * 
-     * @return
-     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "listaSedeEmpresa", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaSedeEmpresa")
-    @ResponseWrapper(localName = "listaSedeEmpresaResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaSedeEmpresaResponse")
-    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/listaSedeEmpresaRequest", output = "http://endpoint.siscomputo.com.co/Usuario/listaSedeEmpresaResponse")
-    public ObjetoRetornaEntity listaSedeEmpresa();
-
-    /**
-     * 
-     * @return
-     *     returns java.util.List<co.com.siscomputo.endpoint.ListaAsignaPermisosModulo>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "listaPermisosDisponibles", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaPermisosDisponibles")
-    @ResponseWrapper(localName = "listaPermisosDisponiblesResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaPermisosDisponiblesResponse")
-    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/listaPermisosDisponiblesRequest", output = "http://endpoint.siscomputo.com.co/Usuario/listaPermisosDisponiblesResponse")
-    public List<ListaAsignaPermisosModulo> listaPermisosDisponibles();
-
-    /**
-     * 
-     * @param idUsuario
-     * @return
-     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "listaPermisosFiltrados", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaPermisosFiltrados")
-    @ResponseWrapper(localName = "listaPermisosFiltradosResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaPermisosFiltradosResponse")
-    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/listaPermisosFiltradosRequest", output = "http://endpoint.siscomputo.com.co/Usuario/listaPermisosFiltradosResponse")
-    public ObjetoRetornaEntity listaPermisosFiltrados(
-        @WebParam(name = "idUsuario", targetNamespace = "")
-        int idUsuario);
-
-    /**
-     * 
-     * @param idUsuario
-     * @return
-     *     returns java.util.List<co.com.siscomputo.endpoint.MenuModuloEntity>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "menuDatosporUsuario", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.MenuDatosporUsuario")
-    @ResponseWrapper(localName = "menuDatosporUsuarioResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.MenuDatosporUsuarioResponse")
-    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/menuDatosporUsuarioRequest", output = "http://endpoint.siscomputo.com.co/Usuario/menuDatosporUsuarioResponse")
-    public List<MenuModuloEntity> menuDatosporUsuario(
-        @WebParam(name = "idUsuario", targetNamespace = "")
-        int idUsuario);
-
-    /**
-     * 
-     * @param sedee
-     * @return
-     *     returns co.com.siscomputo.endpoint.SedeEmpresaEntity
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "actualizaSedeEmpresa", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizaSedeEmpresa")
-    @ResponseWrapper(localName = "actualizaSedeEmpresaResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizaSedeEmpresaResponse")
-    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/actualizaSedeEmpresaRequest", output = "http://endpoint.siscomputo.com.co/Usuario/actualizaSedeEmpresaResponse")
-    public SedeEmpresaEntity actualizaSedeEmpresa(
-        @WebParam(name = "sedee", targetNamespace = "")
-        SedeEmpresaEntity sedee);
-
-    /**
-     * 
-     * @param idPais
-     * @return
-     *     returns co.com.siscomputo.endpoint.PaisEntity
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "paisPorId", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.PaisPorId")
-    @ResponseWrapper(localName = "paisPorIdResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.PaisPorIdResponse")
-    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/paisPorIdRequest", output = "http://endpoint.siscomputo.com.co/Usuario/paisPorIdResponse")
-    public PaisEntity paisPorId(
-        @WebParam(name = "idPais", targetNamespace = "")
-        int idPais);
+    @RequestWrapper(localName = "actualizaSubProceso", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizaSubProceso")
+    @ResponseWrapper(localName = "actualizaSubProcesoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizaSubProcesoResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/actualizaSubProcesoRequest", output = "http://endpoint.siscomputo.com.co/Usuario/actualizaSubProcesoResponse")
+    public SubprocesoEntity actualizaSubProceso(
+        @WebParam(name = "subproceso", targetNamespace = "")
+        SubprocesoEntity subproceso);
 
     /**
      * 
@@ -501,45 +843,6 @@ public interface Usuario {
 
     /**
      * 
-     * @return
-     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "listaDepartameno", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaDepartameno")
-    @ResponseWrapper(localName = "listaDepartamenoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaDepartamenoResponse")
-    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/listaDepartamenoRequest", output = "http://endpoint.siscomputo.com.co/Usuario/listaDepartamenoResponse")
-    public ObjetoRetornaEntity listaDepartameno();
-
-    /**
-     * 
-     * @return
-     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "listaCiudades", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaCiudades")
-    @ResponseWrapper(localName = "listaCiudadesResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaCiudadesResponse")
-    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/listaCiudadesRequest", output = "http://endpoint.siscomputo.com.co/Usuario/listaCiudadesResponse")
-    public ObjetoRetornaEntity listaCiudades();
-
-    /**
-     * 
-     * @param ciudad
-     * @return
-     *     returns co.com.siscomputo.endpoint.CiudadEntity
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "insertarCiudad", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.InsertarCiudad")
-    @ResponseWrapper(localName = "insertarCiudadResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.InsertarCiudadResponse")
-    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/insertarCiudadRequest", output = "http://endpoint.siscomputo.com.co/Usuario/insertarCiudadResponse")
-    public CiudadEntity insertarCiudad(
-        @WebParam(name = "ciudad", targetNamespace = "")
-        CiudadEntity ciudad);
-
-    /**
-     * 
      * @param idDepto
      * @return
      *     returns co.com.siscomputo.endpoint.DepartamentoEntity
@@ -552,5 +855,143 @@ public interface Usuario {
     public DepartamentoEntity deptoPorId(
         @WebParam(name = "idDepto", targetNamespace = "")
         int idDepto);
+
+    /**
+     * 
+     * @return
+     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "listaDepartameno", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaDepartameno")
+    @ResponseWrapper(localName = "listaDepartamenoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaDepartamenoResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/listaDepartamenoRequest", output = "http://endpoint.siscomputo.com.co/Usuario/listaDepartamenoResponse")
+    public ObjetoRetornaEntity listaDepartameno();
+
+    /**
+     * 
+     * @param usuarioMacroproceso
+     * @return
+     *     returns co.com.siscomputo.endpoint.UsuarioMacroprocesoEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "actualizarusuarioMacroproceso", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarusuarioMacroproceso")
+    @ResponseWrapper(localName = "actualizarusuarioMacroprocesoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarusuarioMacroprocesoResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/actualizarusuarioMacroprocesoRequest", output = "http://endpoint.siscomputo.com.co/Usuario/actualizarusuarioMacroprocesoResponse")
+    public UsuarioMacroprocesoEntity actualizarusuarioMacroproceso(
+        @WebParam(name = "usuarioMacroproceso", targetNamespace = "")
+        UsuarioMacroprocesoEntity usuarioMacroproceso);
+
+    /**
+     * 
+     * @return
+     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "listaUsuarioMacroproceso", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaUsuarioMacroproceso")
+    @ResponseWrapper(localName = "listaUsuarioMacroprocesoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaUsuarioMacroprocesoResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/listaUsuarioMacroprocesoRequest", output = "http://endpoint.siscomputo.com.co/Usuario/listaUsuarioMacroprocesoResponse")
+    public ObjetoRetornaEntity listaUsuarioMacroproceso();
+
+    /**
+     * 
+     * @param usuarioProceso
+     * @return
+     *     returns co.com.siscomputo.endpoint.UsuarioProcesoEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "ingresarUsuarioProcesos", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.IngresarUsuarioProcesos")
+    @ResponseWrapper(localName = "ingresarUsuarioProcesosResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.IngresarUsuarioProcesosResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/ingresarUsuarioProcesosRequest", output = "http://endpoint.siscomputo.com.co/Usuario/ingresarUsuarioProcesosResponse")
+    public UsuarioProcesoEntity ingresarUsuarioProcesos(
+        @WebParam(name = "UsuarioProceso", targetNamespace = "")
+        UsuarioProcesoEntity usuarioProceso);
+
+    /**
+     * 
+     * @param usuarioProceso
+     * @return
+     *     returns co.com.siscomputo.endpoint.UsuarioProcesoEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "actualizarUsuarioProceso", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarUsuarioProceso")
+    @ResponseWrapper(localName = "actualizarUsuarioProcesoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarUsuarioProcesoResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/actualizarUsuarioProcesoRequest", output = "http://endpoint.siscomputo.com.co/Usuario/actualizarUsuarioProcesoResponse")
+    public UsuarioProcesoEntity actualizarUsuarioProceso(
+        @WebParam(name = "usuarioProceso", targetNamespace = "")
+        UsuarioProcesoEntity usuarioProceso);
+
+    /**
+     * 
+     * @return
+     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "listausuarioProcesos", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListausuarioProcesos")
+    @ResponseWrapper(localName = "listausuarioProcesosResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListausuarioProcesosResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/listausuarioProcesosRequest", output = "http://endpoint.siscomputo.com.co/Usuario/listausuarioProcesosResponse")
+    public ObjetoRetornaEntity listausuarioProcesos();
+
+    /**
+     * 
+     * @param usuarioSubproceso
+     * @return
+     *     returns co.com.siscomputo.endpoint.UsuarioSubprocesoEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "ingresarUsuarioSubproceso", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.IngresarUsuarioSubproceso")
+    @ResponseWrapper(localName = "ingresarUsuarioSubprocesoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.IngresarUsuarioSubprocesoResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/ingresarUsuarioSubprocesoRequest", output = "http://endpoint.siscomputo.com.co/Usuario/ingresarUsuarioSubprocesoResponse")
+    public UsuarioSubprocesoEntity ingresarUsuarioSubproceso(
+        @WebParam(name = "UsuarioSubproceso", targetNamespace = "")
+        UsuarioSubprocesoEntity usuarioSubproceso);
+
+    /**
+     * 
+     * @param usuarioSubproceso
+     * @return
+     *     returns co.com.siscomputo.endpoint.UsuarioSubprocesoEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "actualizarUsuarioSubproceso", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarUsuarioSubproceso")
+    @ResponseWrapper(localName = "actualizarUsuarioSubprocesoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarUsuarioSubprocesoResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/actualizarUsuarioSubprocesoRequest", output = "http://endpoint.siscomputo.com.co/Usuario/actualizarUsuarioSubprocesoResponse")
+    public UsuarioSubprocesoEntity actualizarUsuarioSubproceso(
+        @WebParam(name = "UsuarioSubproceso", targetNamespace = "")
+        UsuarioSubprocesoEntity usuarioSubproceso);
+
+    /**
+     * 
+     * @return
+     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "listaUsuarioSubproceso", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaUsuarioSubproceso")
+    @ResponseWrapper(localName = "listaUsuarioSubprocesoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaUsuarioSubprocesoResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/listaUsuarioSubprocesoRequest", output = "http://endpoint.siscomputo.com.co/Usuario/listaUsuarioSubprocesoResponse")
+    public ObjetoRetornaEntity listaUsuarioSubproceso();
+
+    /**
+     * 
+     * @param rolPermiso
+     * @return
+     *     returns co.com.siscomputo.endpoint.RolPermisoEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "ingresarRolPermiso", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.IngresarRolPermiso")
+    @ResponseWrapper(localName = "ingresarRolPermisoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.IngresarRolPermisoResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Usuario/ingresarRolPermisoRequest", output = "http://endpoint.siscomputo.com.co/Usuario/ingresarRolPermisoResponse")
+    public RolPermisoEntity ingresarRolPermiso(
+        @WebParam(name = "RolPermiso", targetNamespace = "")
+        RolPermisoEntity rolPermiso);
 
 }

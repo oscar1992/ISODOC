@@ -15,6 +15,7 @@
                     <div class="prueba" style="color: white; ">
                         <p:growl id="msgs" showDetail="true" life="3000"/>
                     </div>
+                    
                     <p:dataTable var="area" value="#{Areas.lista}" filteredValue="#{Areas.listaFiltro}" reflow="true" widgetVar="TablaAreas"
                                  id="tablaAreas" selectionMode="single" selection="#{Areas.areaObjeto}" rowKey="#{area.idArea}" class="TABLA"
                                  paginator="true" rows="7">

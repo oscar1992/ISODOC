@@ -1,0 +1,395 @@
+/*
+    Estilo de la Barra Prinicpal de los módulos
+*/
+.navbar-inverse{
+    background: #f2f2f2;
+    border: none;
+    margin-bottom: 0;
+}
+/*
+    Estilo de la Lista los Prinicpal de los módulos
+*/
+.navbar-inverse .navbar-nav>li>a{
+    font-family: Trebuchet MS;
+    color: #000000;
+    font-size: 13px;
+    padding: 5px 5px;
+    text-shadow: none;
+    max-width: 300px;
+    text-align: center;
+    
+}
+/*
+    Color del hover de la lista
+*/
+.navbar-inverse .navbar-nav>li>a:hover{
+    color: #ac2925;
+}
+/*
+    Estilo de la Barra Prinicpal de los módulos
+*/
+.titulo{
+    background: #6dc8bf;//////////////////////
+    height: 30px;
+}
+/*
+    Estilo del titulo de la selección del módulo
+*/
+.nombre{
+    padding-top: 5px;
+    color: #ffffff;
+    background: #6dc8bf;    
+    alignment-adjust: central;
+    text-align: center;
+    font-family: Trebuchet MS;
+    font-size: 18px;
+}
+
+/*
+    Estilo del hover de los iconos de los módulos
+*/
+
+.imagen:hover{    
+    background-image: url(/ISODOC/imagenes/modulos2/hover.png);
+}
+/*
+    Ubicación del titulo principal del módulo
+*/
+.imgaenTitulo{
+    float: left;    
+}
+/*
+    Estilo del botón del menú lateral
+*/
+.botonMenuLateral{
+    font-family: Trebuchet MS;
+    color: #ffffff;
+    font-size: 12px;
+    background: #6dc8bf;
+    padding: 5px 20px 5px 20px;
+    text-decoration: none;
+    text-align: left;
+    border: solid #1f628d 0px;
+    width: 100%;
+}
+/*
+    Estilo del hover del botón del menú principal
+*/
+.botonMenuLateral:hover{
+    background: #999999;
+    text-decoration: none;
+    border: solid #666666 0px;
+}
+
+
+/*
+    Estilo de la lista de los elelemtos del menú lateral
+*/
+.list-group{
+    margin:0;
+    text-decoration-color: #000000;
+    
+}
+
+/*
+    Estilo de la lista de los elelemtos del menú lateral
+*/
+.list-group>li>a{
+    margin:0;
+    color: #666666;
+   
+}
+/*
+    Estilo general de la tabla que contiene datos
+*/
+.TABLA{
+    margin:0px;padding:0px;
+    width:100%;
+    border:1px solid #7f7f7f;
+    
+}
+/*
+    Estilo general de la tabla que contiene datos y textos
+*/
+.TABLA table{
+    border-collapse: collapse;
+    border-spacing: 0;
+    width:100%;
+    height:100%;
+    margin:0px;padding:0px;
+    font-size: 12px;
+    font-family: Helvetica Neue, Trebuchet MS !important;
+
+}
+/*
+    Redondeo de la esquina inferior de la tabla
+*/
+.TABLA tr:last-child td:last-child {	
+    border-bottom-right-radius:0px;
+}
+/*
+    Redondeo de la esquina superior de la tabla
+*/
+.TABLA table tr:first-child td:first-child{
+    border-top-left-radius:3px;
+
+}
+/*
+    Estilo de la cabcera de la tabla
+*/
+.TABLA th{
+    text-decoration: #ffffff;
+    background-color: #6dc8bf;
+
+}
+/*
+    Estilo de la cabcera de la tabla
+*/
+.ui-datatable tbody td{
+    text-decoration: #ffffff;
+    padding: 1px 5px;
+
+}
+/*
+    Estilo del texto de la cabecera de la tabla
+*/
+.TABLA table thead{
+    color: white;
+}
+
+/*
+    Estilo de la cabcera de la tabla
+*/
+.ui-datatable-header{
+    background-color: #6dc8bf;
+    padding: 0px 0px;    
+}
+
+.ui-state-activate{
+    background-color: #ac2925;
+}
+
+.ui-paginator{
+    background-color: #e7e7e7;
+}
+
+.ui-paginator-first{
+    background-repeat: no-repeat;
+    background-image: url(/ISODOC/imagenes/paginador/paginadorFinalI.png);
+}
+
+.ui-paginator-prev{
+    background-repeat: no-repeat;
+    background-image: url(/ISODOC/imagenes/paginador/paginadorSiguienteI.png);
+}
+.ui-paginator-next{
+    background-repeat: no-repeat;
+    background-image: url(/ISODOC/imagenes/paginador/paginadorSiguienteD.png);
+}
+.ui-paginator-last{
+    background-repeat: no-repeat;
+    background-image: url(/ISODOC/imagenes/paginador/paginadorFinalD.png);
+}
+
+
+
+.ui-datatable .ui-column-filter{
+    background-color:  #e7e7e7;
+    height: 20px;
+    width: 100%;
+    border: none;
+    border-radius: 3px;
+    text-decoration-color: #ac2925;
+}
+
+.ui-inputfield {
+    color: #000000;
+}
+
+.botonNormal{
+    font-family: Trebuchet MS;
+    color: #ffffff;
+    font-size: 12px;
+    background: #6dc8bf;
+    font-weight: bolder;
+    text-decoration: none;
+    border: solid #1f628d 0px;
+    width: 110px;
+    border-radius: 4px;
+    height: 30px;
+
+}
+
+.botonNormal:hover{
+    background: #999999;
+    text-decoration: none;
+    border: solid #1f628d 0px;
+}
+
+
+.ui-widget-overlay{
+    background: black;
+    opacity: 0.8;
+}
+
+.ui-dialog-content{
+    border: none;
+    border-radius: 5px;
+}
+
+.ui-corner-top{
+    border-radius: 5px;
+}
+
+.ui-dialog.ui-widget-content{
+    background-color: white;
+}
+
+.ui-dialog-titlebar{
+    alignment-adjust: central;
+    font-family: Helvetica;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.ui-icon{
+    height: 16px;
+    width: 16px;
+    text-indent: -99999px;
+    overflow: hidden;
+
+}
+
+.ui-dialog-titlebar-close{
+    background-image: url(/ISODOC/imagenes/buttons/cerrar.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.ui-datatable tr.ui-state-highlight {
+    background-color: #6dc8bf;
+}
+
+.ui-datatable tr.ui-state-hover{
+    background-color: #e7e7e7;
+}
+
+.ui-growl-title{
+    background: #6dc8bf;
+    opacity: 0;
+}
+
+.ui-growl-message p{
+    background: #6dc8bf;
+    text-decoration: white;
+    text-decoration-color: #6dc8bf;
+    font-size: 15px;
+    font-weight: bolder;
+}
+
+.ui-growl-item{
+    background: #6dc8bf;
+    text-decoration: #ffffff;
+}
+
+.ui-growl-item-container {
+    font-family: Helvetica; 
+    color: #ffffff;
+}
+
+.iconoBuscar{
+    background-image: url(/ISODOC/imagenes/buttons/cerrar3.png);
+    background-repeat: no-repeat;
+    alignment-adjust: central;
+    width: 16px;
+    height: 16px;
+}
+
+.Tabla ui-button{
+    background-image: url(/ISODOC/imagenes/buttons/buscar.png);
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    
+}
+
+.ui-state-hover{
+    
+}
+
+.ui-selectonemenu{
+    border-radius: 5px;
+    background-color: #cccccc;
+    border: solid #999999;
+    border-width: 2px;
+}
+
+.ui-selectonemenu .ui-selectonemenu-label{
+    border-radius: 3px;
+    background-color: #e7e7e7;
+}
+.ui-selectonemenu-list{
+    background-color: #ffffff;
+}
+.ui-selectonemenu-list-item:hover{
+    background-color: #e7e7e7;
+}
+.ui-selectonemenu .ui-selectonemenu-trigger .ui-icon{
+    background-color: #cccccc;
+    background-image: url(/ISODOC/imagenes/buttons/flecha2.png);
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+}
+
+.ui-selectonemenu .ui-selectonemenu-trigger{
+    width: 27px;
+}
+
+
+.ui-accordion-header{
+    background-color: #999999;
+}
+
+.ui-accordion-header .ui-accordion-header{
+    background-color: #ac2925;
+}
+.ui-accordion .ui-accordion-header:hover{ 
+    background-color: #6dc8bf;
+}
+
+.table>tbody>tr>td{
+    width: 100px;
+    padding-right: 0;
+}
+
+.ui-selectmanycheckbox {
+    background-color: #999999;
+    width: 20px;
+    height: 20px;    
+}
+.ui-selectmanycheckbox .ui-state-default{
+    background-color: #ac2925;
+    width: 20px;
+    height: 20px;    
+}
+
+.ui-selectmanycheckbox:hover{
+    background-color: #0071bc;
+}
+
+.ui-chkbox-icon{
+    background-image: url(/ISODOC/imagenes/buttons/cerrar.png);
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+}
+
+.ui-panelgrid .ui-panelgrid-cell {
+    border-width: 1px;
+    border-style: solid;
+    border-color: inherit;
+    padding: 4px 10px;
+    width: 130px;
+}

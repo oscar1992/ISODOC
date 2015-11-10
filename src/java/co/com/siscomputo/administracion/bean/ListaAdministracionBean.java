@@ -5,11 +5,20 @@
  */
 package co.com.siscomputo.administracion.bean;
 
+import co.com.siscomputo.administracion.logic.AreaLogic;
 import co.com.siscomputo.administracion.logic.DepartamentoLogic;
+import co.com.siscomputo.administracion.logic.MacroProcesosLogic;
 import co.com.siscomputo.administracion.logic.PaisesLogic;
+import co.com.siscomputo.administracion.logic.ProcesosLogic;
+import co.com.siscomputo.administracion.logic.RolesLogic;
 import co.com.siscomputo.administracion.logic.SedesLogic;
+import co.com.siscomputo.endpoint.AreaEntity;
 import co.com.siscomputo.endpoint.DepartamentoEntity;
+import co.com.siscomputo.endpoint.MacroprocesosEntity;
 import co.com.siscomputo.endpoint.PaisEntity;
+import co.com.siscomputo.endpoint.ProcesosEntity;
+import co.com.siscomputo.endpoint.RolPermisoEntity;
+import co.com.siscomputo.endpoint.RolesEntity;
 import co.com.siscomputo.endpoint.SedeEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,6 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.swing.plaf.basic.BasicBorders;
 
 /**
  *
@@ -29,16 +39,27 @@ public class ListaAdministracionBean implements Serializable {
     private Map<String, Integer> listaSedes;
     private Map<String, Integer> listaPaises;
     private Map<String, Integer> listaDepartamentos;
+    private Map<String, Integer> listaRoles;
+    private Map<String, Integer> listaMacroProcesos;
+    private Map<String, Integer> listaProcesos;
+    private Map<String, Integer> listaAreas;
+    private int seleccion;
 
     @PostConstruct
-    public void init() {
-        inicaListaEstados();
-        iniciaListaSedes();
-        iniciaListaPaises();
-        iniciaListaDepartamentos();
+    public void init() {        
+        
     }
 
-    public Map<String, String> getListaEstados() {
+    public int getSeleccion() {
+        return seleccion;
+    }
+
+    public void setSeleccion(int seleccion) {
+        this.seleccion = seleccion;
+    }
+    
+    public Map<String, String> getListaEstados() {        
+        inicaListaEstados();
         return listaEstados;
     }
 
@@ -49,11 +70,11 @@ public class ListaAdministracionBean implements Serializable {
     public void inicaListaEstados() {
         listaEstados = new HashMap<String, String>();
         listaEstados.put("Activo", "A");
-        listaEstados.put("Eliminado", "E");
         listaEstados.put("Inactivo", "I");
     }
 
     public Map<String, Integer> getListaSedes() {
+        iniciaListaSedes();
         return listaSedes;
     }
 
@@ -71,6 +92,7 @@ public class ListaAdministracionBean implements Serializable {
     }
 
     public Map<String, Integer> getListaPaises() {
+        iniciaListaPaises();
         return listaPaises;
     }
 
@@ -88,6 +110,7 @@ public class ListaAdministracionBean implements Serializable {
     }
 
     public Map<String, Integer> getListaDepartamentos() {
+        iniciaListaDepartamentos();
         return listaDepartamentos;
     }
 
@@ -101,6 +124,78 @@ public class ListaAdministracionBean implements Serializable {
         ArrayList<DepartamentoEntity>listaDeptosWS=departamentoLogic.listaDepartamentos();
         for(DepartamentoEntity item: listaDeptosWS){
             listaDepartamentos.put(item.getNombreDepartamento(), item.getIdDepartamento());
+        }
+    }
+
+    public Map<String, Integer> getListaRoles() {
+        iniciarListaRoles();
+        return listaRoles;
+    }
+
+    public void setListaRoles(Map<String, Integer> listaRoles) {
+        this.listaRoles = listaRoles;
+    }
+    
+    public void iniciarListaRoles(){
+        listaRoles=new HashMap<String, Integer>();
+        RolesLogic rolesLogic=new RolesLogic();
+        ArrayList<RolesEntity>listaRolPermisoWS=rolesLogic.listaRoles();
+        for(RolesEntity rol:listaRolPermisoWS){
+            listaRoles.put(rol.getNombreRol(), rol.getIdRol());
+        }
+    }
+
+    public Map<String, Integer> getListaMacroProcesos() {
+        iniciarMacroProcesos();
+        return listaMacroProcesos;
+    }
+
+    public void setListamacroProcesos(Map<String, Integer> listamacroProcesos) {
+        this.listaMacroProcesos = listamacroProcesos;
+    }
+    
+    public void iniciarMacroProcesos(){
+        listaMacroProcesos=new HashMap<String, Integer>();
+        MacroProcesosLogic macroProcesosLogic=new MacroProcesosLogic();
+        ArrayList<MacroprocesosEntity>listaMecroProcesosWS=macroProcesosLogic.listaMacroprocesos();
+        for(MacroprocesosEntity macro:listaMecroProcesosWS){
+            listaMacroProcesos.put(macro.getNombreMacroproceso(), macro.getIdMacroproceso());
+        }
+    }
+
+    public Map<String, Integer> getListaProcesos() {
+        iniciarProcesos();
+        return listaProcesos;
+    }
+
+    public void setListaProcesos(Map<String, Integer> listaProcesos) {
+        this.listaProcesos = listaProcesos;
+    }
+    
+    public void iniciarProcesos(){
+        listaProcesos=new HashMap<String, Integer>();
+        ProcesosLogic procesosLogic=new ProcesosLogic();
+        ArrayList<ProcesosEntity>listaProcesosWS=procesosLogic.listaProcesos();
+        for(ProcesosEntity proceso:listaProcesosWS){
+            listaProcesos.put(proceso.getNombrePreoceso(), proceso.getIdProcesos());
+        }
+    }
+
+    public Map<String, Integer> getListaAreas() {
+        iniciarAreas();
+        return listaAreas;
+    }
+
+    public void setListaAreas(Map<String, Integer> listaAreas) {
+        this.listaAreas = listaAreas;
+    }
+    
+    public void iniciarAreas(){
+        listaAreas=new HashMap<String, Integer>();
+        AreaLogic areaLogic=new AreaLogic();
+        ArrayList<AreaEntity>listaAreasWS=areaLogic.listaAreas();
+        for(AreaEntity area:listaAreasWS){
+            listaAreas.put(area.getNombreArea(), area.getIdArea());
         }
     }
 }

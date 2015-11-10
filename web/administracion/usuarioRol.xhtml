@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition template="/plantillas/PlantillaAdministracion.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form id="UsuarioRol">
+                    <p:panelGrid columns="1">
+
+                        <p:dataTable var="usuario" value="#{Usuario.list}" filteredValue="#{Usuario.listfiltro}" editable="true" 
+                                     reflow="true" widgetVar="TablaUsuarios" id="tablaUsuarios" 
+                                     selectionMode="single" selection="#{Usuario.usuarioObjeto}" rowKey="#{usuario.idUsuario}"
+                                     class="TABLA" paginator="true" rows="7">        
+                            <p:outputPanel class="facet">
+                                <f:facet name="header" >
+                                    <h:outputText value="USUARIOS" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                                    <p:inputText id="globalFilter" onkeyup="PF('TablaUsuarios').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                                    <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                                </f:facet> 
+                            </p:outputPanel>
+                            <p:ajax event="rowSelect" listener="#{UsuarioRol.onRowSelect2}" update=":UsuarioRol:listaUsuarioRol"/>
+                            <p:column headerText="Nombre" filterBy="#{usuario.nombre}">                                                        
+                                <h:outputText value="#{usuario.nombre}"/>                                      
+                            </p:column>
+                        </p:dataTable>
+                        <p:dataTable var="area" value="#{Areas.lista}" filteredValue="#{Areas.listaFiltro}" editable="true" 
+                                     reflow="true" widgetVar="TablaAreas" id="tablaUsuariosAreas" 
+                                     selectionMode="single" selection="#{Areas.areaObjeto}" rowKey="#{area.idArea}"
+                                     class="TABLA" paginator="true" rows="7">        
+                            <p:outputPanel class="facet">
+                                <f:facet name="header" >
+                                    <h:outputText value="AREAS" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                                    <p:inputText id="globalFilter" onkeyup="PF('TablaAreas').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                                    <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                                </f:facet> 
+                            </p:outputPanel>
+                            <p:ajax event="rowSelect" listener="#{UsuarioRol.onRowSelect3}" update=":UsuarioRol:listaUsuarioRol"/>
+                            <p:column headerText="Area" filterBy="#{area.nombreArea}">                                                        
+                                <h:outputText value="#{area.nombreArea}"/>                                      
+                            </p:column>
+                        </p:dataTable>
+                        
+                        <p:pickList id="listaUsuarioRol" value="#{UsuarioRol.roles}" var="usuRol" itemLabel="#{usuRol}" itemValue="#{usuRol}">
+                            <f:facet name="sourceCaption">Roles Disponibles</f:facet>
+                            <f:facet name="targetCaption">Roles del Usuario</f:facet>
+                        </p:pickList>
+                        
+                        <p:commandButton value="Insertar" actionListener="#{UsuarioRol.ingresarUsuarioRol}" update=":UsuarioRol" class="botonNormal"  ></p:commandButton>
+                    </p:panelGrid>
+                    
+                </h:form>
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>

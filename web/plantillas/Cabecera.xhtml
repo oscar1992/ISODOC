@@ -44,10 +44,10 @@ and open the template in the editor.
                                 </div>
                             </div>
                             <div class="collapse navbar-collapse" id="myNavbar2">
-                                <ul class="nav navbar-nav" style="position: relative;left: 130px; ">
+                                <ul class="nav navbar-nav" style="position: relative;left: 0px; ">
                                     <li class="list-group">
                                         <p:commandLink  update="form:lab" actionListener="#{Menus.setIdModulo(-1)}" action="/inicio/principal" ajax="false" style="text-decoration-color: #000">
-                                            <h:graphicImage value="/imagenes/modulos/inicio.png"/>
+                                            <h:graphicImage value="/imagenes/modulos#{Menus.numeroModulo}/inicio.png"/>
                                         </p:commandLink>
                                     </li>
                                     <ui:repeat value="#{Menus.menu}" var="modulo">
@@ -56,7 +56,7 @@ and open the template in the editor.
                                                 <h:graphicImage value="#{modulo.rutaIcono}" class="imagen"/>
                                             </p:commandLink>
                                             <div style="alignment-adjust: central; text-align: center; width: 80px; line-height: 0.8;;">
-                                            <h:outputText style="font-size: 12px;" value="#{modulo.nombre}"></h:outputText>
+                                            <h:outputText style="font-size: 12px;" value=""></h:outputText>
                                             </div>
                                         </li>
                                     </ui:repeat>
@@ -98,7 +98,7 @@ and open the template in the editor.
                                                             </h:outputLink>
                                                             <ul>
                                                                 <ui:repeat var="permisoListaN2" value="#{permisoListaN1.subNivel}">
-                                                                    <li>
+                                                                    <li >
                                                                         <h:outputLink value="#{permisoListaN2.ruta}" >
                                                                             <p:outputLabel value="#{permisoListaN2.nombrePermiso}"></p:outputLabel>
                                                                         </h:outputLink>
@@ -116,10 +116,10 @@ and open the template in the editor.
                         </nav>
                     </h:form>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " style="width: 100%; height: 20px; background-color: #999999; ">
-                    <h:outputText value="Usuario Actual: #{Menus.usuarioActual.nombre} #{Menus.usuarioActual.apellido}" style="float: left; padding-left: 20px"></h:outputText>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " style="width: 100%; height: 20px; background-color: #f2f2f2; border-top: solid #999999; border-bottom: solid #999999; border-width: 1px">
+                    <h:outputText value="Usuario Actual: #{Menus.usuarioActual.nombre} #{Menus.usuarioActual.apellido}" style="float: left; padding-left: 20px;font-family: Trebuchet MS;"></h:outputText>
                     <h:form>
-                    <p:commandLink value="Cerrar" actionListener="#{Acceso.cerrarSesion()}" action="/index" style="float: right; text-decoration-color: #FFF; padding-right: 20px;"/>
+                    <p:commandLink value="Cerrar" actionListener="#{Acceso.cerrarSesion()}" action="/index" style="float: right; text-decoration-color: #FFF; padding-right: 20px;font-family: Trebuchet MS;"/>
                     </h:form>
                 </div>
             </ui:insert>

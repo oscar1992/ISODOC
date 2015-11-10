@@ -200,6 +200,6 @@ public class DepartamentoBean {
         PaisEntity pais = new PaisEntity();
         pais.setIdPais(-1);
         departamentoObjeto.setIdPais(pais);
-        System.out.println("NULEA: " + departamentoObjeto.getNombreDepartamento());
+        //System.out.println("NULEA: " + departamentoObjeto.getNombreDepartamento());
     }
 }

@@ -6,6 +6,7 @@
 package co.com.siscomputo.administracion.logic;
 
 import co.com.siscomputo.endpoint.ListaAsignaPermisosModulo;
+import co.com.siscomputo.endpoint.RolPermisoEntity;
 import co.com.siscomputo.endpoint.Usuario;
 import co.com.siscomputo.endpoint.Usuario_Service;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class PermisosDisponiblesLogic {
     private Usuario_Service webService;
     private Usuario port;
     private List permisosDisponibles;
+    
     
     /**
      * Funcion con la cual inicializo el service y el port de los WebServices
@@ -43,11 +45,31 @@ public class PermisosDisponiblesLogic {
     public void cargaListaPermisosDisponible(){
         permisosDisponibles=port.listaPermisosDisponibles();
     }
-    
+    /**
+     * Método que retorna los permisos dsiponibles en el sistema
+     * @return 
+     */
     public ArrayList<ListaAsignaPermisosModulo>listaPermisosDisponibles(){
         webService();
         ArrayList<ListaAsignaPermisosModulo> lista=new ArrayList<>();
         lista=(ArrayList<ListaAsignaPermisosModulo>)port.listaPermisosDisponibles();
+        return lista;
+    }
+    /**
+     * Método que conulta los permisos disponibles por Rol
+     * @param idRol
+     * @return 
+     */
+    public ArrayList<RolPermisoEntity> listaRolPermiso(int idRol){
+        
+        webService();
+        ArrayList<RolPermisoEntity> lista=new ArrayList<>();
+        ArrayList<Object> listaObjeto=(ArrayList<Object>) port.listaRolPermiso(idRol).getRetorna();
+        for(Object obj:listaObjeto){
+            RolPermisoEntity rolPermisosEntity=(RolPermisoEntity) obj;
+            //System.out.println("PER: "+rolPermisosEntity.getIdPermiso().getNombrePermiso());
+            lista.add(rolPermisosEntity);
+        }
         return lista;
     }
 }

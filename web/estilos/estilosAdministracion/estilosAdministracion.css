@@ -2,7 +2,7 @@
     Estilo de la Barra Prinicpal de los módulos
 */
 .navbar-inverse{
-    background: #e7e7e7;
+    background: #f2f2f2;
     border: none;
     margin-bottom: 0;
 }
@@ -10,8 +10,8 @@
     Estilo de la Lista los Prinicpal de los módulos
 */
 .navbar-inverse .navbar-nav>li>a{
-    font-family: Helvetica, Arial, sans-serif;
-    color: #777;
+    font-family: Trebuchet MS;
+    color: #000000;
     font-size: 13px;
     padding: 5px 5px;
     text-shadow: none;
@@ -23,13 +23,13 @@
     Color del hover de la lista
 */
 .navbar-inverse .navbar-nav>li>a:hover{
-    color: #000000;
+    color: #ac2925;
 }
 /*
     Estilo de la Barra Prinicpal de los módulos
 */
 .titulo{
-    background: #b0b0b0;
+    background: #666666; /////////////////////////////
     height: 30px;
 }
 /*
@@ -38,10 +38,10 @@
 .nombre{
     padding-top: 5px;
     color: #ffffff;
-    background: #b0b0b0;    
+    background: #666666;    
     alignment-adjust: central;
     text-align: center;
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: Trebuchet MS;
     font-size: 18px;
 }
 
@@ -50,7 +50,7 @@
 */
 
 .imagen:hover{    
-    background-image: url(/ISODOC/imagenes/modulos/hover.png);
+    background-image: url(/ISODOC/imagenes/modulos2/hover.png);
 }
 /*
     Ubicación del titulo principal del módulo
@@ -62,12 +62,13 @@
     Estilo del botón del menú lateral
 */
 .botonMenuLateral{
-    font-family: Arial;
+    font-family: Trebuchet MS;
     color: #ffffff;
     font-size: 12px;
-    background: #b0b0b0;
-    padding: 10px 20px 10px 20px;
+    background: #666666;
+    padding: 5px 20px 5px 20px;
     text-decoration: none;
+    text-align: left;
     border: solid #1f628d 0px;
     width: 100%;
 }
@@ -77,13 +78,26 @@
 .botonMenuLateral:hover{
     background: #999999;
     text-decoration: none;
-    border: solid #1f628d 0px;
+    border: solid #666666 0px;
 }
+
+
 /*
     Estilo de la lista de los elelemtos del menú lateral
 */
 .list-group{
-    margin: 0%;
+    margin:0;
+    text-decoration-color: #000000;
+    
+}
+
+/*
+    Estilo de la lista de los elelemtos del menú lateral
+*/
+.list-group>li>a{
+    margin:0;
+    color: #666666;
+   
 }
 /*
     Estilo general de la tabla que contiene datos
@@ -104,7 +118,7 @@
     height:100%;
     margin:0px;padding:0px;
     font-size: 12px;
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif !important;
+    font-family: Helvetica Neue, Trebuchet MS !important;
 
 }
 /*
@@ -125,7 +139,15 @@
 */
 .TABLA th{
     text-decoration: #ffffff;
-    background-color: #b0b0b0;
+    background-color: #666666;
+
+}
+/*
+    Estilo de la cabcera de la tabla
+*/
+.ui-datatable tbody td{
+    text-decoration: #ffffff;
+    padding: 1px 5px;
 
 }
 /*
@@ -139,7 +161,7 @@
     Estilo de la cabcera de la tabla
 */
 .ui-datatable-header{
-    background-color: #b0b0b0;
+    background-color: #666666;
     padding: 0px 0px;    
 }
 
@@ -185,14 +207,14 @@
 }
 
 .botonNormal{
-    font-family: Arial;
+    font-family: Trebuchet MS;
     color: #ffffff;
     font-size: 12px;
-    background: #b0b0b0;
+    background: #666666;
     font-weight: bolder;
     text-decoration: none;
     border: solid #1f628d 0px;
-    width: 100px;
+    width: 110px;
     border-radius: 4px;
     height: 30px;
 
@@ -246,7 +268,7 @@
 }
 
 .ui-datatable tr.ui-state-highlight {
-    background-color: #b0b0b0;
+    background-color: #666666;
 }
 
 .ui-datatable tr.ui-state-hover{
@@ -254,12 +276,12 @@
 }
 
 .ui-growl-title{
-    background: #b0b0b0;
+    background: #666666;
     opacity: 0;
 }
 
 .ui-growl-message p{
-    background: #b0b0b0;
+    background: #666666;
     text-decoration: white;
     text-decoration-color: #dca05c;
     font-size: 15px;
@@ -267,7 +289,7 @@
 }
 
 .ui-growl-item{
-    background: #b0b0b0;
+    background: #666666;
     text-decoration: #ffffff;
 }
 
@@ -277,10 +299,11 @@
 }
 
 .iconoBuscar{
-    background-image: url(/ISODOC/imagenes/buttons/buscar.png);
+    background-image: url(/ISODOC/imagenes/buttons/cerrar3.png);
     background-repeat: no-repeat;
-    width: 20px;
-    height: 20px;
+    alignment-adjust: central;
+    width: 16px;
+    height: 16px;
 }
 
 .Tabla ui-button{
@@ -295,22 +318,34 @@
     
 }
 
-.ui-selectonemenu .ui-selectonemenu-label{
+.ui-selectonemenu{
+    border-radius: 5px;
     background-color: #cccccc;
+    border: solid #999999;
+    border-width: 2px;
+}
+
+.ui-selectonemenu .ui-selectonemenu-label{
+    border-radius: 3px;
+    background-color: #e7e7e7;
 }
 .ui-selectonemenu-list{
-    background-color: #cccccc;
+    background-color: #ffffff;
 }
 .ui-selectonemenu-list-item:hover{
-    background-color: #7f7f7f;
+    background-color: #e7e7e7;
 }
 .ui-selectonemenu .ui-selectonemenu-trigger .ui-icon{
-    background-image: url(/ISODOC/imagenes/buttons/buscar.png);
+    background-color: #cccccc;
+    background-image: url(/ISODOC/imagenes/buttons/flecha2.png);
     background-repeat: no-repeat;
     width: 20px;
     height: 20px;
 }
 
+.ui-selectonemenu .ui-selectonemenu-trigger{
+    width: 27px;
+}
 
 
 .ui-accordion-header{
@@ -321,10 +356,71 @@
     background-color: #ac2925;
 }
 .ui-accordion .ui-accordion-header:hover{ 
-    background-color: #b0b0b0;
+    background-color: #666666;
 }
 
 .table>tbody>tr>td{
     width: 100px;
     padding-right: 0;
+}
+
+.ui-selectmanycheckbox {
+    background-color: #999999;
+    width: 20px;
+    height: 20px;    
+}
+.ui-selectmanycheckbox .ui-state-default{
+    background-color: #ac2925;
+    width: 20px;
+    height: 20px;    
+}
+
+.ui-selectmanycheckbox:hover{
+    background-color: #0071bc;
+}
+
+.ui-chkbox-icon{
+    background-image: url(/ISODOC/imagenes/buttons/cerrar.png);
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+}
+
+.ui-panelgrid .ui-panelgrid-cell {
+    border-width: 1px;
+    border-style: solid;
+    border-color: inherit;
+    padding: 4px 10px;
+    width: 130px;
+}
+
+.ui-picklist .ui-picklist-list{
+    background-color: #cccccc;
+    border-radius: 5px;
+    border: solid #666666;
+}
+
+.ui-picklist-button-add-all{
+    background-image: url(/ISODOC/imagenes/buttons/flecha2.png);
+    background-repeat: no-repeat;
+    width: 26px;
+    height: 26px;
+}
+.ui-picklist-button-remove-all{
+    background-image: url(/ISODOC/imagenes/buttons/flecha2.png);
+    background-repeat: no-repeat;
+    width: 26px;
+    height: 26px;
+}
+.ui-picklist-button-add{
+    background-image: url(/ISODOC/imagenes/buttons/flecha2.png);
+    background-repeat: no-repeat;
+    width: 26px;
+    height: 26px;
+}
+.ui-picklist-button-remove{
+    background-image: url(/ISODOC/imagenes/buttons/flecha2.png);
+    background-repeat: no-repeat;
+    width: 26px;
+    height: 26px;
 }

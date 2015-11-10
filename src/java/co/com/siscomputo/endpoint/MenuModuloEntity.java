@@ -1,19 +1,22 @@
-
 package co.com.siscomputo.endpoint;
 
+import co.com.siscomputo.administracion.bean.MenuBean;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.context.FacesContext;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Clase Java para menuModuloEntity complex type.
- * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ * <p>
+ * Clase Java para menuModuloEntity complex type.
+ *
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que
+ * haya en esta clase.
+ *
  * <pre>
  * &lt;complexType name="menuModuloEntity">
  *   &lt;complexContent>
@@ -33,8 +36,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "menuModuloEntity", propOrder = {
@@ -63,11 +66,9 @@ public class MenuModuloEntity {
 
     /**
      * Obtiene el valor de la propiedad estado.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is {@link String }
+     *
      */
     public String getEstado() {
         return estado;
@@ -75,11 +76,9 @@ public class MenuModuloEntity {
 
     /**
      * Define el valor de la propiedad estado.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is {@link String }
+     *
      */
     public void setEstado(String value) {
         this.estado = value;
@@ -87,7 +86,7 @@ public class MenuModuloEntity {
 
     /**
      * Obtiene el valor de la propiedad idActualizador.
-     * 
+     *
      */
     public int getIdActualizador() {
         return idActualizador;
@@ -95,7 +94,7 @@ public class MenuModuloEntity {
 
     /**
      * Define el valor de la propiedad idActualizador.
-     * 
+     *
      */
     public void setIdActualizador(int value) {
         this.idActualizador = value;
@@ -103,7 +102,7 @@ public class MenuModuloEntity {
 
     /**
      * Obtiene el valor de la propiedad idCreador.
-     * 
+     *
      */
     public int getIdCreador() {
         return idCreador;
@@ -111,7 +110,7 @@ public class MenuModuloEntity {
 
     /**
      * Define el valor de la propiedad idCreador.
-     * 
+     *
      */
     public void setIdCreador(int value) {
         this.idCreador = value;
@@ -119,7 +118,7 @@ public class MenuModuloEntity {
 
     /**
      * Obtiene el valor de la propiedad idModulo.
-     * 
+     *
      */
     public int getIdModulo() {
         return idModulo;
@@ -127,7 +126,7 @@ public class MenuModuloEntity {
 
     /**
      * Define el valor de la propiedad idModulo.
-     * 
+     *
      */
     public void setIdModulo(int value) {
         this.idModulo = value;
@@ -135,11 +134,9 @@ public class MenuModuloEntity {
 
     /**
      * Obtiene el valor de la propiedad nombre.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is {@link String }
+     *
      */
     public String getNombre() {
         return nombre;
@@ -147,11 +144,9 @@ public class MenuModuloEntity {
 
     /**
      * Define el valor de la propiedad nombre.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is {@link String }
+     *
      */
     public void setNombre(String value) {
         this.nombre = value;
@@ -159,7 +154,7 @@ public class MenuModuloEntity {
 
     /**
      * Obtiene el valor de la propiedad orden.
-     * 
+     *
      */
     public int getOrden() {
         return orden;
@@ -167,7 +162,7 @@ public class MenuModuloEntity {
 
     /**
      * Define el valor de la propiedad orden.
-     * 
+     *
      */
     public void setOrden(int value) {
         this.orden = value;
@@ -175,23 +170,37 @@ public class MenuModuloEntity {
 
     /**
      * Obtiene el valor de la propiedad rutaIcono.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is {@link String }
+     *
      */
     public String getRutaIcono() {
-        return rutaIcono;
+        return rutaIconoCambio(rutaIcono);
+        //return rutaIcono;
+    }
+
+    public String rutaIconoCambio(String ruta) {
+        try {
+            int numeroModulo=0;
+            try {
+                numeroModulo = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("numeroModulo");
+            } catch (Exception e) {
+                numeroModulo = -1;
+            }
+            String modulos = "modulos" + numeroModulo;
+            String rte = ruta.replace("modulos2", modulos);
+            //System.out.println("RUTA: " + rte);
+            return rte;
+        } catch (Exception e) {
+            return ruta;
+        }
     }
 
     /**
      * Define el valor de la propiedad rutaIcono.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is {@link String }
+     *
      */
     public void setRutaIcono(String value) {
         this.rutaIcono = value;
@@ -199,11 +208,9 @@ public class MenuModuloEntity {
 
     /**
      * Obtiene el valor de la propiedad rutaModulo.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is {@link String }
+     *
      */
     public String getRutaModulo() {
         return rutaModulo;
@@ -211,11 +218,9 @@ public class MenuModuloEntity {
 
     /**
      * Define el valor de la propiedad rutaModulo.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is {@link String }
+     *
      */
     public void setRutaModulo(String value) {
         this.rutaModulo = value;
@@ -223,25 +228,25 @@ public class MenuModuloEntity {
 
     /**
      * Gets the value of the subNivel property.
-     * 
+     *
      * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the subNivel property.
-     * 
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the subNivel property.
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getSubNivel().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link MenuPermisosEntity }
-     * 
-     * 
+     *
+     *
      */
     public List<MenuPermisosEntity> getSubNivel() {
         if (subNivel == null) {

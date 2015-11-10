@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition template="/plantillas/PlantillaAdministracion.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form id="SubprocesosForm">
+                    <div class="prueba" style="color: white; ">
+                        <p:growl id="msgs" showDetail="true" life="3000"/>
+                    </div>
+                    <p:dataTable var="subproceso" value="#{Subprocesos.listaSubproceso}" reflow="true" widgetVar="TablaSubprocesos" id="tablaSubprocesos" selectionMode="single"
+                                 selection="#{Subprocesos.subProcesoObjeto}" rowKey="#{subproceso.idSubproceso}" class="TABLA" paginator="true" rows="7">
+                        <p:ajax event="rowSelect" listener="#{Subprocesos.onRowSelect}" update=":SubprocesosForm:msgs,:ActualizarModal:actualizarSubprocesosModal" oncomplete="PF('actualizarSubprocesos').show()"/>
+                        <f:facet name="header">
+                            <h:outputText value="CONSULTA DE SUBPROCESOS" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                            <p:inputText id="globalFilter" onkeyup="PF('TablaSubprocesos').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                            <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                        </f:facet>
+
+                        <p:column headerText="Nobre del Subproceso" filterBy="#{subproceso.nombreSubproceso}">
+                            <h:outputText value="#{subproceso.nombreSubproceso}"/>
+                        </p:column>
+                        <p:column headerText="Proceso del Subproceso" filterBy="#{subproceso.idProcesos.nombrePreoceso}">
+                            <h:outputText value="#{subproceso.idProcesos.nombrePreoceso}"/>
+                        </p:column>
+
+                        <p:column headerText="Estado del Subproceso" filterBy="#{subproceso.estadoSubproceso}">
+                            <h:outputText value="Activo" rendered="#{subproceso.estadoSubproceso == 'A'}"/>
+                            <h:outputText value="Inactivo" rendered="#{subproceso.estadoSubproceso== 'I'}"/> 
+                        </p:column>
+                        <p:column style="width: 32px;text-align: center">
+                            <p:commandButton update="EliminarModal:eliminarSubprocesosModal"  oncomplete="PF('eliminarSubprocesos').show()" class="iconoBuscar" value=" ">
+                                <f:setPropertyActionListener value="#{subproceso}" target="#{Subprocesos.subProcesoObjeto}" /> 
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                    <br/>
+                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarSubprocesos').show();" update=":SubprocesosForm:msgs" class="botonNormal"></p:commandButton>
+
+                </h:form>
+                <h:form id="IngresarModal">
+
+                    <p:dialog header="Insertar Subprocesos" widgetVar="insertarSubprocesos" modal="true" id="insertarSubprocesosModal" responsive="true">
+                        #{Subprocesos.nuveoSubproceso()};
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            <h:outputText value="Nombre del Subprocesos"></h:outputText>
+                            <p:inputText required="true" label="nombre del Subproceso" value="#{Subprocesos.subProcesoObjeto.nombreSubproceso}"/>                            
+                            <h:outputText value="Subproceso del Subprocesos"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarMacroSubproceso" value="#{Subprocesos.subProcesoObjeto.idProcesos.idProcesos}" style="width: 150px;">                                
+                                <f:selectItem itemLabel="Selecione Proceso" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaProcesos}"/>
+                            </p:selectOneMenu>
+                            <h:outputText value="Estado del Subprocesos"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresar" value="#{Subprocesos.subProcesoObjeto.estadoSubproceso}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                        <p:commandButton value="Ingresar" update=":SubprocesosForm:tablaSubprocesos,:IngresarModal:insertarSubprocesosModal,SubprocesosForm:msgs" actionListener="#{Subprocesos.ingresarSubproceso()}" validateClient="true" class="botonNormal"/>
+                    </p:dialog>
+                </h:form>
+                <h:form id="ActualizarModal">
+                    <p:dialog header="Actualizar Subprocesos" widgetVar="actualizarSubprocesos" modal="true" id="actualizarSubprocesosModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            <h:outputText value="Nombre del Subprocesos"></h:outputText>
+                            <p:inputText required="true" label="nombre del Subprocesos" value="#{Subprocesos.subProcesoObjeto.nombreSubproceso}"/>
+                            <h:outputText value="MacroSubproceso del Subprocesos"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarMacroSubproceso" value="#{Subprocesos.subProcesoObjeto.idProcesos.idProcesos}" style="width: 150px;">                                
+                                <f:selectItem itemLabel="Selecione Proceso" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaProcesos}"/>
+                            </p:selectOneMenu>
+                            <h:outputText value="Estado del Subprocesos"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresar" value="#{Subprocesos.subProcesoObjeto.estadoSubproceso}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                        <p:commandButton  value="Actualizar" update=":SubprocesosForm:tablaSubprocesos,:ActualizarModal:actualizarSubprocesosModal,SubprocesosForm:msgs" actionListener="#{Subprocesos.actualizarProceso()}" validateClient="true" class="botonNormal" />
+                    </p:dialog>
+                </h:form>
+                <h:form id="EliminarModal">
+                    <p:dialog header="Eliminar Subprocesos" widgetVar="eliminarSubprocesos" modal="true" id="eliminarSubprocesosModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:outputLabel value="Esta seguro de eliminar:"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            <p:outputLabel value="#{Subprocesos.subProcesoObjeto.nombreSubproceso}"/>
+                        </p:panelGrid>
+                        <p:commandButton value="Eliminar" update=":SubprocesosForm:tablaSubprocesos,:EliminarModal:eliminarSubprocesosModal,SubprocesosForm:msgs" actionListener="#{Subprocesos.eliminarSubproceso()}" validateClient="true" class="botonNormal" />
+
+                        <h:inputHidden value="#{Subprocesos.subProcesoObjeto.estadoSubproceso}"></h:inputHidden>
+                        <h:inputHidden value="#{Subprocesos.subProcesoObjeto.idSubproceso}"></h:inputHidden>
+                         
+                    </p:dialog>
+                </h:form>
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>

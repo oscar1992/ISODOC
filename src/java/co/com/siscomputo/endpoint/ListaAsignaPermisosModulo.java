@@ -20,9 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;extension base="{http://endpoint.siscomputo.com.co/}objetoTraza">
  *       &lt;sequence>
  *         &lt;element name="modulo" type="{http://endpoint.siscomputo.com.co/}moduloEntity" minOccurs="0"/>
- *         &lt;element name="permisoNivel1" type="{http://endpoint.siscomputo.com.co/}permisosEntity" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="permisoNivel2" type="{http://endpoint.siscomputo.com.co/}permisosEntity" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="permisoNivel3" type="{http://endpoint.siscomputo.com.co/}permisosEntity" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="permisoNivel1" type="{http://endpoint.siscomputo.com.co/}listaAsignaPermisosPermiso" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -34,9 +32,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "listaAsignaPermisosModulo", propOrder = {
     "modulo",
-    "permisoNivel1",
-    "permisoNivel2",
-    "permisoNivel3"
+    "permisoNivel1"
 })
 public class ListaAsignaPermisosModulo
     extends ObjetoTraza
@@ -44,11 +40,7 @@ public class ListaAsignaPermisosModulo
 
     protected ModuloEntity modulo;
     @XmlElement(nillable = true)
-    protected List<PermisosEntity> permisoNivel1;
-    @XmlElement(nillable = true)
-    protected List<PermisosEntity> permisoNivel2;
-    @XmlElement(nillable = true)
-    protected List<PermisosEntity> permisoNivel3;
+    protected List<ListaAsignaPermisosPermiso> permisoNivel1;
 
     /**
      * Obtiene el valor de la propiedad modulo.
@@ -92,73 +84,15 @@ public class ListaAsignaPermisosModulo
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link PermisosEntity }
+     * {@link ListaAsignaPermisosPermiso }
      * 
      * 
      */
-    public List<PermisosEntity> getPermisoNivel1() {
+    public List<ListaAsignaPermisosPermiso> getPermisoNivel1() {
         if (permisoNivel1 == null) {
-            permisoNivel1 = new ArrayList<PermisosEntity>();
+            permisoNivel1 = new ArrayList<ListaAsignaPermisosPermiso>();
         }
         return this.permisoNivel1;
-    }
-
-    /**
-     * Gets the value of the permisoNivel2 property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the permisoNivel2 property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getPermisoNivel2().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link PermisosEntity }
-     * 
-     * 
-     */
-    public List<PermisosEntity> getPermisoNivel2() {
-        if (permisoNivel2 == null) {
-            permisoNivel2 = new ArrayList<PermisosEntity>();
-        }
-        return this.permisoNivel2;
-    }
-
-    /**
-     * Gets the value of the permisoNivel3 property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the permisoNivel3 property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getPermisoNivel3().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link PermisosEntity }
-     * 
-     * 
-     */
-    public List<PermisosEntity> getPermisoNivel3() {
-        if (permisoNivel3 == null) {
-            permisoNivel3 = new ArrayList<PermisosEntity>();
-        }
-        return this.permisoNivel3;
     }
 
 }

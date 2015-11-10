@@ -1,0 +1,50 @@
+#{interceptorBean.interceptor()}
+<!--<f:event listener="#{interceptorBean.interceptor()}" type="preRenderView" />-->
+
+
+
+
+SELECT r FROM RolesEntity r, UsuarioRolEntity ure, UsuarioEntity u WHERE ure.rol=r AND ure.usuario=u AND u.idUsuario=2
+SELECT p FROM PermisosEntity p, ModuloEntity m, RolPermisoEntity rpe, RolesEntity r, UsuarioRolEntity ure, UsuarioEntity u WHERE p.id_modulo=m AND m.id_modulo=0 AND p.asociadoNivel=2 AND p.asociadoMenu=12 AND rpe.id_permiso=p AND ure.rol=r AND ure.usuario=u AND u.idUsuario=1
+SELECT p FROM RolesEntity r, UsuarioRolEntity ure, UsuarioEntity u, RolPermisoEntity rpe, PermisosEntity p, ModuloEntity m  WHERE ure.rol=r AND ure.usuario=u AND u.idUsuario=2 AND p.asociadoNivel=2 AND m.id_modulo=0 AND rpe.id_rol=r AND rpe.id_permiso=p
+
+
+ListaAsignaPermisosModulo objLista = new ListaAsignaPermisosModulo();
+                Query query1 = sesion.createQuery("FROM ModuloEntity");
+                ArrayList<ModuloEntity> listaModulos = new ArrayList<>();
+                listaModulos = (ArrayList<ModuloEntity>) query1.list();
+                if (listaModulos != null) {                    
+                    ArrayList<PermisosEntity> listan1=new ArrayList<>();
+                    for (ModuloEntity item1 : listaModulos) {
+                        objLista=new ListaAsignaPermisosModulo();
+                        objLista.setModulo(item1);
+                        Query query2=sesion.createQuery("SELECT p FROM PermisosEntity p WHERE p.asociadoMenu=0 AND p.asociadoNivel=1 AND p.id_modulo=:modulo");                        
+                        query2.setParameter("modulo", item1);
+                        listan1=(ArrayList<PermisosEntity>)query2.list();
+                        ArrayList<PermisosEntity> listan2=new ArrayList<>();
+                        for(PermisosEntity item2: listan1){
+                            System.out.println("N1: "+item2.getNombre_permiso()+" - "+item2.getId_permiso());
+                            Query query3=sesion.createQuery("SELECT p FROM PermisosEntity p WHERE p.asociadoMenu=:asociado AND p.asociadoNivel=2 AND p.id_modulo=:modulo");
+                            query3.setParameter("modulo", item1);
+                            query3.setParameter("asociado", item2.getId_permiso());
+                            listan2.addAll((ArrayList<PermisosEntity>)query3.list());
+                            ArrayList<PermisosEntity> listan3=new ArrayList<>();
+                            for(PermisosEntity item3: listan2){
+                                System.out.println("listaN2: "+item3.getNombre_permiso());
+                                Query query4=sesion.createQuery("SELECT p FROM PermisosEntity p WHERE p.asociadoMenu=:asociado AND p.asociadoNivel=3 AND p.id_modulo=:modulo");
+                                query4.setParameter("modulo", item1);
+                                query4.setParameter("asociado", item3.getId_permiso());
+                                listan3.addAll((ArrayList<PermisosEntity>)query4.list());
+                                for(PermisosEntity item4: listan3){
+                                    System.out.println("listan3: "+item4.getNombre_permiso());
+                                }
+                                objLista.setPermisoNivel3(listan3);
+                            }
+                            objLista.setPermisoNivel2(listan2);
+                        }
+                        objLista.setPermisoNivel1(listan1);
+                        listaRetorna.add(objLista);
+                    }                    
+                }
+                
+                sesion.close();

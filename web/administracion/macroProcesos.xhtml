@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition template="/plantillas/PlantillaAdministracion.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form id="MacrosForm">
+                    <div class="prueba" style="color: white; ">
+                        <p:growl id="msgs" showDetail="true" life="3000"/>
+                    </div>
+                    <p:dataTable var="macro" value="#{MacroProcesos.listaMacroprocesos}" reflow="true" widgetVar="TablaMacros" id="tablaMacros" selectionMode="single"
+                                 selection="#{MacroProcesos.macroProcesoObjeto}" rowKey="#{macro.idMacroproceso}" class="TABLA" paginator="true" rows="7">
+                        <p:ajax event="rowSelect" listener="#{MacroProcesos.onRowSelect}" update=":MacrosForm:msgs,:ActualizarModal:actualizarMacroProcesosModal" oncomplete="PF('actualizarMacroProcesos').show()"/>
+                            <f:facet name="header">
+                                <h:outputText value="CONSULTA DE MACROPROCESOS" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                                <p:inputText id="globalFilter" onkeyup="PF('TablaMacros').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                                <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                            </f:facet>
+                            
+                            <p:column headerText="Nobre del MacroProceso" filterBy="#{macro.nombreMacroproceso}">
+                                <h:outputText value="#{macro.nombreMacroproceso}"/>
+                            </p:column>
+                            
+                            <p:column headerText="Estado del MacroProceso" filterBy="#{macro.estadoMacroproceso}">
+                                <h:outputText value="Activo" rendered="#{macro.estadoMacroproceso == 'A'}"/>
+                                <h:outputText value="Inactivo" rendered="#{macro.estadoMacroproceso == 'I'}"/> 
+                            </p:column>
+                            <p:column style="width: 32px;text-align: center">
+                                <p:commandButton update="EliminarModal:eliminarMacroProcesosModal"  oncomplete="PF('eliminarMacroProcesos').show()" class="iconoBuscar" value=" ">
+                                    <f:setPropertyActionListener value="#{macro}" target="#{MacroProcesos.macroProcesoObjeto}" /> 
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                        <br/>
+                        <p:commandButton value="Insertar" type="button" onclick="PF('insertarMacroProcesos').show();" update=":MacroProcesosForm:msgs" class="botonNormal"></p:commandButton>
+                    
+                </h:form>
+                <h:form id="IngresarModal">
+                    #{MacroProcesos.nuevoMacroproceso()};
+                    <p:dialog header="Insertar MacroProcesos" widgetVar="insertarMacroProcesos" modal="true" id="insertarMacroProcesosModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            <h:outputText value="Nombre del MacroProcesos"></h:outputText>
+                            <p:inputText required="true" label="nombre del MacroProceso" value="#{MacroProcesos.macroProcesoObjeto.nombreMacroproceso}"/>                            
+                            <h:outputText value="Estado del MacroProcesos"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarMacro" value="#{MacroProcesos.macroProcesoObjeto.estadoMacroproceso}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                        <p:commandButton value="Ingresar" update=":MacrosForm:tablaMacros,:IngresarModal:insertarMacroProcesosModal,MacrosForm:msgs" actionListener="#{MacroProcesos.ingresarMacroprosesos()}" validateClient="true" class="botonNormal"/>
+                    </p:dialog>
+                </h:form>
+                <h:form id="ActualizarModal">
+                    <p:dialog header="Actualizar MacroProcesos" widgetVar="actualizarMacroProcesos" modal="true" id="actualizarMacroProcesosModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            <h:outputText value="Nombre del MacroProcesos"></h:outputText>
+                            <p:inputText required="true" label="nombre del MacroProcesos" value="#{MacroProcesos.macroProcesoObjeto.nombreMacroproceso}"/>
+                            <h:outputText value="Estado del MacroProcesos"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarMacro" value="#{MacroProcesos.macroProcesoObjeto.estadoMacroproceso}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                        <p:commandButton  value="Actualizar" update=":MacrosForm:tablaMacros,:ActualizarModal:actualizarMacroProcesosModal,MacrosForm:msgs" actionListener="#{MacroProcesos.actualizarMacroProceso()}" validateClient="true" class="botonNormal" />
+                    </p:dialog>
+                </h:form>
+                <h:form id="EliminarModal">
+                    <p:dialog header="Eliminar MacroProcesos" widgetVar="eliminarMacroProcesos" modal="true" id="eliminarMacroProcesosModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:outputLabel value="Esta seguro de eliminar:"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            <p:outputLabel value="#{MacroProcesos.macroProcesoObjeto.nombreMacroproceso}"/>
+                        </p:panelGrid>
+                        <p:commandButton value="Eliminar" update=":MacrosForm:tablaMacros,:EliminarModal:eliminarMacroProcesosModal,MacrosForm:msgs" actionListener="#{MacroProcesos.eliminarMacroproceso()}" validateClient="true" class="botonNormal" />
+                        
+                        <h:inputHidden value="#{MacroProcesos.macroProcesoObjeto.estadoMacroproceso}"></h:inputHidden>
+                        <h:inputHidden value="#{MacroProcesos.macroProcesoObjeto.idMacroproceso}"></h:inputHidden>
+                    </p:dialog>
+                </h:form>
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>

@@ -31,11 +31,11 @@ public class AccesoBean {
 
     private ObjetoLogin objetoLogin;
 
-    public String getNombre() {
+    public String getNombreUsuario() {
         return nombreUsuario;
     }
 
-    public void setNombre(String nombre) {
+    public void setNombreUsuario(String nombre) {
         this.nombreUsuario = nombre;
     }
 

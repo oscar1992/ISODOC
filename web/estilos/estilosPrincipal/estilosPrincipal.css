@@ -1,17 +1,17 @@
 .navbar-inverse{
-    background: #e7e7e7;
+    background: #f2f2f2;
     border: none;
-    alignment-adjust: central;
+    
     margin-bottom: 0;
 }
 .navbar-inverse .navbar-nav>li>a{
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: Trebuchet MS;
     color: #777;
     font-size: 13px;
     padding: 5px 5px;
     text-shadow: none;
     max-width: 300px;
-    text-align: center;
+    text-align: left;
 }
 
 .navbar-inverse .navbar-nav>li>a:hover{
@@ -19,7 +19,7 @@
 }
 
 .navbar-inverse .navbar-nav>ul{
-    text-align: center;
+    text-align: left;
 }
 .titulo{
     background: #337AB7;
@@ -36,7 +36,7 @@ collapse .navbar-collapse{
     background: #337AB7;    
     alignment-adjust: central;
     text-align: center;
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: Trebuchet MS;
     font-size: 18px;
 }
 
@@ -46,7 +46,7 @@ collapse .navbar-collapse{
 
 .imagen:hover{
     
-    background-image: url(/ISODOC/imagenes/modulos/hover.png);
+    background-image: url(/ISODOC/imagenes/modulos2/hover.png);
 }
 
 .imgaenTitulo{
@@ -55,7 +55,7 @@ collapse .navbar-collapse{
 }
 
 .botonMenuLateral{
-  font-family: Arial;
+  font-family: Trebuchet MS;
   color: #ffffff;
   font-size: 12px;
   background: #337AB7;
