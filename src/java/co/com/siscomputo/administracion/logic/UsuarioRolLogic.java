@@ -59,6 +59,22 @@ public class UsuarioRolLogic {
     }
 
     /**
+     * Método que trae la lista de roles filtradas por usuario y por área
+     *
+     * @return
+     */
+    public ArrayList<UsuarioRolEntity> listaUsuarioRolPorAreaUsuario(int idUsuario, int idArea) {
+        webService();
+        ArrayList<UsuarioRolEntity> lista = new ArrayList<>();
+        ArrayList<Object> listaObjeto = (ArrayList<Object>) port.listaUsuarioRolporAreaUsuario(idArea, idUsuario).getRetorna();
+        for (Object obj : listaObjeto) {
+            UsuarioRolEntity ure = (UsuarioRolEntity) obj;
+            lista.add(ure);
+        }
+        return lista;
+    }
+
+    /**
      * Método que permite actualizar una relación usuario-rol
      *
      * @param usuarioRol
@@ -92,20 +108,20 @@ public class UsuarioRolLogic {
         ArrayList<RolesEntity> listaRoles = new ArrayList<>();
         listaRoles = rolesLogic.listaRoles();
         ArrayList<UsuarioRolEntity> listaUsuarioRol = new ArrayList<>();
-        AreaLogic areaLogic=new AreaLogic();
-        ArrayList<AreaEntity>listaAreas=areaLogic.listaAreas();
+        AreaLogic areaLogic = new AreaLogic();
+        ArrayList<AreaEntity> listaAreas = areaLogic.listaAreas();
         AreaEntity area = null;
-        for(AreaEntity areas:listaAreas){
-            if(areas.getIdArea()==idArea){
-                area=areas;
+        for (AreaEntity areas : listaAreas) {
+            if (areas.getIdArea() == idArea) {
+                area = areas;
                 break;
             }
         }
         for (RolesEntity rol : listaRoles) {
             for (String nombreRol : rolNombres) {
-                
+
                 if (nombreRol.equalsIgnoreCase(rol.getNombreRol())) {
-                    UsuarioRolEntity usuRol=new UsuarioRolEntity();
+                    UsuarioRolEntity usuRol = new UsuarioRolEntity();
                     usuRol.setRol(rol);
                     usuRol.setUsuario(usuario);
                     usuRol.setArea(area);
@@ -114,8 +130,8 @@ public class UsuarioRolLogic {
             }
         }
         try {
-            System.out.println("LISTA: "+listaUsuarioRol.size()+" - "+usuario.getIdUsuario());
-            port.limpiaUsuarioRoles(usuario.getIdUsuario());
+            System.out.println("LISTA: " + listaUsuarioRol.size() + " - " + usuario.getIdUsuario());
+            port.limpiaUsuarioRoles(usuario.getIdUsuario(), idArea);
             usuRta = port.insertarUsuarioRol(listaUsuarioRol);
         } catch (Exception e) {
             e.printStackTrace();

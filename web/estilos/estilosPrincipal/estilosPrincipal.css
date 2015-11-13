@@ -22,7 +22,7 @@
     text-align: left;
 }
 .titulo{
-    background: #337AB7;
+    background: #133468;////////////
     height: 30px;
 }
 
@@ -32,12 +32,13 @@ collapse .navbar-collapse{
 
 .nombre{
     padding-top: 5px;
+    padding-bottom: 5px;
     color: #ffffff;
-    background: #337AB7;    
+    background: #133468;    
     alignment-adjust: central;
     text-align: center;
     font-family: Trebuchet MS;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .imagen{
@@ -54,15 +55,37 @@ collapse .navbar-collapse{
     
 }
 
+.detalles{
+    padding-top: 3px;
+    float: right;
+    padding-left: 20px;
+    font-family: Trebuchet MS;
+}
+.detalles2{
+    padding-top: 4px;
+    float: left;
+    padding-left: 20px;
+    font-family: Trebuchet MS;
+}
+
+.cerrar{
+    padding-top: 3px;
+    float: right;
+    text-decoration-color: #FFF;
+    padding-right: 20px;
+    font-family: Trebuchet MS;
+}
+
 .botonMenuLateral{
-  font-family: Trebuchet MS;
-  color: #ffffff;
-  font-size: 12px;
-  background: #337AB7;
-  padding: 10px 20px 10px 20px;
-  text-decoration: none;
-  border: solid #1f628d 0px;
-  width: 100%;
+    font-family: Trebuchet MS;
+    color: #ffffff;
+    font-size: 13px;    
+    padding: 5px 20px 5px 20px;
+    text-decoration: none;
+    text-align: left;
+    border: solid #1f628d 0px;
+    width: 100%;  
+    background: #133468;  
 }
 
 .botonMenuLateral:hover{

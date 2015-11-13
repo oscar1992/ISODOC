@@ -13,7 +13,7 @@
             <h:body>
                 <h:form id="UsuarioForm">
                     <div class="prueba" style="color: white; ">
-                        <p:growl id="msgs" showDetail="true" life="3000"/>
+                        <p:growl id="msgs" showDetail="true" life="3000" autoUpdate="true"/>
                     </div>
                     <p:dataTable var="usuario" value="#{Usuario.list}" filteredValue="#{Usuario.listfiltro}" editable="true" 
                                  reflow="true" widgetVar="TablaUsuarios" id="tablaUsuarios" 
@@ -22,13 +22,13 @@
                         <f:facet name="header" >
                             <p:outputPanel class="facet">
                                 <h:outputText value="CONSULTA DE USUARIOS" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
-                                <p:inputText id="globalFilter" onkeyup="PF('TablaUsuarios').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
-                                <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                                <p:inputText id="globalFilter" onkeyup="PF('TablaUsuarios').filter()" style="width: 150px; height: 20px;float: right" placeholder="Filtro General" />
+                                <h:outputText value="Buscar: " class="buscarTexto"/>
                             </p:outputPanel>
                         </f:facet>
                         <p:ajax event="rowSelect" listener="#{Usuario.onRowSelect}" update=":UsuarioForm:msgs,:ActualizarModal:actualizarUsuarioModal" oncomplete="PF('actualizarUsuario').show()"/>
                         <p:column headerText="Nombre" filterBy="#{usuario.nombre}">                                                        
-                                <h:outputText value="#{usuario.nombre}"/>                                      
+                            <h:outputText value="#{usuario.nombre}"/>                                      
                         </p:column>
                         <p:column headerText="Apellido" filterBy="#{usuario.apellido}">
                             <h:outputText value="#{usuario.apellido}"/>
@@ -48,14 +48,10 @@
                                 <f:setPropertyActionListener value="#{usuario}" target="#{Usuario.usuarioObjeto}" />
                             </p:commandButton>
                         </p:column>
-                        <p:column style="width: 32px;text-align: center">
-                            <p:commandButton update="EliminarModal:eliminarUsuarioModal"  oncomplete="PF('eliminarUsuario').show()" class="iconoBuscar" value=" ">
-                                <f:setPropertyActionListener value="#{usuario}" target="#{Usuario.usuarioObjeto}" />                                
-                            </p:commandButton>
-                        </p:column>
+                        
                     </p:dataTable>
                     <br/>
-                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarUsuario').show();" update=":UsuarioForm:msgs" class="botonNormal"  ></p:commandButton>
+                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarUsuario').show();" update=":UsuarioForm:msgs" class="botonNormal2"  ></p:commandButton>
                 </h:form>
 
                 <h:form id="IngresarModal">      
@@ -71,7 +67,7 @@
                             <p:inputText required="true" label="Nombre de Acceso" value="#{Usuario.usuarioObjeto.nombreUsuario}"/> 
                             <h:outputText value="Contraseña "></h:outputText>
                             <p:inputText required="true" label="Contraseña de usuario" value="#{Usuario.usuarioObjeto.clave}"/> 
-                            
+
                             <h:outputText value="Correo "></h:outputText>
                             <p:inputText required="true" label="Correo de usuario" value="#{Usuario.usuarioObjeto.email}"/>                                 
                             <h:outputText value="Número de teléfono "></h:outputText>
@@ -93,29 +89,35 @@
                         <p:messages autoUpdate="false"/>
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
 
-                            <h:outputText value="Nombre del Usuario"></h:outputText>
+                            <h:outputText value="Nombre"></h:outputText>
                             <p:inputText required="true" label="Nombre de usuario" value="#{Usuario.usuarioObjeto.nombre}"/> 
-                            <h:outputText value="Apellido del Usuario "></h:outputText>
+                            <h:outputText value="Apellido"></h:outputText>
                             <p:inputText required="true" label="Apellido de usuario" value="#{Usuario.usuarioObjeto.apellido}"/> 
-                            <h:outputText value="Nombre de Acceso "></h:outputText>
+                            <h:outputText value="Nombre Acceso "></h:outputText>
                             <p:inputText required="true" label="Nombre de Acceso" value="#{Usuario.usuarioObjeto.nombreUsuario}"/> 
                             <h:outputText value="Contraseña "></h:outputText>
                             <p:inputText required="true" label="Contraseña de usuario" value="#{Usuario.usuarioObjeto.clave}"/> 
-                            
-                            <h:outputText value="Correo "></h:outputText>
+
+                            <h:outputText value="Email "></h:outputText>
                             <p:inputText required="true" label="Correo de usuario" value="#{Usuario.usuarioObjeto.email}"/>                                 
-                            <h:outputText value="Número de teléfono "></h:outputText>
+                            <h:outputText value="Teléfono "></h:outputText>
                             <p:inputText required="true" label="Teléfono de usuario" value="#{Usuario.usuarioObjeto.telefono}"/> 
-                            <h:outputText value="Número de identificación "></h:outputText>
+                            <h:outputText value="Identificación "></h:outputText>
                             <p:inputText required="true" label="Número de identificación de usuario" value="#{Usuario.usuarioObjeto.numeroIdentificacion}"/> 
-                            <h:outputText value="Estado "></h:outputText>
+                            <h:outputText value="Estado"></h:outputText>
                             <p:selectOneMenu id="desplegableIngresarusuario" value="#{Usuario.usuarioObjeto.estado}" style="width: 150px;" >
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="false"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
-                            </p:selectOneMenu>
-
-                            <p:commandButton  value="Actualizar" update=":UsuarioForm:tablaUsuarios,:IngresarModal:insertarUsuarioModal,UsuarioForm:msgs" actionListener="#{Usuario.actualizarUsuario()}" validateClient="true" class="botonNormal" />
+                            </p:selectOneMenu>   
                         </p:panelGrid>
+                        <div class="centrar">
+                            <div style="float:left">
+                                <p:commandButton  value="Actualizar" update=":UsuarioForm:tablaUsuarios,:IngresarModal:insertarUsuarioModal,UsuarioForm:msgs" actionListener="#{Usuario.actualizarUsuario()}" validateClient="true" class="botonNormal" />
+                            </div>
+                            <div style="float: right">
+                                <p:commandButton value="Eliminar" update=":UsuarioForm:tablaUsuarios,:IngresarModal:insertarUsuarioModal,UsuarioForm:msgs" actionListener="#{Usuario.eliminarUsuario()}" validateClient="true" class="botonNormal" />
+                            </div>
+                        </div>
                         <h:inputHidden  value="#{Usuario.usuarioObjeto.idUsuario}"></h:inputHidden>          
                     </p:dialog>
                 </h:form>
@@ -128,7 +130,7 @@
                         </p:panelGrid>
                         <p:commandButton value="Eliminar" update=":UsuarioForm:tablaUsuarios,:IngresarModal:insertarUsuarioModal,UsuarioForm:msgs" actionListener="#{Usuario.eliminarUsuario()}" validateClient="true" class="botonNormal" />
                         <h:inputHidden value="#{Usuario.usuarioObjeto.apellido}"></h:inputHidden>
-                        
+
                         <h:inputHidden value="#{Usuario.usuarioObjeto.clave}"></h:inputHidden>
                         <h:inputHidden value="#{Usuario.usuarioObjeto.email}"></h:inputHidden>
                         <h:inputHidden value="#{Usuario.usuarioObjeto.estado}"></h:inputHidden>

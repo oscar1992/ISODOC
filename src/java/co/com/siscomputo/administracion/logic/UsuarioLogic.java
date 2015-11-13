@@ -22,7 +22,6 @@ public class UsuarioLogic {
 
     private Usuario_Service webService;
     private Usuario port;
-
     private List usuarios;
 
     public List getUsuarios() {
@@ -48,7 +47,7 @@ public class UsuarioLogic {
     @PostConstruct
     public void init() {
         webService();
-        usuarios = (List)port.listaUsuarios().getRetorna();
+        usuarios = (List) port.listaUsuarios().getRetorna();
     }
 
     /**
@@ -59,42 +58,45 @@ public class UsuarioLogic {
     public void actualizarUsuario(UsuarioEntity usuario) {
         webService();
         if (port.actualizarUsuario(usuario) == null) {
-            FacesMessage msg = new FacesMessage("Actualización ", "Usuario no Actualizado  ");
+            FacesMessage msg = new FacesMessage("Eliminación", "Usuario no Eliminado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } else {
-            FacesMessage msg = new FacesMessage("Actualización", "Usuario Actualizado Correctamente");
+            FacesMessage msg = new FacesMessage("Eliminación", "Usuario Eliminado Correctamente");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
 
     /**
-     * Funcion en la cual llama a el webService para el ingreso de un usuario     *
+     * Funcion en la cual llama a el webService para el ingreso de un usuario
+     *
+     *
      * @param usuario
-     * @return 
+     * @return
      */
     public UsuarioEntity ingresarUsuario(UsuarioEntity usuario) {
         webService();
-        UsuarioEntity usuarioRta = null; 
+        UsuarioEntity usuarioRta = null;
         try {
-            
             usuarioRta = port.ingresarUsuario(usuario);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return usuarioRta;
     }
+
     /**
      * Metodo que consulta la lista de Usuarios
-     * @return 
+     *
+     * @return
      */
     public ArrayList<UsuarioEntity> listaUsuarios() {
         ArrayList<UsuarioEntity> lista = new ArrayList<>();
         ArrayList<Object> listao;
         webService();
-        listao=(ArrayList<Object>) port.listaUsuarios().getRetorna();
-        for(Object item: listao){
-            UsuarioEntity usu=(UsuarioEntity)item;
-            
+        listao = (ArrayList<Object>) port.listaUsuarios().getRetorna();
+        for (Object item : listao) {
+            UsuarioEntity usu = (UsuarioEntity) item;
+
             lista.add(usu);
         }
         return lista;
@@ -104,7 +106,7 @@ public class UsuarioLogic {
      * Metodo que permite actualizar un usuario a traves del webService
      *
      * @param usuario Usuario a actualizar
-     * @return 
+     * @return
      */
     public String logicActualizarUsuario(UsuarioEntity usuario) {
         webService();
@@ -112,8 +114,12 @@ public class UsuarioLogic {
         try {
             if (port.actualizarUsuario(usuario) == null) {
                 rta = "Ok";
+                FacesMessage msg = new FacesMessage("Actualización", "Usuario no Actualizado  ");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
             } else {
-                rta = "Error";
+                rta = "Error";                
+                FacesMessage msg = new FacesMessage("Actualización", "Usuario Actualizado Correctamente");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -121,9 +127,9 @@ public class UsuarioLogic {
         }
         return rta;
     }
-    
-    public UsuarioEntity usuarioPorID(int idusuario){
-         webService();
-         return port.usuarioPorId(idusuario);
+
+    public UsuarioEntity usuarioPorID(int idusuario) {
+        webService();
+        return port.usuarioPorId(idusuario);
     }
 }

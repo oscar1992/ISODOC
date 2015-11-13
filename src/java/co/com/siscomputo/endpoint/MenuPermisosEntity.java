@@ -202,6 +202,7 @@ public class MenuPermisosEntity {
      *     
      */
     public String getRuta() {
+        
         return ruta;
     }
 

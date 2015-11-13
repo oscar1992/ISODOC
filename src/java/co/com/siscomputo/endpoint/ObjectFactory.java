@@ -100,6 +100,7 @@ public class ObjectFactory {
     private final static QName _ListaCiudades_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaCiudades");
     private final static QName _ListaSede_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaSede");
     private final static QName _MenuDatosporUsuario_QNAME = new QName("http://endpoint.siscomputo.com.co/", "menuDatosporUsuario");
+    private final static QName _ListaUsuarioRolporAreaUsuarioResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaUsuarioRolporAreaUsuarioResponse");
     private final static QName _UsuarioPorId_QNAME = new QName("http://endpoint.siscomputo.com.co/", "usuarioPorId");
     private final static QName _ListaProcesosResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaProcesosResponse");
     private final static QName _ListaRolPermisoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaRolPermisoResponse");
@@ -107,6 +108,7 @@ public class ObjectFactory {
     private final static QName _ActualizaSedeResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizaSedeResponse");
     private final static QName _LimpiaUsuarioRolesResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "limpiaUsuarioRolesResponse");
     private final static QName _ActualizarDepartamenoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarDepartamenoResponse");
+    private final static QName _ListaUsuarioRolporAreaUsuario_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaUsuarioRolporAreaUsuario");
     private final static QName _ListaUsuarioSubproceso_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaUsuarioSubproceso");
     private final static QName _ListaEmpresaResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaEmpresaResponse");
     private final static QName _ActualizarUsuarioSubproceso_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarUsuarioSubproceso");
@@ -609,6 +611,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ListaUsuarioRolporAreaUsuarioResponse }
+     * 
+     */
+    public ListaUsuarioRolporAreaUsuarioResponse createListaUsuarioRolporAreaUsuarioResponse() {
+        return new ListaUsuarioRolporAreaUsuarioResponse();
+    }
+
+    /**
      * Create an instance of {@link UsuarioPorId }
      * 
      */
@@ -662,6 +672,14 @@ public class ObjectFactory {
      */
     public ActualizarDepartamenoResponse createActualizarDepartamenoResponse() {
         return new ActualizarDepartamenoResponse();
+    }
+
+    /**
+     * Create an instance of {@link ListaUsuarioRolporAreaUsuario }
+     * 
+     */
+    public ListaUsuarioRolporAreaUsuario createListaUsuarioRolporAreaUsuario() {
+        return new ListaUsuarioRolporAreaUsuario();
     }
 
     /**
@@ -2157,6 +2175,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListaUsuarioRolporAreaUsuarioResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaUsuarioRolporAreaUsuarioResponse")
+    public JAXBElement<ListaUsuarioRolporAreaUsuarioResponse> createListaUsuarioRolporAreaUsuarioResponse(ListaUsuarioRolporAreaUsuarioResponse value) {
+        return new JAXBElement<ListaUsuarioRolporAreaUsuarioResponse>(_ListaUsuarioRolporAreaUsuarioResponse_QNAME, ListaUsuarioRolporAreaUsuarioResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link UsuarioPorId }{@code >}}
      * 
      */
@@ -2217,6 +2244,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarDepartamenoResponse")
     public JAXBElement<ActualizarDepartamenoResponse> createActualizarDepartamenoResponse(ActualizarDepartamenoResponse value) {
         return new JAXBElement<ActualizarDepartamenoResponse>(_ActualizarDepartamenoResponse_QNAME, ActualizarDepartamenoResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListaUsuarioRolporAreaUsuario }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaUsuarioRolporAreaUsuario")
+    public JAXBElement<ListaUsuarioRolporAreaUsuario> createListaUsuarioRolporAreaUsuario(ListaUsuarioRolporAreaUsuario value) {
+        return new JAXBElement<ListaUsuarioRolporAreaUsuario>(_ListaUsuarioRolporAreaUsuario_QNAME, ListaUsuarioRolporAreaUsuario.class, null, value);
     }
 
     /**

@@ -5,21 +5,21 @@
  */
 package co.com.siscomputo.administracion.bean;
 
-import co.com.siscomputo.administracion.logic.AreaLogic;
 import co.com.siscomputo.administracion.logic.RolesLogic;
 import co.com.siscomputo.administracion.logic.UsuarioRolLogic;
 import co.com.siscomputo.endpoint.AreaEntity;
+import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.ObjetoRetornaEntity;
 import co.com.siscomputo.endpoint.RolesEntity;
 import co.com.siscomputo.endpoint.UsuarioEntity;
 import co.com.siscomputo.endpoint.UsuarioRolEntity;
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DualListModel;
@@ -41,6 +41,7 @@ public class UsuarioRolBean implements Serializable {
     private ArrayList<String> rolesNombre;
     private ArrayList<String> rolesSelecion;
     private UsuarioEntity usuarioObjeto;
+    
 
     public ArrayList<UsuarioRolEntity> getListaUsuarioRol() {
         return listaUsuarioRol;
@@ -113,8 +114,10 @@ public class UsuarioRolBean implements Serializable {
     public void setIdArea(Integer idArea) {
         this.idArea = idArea;
     }
-       
+
+    
     public UsuarioRolBean() {
+        
         consultarUsuarioRol();
     }
 
@@ -125,10 +128,24 @@ public class UsuarioRolBean implements Serializable {
         roles = new DualListModel<>();
         rolesNombre = new ArrayList<>();
         rolesSelecion = new ArrayList<>();
-        consultarListaRoles();
+        idArea=null;
+        permisos();
+        //consultarListaRoles();
         
     }
-
+    
+    public void permisos(){
+        ArrayList<MenuPermisosEntity>menuLateral = (ArrayList<MenuPermisosEntity>) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("menuLateral");
+        for(MenuPermisosEntity nivel1:menuLateral){
+            for(MenuPermisosEntity nivel2:nivel1.getSubNivel()){
+                System.out.println("niv2: "+nivel2.getNombrePermiso());
+                for(MenuPermisosEntity nivel3:nivel2.getSubNivel()){
+                    System.out.println("niv3: "+nivel3.getNombrePermiso());
+                }
+            }
+        }
+    }
+    
     /**
      * Método que trae la lista de los roles disponibles
      */
@@ -160,6 +177,25 @@ public class UsuarioRolBean implements Serializable {
             }
         }
     }
+    public void consultarUsuarioRolPorAreaUsuario() {
+        if (idUsuaurio != null) {
+            try {
+                rolesSelecion = new ArrayList<>();
+                UsuarioRolLogic usuarioRolLogic = new UsuarioRolLogic();
+                listaUsuarioRol = usuarioRolLogic.listaUsuarioRolPorAreaUsuario(idUsuaurio, idArea);
+                for (UsuarioRolEntity usu : listaUsuarioRol) {
+                    System.out.println("NN2: " + usu.getRol().getNombreRol());
+                    rolesSelecion.add(usu.getRol().getNombreRol());
+                }
+
+                roles = new DualListModel<>(rolesNombre, rolesSelecion);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else{
+            System.out.println("USUARIO NULO");
+        }
+    }
 
     /**
      * Método que permite ingersar una relación usuario - Rol nueva
@@ -186,16 +222,7 @@ public class UsuarioRolBean implements Serializable {
         nuevoUsuarioRolObjeto();
     }
 
-    /**
-     * Método que actualiza visualmente la lista de usuarioRol
-     *
-     * @param usuarioRolEntity
-     */
-    private void adicionarUsuarioRolLista(UsuarioRolEntity usuarioRolEntity) {
-        AreaLogic areaLogic = new AreaLogic();
-
-        listaUsuarioRol.add(usuarioRolEntity);
-    }
+    
 
     /**
      * Método que actualiza una relación usuario-rol
@@ -246,11 +273,6 @@ public class UsuarioRolBean implements Serializable {
 
     }
 
-    public void eliminarUsuarioRol() {
-        UsuarioRolLogic usuarioRolLogic = new UsuarioRolLogic();
-
-    }
-
     /**
      * Métood que limpia el objeto después de ser usado por otreo método
      */
@@ -265,11 +287,15 @@ public class UsuarioRolBean implements Serializable {
         usuarioObjeto = (UsuarioEntity) event.getObject();
         System.out.println("usu: " + usuarioObjeto.getIdUsuario());
         idUsuaurio = usuarioObjeto.getIdUsuario();
-        consultarUsuarioRol();
+        consultarListaRoles();
+        
     }
     public void onRowSelect3(SelectEvent event){
+        idUsuaurio=usuarioObjeto.getIdUsuario();                   
         usuarioRolObjeto.setArea((AreaEntity)event.getObject());
         idArea=usuarioRolObjeto.getArea().getIdArea();
+        consultarUsuarioRolPorAreaUsuario();
+        System.out.println("idarea: "+idArea);
     }
     
 

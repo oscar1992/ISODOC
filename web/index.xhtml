@@ -15,9 +15,22 @@
                 
                 <div id="Contenedor">
                     <div id="Cabezote">
-                        <div id="Acceso">
+                        
+                        <div id="FranjaAzul">
+                            <div id="Logo"></div>
+                            <div class="h1" id="TextoLogo">
+                                Administración de 
+                                sistemas integrados de 
+                                gestión y calidad.
+                            </div>
+                            <div id="FranjaBlanca"></div>
+                            <div id="FranjaAzulObscuro"></div>
+                        </div>
+                    </div>
+                    
+                    <div id="Acceso">
                             <h:form >
-                                <p:growl id="growl" life="2000" />
+                                <p:growl id="growl" life="2000" autoUpdate="true"/>
                                 <div id="TituloAcceso"><h:outputText value="Iniciar Sesión" /></div>
                                 <h:outputText value=""/>
                                 <div style="color:#AC1212; text-align: center; font-size: 10px;"><h:message for='id_usuario' /></div>
@@ -35,60 +48,6 @@
                                 </div>
                             </h:form>
                         </div>
-                        <div id="FranjaAzul">
-                            <div id="Logo"></div>
-                            <div class="h1" id="TextoLogo">
-                                Administración de 
-                                sistemas integrados de 
-                                gestión y calidad.
-                            </div>
-                            <div id="FranjaBlanca"></div>
-                            <div id="FranjaAzulObscuro"></div>
-                        </div>
-                    </div>
-                    <div id="Slide">
-                        <div class="container">
-                            <div class="sp-slideshow">
-                                <input id="button-1" type="radio" name="radio-set" class="sp-selector-1" checked="checked" />
-                                <label for="button-1" class="button-label-1"></label>
-
-                                <input id="button-2" type="radio" name="radio-set" class="sp-selector-2" />
-                                <label for="button-2" class="button-label-2"></label>
-
-                                <input id="button-3" type="radio" name="radio-set" class="sp-selector-3" />
-                                <label for="button-3" class="button-label-3"></label>
-
-                                <input id="button-4" type="radio" name="radio-set" class="sp-selector-4" />
-                                <label for="button-4" class="button-label-4"></label>
-
-                                <input id="button-5" type="radio" name="radio-set" class="sp-selector-5" />
-                                <label for="button-5" class="button-label-5"></label>
-
-                                <label for="button-1" class="sp-arrow sp-a1"></label>
-                                <label for="button-2" class="sp-arrow sp-a2"></label>
-                                <label for="button-3" class="sp-arrow sp-a3"></label>
-                                <label for="button-4" class="sp-arrow sp-a4"></label>
-                                <label for="button-5" class="sp-arrow sp-a5"></label>
-
-                                <div class="sp-content">
-                                    <div class="sp-parallax-bg"></div>
-                                    <ul class="sp-slider clearfix">
-                                        <li><img src="imagenes/slide/images/ImgSlideIsodocUno.jpg" alt="image01"/></li>
-                                        <li><img src="imagenes/slide/images/ImgSlideIsodocDos.jpg" alt="image02" /></li>
-                                        <li><img src="imagenes/slide/images/ImgSlideIsodocTres.jpg" alt="image03" /></li>
-                                        
-                                    </ul>
-                                </div><!-- sp-content -->
-                            </div><!-- sp-slideshow -->
-                        </div>
-                    </div>
-                    <div id="Footer">
-                        <div id="FooterDatos"></div>
-                        <div id="FooterAzul">
-                            <div id="FooterBlanco"></div>
-                            <div id="FooterAzulObscro"></div>
-                        </div>
-                    </div>
                 </div>
             </ui:define>
             <ui:define name="bottom">

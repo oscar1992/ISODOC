@@ -75,13 +75,13 @@ public class AccesoBean {
                     UsuarioLogic usuarioLogic=new UsuarioLogic();
                     objetoUsuario = usuarioLogic.usuarioPorID(objetoLogin.getIdUsuario());                    
                     FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", objetoUsuario);
-                    url = "/inicio/primerIngreso?faces-redirect=true";
+                    url = "/inicio/primerIngreso";
                 } else {
                     if (objetoLogin.isAcceso()) {
                         if ("Ok".equalsIgnoreCase(loginLogic.datosUsuario(objetoLogin.getIdUsuario()))) {
                             objetoUsuario = loginLogic.getUsuarioObject();
                         }
-                        url = "/inicio/principal?faces-redirect=true";
+                        url = "/inicio/principal";
 
                         MensajesJSF.muestraMensajes("Bienvenido", "Mensaje");
 
@@ -108,9 +108,7 @@ public class AccesoBean {
     /**
      * Método que cierra la sesión actual
      */
-    public void cerrarSesion() {
-        //FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-    }
+    
 
     public UsuarioEntity getObjetoUsuario() {
         return objetoUsuario;

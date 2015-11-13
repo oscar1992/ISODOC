@@ -37,12 +37,13 @@
 */
 .nombre{
     padding-top: 5px;
+    padding-bottom: 5px;
     color: #ffffff;
     background: #666666;    
     alignment-adjust: central;
     text-align: center;
     font-family: Trebuchet MS;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 /*
@@ -64,7 +65,7 @@
 .botonMenuLateral{
     font-family: Trebuchet MS;
     color: #ffffff;
-    font-size: 12px;
+    font-size: 13px;
     background: #666666;
     padding: 5px 20px 5px 20px;
     text-decoration: none;
@@ -81,7 +82,35 @@
     border: solid #666666 0px;
 }
 
+.detalles{
+    padding-top: 3px;
+    float: right;
+    padding-left: 20px;
+    font-family: Trebuchet MS;
+}
+.detalles2{
+    padding-top: 4px;
+    float: left;
+    padding-left: 20px;
+    font-family: Trebuchet MS;
+}
 
+.cerrar{
+    padding-top: 3px;
+    float: right;
+    text-decoration-color: #FFF;
+    padding-right: 20px;
+    font-family: Trebuchet MS;
+}/*
+    Estilo de la lista de los elelemtos del menú lateral
+*/
+.list-group>li>a{
+    padding-left: 19px;
+    font-size: 12px;
+    margin:0;
+    color: #666666;
+   
+}
 /*
     Estilo de la lista de los elelemtos del menú lateral
 */
@@ -91,14 +120,7 @@
     
 }
 
-/*
-    Estilo de la lista de los elelemtos del menú lateral
-*/
-.list-group>li>a{
-    margin:0;
-    color: #666666;
-   
-}
+
 /*
     Estilo general de la tabla que contiene datos
 */
@@ -118,7 +140,8 @@
     height:100%;
     margin:0px;padding:0px;
     font-size: 12px;
-    font-family: Helvetica Neue, Trebuchet MS !important;
+    font-family: Trebuchet MS;
+    text-align: center;
 
 }
 /*
@@ -138,9 +161,22 @@
     Estilo de la cabcera de la tabla
 */
 .TABLA th{
+    
     text-decoration: #ffffff;
     background-color: #666666;
 
+}
+
+.ui-column-title{
+    position: relative;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+.ui-datatable thead th{
+    height: 60px;
+    padding-bottom: 7px;
+    padding-top: 1px;
+    
 }
 /*
     Estilo de la cabcera de la tabla
@@ -160,7 +196,9 @@
 /*
     Estilo de la cabcera de la tabla
 */
+
 .ui-datatable-header{
+    font-family: Trebuchet MS;
     background-color: #666666;
     padding: 0px 0px;    
 }
@@ -170,23 +208,30 @@
 }
 
 .ui-paginator{
-    background-color: #e7e7e7;
+    color: #666666;
+    font-family: Trebuchet ms;
+    background-color: #f2f2f2;
 }
 
 .ui-paginator-first{
+    width: 20px;
+    padding-top: 10px;
     background-repeat: no-repeat;
     background-image: url(/ISODOC/imagenes/paginador/paginadorFinalI.png);
 }
 
 .ui-paginator-prev{
+    width: 20px;
     background-repeat: no-repeat;
     background-image: url(/ISODOC/imagenes/paginador/paginadorSiguienteI.png);
 }
 .ui-paginator-next{
+    width: 20px;
     background-repeat: no-repeat;
     background-image: url(/ISODOC/imagenes/paginador/paginadorSiguienteD.png);
 }
 .ui-paginator-last{
+    width: 20px;
     background-repeat: no-repeat;
     background-image: url(/ISODOC/imagenes/paginador/paginadorFinalD.png);
 }
@@ -194,16 +239,26 @@
 
 
 .ui-datatable .ui-column-filter{
-    background-color:  #e7e7e7;
+    margin-top: 4px; 
+    background-color:  #f2f2f2;
     height: 20px;
     width: 100%;
     border: none;
-    border-radius: 3px;
+    border-radius: 5px;
     text-decoration-color: #ac2925;
+    
 }
 
 .ui-inputfield {
-    color: #000000;
+    color: #666666;
+    width: 100%;
+   
+}
+
+.buscarTexto{
+    margin-right: 10px;
+    color: #FFF; 
+    float: right
 }
 
 .botonNormal{
@@ -214,10 +269,22 @@
     font-weight: bolder;
     text-decoration: none;
     border: solid #1f628d 0px;
-    width: 110px;
+    width: 120px;
     border-radius: 4px;
-    height: 30px;
-
+      
+}
+.botonNormal2{
+    font-family: Trebuchet MS;
+    color: #ffffff;
+    font-size: 12px;
+    background: #666666;
+    font-weight: bolder;
+    text-decoration: none;
+    border: solid #666666 0px;
+    width: 120px;
+    border-radius: 4px;
+    float: right;
+    margin-right: 55px;
 }
 
 .botonNormal:hover{
@@ -226,6 +293,12 @@
     border: solid #1f628d 0px;
 }
 
+.centrar{
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    width: 244px;
+}
 
 .ui-widget-overlay{
     background: black;
@@ -237,8 +310,13 @@
     border-radius: 5px;
 }
 
+.ui-dialog{
+    height: 570px;
+    width: 680px;
+}
+
 .ui-corner-top{
-    border-radius: 5px;
+    border-radius: 0px;
 }
 
 .ui-dialog.ui-widget-content{
@@ -246,6 +324,7 @@
 }
 
 .ui-dialog-titlebar{
+    float: none;
     alignment-adjust: central;
     font-family: Helvetica;
     text-align: center;
@@ -268,11 +347,11 @@
 }
 
 .ui-datatable tr.ui-state-highlight {
-    background-color: #666666;
+    background-color: #f2f2f2;
 }
 
 .ui-datatable tr.ui-state-hover{
-    background-color: #e7e7e7;
+    background-color: #f2f2f2;
 }
 
 .ui-growl-title{
@@ -320,7 +399,7 @@
 
 .ui-selectonemenu{
     border-radius: 5px;
-    background-color: #cccccc;
+    background-color: #666666;
     border: solid #999999;
     border-width: 2px;
 }
@@ -387,11 +466,14 @@
 }
 
 .ui-panelgrid .ui-panelgrid-cell {
+    color: #666666;
+    font-size: 13px;
     border-width: 1px;
     border-style: solid;
     border-color: inherit;
-    padding: 4px 10px;
-    width: 130px;
+    
+    width: 133px;
+    vertical-align: middle;
 }
 
 .ui-picklist .ui-picklist-list{
@@ -423,4 +505,10 @@
     background-repeat: no-repeat;
     width: 26px;
     height: 26px;
+}
+.ui-dialog .ui-dialog-title{    
+    float:none;
+    text-align: center;
+    margin: 0;
+    color: #666666;
 }

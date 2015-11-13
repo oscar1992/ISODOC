@@ -50,8 +50,10 @@ body {
 #Acceso {
         height: 138px;
 	width: 310px;
-	margin-left: 700px;
-	position: absolute;
+	margin-left: auto;
+        margin-right: auto;
+        margin-top: 200px;
+	position: relative;
         padding: 20px;
 	z-index: auto;
 	background-image: url(../imagenes/Acceso.png);

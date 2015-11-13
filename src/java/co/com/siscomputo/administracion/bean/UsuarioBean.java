@@ -151,7 +151,10 @@ public class UsuarioBean implements Serializable {
     public void adicionaUsuarioLista(UsuarioEntity objEntity) {
         list.add(objEntity);
     }
-
+    /**
+     * Método que elimina visualmemte un usuario de la lista
+     * @param objEntity 
+     */
     public void eliminarUsuarioLista(UsuarioEntity objEntity) {
         Iterator itr = list.iterator();
         while (itr.hasNext()) {

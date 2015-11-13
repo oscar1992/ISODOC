@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="idUsuario" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="idArea" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -27,11 +28,13 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "limpiaUsuarioRoles", propOrder = {
-    "idUsuario"
+    "idUsuario",
+    "idArea"
 })
 public class LimpiaUsuarioRoles {
 
     protected int idUsuario;
+    protected int idArea;
 
     /**
      * Obtiene el valor de la propiedad idUsuario.
@@ -47,6 +50,22 @@ public class LimpiaUsuarioRoles {
      */
     public void setIdUsuario(int value) {
         this.idUsuario = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad idArea.
+     * 
+     */
+    public int getIdArea() {
+        return idArea;
+    }
+
+    /**
+     * Define el valor de la propiedad idArea.
+     * 
+     */
+    public void setIdArea(int value) {
+        this.idArea = value;
     }
 
 }

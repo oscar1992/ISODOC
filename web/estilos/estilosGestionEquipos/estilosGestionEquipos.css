@@ -29,7 +29,7 @@
     Estilo de la Barra Prinicpal de los módulos
 */
 .titulo{
-    background: #fbb03b; //////////////////////
+    background: #f7931e; //////////////////////
     height: 30px;
 }
 /*
@@ -37,12 +37,13 @@
 */
 .nombre{
     padding-top: 5px;
+    padding-bottom: 5px;
     color: #ffffff;
-    background: #fbb03b;    
+    background: #f7931e;    
     alignment-adjust: central;
     text-align: center;
     font-family: Trebuchet MS;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 /*
@@ -65,7 +66,7 @@
     font-family: Trebuchet MS;
     color: #ffffff;
     font-size: 12px;
-    background: #fbb03b;
+    background: #f7931e;
     padding: 5px 20px 5px 20px;
     text-decoration: none;
     text-align: left;
@@ -91,10 +92,31 @@
     
 }
 
-/*
+.detalles{
+    padding-top: 3px;
+    float: right;
+    padding-left: 20px;
+    font-family: Trebuchet MS;
+}
+.detalles2{
+    padding-top: 4px;
+    float: left;
+    padding-left: 20px;
+    font-family: Trebuchet MS;
+}
+
+.cerrar{
+    padding-top: 3px;
+    float: right;
+    text-decoration-color: #FFF;
+    padding-right: 20px;
+    font-family: Trebuchet MS;
+}/*
     Estilo de la lista de los elelemtos del menú lateral
 */
 .list-group>li>a{
+    padding-left: 19px;
+    font-size: 12px;
     margin:0;
     color: #666666;
    
@@ -118,7 +140,7 @@
     height:100%;
     margin:0px;padding:0px;
     font-size: 12px;
-    font-family: Helvetica Neue, Trebuchet MS !important;
+    font-family: Trebuchet MS;
 
 }
 /*
@@ -139,7 +161,7 @@
 */
 .TABLA th{
     text-decoration: #ffffff;
-    background-color: #fbb03b;
+    background-color: #f7931e;
 
 }
 /*
@@ -161,7 +183,7 @@
     Estilo de la cabcera de la tabla
 */
 .ui-datatable-header{
-    background-color: #fbb03b;
+    background-color: #f7931e;
     padding: 0px 0px;    
 }
 
@@ -210,7 +232,7 @@
     font-family: Trebuchet MS;
     color: #ffffff;
     font-size: 12px;
-    background: #fbb03b;
+    background: #f7931e;
     font-weight: bolder;
     text-decoration: none;
     border: solid #1f628d 0px;
@@ -268,7 +290,7 @@
 }
 
 .ui-datatable tr.ui-state-highlight {
-    background-color: #fbb03b;
+    background-color: #f7931e;
 }
 
 .ui-datatable tr.ui-state-hover{
@@ -276,20 +298,20 @@
 }
 
 .ui-growl-title{
-    background: #fbb03b;
+    background: #f7931e;
     opacity: 0;
 }
 
 .ui-growl-message p{
-    background: #fbb03b;
+    background: #f7931e;
     text-decoration: white;
-    text-decoration-color: #fbb03b;
+    text-decoration-color: #f7931e;
     font-size: 15px;
     font-weight: bolder;
 }
 
 .ui-growl-item{
-    background: #fbb03b;
+    background: #f7931e;
     text-decoration: #ffffff;
 }
 
@@ -356,7 +378,7 @@
     background-color: #ac2925;
 }
 .ui-accordion .ui-accordion-header:hover{ 
-    background-color: #fbb03b;
+    background-color: #f7931e;
 }
 
 .table>tbody>tr>td{

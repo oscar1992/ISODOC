@@ -10,7 +10,7 @@ and open the template in the editor.
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-       
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     </h:head>
@@ -27,13 +27,13 @@ and open the template in the editor.
                         <div id="p#{itemN1.idPermiso}" class="collapse">
                             <ul class="list-group">
                                 <ui:repeat value="#{itemN1.subNivel}" var="itemN2">
-                                    <li style="border: solid #b0b0b0; border-width: 1px">
-                                        <h:outputLink value="#{itemN2.ruta}" >
+                                    <li style="border: solid #b0b0b0; border-width: 1px">                                        
+                                        <p:commandLink action="#{Menus.setRutaModulo(itemN2.ruta)}" actionListener="#{Menus.setIdModulo(Menus.idModulo, itemN2.nombrePermiso)}"  ajax="false" style="text-decoration-color: #000">
                                             #{itemN2.nombrePermiso}
-                                        </h:outputLink>
+                                        </p:commandLink>
                                     </li>
                                 </ui:repeat>                                    
-                                    
+
                             </ul>
                         </div>
                     </ui:repeat>

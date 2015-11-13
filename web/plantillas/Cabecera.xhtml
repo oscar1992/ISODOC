@@ -19,14 +19,14 @@ and open the template in the editor.
 
         <ui:composition>  
             <ui:insert name="top">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 escritorio">
+                #{Valida.valida()}
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 escritorio" id="cont">
                     <h:form id="form" style="margin-bottom: 0">
                         <div class="titulo">  
                             <!--<img src="/ISODOC/imagenes/IconoIsodoc/IconoFondoOscuro.jpg" alt="" style="width: 100px"/>  -->
                             <div class="nombre" style="text-transform: uppercase">
                                 #{Menus.nombreModulo}
-                            </div>
-                                
+                            </div>                                
                         </div>
                         <nav class="navbar navbar-inverse">
                             <div class="container-fluid">
@@ -36,11 +36,7 @@ and open the template in the editor.
                                         <span class="icon-bar"></span>
                                         <span class="icon-bar"></span>
                                         <span class="icon-bar"></span>
-
                                     </button>
-
-
-
                                 </div>
                             </div>
                             <div class="collapse navbar-collapse" id="myNavbar2">
@@ -52,7 +48,7 @@ and open the template in the editor.
                                     </li>
                                     <ui:repeat value="#{Menus.menu}" var="modulo">
                                         <li>
-                                            <p:commandLink  update="form:lab" action="#{Menus.setRutaModulo(modulo.rutaModulo)}" actionListener="#{Menus.setIdModulo(modulo.idModulo)}"  ajax="false" style="text-decoration-color: #000">
+                                            <p:commandLink  action="#{Menus.setRutaModulo(modulo.rutaModulo)}" actionListener="#{Menus.setIdModulo(modulo.idModulo, '')}"  ajax="false" style="text-decoration-color: #000">
                                                 <h:graphicImage value="#{modulo.rutaIcono}" class="imagen"/>
                                             </p:commandLink>
                                             <div style="alignment-adjust: central; text-align: center; width: 80px; line-height: 0.8;;">
@@ -116,11 +112,14 @@ and open the template in the editor.
                         </nav>
                     </h:form>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " style="width: 100%; height: 20px; background-color: #f2f2f2; border-top: solid #999999; border-bottom: solid #999999; border-width: 1px">
-                    <h:outputText value="Usuario Actual: #{Menus.usuarioActual.nombre} #{Menus.usuarioActual.apellido}" style="float: left; padding-left: 20px;font-family: Trebuchet MS;"></h:outputText>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " style="width: 100%; height: 30px; background-color: #f2f2f2; border-top: solid #999999; border-bottom: solid #999999; border-width: 1px">                    
+                    <h:outputText value="Usted Esta en: #{Menus.nombreModulo}" class="detalles2"></h:outputText>
+                    
                     <h:form>
-                    <p:commandLink value="Cerrar" actionListener="#{Acceso.cerrarSesion()}" action="/index" style="float: right; text-decoration-color: #FFF; padding-right: 20px;font-family: Trebuchet MS;"/>
+                        <p:commandLink value="Cerrar" actionListener="#{Valida.cerrar()}" class="cerrar"/>
+                        <h:outputText value="Usuario Actual: #{Menus.usuarioActual.nombre} #{Menus.usuarioActual.apellido}|" class="detalles"></h:outputText>
                     </h:form>
+                    
                 </div>
             </ui:insert>
         </ui:composition>

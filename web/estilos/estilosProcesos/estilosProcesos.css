@@ -37,12 +37,13 @@
 */
 .nombre{
     padding-top: 5px;
+    padding-bottom: 5px;
     color: #ffffff;
     background: #f15a24;    
     alignment-adjust: central;
     text-align: center;
     font-family: Trebuchet MS;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 /*
@@ -91,10 +92,31 @@
     
 }
 
-/*
+.detalles{
+    padding-top: 3px;
+    float: right;
+    padding-left: 20px;
+    font-family: Trebuchet MS;
+}
+.detalles2{
+    padding-top: 4px;
+    float: left;
+    padding-left: 20px;
+    font-family: Trebuchet MS;
+}
+
+.cerrar{
+    padding-top: 3px;
+    float: right;
+    text-decoration-color: #FFF;
+    padding-right: 20px;
+    font-family: Trebuchet MS;
+}/*
     Estilo de la lista de los elelemtos del menú lateral
 */
 .list-group>li>a{
+    padding-left: 19px;
+    font-size: 12px;
     margin:0;
     color: #666666;
    
@@ -118,7 +140,7 @@
     height:100%;
     margin:0px;padding:0px;
     font-size: 12px;
-    font-family: Helvetica Neue, Trebuchet MS !important;
+    font-family: Trebuchet MS;
 
 }
 /*
@@ -161,6 +183,7 @@
     Estilo de la cabcera de la tabla
 */
 .ui-datatable-header{
+    font-family: Trebuchet MS;
     background-color: #f15a24;
     padding: 0px 0px;    
 }
