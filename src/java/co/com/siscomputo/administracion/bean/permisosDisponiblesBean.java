@@ -8,13 +8,14 @@ package co.com.siscomputo.administracion.bean;
 import co.com.siscomputo.administracion.logic.PermisosDisponiblesLogic;
 import co.com.siscomputo.endpoint.ListaAsignaPermisosModulo;
 import co.com.siscomputo.endpoint.ListaAsignaPermisosPermiso;
+import co.com.siscomputo.endpoint.PermisosEntity;
 import co.com.siscomputo.endpoint.RolPermisoEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import org.primefaces.event.ItemSelectEvent;
 
 /**
  *
@@ -24,143 +25,84 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class permisosDisponiblesBean implements Serializable {
 
-    private List<ListaAsignaPermisosModulo> listaPermisosSistema;
-    private List<Integer> listaSelecion;
-    private ListaAsignaPermisosModulo permisoObjeto;
-    private ArrayList<RolPermisoEntity> rolPermisolista;
-    private int idRol;
+    private ArrayList<ListaAsignaPermisosModulo> listaPermisos;
+    private ArrayList<RolPermisoEntity> listaSeleccion;
+    private ArrayList<String> listaSeleccionados;
+    private Integer idRol;
 
-    public List<ListaAsignaPermisosModulo> getListaPermisosSistema() {
-        return listaPermisosSistema;
+    public ArrayList<ListaAsignaPermisosModulo> getListaPermisos() {
+        return listaPermisos;
     }
 
-    public void setListaPermisosSistema(List<ListaAsignaPermisosModulo> listaPermisosSistema) {
-        this.listaPermisosSistema = listaPermisosSistema;
+    public void setListaPermisos(ArrayList<ListaAsignaPermisosModulo> listaPermisos) {
+        this.listaPermisos = listaPermisos;
     }
 
-    public List<Integer> getListaSelecion() {
-        return listaSelecion;
+    public ArrayList<RolPermisoEntity> getListaSeleccion() {
+        return listaSeleccion;
     }
 
-    public void setListaSelecion(List<Integer> listaSelecion) {
-        this.listaSelecion = listaSelecion;
+    public void setListaSeleccion(ArrayList<RolPermisoEntity> listaSeleccion) {
+        this.listaSeleccion = listaSeleccion;
     }
 
-    
-
-    public ListaAsignaPermisosModulo getPermisoObjeto() {
-        return permisoObjeto;
+    public ArrayList<String> getListaSeleccionados() {
+        return listaSeleccionados;
     }
 
-    public void setPermisoObjeto(ListaAsignaPermisosModulo permisoObjeto) {
-        this.permisoObjeto = permisoObjeto;
+    public void setListaSeleccionados(ArrayList<String> listaSeleccionados) {
+        this.listaSeleccionados = listaSeleccionados;
     }
 
-    public ArrayList<RolPermisoEntity> getRolPermisolista() {
-        return rolPermisolista;
-    }
 
-    public void setRolPermisolista(ArrayList<RolPermisoEntity> rolPermisolista) {
-        this.rolPermisolista = rolPermisolista;
-    }
-
-    public int getIdRol() {
+    public Integer getIdRol() {
         return idRol;
     }
 
-    public void setIdRol(int idRol) {
+    public void setIdRol(Integer idRol) {
         this.idRol = idRol;
     }
 
-    /**
-     * Método que carga las listas
-     */
     @PostConstruct
-    public void cargaLista() {
-        try {
-            //idRol=1;
-            listaSelecion=new ArrayList<>();
-            PermisosDisponiblesLogic permisosDisponiblesLogic = new PermisosDisponiblesLogic();
-            listaPermisosSistema = permisosDisponiblesLogic.listaPermisosDisponibles();
-            rolPermisolista = new ArrayList<>();
-            rolPermisolista = permisosDisponiblesLogic.listaRolPermiso(idRol);
-            //listaSelecion = new ArrayList<>();
-            //ListaAsignaPermisosPermiso permisoQuemado = listaPermisosSistema.get(0).getPermisoNivel1().get(0).getListaS().get(0).getListaS().get(1);
-            //listaSelecion.add(permisoQuemado);
-            //cargaChulos();
-            System.out.println("Seleec: " + listaSelecion.size());
-        } catch (Exception e) {
-            System.out.println("ERROR2");
-            e.printStackTrace();
-        }
+    public void init() {
+        listaSeleccion = new ArrayList<>();
+        System.out.println("ROL: "+idRol);
+        cargaAcordeon();
+        
     }
 
     /**
-     * Método que actualiza la lista de seleciones de acuerdo al rol
-     * seleccionado
+     * Método que carga el acordeon para mostrar los permisos
      */
-    public void cambiaRol() {
-        rolPermisolista = new ArrayList<>();
+    public void cargaAcordeon() {
         PermisosDisponiblesLogic permisosDisponiblesLogic = new PermisosDisponiblesLogic();
-        rolPermisolista = permisosDisponiblesLogic.listaRolPermiso(idRol);
-        cargaChulos();
-        System.out.println("Seleec: " + listaSelecion.size());
-    }
-
-    /**
-     * Método que carga los permisos asignados al rol
-     */
-    public void cargaChulos() {
-        listaSelecion = new ArrayList<>();
-        //Itero los modulos
-        for (ListaAsignaPermisosModulo modulos : listaPermisosSistema) {
-            //Itero los permisos del nivel dos 
-            for (ListaAsignaPermisosPermiso permNv1 : modulos.getPermisoNivel1()) {
-                //Itero los puntos del menu lateral
-                for (ListaAsignaPermisosPermiso permNv2 : permNv1.getListaS()) {
-                    //Itero los permisos internos de cada crud
-                    for (ListaAsignaPermisosPermiso permNv3 : permNv2.getListaS()) {
-                        
-                        if(comparaPermisos(permNv3.getPermiso().getIdPermiso())){
-                            
-                            listaSelecion.add(permNv3.getPermiso().getIdPermiso());
-                        }else{
-                             
-                        }                        
-                    }
-                }
-            }
-        }
+        listaPermisos = permisosDisponiblesLogic.listaPermisosDisponibles();
     }
     /**
-     * Método que permite comparar los ID de un rol asignado con los del menú
-     * @param idMenu
-     * @return 
+     * Método que carga los chulos de acuerdo al rol
      */
-    public boolean comparaPermisos(int idMenu) {
-        boolean ret = false;
-        for (RolPermisoEntity rpe : rolPermisolista) {            
-            if (rpe.getIdPermiso().getIdPermiso() == idMenu) {                
-                ret=true;
-                break;
-            } else {
-                ret=false;
+    public void camabiaRol() {
+        listaSeleccionados = new ArrayList<>();
+        PermisosDisponiblesLogic permisosDisponiblesLogic = new PermisosDisponiblesLogic();
+        if (idRol != null) {
+            ArrayList<RolPermisoEntity> listaRpe = permisosDisponiblesLogic.listaRolPermiso(idRol);
+            listaSeleccionados=new ArrayList<>();
+            for(RolPermisoEntity rpe:listaRpe){
+                //System.out.println("PER: "+rpe.getIdPermiso().getNombrePermiso());
+                listaSeleccionados.add(""+rpe.getIdPermiso().getIdPermiso());
             }
-        }        
-        return ret;
-    }
-    /**
-     * Método que actualiza la lista de permisos de un Rol
-     */
-    public void actualizarRolPermiso(){
-        if(idRol!=0){
-            System.out.println("TAMA: "+listaSelecion.size());
-            for(Integer select: listaSelecion){
-                System.out.println("permiso: "+select);
-            }
-        }else{
-            System.out.println("Selcionar Rol");
         }
         
+    }
+    
+    public void actualizarRolPermiso(){
+        System.out.println("ROL: "+idRol);
+        System.out.println("TAMA: "+listaSeleccionados.size());
+    }
+    
+    public void itemSelect(){
+       for(String per:listaSeleccionados){
+           System.out.println("ID: "+per);
+       }
     }
 }

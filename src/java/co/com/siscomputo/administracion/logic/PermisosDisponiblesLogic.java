@@ -67,7 +67,7 @@ public class PermisosDisponiblesLogic {
         ArrayList<Object> listaObjeto=(ArrayList<Object>) port.listaRolPermiso(idRol).getRetorna();
         for(Object obj:listaObjeto){
             RolPermisoEntity rolPermisosEntity=(RolPermisoEntity) obj;
-            //System.out.println("PER: "+rolPermisosEntity.getIdPermiso().getNombrePermiso());
+            System.out.println("PER: "+rolPermisosEntity.getIdPermiso().getNombrePermiso());
             lista.add(rolPermisosEntity);
         }
         return lista;

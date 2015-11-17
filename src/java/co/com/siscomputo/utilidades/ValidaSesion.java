@@ -17,37 +17,40 @@ import javax.faces.context.FacesContext;
  * @author LENOVO
  */
 @ManagedBean(name = "Valida")
-public class ValidaSesion implements Serializable{
-    private ExternalContext contexto=FacesContext.getCurrentInstance().getExternalContext();  
+public class ValidaSesion implements Serializable {
+
+    private ExternalContext contexto = FacesContext.getCurrentInstance().getExternalContext();
+
     /**
      * Método que evalua la validez de la sesión
      */
-    public void valida(){              
-        if(contexto.getSessionMap().size()==0||contexto.getSessionMap().get("idUsuario")==null){                        
+    public void valida() {
+        if (contexto.getSessionMap().size() == 0 || contexto.getSessionMap().get("idUsuario") == null) {
             try {
+                contexto.redirect("/ISODOC/index.jsf");
+            } catch (IOException ex) {
+                throw new ViewExpiredException();
+            }
+
+        } else {
+            //System.out.println("vive");
+        }
+        //System.out.println("sesion: " + contexto.getSessionMap().size());
+        //System.out.println("sesion: " + contexto.getSessionMap().get("idUsuario"));
+
+    }
+
+    /**
+     * Método que cierra la sesión
+     */
+    public void cerrar() {
+        //System.out.println("Sale");
+        try {
             contexto.redirect("/ISODOC/index.jsf");
         } catch (IOException ex) {
             throw new ViewExpiredException();
         }
-                        
-        }else{
-            System.out.println("vive");
-        }
-        System.out.println("sesion: "+contexto.getSessionMap().size()); 
-        System.out.println("sesion: "+contexto.getSessionMap().get("idUsuario")); 
-        
-    }
-    /**
-     * Método que cierra la sesión
-     */
-    public void cerrar(){
-        System.out.println("Sale");
-        try {
-            contexto.redirect("/ISODOC/index.jsf");
-        } catch (IOException ex) {
-            throw new ViewExpiredException();   
-        }
         contexto.invalidateSession();
-         
+
     }
 }

@@ -15,31 +15,30 @@
                     <div class="prueba" style="color: white; ">
                         <p:growl id="msgs" showDetail="true" life="3000"/>
                     </div>
-                    <p:panelGrid columns="2" style="border-style: none">
+                    <p:panelGrid columns="2" style="border-style: none">                        
                         <p:selectOneMenu value="#{PermisosDisponibles.idRol}" >
-                            <p:ajax listener="#{PermisosDisponibles.cambiaRol}" update=":asignarPermisosForm:acordionModulos"/>
+                            <p:ajax listener="#{PermisosDisponibles.camabiaRol()}" update=":asignarPermisosForm:acordionModulos,:asignarPermisosForm:acordionModulos:0:j_idt67:0:j_idt69:0:combosPermisos"/>
                             <f:selectItem itemValue="" itemLabel="Selecione un rol"/>
                             <f:selectItems value="#{ListaAdministracionBean.listaRoles}"/>
                         </p:selectOneMenu>
                         <p:commandButton value="Cambiar Permisos" actionListener="#{PermisosDisponibles.actualizarRolPermiso()}" class="botonNormal" update=":asignarPermisosForm:acordionModulos"></p:commandButton>
                     </p:panelGrid>
-                    
-                    <p:accordionPanel id="acordionModulos" value="#{PermisosDisponibles.listaPermisosSistema}" var="modulo" multiple="true">
-                        <p:tab title="Modulo #{modulo.modulo.nombre}">
-                            <p:accordionPanel value="#{modulo.permisoNivel1}" var="nivel1">
-                                <p:tab title="Nivel1 #{nivel1.permiso.nombrePermiso}">
-                                    <ui:repeat value="#{nivel1.listaS}" var="nivel2">
-                                        <p:panelGrid columns="6" style="columns: 80px">
-                                            <h:outputText value="#{nivel2.permiso.nombrePermiso}" />                                            
-                                            <h:selectManyCheckbox value="#{PermisosDisponibles.listaSelecion}" id="select" layout="grid">                                                
-                                                <f:selectItems value="#{nivel2.listaS}" var="permi" itemLabel=" #{permi.permiso.nombrePermiso}" itemValue="#{permi.permiso.idPermiso}"/>  
-                                            </h:selectManyCheckbox>
-                                        </p:panelGrid>
-                                    </ui:repeat>
+                    <p:accordionPanel id="acordionModulos" value="#{PermisosDisponibles.listaPermisos}" var="modulo" multiple="true">
+                        <p:tab title="#{modulo.modulo.nombre}">
+                            <p:accordionPanel value="#{modulo.permisoNivel1}" var="perNiv1" multiple="true">
+                                <p:tab title="#{perNiv1.permiso.nombrePermiso}">
+                                    <p:accordionPanel value="#{perNiv1.listaS}" var="forms" multiple="true">
+                                        <p:tab title="#{forms.permiso.nombrePermiso}">
+                                            <p:selectManyCheckbox value="#{PermisosDisponibles.listaSeleccionados}" converter="converterPermisosDisponibles" id="combosPermisos">
+                                                <p:ajax listener="#{PermisosDisponibles.itemSelect}"/>
+                                                <f:selectItems value="#{forms.listaS}" var="per" itemLabel="#{per.permiso.nombrePermiso}" itemValue="#{per.permiso.idPermiso}"/>
+                                            </p:selectManyCheckbox>                                                
+                                        </p:tab>
+                                    </p:accordionPanel>
                                 </p:tab>
                             </p:accordionPanel>
                         </p:tab>
-                    </p:accordionPanel>
+                    </p:accordionPanel>                    
                 </h:form>
             </h:body>
         </ui:define>
