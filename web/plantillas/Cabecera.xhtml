@@ -48,8 +48,8 @@ and open the template in the editor.
                                     </li>
                                     <ui:repeat value="#{Menus.menu}" var="modulo">
                                         <li>
-                                            <p:commandLink  action="#{Menus.setRutaModulo(modulo.rutaModulo)}" actionListener="#{Menus.setIdModulo(modulo.idModulo, '')}"  ajax="false" style="text-decoration-color: #000">
-                                                <h:graphicImage value="#{modulo.rutaIcono}" class="imagen"/>
+                                            <p:commandLink  action="#{Menus.setRutaModulo(modulo.rutaModulo)}" actionListener="#{Menus.setIdModulo(modulo.idModulo, '', null)}"  ajax="false" style="text-decoration-color: #000">
+                                                <h:graphicImage value="#{Menus.rutaIconoCambio(modulo.rutaIcono)}" class="imagen"/>
                                             </p:commandLink>
                                             <div style="alignment-adjust: central; text-align: center; width: 80px; line-height: 0.8;;">
                                             <h:outputText style="font-size: 12px;" value=""></h:outputText>

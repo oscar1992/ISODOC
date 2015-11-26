@@ -43,6 +43,7 @@ public class ListaAdministracionBean implements Serializable {
     private Map<String, Integer> listaMacroProcesos;
     private Map<String, Integer> listaProcesos;
     private Map<String, Integer> listaAreas;
+    private Map<String, String> listaGeneracionTipoDocumental;
     private int seleccion;
 
     @PostConstruct
@@ -66,7 +67,9 @@ public class ListaAdministracionBean implements Serializable {
     public void setListaEstados(Map<String, String> listaEstados) {
         this.listaEstados = listaEstados;
     }
-
+    /**
+     * Método que inicializa la lista de estados
+     */
     public void inicaListaEstados() {
         listaEstados = new HashMap<String, String>();
         listaEstados.put("Activo", "A");
@@ -81,7 +84,9 @@ public class ListaAdministracionBean implements Serializable {
     public void setListaSedes(Map<String, Integer> listaSedes) {
         this.listaSedes = listaSedes;
     }
-
+    /**
+     * Método que inicializa la lista de sedes
+     */
     public void iniciaListaSedes() {
         listaSedes = new HashMap<String, Integer>();
         SedesLogic sedesLogic = new SedesLogic();
@@ -99,7 +104,9 @@ public class ListaAdministracionBean implements Serializable {
     public void setListaPaises(Map<String, Integer> listaPaises) {
         this.listaPaises = listaPaises;
     }
-
+    /**
+     * Método que inicializa la lista de paises
+     */
     public void iniciaListaPaises() {
         listaPaises = new HashMap<String, Integer>();
         PaisesLogic paisesLogic = new PaisesLogic();
@@ -117,7 +124,9 @@ public class ListaAdministracionBean implements Serializable {
     public void setListaDepartamentos(Map<String, Integer> listaDepartamentos) {
         this.listaDepartamentos = listaDepartamentos;
     }
-
+    /**
+     * Método que inicializa la lista de departamentos
+     */
     public void iniciaListaDepartamentos() {
         listaDepartamentos=new HashMap<String, Integer>();
         DepartamentoLogic departamentoLogic=new DepartamentoLogic();
@@ -135,7 +144,9 @@ public class ListaAdministracionBean implements Serializable {
     public void setListaRoles(Map<String, Integer> listaRoles) {
         this.listaRoles = listaRoles;
     }
-    
+    /**
+     * Método que inicializa la lista de roles
+     */
     public void iniciarListaRoles(){
         listaRoles=new HashMap<String, Integer>();
         RolesLogic rolesLogic=new RolesLogic();
@@ -153,7 +164,9 @@ public class ListaAdministracionBean implements Serializable {
     public void setListamacroProcesos(Map<String, Integer> listamacroProcesos) {
         this.listaMacroProcesos = listamacroProcesos;
     }
-    
+    /**
+     * Método que inicializa la lista de macro procesos
+     */
     public void iniciarMacroProcesos(){
         listaMacroProcesos=new HashMap<String, Integer>();
         MacroProcesosLogic macroProcesosLogic=new MacroProcesosLogic();
@@ -171,7 +184,9 @@ public class ListaAdministracionBean implements Serializable {
     public void setListaProcesos(Map<String, Integer> listaProcesos) {
         this.listaProcesos = listaProcesos;
     }
-    
+    /**
+     * Método que inicializa la lista de procesos
+     */
     public void iniciarProcesos(){
         listaProcesos=new HashMap<String, Integer>();
         ProcesosLogic procesosLogic=new ProcesosLogic();
@@ -189,7 +204,9 @@ public class ListaAdministracionBean implements Serializable {
     public void setListaAreas(Map<String, Integer> listaAreas) {
         this.listaAreas = listaAreas;
     }
-    
+    /**
+     * Método que inicializa la lista de areas
+     */
     public void iniciarAreas(){
         listaAreas=new HashMap<String, Integer>();
         AreaLogic areaLogic=new AreaLogic();
@@ -197,5 +214,22 @@ public class ListaAdministracionBean implements Serializable {
         for(AreaEntity area:listaAreasWS){
             listaAreas.put(area.getNombreArea(), area.getIdArea());
         }
+    }
+
+    public Map<String, String> getListaGeneracionTipoDocumental() {
+        iniciarListaGeneracionTipoDocumental();
+        return listaGeneracionTipoDocumental;
+    }
+
+    public void setListaGeneracionTipoDocumental(Map<String, String> listaGeneracionTipoDocumental) {
+        this.listaGeneracionTipoDocumental = listaGeneracionTipoDocumental;
+    }
+    /**
+     * Método que inicializa la lista de tipos de generaciones de tipos documentales
+     */
+    public void iniciarListaGeneracionTipoDocumental(){
+        listaGeneracionTipoDocumental=new HashMap<String, String>();
+        listaGeneracionTipoDocumental.put("Automático", "Automático");
+        listaGeneracionTipoDocumental.put("Manual", "Manual");
     }
 }

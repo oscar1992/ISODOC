@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition template="/plantillas/PlantillaAdministracion.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form id="DisposicionesForm">
+                    <div class="prueba" style="color: white; ">
+                        <p:growl id="msgs" showDetail="true" life="3000"/>
+                    </div>
+                    <p:dataTable var="disposiciones" value="#{Disposiciones.lista}" reflow="true" widgetVar="TablaDisposiciones" id="tablaDisposiciones" selectionMode="single"
+                                 selection="#{Disposiciones.disposiscionObjeto}" rowKey="#{disposiciones.idDisposirciones}" class="TABLA" paginator="true" rows="7">
+                            <p:ajax event="rowSelect" listener="#{Disposiciones.onRowSelect}" update=":DisposicionesForm:msgs,:ActualizarModal:actualizarDisposicionModal" oncomplete="PF('actualizarDisposicion').show()"/>
+                            <f:facet name="header">
+                                <h:outputText value="CONSULTA DE DISPOSICIONES" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                                <p:inputText id="globalFilter" onkeyup="PF('TablaDisposiciones').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                                <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                            </f:facet>
+                            
+                            <p:column headerText="Nobre de la Disposicione" filterBy="#{disposiciones.nombreDisposiciones}">
+                                <h:outputText value="#{disposiciones.nombreDisposiciones}"/>
+                            </p:column>                            
+                            <p:column headerText="Estado del Disposiciones" filterBy="#{disposiciones.estadoDisposiciones}">
+                                <h:outputText value="Activo" rendered="#{disposiciones.estadoDisposiciones == 'A'}"/>
+                                <h:outputText value="Inctivo" rendered="#{disposiciones.estadoDisposiciones == 'I'}"/> 
+                            </p:column>                            
+                        </p:dataTable>
+                        <br/>
+                        <p:commandButton value="Insertar" type="button" onclick="PF('insertarDisposicion').show();" update=":DisposicionForm:msgs" class="botonNormal" rendered="#{Disposiciones.ingresar}"></p:commandButton>
+                    
+                </h:form>
+                <h:form id="IngresarModal">
+                    <p:dialog header="Insertar Disposicion" widgetVar="insertarDisposicion" modal="true" id="insertarDisposicionModal" responsive="true">
+                        #{Disposiciones.nuevoDisposicionObjeto()}
+                        
+                        <p:messages autoUpdate="true"/>                        
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            
+                            <h:outputText value="Nombre del Disposicion"></h:outputText>
+                            <p:inputText required="true" label="nombre del Disposicion" value="#{Disposiciones.disposiscionObjeto.nombreDisposiciones}"/>
+                            
+                            <h:outputText value="Estado del Disposicion"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarSede" value="#{Disposiciones.disposiscionObjeto.estadoDisposiciones}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+                            
+                        </p:panelGrid>                        
+                        <p:commandButton value="Ingresar" update=":DisposicionesForm:tablaDisposiciones,:IngresarModal:insertarDisposicionModal" actionListener="#{Disposiciones.insertarDisposicion()}" validateClient="true" class="botonNormal" />
+                    </p:dialog>
+                </h:form>
+                <h:form id="ActualizarModal">
+                    <p:dialog header="Actualizar Disposicion" widgetVar="actualizarDisposicion" modal="true" id="actualizarDisposicionModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            <h:outputText value="Nombre del Disposicion"></h:outputText>
+                            <p:inputText required="true" label="nombre del Disposicion" value="#{Disposiciones.disposiscionObjeto.nombreDisposiciones}"/>
+                            
+                            <h:outputText value="Estado del Disposicion"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarSede" value="#{Disposiciones.disposiscionObjeto.estadoDisposiciones}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+                            <h:inputHidden value="#{Disposiciones.disposiscionObjeto.idDisposirciones}"></h:inputHidden>
+                        </p:panelGrid>
+                        <p:commandButton  value="Actualizar" update=":DisposicionesForm:tablaDisposiciones,:IngresarModal:insertarDisposicionModal,DisposicionesForm:msgs" actionListener="#{Disposiciones.actualizarDisposicion()}" validateClient="true" class="botonNormal" rendered="#{Disposiciones.actualizar}"/>
+                        <p:commandButton value="Eliminar" update=":DisposicionesForm:tablaDisposiciones,:IngresarModal:insertarDisposicionModal,DisposicionesForm:msgs" actionListener="#{Disposiciones.eliminarDisposicion()}" validateClient="true" class="botonNormal" rendered="#{Disposiciones.eliminar}"/>
+                    </p:dialog>
+                </h:form>
+                
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>

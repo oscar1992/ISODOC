@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition template="/plantillas/PlantillaAdministracion.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form id="tipoDocumentalesForm">
+                    <div class="prueba" style="color: white; ">
+                        <p:growl id="msgs" showDetail="true" life="3000"/>
+                    </div>
+                    <p:dataTable var="tipoDocumental" value="#{TiposDocuemntales.lista}" reflow="true" widgetVar="TablatipoDocumentales" id="tablatipoDocumentales" selectionMode="single"
+                                 selection="#{TiposDocuemntales.tiposDobjeto}" rowKey="#{tipoDocumental.idTipoDocumental}" class="TABLA" paginator="true" rows="7">
+                        <p:ajax event="rowSelect" listener="#{TiposDocuemntales.onRowSelect}" update=":tipoDocumentalesForm:msgs,:ActualizarModal:actualizartipoDocumentalModal" oncomplete="PF('actualizarTipoDocumental').show()"/>
+                            <f:facet name="header">
+                                <h:outputText value="CONSULTA DE TIPOS DOCUMENTALES" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                                <p:inputText id="globalFilter" onkeyup="PF('TablaSedes').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                                <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                            </f:facet>
+                            
+                            <p:column headerText="Nobre del Tipo Documental" filterBy="#{tipoDocumental.nombreTipoDocumental}">
+                                <h:outputText value="#{tipoDocumental.nombreTipoDocumental}"/>
+                            </p:column>                            
+                            <p:column headerText="Generación del Tipo Documental" filterBy="#{tipoDocumental.genracionTipoDocumental}">
+                                <h:outputText value="#{tipoDocumental.genracionTipoDocumental}"/>
+                            </p:column>
+                            <p:column headerText="Iniciales del Tipo Documental" filterBy="#{tipoDocumental.genracionTipoDocumental}">
+                                <h:outputText value="#{tipoDocumental.inicialesTipoDocuemntal}"/>
+                            </p:column>
+                            <p:column headerText="Consecutivo del Tipo Documental" filterBy="#{tipoDocumental.genracionTipoDocumental}">
+                                <h:outputText value="#{tipoDocumental.consecutivoTipoDocuemntal}"/>
+                            </p:column>
+                            
+                            <p:column headerText="Estado del Tipo Documental" filterBy="#{tipoDocumental.estadoTipoDocuemtal}">
+                                <h:outputText value="Activo" rendered="#{tipoDocumental.estadoTipoDocuemtal == 'A'}"/>
+                                <h:outputText value="Inctivo" rendered="#{tipoDocumental.estadoTipoDocuemtal == 'I'}"/> 
+                            </p:column>
+                            
+                        </p:dataTable>
+                        <br/>
+                        <p:commandButton value="Insertar" type="button" onclick="PF('insertarTipoDocumental').show();" update=":tipoDocumentalForm:msgs" class="botonNormal" rendered="#{TiposDocuemntales.ingresar}"></p:commandButton>
+                    
+                </h:form>
+                <h:form id="IngresarModal">
+                    #{tipoDocumentales.nuevotipoDocumental()};
+                    <p:dialog header="Insertar Tipo Documental" widgetVar="insertarTipoDocumental" modal="true" id="insertartipoDocumentalModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            <h:outputText value="Nombre del Tipo Documental"></h:outputText>
+                            <p:inputText required="true" label="nombre del tipoDocumental" value="#{TiposDocuemntales.tiposDobjeto.nombreTipoDocumental}"/>                            
+                            <h:outputText value="Iniciales del Tipo Documental"></h:outputText>
+                            <p:inputText required="true" label="iniciales del tipoDocumental" value="#{TiposDocuemntales.tiposDobjeto.inicialesTipoDocuemntal}"/>
+                            <h:outputText value="Consecutivo del Tipo Documental"></h:outputText>
+                            <p:inputText required="true" label="consecutivo del tipoDocumental" value="#{TiposDocuemntales.tiposDobjeto.consecutivoTipoDocuemntal}"/>
+                            
+                            <h:outputText value="generación de la secuenacia del Tipo Documental"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarGeneracion" value="#{TiposDocuemntales.tiposDobjeto.genracionTipoDocumental}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Consecutivo" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaGeneracionTipoDocumental}"/>
+                            </p:selectOneMenu>
+                            <h:outputText value="Estado del Tipo Documental"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarEstado" value="#{TiposDocuemntales.tiposDobjeto.estadoTipoDocuemtal}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                        <p:commandButton value="Ingresar" update=":tipoDocumentalesForm:tablatipoDocumentales,:IngresarModal:insertartipoDocumentalModal,:tipoDocumentalesForm:msgs" actionListener="#{TiposDocuemntales.ingresarTiposDocumentales()}" validateClient="true" class="botonNormal"/>
+                    </p:dialog>
+                </h:form>
+                <h:form id="ActualizarModal">
+                    <p:dialog header="Actualizar tipoDocumental" widgetVar="actualizarTipoDocumental" modal="true" id="actualizartipoDocumentalModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            <h:outputText value="Nombre del Tipo Documental"></h:outputText>
+                            <p:inputText required="true" label="nombre del tipoDocumental" value="#{TiposDocuemntales.tiposDobjeto.nombreTipoDocumental}"/>
+                            <h:outputText value="generación de la secuenacia del Tipo Documental"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarGeneracion" value="#{TiposDocuemntales.tiposDobjeto.genracionTipoDocumental}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Consecutivo" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaGeneracionTipoDocumental}"/>
+                            </p:selectOneMenu>
+                            <h:outputText value="Iniciales del Tipo Documental"></h:outputText>
+                            <p:inputText required="true" label="iniciales del tipoDocumental" value="#{TiposDocuemntales.tiposDobjeto.inicialesTipoDocuemntal}"/>
+                            <h:outputText value="Consecutivo del Tipo Documental"></h:outputText>
+                            <p:inputText required="true" label="consecutivo del tipoDocumental" value="#{TiposDocuemntales.tiposDobjeto.consecutivoTipoDocuemntal}"/>
+                            <h:outputText value="Estado del Tipo Documental"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarSede" value="#{TiposDocuemntales.tiposDobjeto.estadoTipoDocuemtal}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                        <p:commandButton value="Actualizar" update=":tipoDocumentalesForm:tablatipoDocumentales,:ActualizarModal:actualizartipoDocumentalModal,tipoDocumentalesForm:msgs" actionListener="#{TiposDocuemntales.actualizarTipoDocumental()}" validateClient="true" class="botonNormal" rendered="#{TiposDocuemntales.actualizar}"/>
+                        <p:commandButton value="Eliminar" update=":tipoDocumentalesForm:tablatipoDocumentales,:ActualizarModal:actualizartipoDocumentalModal,tipoDocumentalesForm:msgs" actionListener="#{TiposDocuemntales.eliminarTipoDocumental()}" validateClient="true" class="botonNormal" rendered="#{TiposDocuemntales.eliminar}"/>
+                    </p:dialog>
+                </h:form>
+                <h:form id="EliminarModal">
+                    <p:dialog header="Eliminar tipoDocumental" widgetVar="eliminartipoDocumental" modal="true" id="eliminartipoDocumentalModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:outputLabel value="Esta seguro de eliminar:"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            <p:outputLabel value="#{tipoDocumentales.tipoDocumentalObjeto.nombretipoDocumental}"/>
+                        </p:panelGrid>
+                        <p:commandButton value="Eliminar" update=":tipoDocumentalesForm:tablatipoDocumentales,:EliminarModal:eliminartipoDocumentalModal,tipoDocumentalesForm:msgs" actionListener="#{tipoDocumentales.eliminartipoDocumental()}" validateClient="true" class="botonNormal" />
+                        <h:inputHidden value="#{tipoDocumentales.tipoDocumentalObjeto.codtipoDocumental}"></h:inputHidden>
+                        <h:inputHidden value="#{tipoDocumentales.tipoDocumentalObjeto.estadotipoDocumental}"></h:inputHidden>
+                        <h:inputHidden value="#{tipoDocumentales.tipoDocumentalObjeto.idtipoDocumental}"></h:inputHidden>
+                    </p:dialog>
+                </h:form>
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>

@@ -3,7 +3,6 @@ package co.com.siscomputo.endpoint;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.context.FacesContext;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -183,29 +182,7 @@ public class MenuModuloEntity {
      *     
      */
     public String getRutaIcono() {
-        return rutaIconoCambio(rutaIcono);
-        //return rutaIcono;
-    }
-
-    public String rutaIconoCambio(String ruta) {
-        try {
-            int numeroModulo=-1;
-            try {
-                numeroModulo = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("numeroModulo");
-                //System.out.println("nn: "+numeroModulo);
-            } catch (Exception e) {
-                //System.out.println("??");
-                numeroModulo = -1;
-            }
-            String modulos = "modulos" + numeroModulo;
-            String rte = ruta.replace("modulos2", modulos);
-            //System.out.println("RTE: "+modulos);
-            //System.out.println("RUTAX: " + rte);
-            return rte;
-        } catch (Exception e) {
-            System.out.println("EXCEP2");
-            return ruta;
-        }
+        return rutaIcono;
     }
 
     /**

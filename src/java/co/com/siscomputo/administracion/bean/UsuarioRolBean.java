@@ -41,6 +41,9 @@ public class UsuarioRolBean implements Serializable {
     private ArrayList<String> rolesNombre;
     private ArrayList<String> rolesSelecion;
     private UsuarioEntity usuarioObjeto;
+    private boolean ingresar;
+    private boolean actualizar;
+    private boolean eliminar;
     
 
     public ArrayList<UsuarioRolEntity> getListaUsuarioRol() {
@@ -115,6 +118,31 @@ public class UsuarioRolBean implements Serializable {
         this.idArea = idArea;
     }
 
+    public boolean isIngresar() {
+        return ingresar;
+    }
+
+    public void setIngresar(boolean ingresar) {
+        this.ingresar = ingresar;
+    }
+
+    public boolean isActualizar() {
+        return actualizar;
+    }
+
+    public void setActualizar(boolean actualizar) {
+        this.actualizar = actualizar;
+    }
+
+    public boolean isEliminar() {
+        return eliminar;
+    }
+
+    public void setEliminar(boolean eliminar) {
+        this.eliminar = eliminar;
+    }
+    
+
     
     public UsuarioRolBean() {
         
@@ -134,17 +162,6 @@ public class UsuarioRolBean implements Serializable {
         
     }
     
-    public void permisos(){
-        ArrayList<MenuPermisosEntity>menuLateral = (ArrayList<MenuPermisosEntity>) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("menuLateral");
-        for(MenuPermisosEntity nivel1:menuLateral){
-            for(MenuPermisosEntity nivel2:nivel1.getSubNivel()){
-                System.out.println("niv2: "+nivel2.getNombrePermiso());
-                for(MenuPermisosEntity nivel3:nivel2.getSubNivel()){
-                    System.out.println("niv3: "+nivel3.getNombrePermiso());
-                }
-            }
-        }
-    }
     
     /**
      * Método que trae la lista de los roles disponibles
@@ -177,6 +194,9 @@ public class UsuarioRolBean implements Serializable {
             }
         }
     }
+    /**
+     * Método que trae la lista de roles asignados
+     */
     public void consultarUsuarioRolPorAreaUsuario() {
         if (idUsuaurio != null) {
             try {
@@ -298,5 +318,34 @@ public class UsuarioRolBean implements Serializable {
         System.out.println("idarea: "+idArea);
     }
     
-
+    /**
+     * Método que evalua los accesos al formulario
+     */
+    public void permisos() {
+        ingresar = false;
+        actualizar = false;
+        eliminar = false;
+        ArrayList<MenuPermisosEntity> permisos = (ArrayList<MenuPermisosEntity>) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("menuLateral");
+        for (MenuPermisosEntity permisoObj : permisos) {
+            for (MenuPermisosEntity nivel1 : permisoObj.getSubNivel()) {
+                for (MenuPermisosEntity nivel2 : nivel1.getSubNivel()) {
+                    int idPer = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idPermiso");
+                    System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
+                    if (idPer == nivel2.getAsociadoMenu()) {
+                        switch (nivel2.getNombrePermiso()) {
+                            case "insert":
+                                ingresar = true;
+                                break;
+                            case "update":
+                                actualizar = true;
+                                break;
+                            case "delete":
+                                eliminar = true;
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

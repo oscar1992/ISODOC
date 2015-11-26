@@ -7,6 +7,7 @@ package co.com.siscomputo.administracion.bean;
 
 import co.com.siscomputo.administracion.logic.ProcesosLogic;
 import co.com.siscomputo.administracion.logic.SubProcesosLogic;
+import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.ProcesosEntity;
 import co.com.siscomputo.endpoint.SubprocesoEntity;
 import java.io.Serializable;
@@ -16,6 +17,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
@@ -30,6 +32,9 @@ public class SubprocesoBean implements Serializable{
     private ArrayList<SubprocesoEntity> listaSubproceso;
     private ArrayList<SubprocesoEntity> listaSubprocesoFiltro;
     private SubprocesoEntity subProcesoObjeto;
+    private boolean ingresar;
+    private boolean actualizar;
+    private boolean eliminar;
 
     public ArrayList<SubprocesoEntity> getListaSubproceso() {
         return listaSubproceso;
@@ -55,12 +60,38 @@ public class SubprocesoBean implements Serializable{
         this.subProcesoObjeto = subProcesoObjeto;
     }
 
+    public boolean isIngresar() {
+        return ingresar;
+    }
+
+    public void setIngresar(boolean ingresar) {
+        this.ingresar = ingresar;
+    }
+
+    public boolean isActualizar() {
+        return actualizar;
+    }
+
+    public void setActualizar(boolean actualizar) {
+        this.actualizar = actualizar;
+    }
+
+    public boolean isEliminar() {
+        return eliminar;
+    }
+
+    public void setEliminar(boolean eliminar) {
+        this.eliminar = eliminar;
+    }
+    
+    
     public SubprocesoBean() {
         
     }
     @PostConstruct
     public void init(){
         consultarSubprocesos();
+        permisos();
     }
     /**
      * Método que trae la lista de Subprocesos del servicio Web
@@ -188,6 +219,37 @@ public class SubprocesoBean implements Serializable{
             if(subProcesoObjeto.getIdSubproceso()==subproc.getIdSubproceso()){
                 itr.remove();
             }            
+        }
+    }
+    
+    /**
+     * Método que evalua los accesos al formulario
+     */
+    public void permisos() {
+        ingresar = false;
+        actualizar = false;
+        eliminar = false;
+        ArrayList<MenuPermisosEntity> permisos = (ArrayList<MenuPermisosEntity>) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("menuLateral");
+        for (MenuPermisosEntity permisoObj : permisos) {
+            for (MenuPermisosEntity nivel1 : permisoObj.getSubNivel()) {
+                for (MenuPermisosEntity nivel2 : nivel1.getSubNivel()) {
+                    int idPer = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idPermiso");
+                    System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
+                    if (idPer == nivel2.getAsociadoMenu()) {
+                        switch (nivel2.getNombrePermiso()) {
+                            case "insert":
+                                ingresar = true;
+                                break;
+                            case "update":
+                                actualizar = true;
+                                break;
+                            case "delete":
+                                eliminar = true;
+                                break;
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -8,6 +8,7 @@ package co.com.siscomputo.administracion.bean;
 import co.com.siscomputo.administracion.logic.PermisosDisponiblesLogic;
 import co.com.siscomputo.endpoint.ListaAsignaPermisosModulo;
 import co.com.siscomputo.endpoint.ListaAsignaPermisosPermiso;
+import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.PermisosEntity;
 import co.com.siscomputo.endpoint.RolPermisoEntity;
 import java.io.Serializable;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import org.primefaces.event.ItemSelectEvent;
 
 /**
@@ -29,6 +31,9 @@ public class permisosDisponiblesBean implements Serializable {
     private ArrayList<RolPermisoEntity> listaSeleccion;
     private ArrayList<String> listaSeleccionados;
     private Integer idRol;
+    private boolean ingresar ;
+    private boolean actualizar;
+    private boolean eliminar;
 
     public ArrayList<ListaAsignaPermisosModulo> getListaPermisos() {
         return listaPermisos;
@@ -63,12 +68,37 @@ public class permisosDisponiblesBean implements Serializable {
         this.idRol = idRol;
     }
 
+    public boolean isIngresar() {
+        return ingresar;
+    }
+
+    public void setIngresar(boolean ingresar) {
+        this.ingresar = ingresar;
+    }
+
+    public boolean isActualizar() {
+        return actualizar;
+    }
+
+    public void setActualizar(boolean actualizar) {
+        this.actualizar = actualizar;
+    }
+
+    public boolean isEliminar() {
+        return eliminar;
+    }
+
+    public void setEliminar(boolean eliminar) {
+        this.eliminar = eliminar;
+    }
+    
+
     @PostConstruct
     public void init() {
         listaSeleccion = new ArrayList<>();
         System.out.println("ROL: "+idRol);
         cargaAcordeon();
-        
+        permisos();
     }
 
     /**
@@ -94,15 +124,53 @@ public class permisosDisponiblesBean implements Serializable {
         }
         
     }
-    
+    /**
+     * Método que permite actualizar un permiso
+     */
     public void actualizarRolPermiso(){
         System.out.println("ROL: "+idRol);
         System.out.println("TAMA: "+listaSeleccionados.size());
+        for(String permiso:listaSeleccionados){
+            System.out.println("PP: "+permiso);
+        }
     }
-    
+    /**
+     * Método que se llama al detectar un cambio en las selecciones
+     */
     public void itemSelect(){
        for(String per:listaSeleccionados){
            System.out.println("ID: "+per);
        }
+    }
+    
+    /**
+     * Método que evalua los accesos al formulario
+     */
+    public void permisos() {
+        ingresar = false;
+        actualizar = false;
+        eliminar = false;
+        ArrayList<MenuPermisosEntity> permisos = (ArrayList<MenuPermisosEntity>) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("menuLateral");
+        for (MenuPermisosEntity permisoObj : permisos) {
+            for (MenuPermisosEntity nivel1 : permisoObj.getSubNivel()) {
+                for (MenuPermisosEntity nivel2 : nivel1.getSubNivel()) {
+                    int idPer = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idPermiso");
+                    System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
+                    if (idPer == nivel2.getAsociadoMenu()) {
+                        switch (nivel2.getNombrePermiso()) {
+                            case "insert":
+                                ingresar = true;
+                                break;
+                            case "update":
+                                actualizar = true;
+                                break;
+                            case "delete":
+                                eliminar = true;
+                                break;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

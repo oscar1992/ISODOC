@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition template="/plantillas/PlantillaAdministracion.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form id="TipoControlDistribucionForm">
+                    <div class="prueba" style="color: white; ">
+                        <p:growl id="msgs" showDetail="true" life="3000" autoUpdate="true"/>
+                    </div>
+                    <p:dataTable var="tipoControlDistribucion" value="#{TipoControlDistribucion.lista}" reflow="true" widgetVar="TablaTipoControlDistribucion" id="tablaTipoControlDistribucion" selectionMode="single"
+                                 selection="#{TipoControlDistribucion.objetoTipoControlDistribucion}" rowKey="#{tipoControlDistribucion.idTipoControlDistribucion}" class="TABLA" paginator="true" rows="7">
+                        <p:ajax event="rowSelect" listener="#{TipoControlDistribucion.onRowSelect}" update=":TipoControlDistribucionForm:msgs,:ActualizarModal:actualizarTipoControlDistribucionModal" oncomplete="PF('actualizarTipoControlDistribucion').show()"/>
+                        <f:facet name="header">
+                            <h:outputText value="CONSULTA DE TIPO DE CONTROL DE DISTRIBUCIÓN" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                            <p:inputText id="globalFilter" onkeyup="PF('TablaTipoControlDistribucion').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                            <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                        </f:facet>
+
+                        <p:column headerText="nombre del Tipo de Control de distribución" filterBy="#{tipoControlDistribucion.nombreTipoControlDistribucion}">
+                            <h:outputText value="#{tipoControlDistribucion.nombreTipoControlDistribucion}"/>
+                        </p:column>
+                        <p:column headerText="estado del Tipo de Control de distribución" filterBy="#{tipoControlDistribucion.estadoTipoControlDistribucion}">
+                            <h:outputText value="Activo" rendered="#{tipoControlDistribucion.estadoTipoControlDistribucion == 'A'}"/>
+                            <h:outputText value="Inctivo" rendered="#{tipoControlDistribucion.estadoTipoControlDistribucion == 'I'}"/> </p:column>
+
+                    </p:dataTable>
+                    <br/>
+                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarTipoControlDistribucion').show();" update=":TipoControlDistribucionForm:msgs" class="botonNormal" rendered="#{TipoControlDistribucion.ingresar}"></p:commandButton>
+
+                </h:form>
+                <h:form id="IngresarModal">
+                    <p:dialog header="Insertar Tipo de Control de distribución" widgetVar="insertarTipoControlDistribucion" modal="true" id="insertarTipoControlDistribucionModal" responsive="true">
+                        #{TipoControlDistribucion.nuevoTipoControlDistribucionObjeto()}                        
+                        <p:messages autoUpdate="true"/>                        
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+
+                            <h:outputText value="nombre del Tipo de Control de distribución"></h:outputText>
+
+                            <p:inputText required="true" label="nombre del Tipo de Control de distribución" value="#{TipoControlDistribucion.objetoTipoControlDistribucion.nombreTipoControlDistribucion}"/>
+
+                            <h:outputText value="Estado del Tipo de Control de distribución"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarEstado" value="#{TipoControlDistribucion.objetoTipoControlDistribucion.estadoTipoControlDistribucion}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+
+                        </p:panelGrid>                        
+                        <p:commandButton value="Ingresar" update=":TipoControlDistribucionForm:tablaTipoControlDistribucion,:IngresarModal:insertarTipoControlDistribucionModal" actionListener="#{TipoControlDistribucion.instertarTipoControlDistribucion()}" validateClient="true" class="botonNormal" ajax="true"/>
+                    </p:dialog>
+                </h:form>
+                <h:form id="ActualizarModal">
+                    <p:dialog header="Actualizar Tipo de Control de distribución" widgetVar="actualizarTipoControlDistribucion" modal="true" id="actualizarTipoControlDistribucionModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            <h:outputText value="nombre del Tipo de Control de distribución"></h:outputText>
+                            <p:inputText required="true" label="nombre del Tipo de Control de distribución" value="#{TipoControlDistribucion.objetoTipoControlDistribucion.nombreTipoControlDistribucion}"/>
+
+
+                            <h:outputText value="Estado del Tipo de Control de distribución"></h:outputText>
+                            <p:selectOneMenu id="desplegableActualizarEstado" value="#{TipoControlDistribucion.objetoTipoControlDistribucion.estadoTipoControlDistribucion}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Tipo de Control de distribución" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+                            <h:inputHidden value="#{TipoControlDistribucion.objetoTipoControlDistribucion.idTipoControlDistribucion}"></h:inputHidden>
+                        </p:panelGrid>
+                        <p:commandButton  value="Actualizar" update=":TipoControlDistribucionForm:tablaTipoControlDistribucion,:ActualizarModal:actualizarTipoControlDistribucionModal,TipoControlDistribucionForm:msgs" actionListener="#{TipoControlDistribucion.actualizarTipoControlDistribucion()}" validateClient="true" class="botonNormal" rendered="#{TipoControlDistribucion.actualizar}"/>
+                        <p:commandButton value="Eliminar" update=":TipoControlDistribucionForm:tablaTipoControlDistribucion,:ActualizarModal:actualizarTipoControlDistribucionModal,TipoControlDistribucionForm:msgs" actionListener="#{TipoControlDistribucion.eliminarTipoControlDistribucion()}" validateClient="true" class="botonNormal" rendered="#{TipoControlDistribucion.eliminar}"/>
+                    </p:dialog>
+                </h:form>
+
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>

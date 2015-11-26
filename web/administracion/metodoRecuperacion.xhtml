@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition template="/plantillas/PlantillaAdministracion.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form id="MetodoRecuperacionForm">
+                    <div class="prueba" style="color: white; ">
+                        <p:growl id="msgs" showDetail="true" life="3000" autoUpdate="true"/>
+                    </div>
+                    <p:dataTable var="metodoRecuperacion" value="#{MetodoRecuperacion.lista}" reflow="true" widgetVar="TablaMetodoRecuperacion" id="tablaMetodoRecuperacion" selectionMode="single"
+                                 selection="#{MetodoRecuperacion.metodoRecuperacionObjeto}" rowKey="#{metodoRecuperacion.idMetodoRecuperacion}" class="TABLA" paginator="true" rows="7">
+                            <p:ajax event="rowSelect" listener="#{MetodoRecuperacion.onRowSelect}" update=":MetodoRecuperacionForm:msgs,:ActualizarModal:actualizarMetodoRecuperacionModal" oncomplete="PF('actualizarMetodoRecuperacion').show()"/>
+                            <f:facet name="header">
+                                <h:outputText value="CONSULTA DE Métodos de Recuperación" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                                <p:inputText id="globalFilter" onkeyup="PF('TablaMetodoRecuperacion').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                                <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                            </f:facet>
+                            
+                            <p:column headerText="Nobre del Método de Recuperación" filterBy="#{metodoRecuperacion.nombreMetodoRecuperacion}">
+                                <h:outputText value="#{metodoRecuperacion.nombreMetodoRecuperacion}"/>
+                            </p:column>                            
+                            <p:column headerText="Estado del Método de Recuperación" filterBy="#{metodoRecuperacion.estadoMetodoRecuperacion}">
+                                <h:outputText value="Activo" rendered="#{metodoRecuperacion.estadoMetodoRecuperacion == 'A'}"/>
+                                <h:outputText value="Inctivo" rendered="#{metodoRecuperacion.estadoMetodoRecuperacion == 'I'}"/> 
+                            </p:column>                            
+                        </p:dataTable>
+                        <br/>
+                        <p:commandButton value="Insertar" type="button" onclick="PF('insertarMetodoRecuperacion').show();" update=":MetodoRecuperacionForm:msgs" class="botonNormal" rendered="#{MetodoRecuperacion.ingresar}"></p:commandButton>
+                    
+                </h:form>
+                <h:form id="IngresarModal">
+                    <p:dialog header="Insertar Método de Recuperación" widgetVar="insertarMetodoRecuperacion" modal="true" id="insertarMetodoRecuperacionModal" responsive="true">
+                        #{MetodoRecuperacion.nuevoMetodoRecuperacionObjeto()}                        
+                        <p:messages autoUpdate="true"/>                        
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            
+                            <h:outputText value="Nombre del Método de Recuperación"></h:outputText>
+                            <p:inputText required="true" label="nombre del Método de Recuperación" value="#{MetodoRecuperacion.metodoRecuperacionObjeto.nombreMetodoRecuperacion}"/>
+                            
+                            <h:outputText value="Estado del Método de Recuperación"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarEstado" value="#{MetodoRecuperacion.metodoRecuperacionObjeto.estadoMetodoRecuperacion}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+                            
+                        </p:panelGrid>                        
+                        <p:commandButton value="Ingresar" update=":MetodoRecuperacionForm:tablaMetodoRecuperacion,:IngresarModal:insertarMetodoRecuperacionModal" actionListener="#{MetodoRecuperacion.instertarMetodoRecuperacion()}" validateClient="true" class="botonNormal" />
+                    </p:dialog>
+                </h:form>
+                <h:form id="ActualizarModal">
+                    <p:dialog header="Actualizar Método de Recuperación" widgetVar="actualizarMetodoRecuperacion" modal="true" id="actualizarMetodoRecuperacionModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            <h:outputText value="Nombre del Método de Recuperación"></h:outputText>
+                            <p:inputText required="true" label="nombre del Método de Recuperación" value="#{MetodoRecuperacion.metodoRecuperacionObjeto.nombreMetodoRecuperacion}"/>
+                            
+                            <h:outputText value="Estado del Método de Recuperación"></h:outputText>
+                            <p:selectOneMenu id="desplegableActualizarEstado" value="#{MetodoRecuperacion.metodoRecuperacionObjeto.estadoMetodoRecuperacion}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Método de Recuperación" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+                            <h:inputHidden value="#{MetodoRecuperacion.metodoRecuperacionObjeto.idMetodoRecuperacion}"></h:inputHidden>
+                        </p:panelGrid>
+                        <p:commandButton  value="Actualizar" update=":MetodoRecuperacionForm:tablaMetodoRecuperacion,:ActualizarModal:actualizarMetodoRecuperacionModal,MetodoRecuperacionForm:msgs" actionListener="#{MetodoRecuperacion.actualizarMetodoRecuperacion()}" validateClient="true" class="botonNormal" rendered="#{MetodoRecuperacion.actualizar}"/>
+                        <p:commandButton value="Eliminar" update=":MetodoRecuperacionForm:tablaMetodoRecuperacion,:ActualizarModal:actualizarMetodoRecuperacionModal,MetodoRecuperacionForm:msgs" actionListener="#{MetodoRecuperacion.eliminarMetodoRecuperacion()}" validateClient="true" class="botonNormal" rendered="#{MetodoRecuperacion.eliminar}"/>
+                    </p:dialog>
+                </h:form>
+                
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>

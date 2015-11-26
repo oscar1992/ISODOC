@@ -8,6 +8,7 @@ package co.com.siscomputo.administracion.bean;
 import co.com.siscomputo.administracion.logic.AreaLogic;
 import co.com.siscomputo.administracion.logic.SedesLogic;
 import co.com.siscomputo.endpoint.AreaEntity;
+import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.SedeEntity;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -15,6 +16,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
@@ -29,10 +31,14 @@ public class AreaBean {
     private ArrayList<AreaEntity> lista;
     private ArrayList<AreaEntity> listaFiltro;
     private AreaEntity areaObjeto;
-
+    private boolean ingresar ;
+    private boolean actualizar;
+    private boolean eliminar;
+    
     @PostConstruct
     public void init() {
         consultarAreas();
+        permisos();
     }
 
     public AreaBean() {
@@ -64,6 +70,30 @@ public class AreaBean {
         this.areaObjeto = areaObjeto;
     }
 
+    public boolean isIngresar() {
+        return ingresar;
+    }
+
+    public void setIngresar(boolean ingresar) {
+        this.ingresar = ingresar;
+    }
+
+    public boolean isActualizar() {
+        return actualizar;
+    }
+
+    public void setActualizar(boolean actualizar) {
+        this.actualizar = actualizar;
+    }
+
+    public boolean isEliminar() {
+        return eliminar;
+    }
+
+    public void setEliminar(boolean eliminar) {
+        this.eliminar = eliminar;
+    }
+     
     /**
      * Método que trae la lista que cargó el servicio web
      */
@@ -122,7 +152,11 @@ public class AreaBean {
         RequestContext.getCurrentInstance().execute("PF('actualizarArea').hide()");
         //areaObjeto = new AreaEntity();
     }
-
+    
+    /**
+     * Método que actualiza visualmente la lista de areas
+     * @param areaObjeto 
+     */
     public void actualizarListaAres(AreaEntity areaObjeto) {
         try {
             ArrayList<AreaEntity> listaaux = new ArrayList<>();
@@ -196,5 +230,35 @@ public void onRowSelect(SelectEvent event) {
         SedeEntity sede = new SedeEntity();
         sede.setIdSede(-1);
         areaObjeto.setIdSede(sede);
+    }
+    /**
+     * Método que evalua los accesos al formulario
+     */
+    public void permisos() {
+        ingresar = false;
+        actualizar = false;
+        eliminar = false;
+        ArrayList<MenuPermisosEntity> permisos = (ArrayList<MenuPermisosEntity>) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("menuLateral");
+        for (MenuPermisosEntity permisoObj : permisos) {
+            for (MenuPermisosEntity nivel1 : permisoObj.getSubNivel()) {
+                for (MenuPermisosEntity nivel2 : nivel1.getSubNivel()) {
+                    int idPer = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idPermiso");
+                    System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
+                    if (idPer == nivel2.getAsociadoMenu()) {
+                        switch (nivel2.getNombrePermiso()) {
+                            case "insert":
+                                ingresar = true;
+                                break;
+                            case "update":
+                                actualizar = true;
+                                break;
+                            case "delete":
+                                eliminar = true;
+                                break;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

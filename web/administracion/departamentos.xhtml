@@ -38,14 +38,9 @@
                                 <h:outputText value="#{departamentos.idPais.nombrePais}"/>
                             </p:column>
                             
-                            <p:column style="width: 32px;text-align: center">
-                                <p:commandButton update="EliminarModal:eliminarDepartamentoModal"  oncomplete="PF('eliminarDepartamento').show()" class="iconoBuscar" value=" ">
-                                    <f:setPropertyActionListener value="#{departamentos}" target="#{Departamentos.departamentoObjeto}" /> 
-                                </p:commandButton>
-                            </p:column>
                         </p:dataTable>
                         <br/>
-                        <p:commandButton value="Insertar" type="button" onclick="PF('insertarDepartamento').show();" update=":DepartamentoForm:msgs" class="botonNormal"></p:commandButton>
+                        <p:commandButton value="Insertar" type="button" onclick="PF('insertarDepartamento').show();" update=":DepartamentoForm:msgs" class="botonNormal" rendered="#{Departamentos.ingresar}"></p:commandButton>
                     
                 </h:form>
                 <h:form id="IngresarModal">
@@ -70,7 +65,7 @@
                                 <f:selectItems value="#{ListaAdministracionBean.listaPaises}"/>
                             </p:selectOneMenu>
                         </p:panelGrid>                        
-                        <p:commandButton value="Ingresar" update=":DepartamentosForm:tablaDepartamentos,:IngresarModal:insertarDepartamentoModal" actionListener="#{Departamentos.ingresarDepartamento()}" validateClient="true" class="botonNormal"/>
+                        <p:commandButton value="Ingresar" update=":DepartamentosForm:tablaDepartamentos,:IngresarModal:insertarDepartamentoModal" actionListener="#{Departamentos.ingresarDepartamento()}" validateClient="true" class="botonNormal" />
                     </p:dialog>
                 </h:form>
                 <h:form id="ActualizarModal">
@@ -92,7 +87,8 @@
                                 <f:selectItems value="#{ListaAdministracionBean.listaPaises}"/>
                             </p:selectOneMenu>
                         </p:panelGrid>
-                        <p:commandButton  value="Actualizar" update=":DepartamentosForm:tablaDepartamentos,:IngresarModal:insertarDepartamentoModal,DepartamentosForm:msgs" actionListener="#{Departamentos.actualizarDepartamento()}" validateClient="true" class="botonNormal" />
+                        <p:commandButton  value="Actualizar" update=":DepartamentosForm:tablaDepartamentos,:IngresarModal:insertarDepartamentoModal,DepartamentosForm:msgs" actionListener="#{Departamentos.actualizarDepartamento()}" validateClient="true" class="botonNormal" rendered="#{Departamentos.actualizar}"/>
+                        <p:commandButton value="Eliminar" update=":DepartamentosForm:tablaDepartamentos,:IngresarModal:insertarDepartamentoModal,DepartamentosForm:msgs" actionListener="#{Departamentos.eliminarDepartamento()}" validateClient="true" class="botonNormal" rendered="#{Departamentos.eliminar}"/>
                     </p:dialog>
                 </h:form>
                 <h:form id="EliminarModal">

@@ -9,12 +9,14 @@ import co.com.siscomputo.administracion.logic.CiudadLogic;
 import co.com.siscomputo.administracion.logic.DepartamentoLogic;
 import co.com.siscomputo.endpoint.CiudadEntity;
 import co.com.siscomputo.endpoint.DepartamentoEntity;
+import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
@@ -29,10 +31,14 @@ public class CiudadBean {
     private ArrayList<CiudadEntity> lista;
     private ArrayList<CiudadEntity> listaFiltro;
     private CiudadEntity ciudadObjeto;
+    private boolean ingresar ;
+    private boolean actualizar;
+    private boolean eliminar;
 
     @PostConstruct
     public void init() {
         consultarCiudades();
+        permisos();
     }
 
     public ArrayList<CiudadEntity> getLista() {
@@ -58,6 +64,31 @@ public class CiudadBean {
     public void setCiudadObjeto(CiudadEntity ciudadObjeto) {
         this.ciudadObjeto = ciudadObjeto;
     }
+
+    public boolean isIngresar() {
+        return ingresar;
+    }
+
+    public void setIngresar(boolean ingresar) {
+        this.ingresar = ingresar;
+    }
+
+    public boolean isActualizar() {
+        return actualizar;
+    }
+
+    public void setActualizar(boolean actualizar) {
+        this.actualizar = actualizar;
+    }
+
+    public boolean isEliminar() {
+        return eliminar;
+    }
+
+    public void setEliminar(boolean eliminar) {
+        this.eliminar = eliminar;
+    }
+    
 
     /**
      * Método que trae la lista de ciudades del servicio web
@@ -198,5 +229,36 @@ public class CiudadBean {
             ciudadObjeto.setCiudadDepartamento(departamento);
         
 
+    }
+    
+    /**
+     * Método que evalua los accesos al formulario
+     */
+    public void permisos() {
+        ingresar = false;
+        actualizar = false;
+        eliminar = false;
+        ArrayList<MenuPermisosEntity> permisos = (ArrayList<MenuPermisosEntity>) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("menuLateral");
+        for (MenuPermisosEntity permisoObj : permisos) {
+            for (MenuPermisosEntity nivel1 : permisoObj.getSubNivel()) {
+                for (MenuPermisosEntity nivel2 : nivel1.getSubNivel()) {
+                    int idPer = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idPermiso");
+                    System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
+                    if (idPer == nivel2.getAsociadoMenu()) {
+                        switch (nivel2.getNombrePermiso()) {
+                            case "insert":
+                                ingresar = true;
+                                break;
+                            case "update":
+                                actualizar = true;
+                                break;
+                            case "delete":
+                                eliminar = true;
+                                break;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

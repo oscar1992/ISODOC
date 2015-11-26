@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition template="/plantillas/PlantillaAdministracion.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form id="MetodoProteccionForm">
+                    <div class="prueba" style="color: white; ">
+                        <p:growl id="msgs" showDetail="true" life="3000" autoUpdate="true"/>
+                    </div>
+                    <p:dataTable var="metodoProteccion" value="#{MetodoProteccion.lista}" reflow="true" widgetVar="TablaMetodoProteccion" id="tablaMetodoProteccion" selectionMode="single"
+                                 selection="#{MetodoProteccion.objetoMetodoProteccion}" rowKey="#{metodoProteccion.idMetodoProteccion}" class="TABLA" paginator="true" rows="7">
+                        <p:ajax event="rowSelect" listener="#{MetodoProteccion.onRowSelect}" update=":MetodoProteccionForm:msgs,:ActualizarModal:actualizarMetodoProteccionModal" oncomplete="PF('actualizarMetodoProteccion').show()"/>
+                        <f:facet name="header">
+                            <h:outputText value="CONSULTA DE MÉTODO DE PROTECCIÓN" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                            <p:inputText id="globalFilter" onkeyup="PF('TablaMetodoProteccion').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                            <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                        </f:facet>
+                        <p:column headerText="nombre del Método de Protección" filterBy="#{metodoProteccion.nombreMetodoProteccion}">
+                            <h:outputText value="#{metodoProteccion.nombreMetodoProteccion}"/>
+                        </p:column>
+                        <p:column headerText="estado del Método de Protección" filterBy="#{metodoProteccion.estadoMetodoProteccion}">
+                            <h:outputText value="Activo" rendered="#{metodoProteccion.estadoMetodoProteccion == 'A'}"/>
+                            <h:outputText value="Inctivo" rendered="#{metodoProteccion.estadoMetodoProteccion == 'I'}"/> </p:column>
+                    </p:dataTable>
+                    <br/>
+                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarMetodoProteccion').show();" update=":MetodoProteccionForm:msgs" class="botonNormal" rendered="#{MetodoProteccion.ingresar}"></p:commandButton>
+
+                </h:form>
+                <h:form id="IngresarModal">
+                    <p:dialog header="Insertar Método de Protección" widgetVar="insertarMetodoProteccion" modal="true" id="insertarMetodoProteccionModal" responsive="true">
+                        #{MetodoProteccion.nuevoMetodoProteccionObjeto()}                        
+                        <p:messages autoUpdate="true"/>                        
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+
+                            
+                            <h:outputText value="nombre del Método de Protección"></h:outputText>
+
+                            <p:inputText required="true" label="nombre del Método de Protección" value="#{MetodoProteccion.objetoMetodoProteccion.nombreMetodoProteccion}"/>
+
+                            <h:outputText value="Estado del Método de Protección"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarEstado" value="#{MetodoProteccion.objetoMetodoProteccion.estadoMetodoProteccion}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+
+                        </p:panelGrid>                        
+                        <p:commandButton value="Ingresar" update=":MetodoProteccionForm:tablaMetodoProteccion,:IngresarModal:insertarMetodoProteccionModal" actionListener="#{MetodoProteccion.instertarMetodoProteccion()}" validateClient="true" class="botonNormal" />
+                    </p:dialog>
+                </h:form>
+                <h:form id="ActualizarModal">
+                    <p:dialog header="Actualizar Método de Protección" widgetVar="actualizarMetodoProteccion" modal="true" id="actualizarMetodoProteccionModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            <h:outputText value="nombre del Método de Protección"></h:outputText>
+                            <p:inputText required="true" label="nombre del Método de Protección" value="#{MetodoProteccion.objetoMetodoProteccion.nombreMetodoProteccion}"/>
+                            <h:outputText value="Estado del Método de Protección"></h:outputText>
+                            <p:selectOneMenu id="desplegableActualizarEstado" value="#{MetodoProteccion.objetoMetodoProteccion.estadoMetodoProteccion}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Método de Protección" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+                            <h:inputHidden value="#{MetodoProteccion.objetoMetodoProteccion.idMetodoProteccion}"></h:inputHidden>
+                        </p:panelGrid>
+                        <p:commandButton  value="Actualizar" update=":MetodoProteccionForm:tablaMetodoProteccion,:ActualizarModal:actualizarMetodoProteccionModal,MetodoProteccionForm:msgs" actionListener="#{MetodoProteccion.actualizarMetodoProteccion()}" validateClient="true" class="botonNormal" rendered="#{MetodoProteccion.actualizar}"/>
+                        <p:commandButton value="Eliminar" update=":MetodoProteccionForm:tablaMetodoProteccion,:ActualizarModal:actualizarMetodoProteccionModal,MetodoProteccionForm:msgs" actionListener="#{MetodoProteccion.eliminarMetodoProteccion()}" validateClient="true" class="botonNormal" rendered="#{MetodoProteccion.eliminar}"/>
+                    </p:dialog>
+                </h:form>
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>

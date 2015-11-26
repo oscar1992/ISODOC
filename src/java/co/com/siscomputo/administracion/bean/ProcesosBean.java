@@ -8,6 +8,7 @@ package co.com.siscomputo.administracion.bean;
 import co.com.siscomputo.administracion.logic.MacroProcesosLogic;
 import co.com.siscomputo.administracion.logic.ProcesosLogic;
 import co.com.siscomputo.endpoint.MacroprocesosEntity;
+import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.ProcesosEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
@@ -29,6 +31,9 @@ public class ProcesosBean implements Serializable{
     private ArrayList<ProcesosEntity> listaProcesos;
     private ArrayList<ProcesosEntity> listaProcesosFiltro;
     private ProcesosEntity procesosObjeto;
+    private boolean ingresar;
+    private boolean actualizar;
+    private boolean eliminar;
 
     public ArrayList<ProcesosEntity> getListaProcesos() {
         return listaProcesos;
@@ -53,8 +58,35 @@ public class ProcesosBean implements Serializable{
     public void setProcesosObjeto(ProcesosEntity procesosObjeto) {
         this.procesosObjeto = procesosObjeto;
     }
+
+    public boolean isIngresar() {
+        return ingresar;
+    }
+
+    public void setIngresar(boolean ingresar) {
+        this.ingresar = ingresar;
+    }
+
+    public boolean isActualizar() {
+        return actualizar;
+    }
+
+    public void setActualizar(boolean actualizar) {
+        this.actualizar = actualizar;
+    }
+
+    public boolean isEliminar() {
+        return eliminar;
+    }
+
+    public void setEliminar(boolean eliminar) {
+        this.eliminar = eliminar;
+    }
+    
+    
     @PostConstruct
     public void init(){
+        permisos();
         consultarProcesos();
     }
     
@@ -196,5 +228,34 @@ public class ProcesosBean implements Serializable{
         }
     }
     
-    
+    /**
+     * Método que evalua los accesos al formulario
+     */
+    public void permisos() {
+        ingresar = false;
+        actualizar = false;
+        eliminar = false;
+        ArrayList<MenuPermisosEntity> permisos = (ArrayList<MenuPermisosEntity>) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("menuLateral");
+        for (MenuPermisosEntity permisoObj : permisos) {
+            for (MenuPermisosEntity nivel1 : permisoObj.getSubNivel()) {
+                for (MenuPermisosEntity nivel2 : nivel1.getSubNivel()) {
+                    int idPer = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idPermiso");
+                    System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
+                    if (idPer == nivel2.getAsociadoMenu()) {
+                        switch (nivel2.getNombrePermiso()) {
+                            case "insert":
+                                ingresar = true;
+                                break;
+                            case "update":
+                                actualizar = true;
+                                break;
+                            case "delete":
+                                eliminar = true;
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

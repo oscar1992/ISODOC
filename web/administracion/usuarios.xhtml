@@ -51,7 +51,7 @@
                         
                     </p:dataTable>
                     <br/>
-                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarUsuario').show();" update=":UsuarioForm:msgs" class="botonNormal2"  ></p:commandButton>
+                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarUsuario').show();" update=":UsuarioForm:msgs" class="botonNormal2" rendered="#{Usuario.ingresar}" ></p:commandButton>
                 </h:form>
 
                 <h:form id="IngresarModal">      
@@ -112,10 +112,10 @@
                         </p:panelGrid>
                         <div class="centrar">
                             <div style="float:left">
-                                <p:commandButton  value="Actualizar" update=":UsuarioForm:tablaUsuarios,:IngresarModal:insertarUsuarioModal,UsuarioForm:msgs" actionListener="#{Usuario.actualizarUsuario()}" validateClient="true" class="botonNormal" />
+                                <p:commandButton  value="Actualizar" update=":UsuarioForm:tablaUsuarios,:IngresarModal:insertarUsuarioModal,UsuarioForm:msgs" actionListener="#{Usuario.actualizarUsuario()}" validateClient="true" class="botonNormal" rendered="#{Usuario.actualizar}"/>
                             </div>
                             <div style="float: right">
-                                <p:commandButton value="Eliminar" update=":UsuarioForm:tablaUsuarios,:IngresarModal:insertarUsuarioModal,UsuarioForm:msgs" actionListener="#{Usuario.eliminarUsuario()}" validateClient="true" class="botonNormal" />
+                            <p:commandButton value="Eliminar" update=":UsuarioForm:tablaUsuarios,:IngresarModal:insertarUsuarioModal,UsuarioForm:msgs" actionListener="#{Usuario.eliminarUsuario()}" validateClient="true" class="botonNormal" rendered="#{Usuario.eliminar}"/>
                             </div>
                         </div>
                         <h:inputHidden  value="#{Usuario.usuarioObjeto.idUsuario}"></h:inputHidden>          

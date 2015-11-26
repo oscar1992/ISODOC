@@ -8,6 +8,7 @@ package co.com.siscomputo.administracion.bean;
 import co.com.siscomputo.administracion.logic.DepartamentoLogic;
 import co.com.siscomputo.administracion.logic.PaisesLogic;
 import co.com.siscomputo.endpoint.DepartamentoEntity;
+import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.PaisEntity;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -15,6 +16,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
@@ -29,6 +31,9 @@ public class DepartamentoBean {
     private ArrayList<DepartamentoEntity> lista;
     private ArrayList<DepartamentoEntity> listaFiltro;
     private DepartamentoEntity departamentoObjeto;
+    private boolean ingresar ;
+    private boolean actualizar;
+    private boolean eliminar;
 
     public ArrayList<DepartamentoEntity> getLista() {
         return lista;
@@ -54,11 +59,39 @@ public class DepartamentoBean {
         this.departamentoObjeto = departamentoObjeto;
     }
 
+    public boolean isIngresar() {
+        return ingresar;
+    }
+
+    public void setIngresar(boolean ingresar) {
+        this.ingresar = ingresar;
+    }
+
+    public boolean isActualizar() {
+        return actualizar;
+    }
+
+    public void setActualizar(boolean actualizar) {
+        this.actualizar = actualizar;
+    }
+
+    public boolean isEliminar() {
+        return eliminar;
+    }
+
+    public void setEliminar(boolean eliminar) {
+        this.eliminar = eliminar;
+    }
+    
+
     @PostConstruct
     public void init() {
         consultarDepartamentos();
+        permisos();
     }
-
+    /**
+     * Método que inicializa el departamento con el país
+     */
     public DepartamentoBean() {
         departamentoObjeto = new DepartamentoEntity();
         departamentoObjeto.setIdPais(new PaisEntity());
@@ -99,8 +132,7 @@ public class DepartamentoBean {
     }
 
     /**
-     * Método que añade a la lista el departamento en la vista
-     *
+     * Método que añade a la lista el departamento en la vista     *
      * @param departamentoEntity
      */
     private void adicionarDepartamentoLista(DepartamentoEntity departamentoEntity) {
@@ -175,7 +207,7 @@ public class DepartamentoBean {
         departamentoLogic.actualizarDepartamento(departamentoObjeto);
         eliminarDepartamentoLista(departamentoObjeto);
         departamentoObjeto = new DepartamentoEntity();
-        RequestContext.getCurrentInstance().execute("PF('eliminarDepartamento').hide()");
+        RequestContext.getCurrentInstance().execute("PF('actualizarDepartamento').hide()");
         nuevoDepartamentoObjeto();
     }
 
@@ -194,12 +226,45 @@ public class DepartamentoBean {
 
         }
     }
-
+    /**
+     * Método que reinicia el objeto del departamento
+     */
     public void nuevoDepartamentoObjeto() {
         departamentoObjeto = new DepartamentoEntity();
         PaisEntity pais = new PaisEntity();
         pais.setIdPais(-1);
         departamentoObjeto.setIdPais(pais);
         //System.out.println("NULEA: " + departamentoObjeto.getNombreDepartamento());
+    }
+    
+    /**
+     * Método que evalua los accesos al formulario
+     */
+    public void permisos() {
+        ingresar = false;
+        actualizar = false;
+        eliminar = false;
+        ArrayList<MenuPermisosEntity> permisos = (ArrayList<MenuPermisosEntity>) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("menuLateral");
+        for (MenuPermisosEntity permisoObj : permisos) {
+            for (MenuPermisosEntity nivel1 : permisoObj.getSubNivel()) {
+                for (MenuPermisosEntity nivel2 : nivel1.getSubNivel()) {
+                    int idPer = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idPermiso");
+                    System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
+                    if (idPer == nivel2.getAsociadoMenu()) {
+                        switch (nivel2.getNombrePermiso()) {
+                            case "insert":
+                                ingresar = true;
+                                break;
+                            case "update":
+                                actualizar = true;
+                                break;
+                            case "delete":
+                                eliminar = true;
+                                break;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

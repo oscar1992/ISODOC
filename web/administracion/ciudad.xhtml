@@ -34,14 +34,10 @@
                             <h:outputText value="Activo" rendered="#{ciudad.estadoCiudad== 'A'}"/>
                             <h:outputText value="Inactivo" rendered="#{ciudad.estadoCiudad == 'I'}"/>                            
                         </p:column>
-                        <p:column style="width: 32px;text-align: center">
-                            <p:commandButton update="EliminarModal:eliminarCiudadModal"  oncomplete="PF('eliminarCiudad').show()" class="iconoBuscar" value=" ">
-                                <f:setPropertyActionListener value="#{ciudad}" target="#{Ciudades.ciudadObjeto}" /> 
-                            </p:commandButton>
-                        </p:column>
+                        
                     </p:dataTable>
                     <br/>
-                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarCiudad').show();" update=":CiudadesForm:msgs" class="botonNormal"></p:commandButton>
+                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarCiudad').show();" update=":CiudadesForm:msgs" class="botonNormal" rendered="#{Ciudades.ingresar}"></p:commandButton>
                 </h:form>
                 <h:form id="IngresarModal">
                     #{Ciudades.nuevaCiuidadObjeto()}
@@ -86,7 +82,8 @@
                                 <f:selectItems value="#{ListaAdministracionBean.listaDepartamentos}"/>
                             </p:selectOneMenu>
                         </p:panelGrid>
-                        <p:commandButton  value="Actualizar" update=":CiudadesForm:tablaCiudades,:ActualizarModal:actualizarCiudadModal,CiudadesForm:msgs" actionListener="#{Ciudades.actualizarCiudad()}" validateClient="true" class="botonNormal" />
+                        <p:commandButton  value="Actualizar" update=":CiudadesForm:tablaCiudades,:ActualizarModal:actualizarCiudadModal,CiudadesForm:msgs" actionListener="#{Ciudades.actualizarCiudad()}" validateClient="true" class="botonNormal" rendered="#{Ciudades.actualizar}"/>
+                        <p:commandButton value="Eliminar" update=":CiudadesForm:tablaCiudades,:ActualizarModal:actualizarCiudadModal,CiudadesForm:msgs" actionListener="#{Ciudades.eliminarCiudad()}" validateClient="true" class="botonNormal" rendered="#{Ciudades.eliminar}"/>
                     </p:dialog>
                 </h:form>
                 <h:form id="EliminarModal">

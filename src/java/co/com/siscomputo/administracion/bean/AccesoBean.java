@@ -107,8 +107,7 @@ public class AccesoBean {
 
     /**
      * Método que cierra la sesión actual
-     */
-    
+     */    
 
     public UsuarioEntity getObjetoUsuario() {
         return objetoUsuario;

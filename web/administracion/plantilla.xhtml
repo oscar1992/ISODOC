@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition template="/plantillas/PlantillaAdministracion.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form id="PlantillaForm">
+                    <div class="prueba" style="color: white; ">
+                        <p:growl id="msgs" showDetail="true" life="3000" autoUpdate="true"/>
+                    </div>
+                    <p:dataTable var="plantilla" value="#{Plantilla.lista}" reflow="true" widgetVar="TablaPlantilla" id="tablaPlantilla" selectionMode="single"
+                                 selection="#{Plantilla.objetoPlantilla}" rowKey="#{plantilla.idPlantilla}" class="TABLA" paginator="true" rows="7">
+                        <p:ajax event="rowSelect" listener="#{Plantilla.onRowSelect}" update=":PlantillaForm:msgs,:ActualizarModal:actualizarPlantillaModal" oncomplete="PF('actualizarPlantilla').show()"/>
+                        <f:facet name="header">
+                            <h:outputText value="CONSULTA DE PLANTILLA DE GESTIÓN DOCUMENTAL" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                            <p:inputText id="globalFilter" onkeyup="PF('TablaPlantilla').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                            <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                        </f:facet>
+
+                        
+                        <p:column headerText="nombre de la Plantilla de Gestión Documental" filterBy="#{plantilla.nombrePlantilla}">
+                            <h:outputText value="#{plantilla.nombrePlantilla}"/>
+                        </p:column>
+                        <p:column headerText="ruta de la Plantilla de Gestión Documental" filterBy="#{plantilla.rutaPlantilla}">
+                            <h:outputText value="#{plantilla.rutaPlantilla}"/>
+                        </p:column>
+                        <p:column headerText="estado de la Plantilla de Gestión Documental" filterBy="#{plantilla.estadoPlantilla}">
+                            <h:outputText value="Activo" rendered="#{plantilla.estadoPlantilla == 'A'}"/>
+                            <h:outputText value="Inctivo" rendered="#{plantilla.estadoPlantilla == 'I'}"/> </p:column>
+
+                    </p:dataTable>
+                    <br/>
+                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarPlantilla').show();" update=":PlantillaForm:msgs" class="botonNormal" rendered="#{Plantilla.ingresar}"></p:commandButton>
+
+                </h:form>
+                <h:form id="IngresarModal">
+                    <p:dialog header="Insertar Plantilla de Gestión Documental" widgetVar="insertarPlantilla" modal="true" id="insertarPlantillaModal" responsive="true">
+                        #{Plantilla.nuevoPlantillaObjeto()}                        
+                        <p:messages autoUpdate="true"/>                        
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+
+                            
+                            <h:outputText value="nombre de la Plantilla de Gestión Documental"></h:outputText>
+                            <p:inputText required="true" label="nombre del Plantilla de Gestión Documental" value="#{Plantilla.objetoPlantilla.nombrePlantilla}"/>
+                            <h:outputText value="ruta de la Plantilla de Gestión Documental"></h:outputText>
+                            <p:inputText required="true" label="nombre del Plantilla de Gestión Documental" value="#{Plantilla.objetoPlantilla.rutaPlantilla}"/>
+
+                            <h:outputText value="Estado de la Plantilla de Gestión Documental"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarEstado" value="#{Plantilla.objetoPlantilla.estadoPlantilla}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+
+                        </p:panelGrid>                        
+                        <p:commandButton value="Ingresar" update=":PlantillaForm:tablaPlantilla,:IngresarModal:insertarPlantillaModal" actionListener="#{Plantilla.instertarPlantilla()}" validateClient="true" class="botonNormal" />
+                    </p:dialog>
+                </h:form>
+                <h:form id="ActualizarModal">
+                    <p:dialog header="Actualizar Plantilla de Gestión Documental" widgetVar="actualizarPlantilla" modal="true" id="actualizarPlantillaModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            <h:outputText value="nombre de la Plantilla de Gestión Documental"></h:outputText>
+                            <p:inputText required="true" label="nombre del Plantilla de Gestión Documental" value="#{Plantilla.objetoPlantilla.nombrePlantilla}"/>
+                            <h:outputText value="ruta de la Plantilla de Gestión Documental"></h:outputText>
+                            <p:inputText required="true" label="nombre del Plantilla de Gestión Documental" value="#{Plantilla.objetoPlantilla.rutaPlantilla}"/>
+
+
+                            <h:outputText value="Estado de la Plantilla de Gestión Documental"></h:outputText>
+                            <p:selectOneMenu id="desplegableActualizarEstado" value="#{Plantilla.objetoPlantilla.estadoPlantilla}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Plantilla de Gestión Documental" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+                            <h:inputHidden value="#{Plantilla.objetoPlantilla.idPlantilla}"></h:inputHidden>
+                        </p:panelGrid>
+                        <p:commandButton  value="Actualizar" update=":PlantillaForm:tablaPlantilla,:ActualizarModal:actualizarPlantillaModal,PlantillaForm:msgs" actionListener="#{Plantilla.actualizarPlantilla()}" validateClient="true" class="botonNormal" rendered="#{Plantilla.actualizar}"/>
+                        <p:commandButton value="Eliminar" update=":PlantillaForm:tablaPlantilla,:ActualizarModal:actualizarPlantillaModal,PlantillaForm:msgs" actionListener="#{Plantilla.eliminarPlantilla()}" validateClient="true" class="botonNormal" rendered="#{Plantilla.eliminar}"/>
+                    </p:dialog>
+                </h:form>
+
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>

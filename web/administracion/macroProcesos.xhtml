@@ -32,14 +32,10 @@
                                 <h:outputText value="Activo" rendered="#{macro.estadoMacroproceso == 'A'}"/>
                                 <h:outputText value="Inactivo" rendered="#{macro.estadoMacroproceso == 'I'}"/> 
                             </p:column>
-                            <p:column style="width: 32px;text-align: center">
-                                <p:commandButton update="EliminarModal:eliminarMacroProcesosModal"  oncomplete="PF('eliminarMacroProcesos').show()" class="iconoBuscar" value=" ">
-                                    <f:setPropertyActionListener value="#{macro}" target="#{MacroProcesos.macroProcesoObjeto}" /> 
-                                </p:commandButton>
-                            </p:column>
+                            
                         </p:dataTable>
                         <br/>
-                        <p:commandButton value="Insertar" type="button" onclick="PF('insertarMacroProcesos').show();" update=":MacroProcesosForm:msgs" class="botonNormal"></p:commandButton>
+                        <p:commandButton value="Insertar" type="button" onclick="PF('insertarMacroProcesos').show();" update=":MacroProcesosForm:msgs" class="botonNormal" rendered="#{MacroProcesos.ingresar}"></p:commandButton>
                     
                 </h:form>
                 <h:form id="IngresarModal">
@@ -70,7 +66,8 @@
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
                         </p:panelGrid>
-                        <p:commandButton  value="Actualizar" update=":MacrosForm:tablaMacros,:ActualizarModal:actualizarMacroProcesosModal,MacrosForm:msgs" actionListener="#{MacroProcesos.actualizarMacroProceso()}" validateClient="true" class="botonNormal" />
+                        <p:commandButton  value="Actualizar" update=":MacrosForm:tablaMacros,:ActualizarModal:actualizarMacroProcesosModal,MacrosForm:msgs" actionListener="#{MacroProcesos.actualizarMacroProceso()}" validateClient="true" class="botonNormal" rendered="#{MacroProcesos.actualizar}"/>
+                        <p:commandButton value="Eliminar" update=":MacrosForm:tablaMacros,:ActualizarModal:actualizarMacroProcesosModal,MacrosForm:msgs" actionListener="#{MacroProcesos.eliminarMacroproceso()}" validateClient="true" class="botonNormal" rendered="#{MacroProcesos.eliminar}"/>
                     </p:dialog>
                 </h:form>
                 <h:form id="EliminarModal">

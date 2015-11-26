@@ -28,7 +28,7 @@ and open the template in the editor.
                             <ul class="list-group">
                                 <ui:repeat value="#{itemN1.subNivel}" var="itemN2">
                                     <li style="border: solid #b0b0b0; border-width: 1px">                                        
-                                        <p:commandLink action="#{Menus.setRutaModulo(itemN2.ruta)}" actionListener="#{Menus.setIdModulo(Menus.idModulo, itemN2.nombrePermiso)}"  ajax="false" style="text-decoration-color: #000">
+                                        <p:commandLink action="#{Menus.setRutaModulo(itemN2.ruta)}" actionListener="#{Menus.setIdModulo(Menus.idModulo, itemN2.nombrePermiso, itemN2.idPermiso)}"  ajax="false" style="text-decoration-color: #000">
                                             #{itemN2.nombrePermiso}
                                         </p:commandLink>
                                     </li>

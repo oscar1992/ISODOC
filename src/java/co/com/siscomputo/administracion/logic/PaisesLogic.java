@@ -85,7 +85,11 @@ public class PaisesLogic {
         }
         return rta;
     }
-    
+    /**
+     * Método que permite selecionar un país por su ID
+     * @param idPais
+     * @return 
+     */
     public PaisEntity paisPorId(int idPais){
         webService();
         return port.paisPorId(idPais);

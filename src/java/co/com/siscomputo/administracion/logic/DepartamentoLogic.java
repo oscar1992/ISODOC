@@ -65,7 +65,11 @@ public class DepartamentoLogic {
         }
         return deptRta;
     }
-    
+    /**
+     * Método que permite actualizar un departamento
+     * @param departamentoEntity
+     * @return 
+     */
     public String actualizarDepartamento(DepartamentoEntity departamentoEntity){
         webService();
         String rta="";

@@ -38,14 +38,10 @@
                         <p:column headerText="Sede del Área" filterBy="#{area.idSede.nombreSede}">
                             <h:outputText value="#{area.idSede.nombreSede}"/>
                         </p:column>    
-                        <p:column style="width: 32px;text-align: center">
-                            <p:commandButton  update="EliminarModal:eliminarAreaModal"  oncomplete="PF('eliminarArea').show()" class="iconoBuscar" value=" ">
-                                <f:setPropertyActionListener value="#{area}" target="#{Areas.areaObjeto}" /> 
-                            </p:commandButton>
-                        </p:column>
+                        
                     </p:dataTable>
                     <br/>
-                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarArea').show();" update=":AreasForm:msgs" class="botonNormal"></p:commandButton>
+                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarArea').show();" update=":AreasForm:msgs" class="botonNormal" rendered="#{Areas.ingresar}"></p:commandButton>
                 </h:form>
                 <h:form id="IngresarModal">
                     <p:dialog header="Insertar Area" widgetVar="insertarArea" modal="true" id="insertarAreaModal" responsive="true">
@@ -90,7 +86,8 @@
                                 <f:selectItem itemLabel="Selecione Sede" itemValue="1" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaSedes}"/>
                             </p:selectOneMenu>
-                            <p:commandButton  value="Actualizar" update=":AreasForm:tablaAreas,:IngresarModal:insertarAreaModal,AreasForm:msgs" actionListener="#{Areas.actualizarArea()}" validateClient="true" class="botonNormal" />
+                            <p:commandButton  value="Actualizar" update=":AreasForm:tablaAreas,:ActualizarModal:actualizarAreaModal,AreasForm:msgs" actionListener="#{Areas.actualizarArea()}" validateClient="true" class="botonNormal" rendered="#{Areas.actualizar}"/>
+                            <p:commandButton value="Eliminar" update=":AreasForm:tablaAreas,:ActualizarModal:actualizarAreaModal,AreasForm:msgs" actionListener="#{Areas.eliminarArea()}" validateClient="true" class="botonNormal" rendered="#{Areas.eliminar}"/>
                         </p:panelGrid>
                     </p:dialog>
                 </h:form>

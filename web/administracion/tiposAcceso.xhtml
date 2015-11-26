@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition template="/plantillas/PlantillaAdministracion.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form id="TiposAccesoForm">
+                    <div class="prueba" style="color: white; ">
+                        <p:growl id="msgs" showDetail="true" life="3000" autoUpdate="true"/>
+                    </div>
+                    <p:dataTable var="tiposAcceso" value="#{TiposAcceso.lista}" reflow="true" widgetVar="TablaTiposAcceso" id="tablaTiposAcceso" selectionMode="single"
+                                 selection="#{TiposAcceso.objetoTiposAcceso}" rowKey="#{tiposAcceso.idTiposAcceso}" class="TABLA" paginator="true" rows="7">
+                        <p:ajax event="rowSelect" listener="#{TiposAcceso.onRowSelect}" update=":TiposAccesoForm:msgs,:ActualizarModal:actualizarTiposAccesoModal" oncomplete="PF('actualizarTiposAcceso').show()"/>
+                        <f:facet name="header">
+                            <h:outputText value="CONSULTA DE TIPO DE ACCESO" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                            <p:inputText id="globalFilter" onkeyup="PF('TablaTiposAcceso').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                            <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                        </f:facet>
+                        <p:column headerText="Nombre del Tipo de Acceso" filterBy="#{tiposAcceso.nombreTiposAcceso}">
+                            <h:outputText value="#{tiposAcceso.nombreTiposAcceso}"/>
+                        </p:column>
+                        <p:column headerText="estado del Tipo de Acceso" filterBy="#{tiposAcceso.estadoTiposAcceso}">
+                            <h:outputText value="Activo" rendered="#{tiposAcceso.estadoTiposAcceso == 'A'}"/>
+                            <h:outputText value="Inctivo" rendered="#{tiposAcceso.estadoTiposAcceso == 'I'}"/> </p:column>
+
+                    </p:dataTable>
+                    <br/>
+                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarTiposAcceso').show();" update=":TiposAccesoForm:msgs" class="botonNormal" rendered="#{TiposAcceso.ingresar}"></p:commandButton>
+
+                </h:form>
+                <h:form id="IngresarModal">
+                    <p:dialog header="Insertar Tipo de Acceso" widgetVar="insertarTiposAcceso" modal="true" id="insertarTiposAccesoModal" responsive="true">
+                        #{TiposAcceso.nuevoTiposAccesoObjeto()}                        
+                        <p:messages autoUpdate="true"/>                        
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+
+                            <h:outputText value="Nombre del Tipo de Acceso"></h:outputText>
+
+                            <p:inputText required="true" label="nombre del Tipo de Acceso" value="#{TiposAcceso.objetoTiposAcceso.nombreTiposAcceso}"/>
+
+                            <h:outputText value="Estado del Tipo de Acceso"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarEstado" value="#{TiposAcceso.objetoTiposAcceso.estadoTiposAcceso}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+
+                        </p:panelGrid>                        
+                        <p:commandButton value="Ingresar" update=":TiposAccesoForm:tablaTiposAcceso,:IngresarModal:insertarTiposAccesoModal" actionListener="#{TiposAcceso.instertarTiposAcceso()}" validateClient="true" class="botonNormal" />
+                    </p:dialog>
+                </h:form>
+                <h:form id="ActualizarModal">
+                    <p:dialog header="Actualizar Tipo de Acceso" widgetVar="actualizarTiposAcceso" modal="true" id="actualizarTiposAccesoModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            
+                            <h:outputText value="Nombre del Tipo de Acceso"></h:outputText>
+                            <p:inputText required="true" label="nombre del Tipo de Acceso" value="#{TiposAcceso.objetoTiposAcceso.nombreTiposAcceso}"/>
+
+
+                            <h:outputText value="Estado del Tipo de Acceso"></h:outputText>
+                            <p:selectOneMenu id="desplegableActualizarEstado" value="#{TiposAcceso.objetoTiposAcceso.estadoTiposAcceso}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Tipo de Acceso" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+                            <h:inputHidden value="#{TiposAcceso.objetoTiposAcceso.idTiposAcceso}"></h:inputHidden>
+                        </p:panelGrid>
+                        <p:commandButton  value="Actualizar" update=":TiposAccesoForm:tablaTiposAcceso,:ActualizarModal:actualizarTiposAccesoModal,TiposAccesoForm:msgs" actionListener="#{TiposAcceso.actualizarTiposAcceso()}" validateClient="true" class="botonNormal" rendered="#{TiposAcceso.actualizar}"/>
+                        <p:commandButton value="Eliminar" update=":TiposAccesoForm:tablaTiposAcceso,:ActualizarModal:actualizarTiposAccesoModal,TiposAccesoForm:msgs" actionListener="#{TiposAcceso.eliminarTiposAcceso()}" validateClient="true" class="botonNormal" rendered="#{TiposAcceso.eliminar}"/>
+                    </p:dialog>
+                </h:form>
+
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>

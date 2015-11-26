@@ -35,14 +35,10 @@
                                 <h:outputText value="Activo" rendered="#{proceso.estadoProceso == 'A'}"/>
                                 <h:outputText value="Inactivo" rendered="#{proceso.estadoProceso== 'I'}"/> 
                             </p:column>
-                            <p:column style="width: 32px;text-align: center">
-                                <p:commandButton update="EliminarModal:eliminarProcesosModal"  oncomplete="PF('eliminarProcesos').show()" class="iconoBuscar" value=" ">
-                                    <f:setPropertyActionListener value="#{proceso}" target="#{Procesos.procesosObjeto}" /> 
-                                </p:commandButton>
-                            </p:column>
+                            
                         </p:dataTable>
                         <br/>
-                        <p:commandButton value="Insertar" type="button" onclick="PF('insertarProcesos').show();" update=":ProcesosForm:msgs" class="botonNormal"></p:commandButton>
+                        <p:commandButton value="Insertar" type="button" onclick="PF('insertarProcesos').show();" update=":ProcesosForm:msgs" class="botonNormal" rendered="#{Procesos.ingresar}"></p:commandButton>
                     
                 </h:form>
                 <h:form id="IngresarModal">
@@ -83,7 +79,8 @@
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
                         </p:panelGrid>
-                        <p:commandButton  value="Actualizar" update=":ProcesosForm:tablaProcesos,:ActualizarModal:actualizarProcesosModal,ProcesosForm:msgs" actionListener="#{Procesos.actualizarProceso()}" validateClient="true" class="botonNormal" />
+                        <p:commandButton  value="Actualizar" update=":ProcesosForm:tablaProcesos,:ActualizarModal:actualizarProcesosModal,ProcesosForm:msgs" actionListener="#{Procesos.actualizarProceso()}" validateClient="true" class="botonNormal" rendered="#{Procesos.actualizar}"/>
+                        <p:commandButton value="Eliminar" update=":ProcesosForm:tablaProcesos,:ActualizarModal:actualizarProcesosModal,ProcesosForm:msgs" actionListener="#{Procesos.eliminarProceso()}" validateClient="true" class="botonNormal" rendered="#{Procesos.eliminar}"/>
                     </p:dialog>
                 </h:form>
                 <h:form id="EliminarModal">

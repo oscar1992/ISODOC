@@ -32,14 +32,10 @@
                             <h:outputText value="Activo" rendered="#{perfil.estadoRol == 'A'}"/>
                             <h:outputText value="Inctivo" rendered="#{perfil.estadoRol == 'I'}"/>                            
                         </p:column>
-                        <p:column style="width: 32px;text-align: center">
-                            <p:commandButton update="EliminarModal:eliminarPerfilModal"  oncomplete="PF('eliminarPerfil').show()" class="iconoBuscar" value=" ">
-                                <f:setPropertyActionListener value="#{perfil}" target="#{Perfiles.rolesObjeto}" /> 
-                            </p:commandButton>
-                        </p:column>
+                        
                     </p:dataTable>
                 <br/>
-                <p:commandButton value="Insertar" type="button" onclick="PF('insertarPerfil').show();" update=":PerfilesForm:msgs" class="botonNormal"></p:commandButton>
+                <p:commandButton value="Insertar" type="button" onclick="PF('insertarPerfil').show();" update=":PerfilesForm:msgs" class="botonNormal" rendered="#{Perfiles.ingresar}"></p:commandButton>
                 </h:form>
                 <h:form id="IngresarModal">                    
                     <p:dialog header="Insertar Perfil" widgetVar="insertarPerfil" modal="true" id="insertarPerfilModal" responsive="true">
@@ -53,7 +49,7 @@
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
-                            <p:commandButton value="Ingresar" update=":PerfilesForm:tablaPerfiles,:IngresarModal:insertarPerfilModal,PerfilesForm:msgs" actionListener="#{Perfiles.ingresarRol()}" validateClient="true" class="botonNormal"/>
+                            <p:commandButton value="Ingresar" update=":PerfilesForm:tablaPerfiles,:IngresarModal:insertarPerfilModal,PerfilesForm:msgs" actionListener="#{Perfiles.ingresarRol()}" validateClient="true" class="botonNormal" />
                         </p:panelGrid>
                     </p:dialog>
                 </h:form>
@@ -69,7 +65,8 @@
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                         </p:selectOneMenu>
-                        <p:commandButton  value="Actualizar" update=":PerfilesForm:tablaPerfiles,:ActualizarModal:actualizarPerfilModal,PerfilesForm:msgs" actionListener="#{Perfiles.actualizarRol()}" validateClient="true" class="botonNormal" />
+                        <p:commandButton  value="Actualizar" update=":PerfilesForm:tablaPerfiles,:ActualizarModal:actualizarPerfilModal,PerfilesForm:msgs" actionListener="#{Perfiles.actualizarRol()}" validateClient="true" class="botonNormal" rendered="#{Perfiles.actualizar}"/>
+                        <p:commandButton value="Eliminar" update=":PerfilesForm:tablaPerfiles,:ActualizarModal:actualizarPerfilModal,PerfilesForm:msgs" actionListener="#{Perfiles.eliminarRol()}" validateClient="true" class="botonNormal" rendered="#{Perfiles.eliminar}"/>
                     </p:panelGrid>
                 </p:dialog>
             </h:form>

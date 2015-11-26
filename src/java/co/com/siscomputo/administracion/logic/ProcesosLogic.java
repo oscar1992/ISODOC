@@ -85,7 +85,11 @@ public class ProcesosLogic {
         }
         return rta;
     }
-    
+    /**
+     * Método que permite selecionar un proceso por ID
+     * @param idProceso
+     * @return 
+     */
     public ProcesosEntity procesoPorId(int idProceso){
         webService();
         return port.procesoPorID(idProceso);

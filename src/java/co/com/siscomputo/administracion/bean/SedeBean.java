@@ -6,6 +6,7 @@
 package co.com.siscomputo.administracion.bean;
 
 import co.com.siscomputo.administracion.logic.SedesLogic;
+import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.SedeEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
@@ -27,10 +29,14 @@ public class SedeBean implements Serializable{
     private ArrayList<SedeEntity> lista;
     private ArrayList<SedeEntity> listaFiltro;
     private SedeEntity sedeObjeto;
+    private boolean ingresar ;
+    private boolean actualizar;
+    private boolean eliminar;
     
     @PostConstruct
     public void init(){
         consultarSedes();
+        permisos();
     }
     
     public ArrayList<SedeEntity> getLista() {
@@ -56,6 +62,31 @@ public class SedeBean implements Serializable{
     public void setSedeObjeto(SedeEntity sedeObjeto) {
         this.sedeObjeto = sedeObjeto;
     }
+
+    public boolean isIngresar() {
+        return ingresar;
+    }
+
+    public void setIngresar(boolean ingresar) {
+        this.ingresar = ingresar;
+    }
+
+    public boolean isActualizar() {
+        return actualizar;
+    }
+
+    public void setActualizar(boolean actualizar) {
+        this.actualizar = actualizar;
+    }
+
+    public boolean isEliminar() {
+        return eliminar;
+    }
+
+    public void setEliminar(boolean eliminar) {
+        this.eliminar = eliminar;
+    }
+    
     /**
      * Método que trae la lista de sedes del servicio web
      */
@@ -171,5 +202,35 @@ public class SedeBean implements Serializable{
      */
     public void nuevaSedeObjeto(){
         sedeObjeto=new SedeEntity();
+    }
+    /**
+     * Método que evalua los accesos al formulario
+     */
+    public void permisos() {
+        ingresar = false;
+        actualizar = false;
+        eliminar = false;
+        ArrayList<MenuPermisosEntity> permisos = (ArrayList<MenuPermisosEntity>) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("menuLateral");
+        for (MenuPermisosEntity permisoObj : permisos) {
+            for (MenuPermisosEntity nivel1 : permisoObj.getSubNivel()) {
+                for (MenuPermisosEntity nivel2 : nivel1.getSubNivel()) {
+                    int idPer = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idPermiso");
+                    System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
+                    if (idPer == nivel2.getAsociadoMenu()) {
+                        switch (nivel2.getNombrePermiso()) {
+                            case "insert":
+                                ingresar = true;
+                                break;
+                            case "update":
+                                actualizar = true;
+                                break;
+                            case "delete":
+                                eliminar = true;
+                                break;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

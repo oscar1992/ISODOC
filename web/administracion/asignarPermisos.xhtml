@@ -29,7 +29,7 @@
                                 <p:tab title="#{perNiv1.permiso.nombrePermiso}">
                                     <p:accordionPanel value="#{perNiv1.listaS}" var="forms" multiple="true">
                                         <p:tab title="#{forms.permiso.nombrePermiso}">
-                                            <p:selectManyCheckbox value="#{PermisosDisponibles.listaSeleccionados}" converter="converterPermisosDisponibles" id="combosPermisos">
+                                            <p:selectManyCheckbox value="#{PermisosDisponibles.listaSeleccionados}"  id="combosPermisos">
                                                 <p:ajax listener="#{PermisosDisponibles.itemSelect}"/>
                                                 <f:selectItems value="#{forms.listaS}" var="per" itemLabel="#{per.permiso.nombrePermiso}" itemValue="#{per.permiso.idPermiso}"/>
                                             </p:selectManyCheckbox>                                                

@@ -127,7 +127,11 @@ public class UsuarioLogic {
         }
         return rta;
     }
-
+    /**
+     * Método que permite selecionar un usuario por ID
+     * @param idusuario
+     * @return 
+     */
     public UsuarioEntity usuarioPorID(int idusuario) {
         webService();
         return port.usuarioPorId(idusuario);

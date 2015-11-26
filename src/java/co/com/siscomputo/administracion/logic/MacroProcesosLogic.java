@@ -94,7 +94,11 @@ public class MacroProcesosLogic {
         }
         return rta;
     }
-    
+    /**
+     * Método que permite selecionar un macro proceso por su ID
+     * @param idMacrop
+     * @return 
+     */
     public MacroprocesosEntity macroProcesoPorId(int idMacrop){
         webService();
         return port.macroPorId(idMacrop);
