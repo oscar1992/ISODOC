@@ -106,6 +106,7 @@ public class ElaboradorBean implements Serializable {
      * Método que permite insertar un Aprobador Elaborador nuevo
      */
     public void instertarElaborador() {
+        System.out.println("INSERTA");
         try {
             ElaboradorLogic elaboradorLogic = new ElaboradorLogic();
             ElaboradorEntity elaboradorEntity = elaboradorLogic.insertarElaborador(objetoElaborador);
@@ -127,7 +128,7 @@ public class ElaboradorBean implements Serializable {
      * @param objetoElaborador
      */
     private void adicionarMetodoPtoteccionLista(ElaboradorEntity objetoElaborador) {
-        lista.add(objetoElaborador);
+        
         UsuarioLogic usuarioLogic=new UsuarioLogic();
         UsuarioEntity usuarioEntity = usuarioLogic.usuarioPorID(objetoElaborador.getUsuarioElaborador().getIdUsuario());
         objetoElaborador.setUsuarioElaborador(usuarioEntity);        
@@ -193,7 +194,11 @@ public class ElaboradorBean implements Serializable {
             objetoElaborador.setUsuarioElaborador(usuarioEntity);
         }
     }
-
+    
+    public void onRowSelect2(SelectEvent event){        
+        objetoElaborador.setUsuarioElaborador((UsuarioEntity) event.getObject());
+        System.out.println("USU: "+((UsuarioEntity) event.getObject()).getNombre());
+    }
     /**
      * Método que elimina un Aprobador Elaborador
      */
@@ -243,7 +248,7 @@ public class ElaboradorBean implements Serializable {
             for (MenuPermisosEntity nivel1 : permisoObj.getSubNivel()) {
                 for (MenuPermisosEntity nivel2 : nivel1.getSubNivel()) {
                     int idPer = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idPermiso");
-                    System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
+                    //System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
                     if (idPer == nivel2.getAsociadoMenu()) {
                         switch (nivel2.getNombrePermiso()) {
                             case "insert":

@@ -13,7 +13,7 @@ and open the template in the editor.
     <h:head>
         <title>TODO supply a title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>      
-        
+
     </h:head>
     <h:body>
 
@@ -42,7 +42,7 @@ and open the template in the editor.
                             <div class="collapse navbar-collapse" id="myNavbar2">
                                 <ul class="nav navbar-nav" style="position: relative;left: 0px; ">
                                     <li class="list-group">
-                                        <p:commandLink  update="form:lab" actionListener="#{Menus.setIdModulo(-1)}" action="/inicio/principal" ajax="false" style="text-decoration-color: #000">
+                                        <p:commandLink  update="form:lab" actionListener="#{Menus.setIdModulo(-1, null, null)}" action="/inicio/principal" ajax="false" style="text-decoration-color: #000">
                                             <h:graphicImage value="/imagenes/modulos#{Menus.numeroModulo}/inicio.png"/>
                                         </p:commandLink>
                                     </li>
@@ -52,7 +52,7 @@ and open the template in the editor.
                                                 <h:graphicImage value="#{Menus.rutaIconoCambio(modulo.rutaIcono)}" class="imagen"/>
                                             </p:commandLink>
                                             <div style="alignment-adjust: central; text-align: center; width: 80px; line-height: 0.8;;">
-                                            <h:outputText style="font-size: 12px;" value=""></h:outputText>
+                                                <h:outputText style="font-size: 12px;" value=""></h:outputText>
                                             </div>
                                         </li>
                                     </ui:repeat>
@@ -84,24 +84,23 @@ and open the template in the editor.
                                             <h:outputLink >
                                                 <span class="glyphicon glyphicon-#{moduloM.rutaModulo}" ></span>  #{moduloM.nombre}
 
-                                            <!--</p:commandLink>-->
+                                                <!--</p:commandLink>-->
                                             </h:outputLink>
                                             <ul class="collapse">
                                                 <ui:repeat  varStatus="permisoLista2" var="permisoListaN1" value="#{moduloM.subNivel}">                                            
                                                     <li>
                                                         <h:outputLink value="#{permisoListaN1.ruta}" >
                                                             <p:outputLabel value="#{permisoListaN1.nombrePermiso}"></p:outputLabel>
-                                                            </h:outputLink>
-                                                            <ul>
-                                                                <ui:repeat var="permisoListaN2" value="#{permisoListaN1.subNivel}">
-                                                                    <li >
-                                                                        <h:outputLink value="#{permisoListaN2.ruta}" >
-                                                                            <p:outputLabel value="#{permisoListaN2.nombrePermiso}"></p:outputLabel>
-                                                                        </h:outputLink>
-                                                                    </li>
-                                                                </ui:repeat>
-                                                            </ul>
-                                                        
+                                                        </h:outputLink>
+                                                        <ul>
+                                                            <ui:repeat var="permisoListaN2" value="#{permisoListaN1.subNivel}">
+                                                                <li >
+                                                                    <h:outputLink value="#{permisoListaN2.ruta}" >
+                                                                        <p:outputLabel value="#{permisoListaN2.nombrePermiso}"></p:outputLabel>
+                                                                    </h:outputLink>
+                                                                </li>
+                                                            </ui:repeat>
+                                                        </ul>
                                                     </li>
                                                 </ui:repeat>
                                             </ul>
@@ -114,15 +113,15 @@ and open the template in the editor.
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " style="width: 100%; height: 30px; background-color: #f2f2f2; border-top: solid #999999; border-bottom: solid #999999; border-width: 1px">                    
                     <h:outputText value="Usted Esta en: #{Menus.nombreModulo}" class="detalles2"></h:outputText>
-                    
+
                     <h:form>
                         <p:commandLink value="Cerrar" actionListener="#{Valida.cerrar()}" class="cerrar"/>
                         <h:outputText value="Usuario Actual: #{Menus.usuarioActual.nombre} #{Menus.usuarioActual.apellido}|" class="detalles"></h:outputText>
                     </h:form>
-                    
+
                 </div>
             </ui:insert>
         </ui:composition>
-        
+
     </h:body>
 </html>

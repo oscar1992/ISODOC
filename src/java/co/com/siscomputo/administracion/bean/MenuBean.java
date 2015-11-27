@@ -85,7 +85,7 @@ public class MenuBean implements Serializable {
         try {
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("ruta", ruta);
             FacesContext.getCurrentInstance().getExternalContext().redirect(ruta);
-            System.out.println("ROTA: "+ruta+"- "+numeroModulo);           
+            //System.out.println("ROTA: "+ruta+"- "+numeroModulo);           
         } catch (IOException ex) {
             Logger.getLogger(MenuBean.class.getName()).log(Level.SEVERE, null, ex);
            

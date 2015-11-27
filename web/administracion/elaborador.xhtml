@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition template="/plantillas/PlantillaAdministracion.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form id="ElaboradorForm">
+                    <div class="prueba" style="color: white; ">
+                        <p:growl id="msgs" showDetail="true" life="3000" autoUpdate="true"/>
+                    </div>
+                    <p:dataTable var="elaborador" value="#{Elaborador.lista}" reflow="true" widgetVar="TablaElaborador" id="tablaElaborador" selectionMode="single"
+                                 selection="#{Elaborador.objetoElaborador}" rowKey="#{elaborador.idElaborador}" class="TABLA" paginator="true" rows="7">
+                        <p:ajax event="rowSelect" listener="#{Elaborador.onRowSelect}" update=":ElaboradorForm:msgs,:ActualizarModal:actualizarElaboradorModal" oncomplete="PF('actualizarElaborador').show()"/>
+                        <f:facet name="header">
+                            <h:outputText value="CONSULTA DE ELABORADORAPROBADOR ELABORADOR" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                            <p:inputText id="globalFilter" onkeyup="PF('TablaElaborador').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                            <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                        </f:facet>
+
+                        <p:column headerText="Usuario Aprobador Elaborador" filterBy="#{elaborador.usuarioElaborador}">
+                            <h:outputText value="#{elaborador.usuarioElaborador.nombreUsuario}"/>
+                        </p:column>
+                        <p:column headerText="Estado Aprobador Elaborador" filterBy="#{elaborador.estadoElaborador}">
+                            <h:outputText value="Activo" rendered="#{elaborador.estadoElaborador == 'A'}"/>
+                            <h:outputText value="Inctivo" rendered="#{elaborador.estadoElaborador == 'I'}"/> </p:column>
+
+                    </p:dataTable>
+                    <br/>
+                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarElaborador').show();" update=":ElaboradorForm:msgs" class="botonNormal" rendered="#{Elaborador.ingresar}"></p:commandButton>
+
+                </h:form>
+                <h:form id="IngresarModal">
+                    <p:dialog header="Insertar ElaboradorAprobador Elaborador" widgetVar="insertarElaborador" modal="true" id="insertarElaboradorModal" responsive="true" style="width: 861px;">
+                        #{Elaborador.nuevoElaboradorObjeto()}                        
+                        <p:messages autoUpdate="true"/>                        
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            
+                            <h:outputText value="Estado del Aprobador Elaborador"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarEstado" value="#{Elaborador.objetoElaborador.estadoElaborador}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+                            <h:outputText value="Usuario Aprobador Elaborador"></h:outputText>
+                            
+                            <p:dataTable var="usuario" value="#{Usuario.list}" filteredValue="#{Usuario.listfiltro}" editable="true" 
+                                         reflow="true" widgetVar="TablaUsuarios" id="tablaUsuarios" 
+                                         selectionMode="single" selection="#{Usuario.usuarioObjeto}" rowKey="#{usuario.idUsuario}"
+                                         class="TABLA" paginator="true" rows="7">
+                                <f:facet name="header" >
+                                    <p:outputPanel class="facet">
+                                        <h:outputText value="CONSULTA DE USUARIOS" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                                        <p:inputText id="globalFilter" onkeyup="PF('TablaUsuarios').filter()" style="width: 150px; height: 20px;float: right" placeholder="Filtro General" />
+                                        <h:outputText value="Buscar: " class="buscarTexto"/>
+                                    </p:outputPanel>
+                                </f:facet>
+                                <p:ajax event="rowSelect" listener="#{Elaborador.onRowSelect2}" update=":ElaboradorForm:msgs"/>
+                                <p:column headerText="Nombre" filterBy="#{usuario.nombre}">                                                        
+                                    <h:outputText value="#{usuario.nombre}"/>                                      
+                                </p:column>
+                                <p:column headerText="Apellido" filterBy="#{usuario.apellido}">
+                                    <h:outputText value="#{usuario.apellido}"/>
+                                </p:column>
+                                <p:column headerText="Nombre Acceso" filterBy="#{usuario.nombreUsuario}">
+                                    <h:outputText value="#{usuario.nombreUsuario}"/>
+                                </p:column>                                
+                            </p:dataTable>
+                            
+
+                        </p:panelGrid>                        
+                        <p:commandButton value="Ingresar" update=":ElaboradorForm:tablaElaborador,:IngresarModal:insertarElaboradorModal" actionListener="#{Elaborador.instertarElaborador()}" validateClient="true" class="botonNormal" />
+                    </p:dialog>
+                </h:form>
+                <h:form id="ActualizarModal">
+                    <p:dialog header="Actualizar Aprobador Elaborador" widgetVar="actualizarElaborador" modal="true" id="actualizarElaboradorModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            <h:outputText value="Usuario del Aprobador Elaborador Actual"></h:outputText>
+                            <h:outputText value="#{Elaborador.objetoElaborador.usuarioElaborador.nombreUsuario}"/>
+                            <h:outputText value="Estado del Aprobador Elaborador"></h:outputText>
+                            <p:selectOneMenu id="desplegableActualizarEstado" value="#{Elaborador.objetoElaborador.estadoElaborador}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Aprobador Elaborador" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+                            <h:outputText value="Tabal de Usuarios"></h:outputText>
+                            <p:dataTable var="usuario" value="#{Usuario.list}" filteredValue="#{Usuario.listfiltro}" editable="true" 
+                                         reflow="true" widgetVar="TablaUsuarios2" id="tablaUsuarios2" 
+                                         selectionMode="single" selection="#{Usuario.usuarioObjeto}" rowKey="#{usuario.idUsuario}"
+                                         class="TABLA" paginator="true" rows="7">
+                                <f:facet name="header" >
+                                    <p:outputPanel class="facet">
+                                        <h:outputText value="CONSULTA DE USUARIOS" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                                        <p:inputText id="globalFilter" onkeyup="PF('TablaUsuarios2').filter()" style="width: 150px; height: 20px;float: right" placeholder="Filtro General" />
+                                        <h:outputText value="Buscar: " class="buscarTexto"/>
+                                    </p:outputPanel>
+                                </f:facet>
+                                <p:ajax event="rowSelect" listener="#{Elaborador.onRowSelect2}" update=":ElaboradorForm:msgs"/>
+                                <p:column headerText="Nombre" filterBy="#{usuario.nombre}">                                                        
+                                    <h:outputText value="#{usuario.nombre}"/>                                      
+                                </p:column>
+                                <p:column headerText="Apellido" filterBy="#{usuario.apellido}">
+                                    <h:outputText value="#{usuario.apellido}"/>
+                                </p:column>
+                                <p:column headerText="Nombre Acceso" filterBy="#{usuario.nombreUsuario}">
+                                    <h:outputText value="#{usuario.nombreUsuario}"/>
+                                </p:column>                                
+                            </p:dataTable>
+
+                            
+                            <h:inputHidden value="#{Elaborador.objetoElaborador.idElaborador}"></h:inputHidden>
+                        </p:panelGrid>
+                        <p:commandButton  value="Actualizar" update=":ElaboradorForm:tablaElaborador,:ActualizarModal:actualizarElaboradorModal,ElaboradorForm:msgs" actionListener="#{Elaborador.actualizarElaborador()}" validateClient="true" class="botonNormal" rendered="#{Elaborador.actualizar}"/>
+                        <p:commandButton value="Eliminar" update=":ElaboradorForm:tablaElaborador,:ActualizarModal:actualizarElaboradorModal,ElaboradorForm:msgs" actionListener="#{Elaborador.eliminarElaborador()}" validateClient="true" class="botonNormal" rendered="#{Elaborador.eliminar}"/>
+                    </p:dialog>
+                </h:form>
+
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>

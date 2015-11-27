@@ -26,16 +26,19 @@ public class ObjectFactory {
 
     private final static QName _ActualizarPlantillaResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarPlantillaResponse");
     private final static QName _ActualizarMetodoRecuperacionResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarMetodoRecuperacionResponse");
+    private final static QName _ListaModificadorResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaModificadorResponse");
     private final static QName _ActualizarTipoControlDistribucion_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarTipoControlDistribucion");
     private final static QName _InsertarMetodoProteccion_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarMetodoProteccion");
+    private final static QName _ActualizarModificador_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarModificador");
     private final static QName _ListaTiposAccesoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaTiposAccesoResponse");
     private final static QName _InsertarTiposAcceso_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarTiposAcceso");
     private final static QName _ActualizarTipoAlmacenamiento_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarTipoAlmacenamiento");
     private final static QName _ListaTiposAcceso_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaTiposAcceso");
     private final static QName _ActualizarDisposicion_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarDisposicion");
-    private final static QName _DeptoPorIdResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "deptoPorIdResponse");
     private final static QName _ListaPlantillaResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaPlantillaResponse");
+    private final static QName _ElaboradorPorIdResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "elaboradorPorIdResponse");
     private final static QName _ListaPlantilla_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaPlantilla");
+    private final static QName _InsertarModificadorResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarModificadorResponse");
     private final static QName _InsertarTiposAccesoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarTiposAccesoResponse");
     private final static QName _InsertarTipoAlmacenamiento_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarTipoAlmacenamiento");
     private final static QName _ListaMetodoRecuperacion_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaMetodoRecuperacion");
@@ -43,20 +46,23 @@ public class ObjectFactory {
     private final static QName _ListaTipoAlmacenamientoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaTipoAlmacenamientoResponse");
     private final static QName _ListaDisposicionesResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaDisposicionesResponse");
     private final static QName _ActualizarElaborador_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarElaborador");
+    private final static QName _ModificadorPorId_QNAME = new QName("http://endpoint.siscomputo.com.co/", "ModificadorPorId");
     private final static QName _ActualizarTiposAcceso_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarTiposAcceso");
     private final static QName _InsertarMetodoRecuperacion_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarMetodoRecuperacion");
     private final static QName _ActualizarTipoControlDistribucionResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarTipoControlDistribucionResponse");
     private final static QName _InsertarDisposicion_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarDisposicion");
     private final static QName _ListaTipoAlmacenamiento_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaTipoAlmacenamiento");
+    private final static QName _ModificadorPorIdResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "ModificadorPorIdResponse");
     private final static QName _InsertarElaboradorResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarElaboradorResponse");
     private final static QName _ListaElaboradorResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaElaboradorResponse");
     private final static QName _InsertarTipoAlmacenamientoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarTipoAlmacenamientoResponse");
     private final static QName _InsertarPlantillaResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarPlantillaResponse");
     private final static QName _InsertarTipoControlDistribucion_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarTipoControlDistribucion");
+    private final static QName _ListaModificador_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaModificador");
     private final static QName _ListaTipoControlDistribucionResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaTipoControlDistribucionResponse");
     private final static QName _ActualizarTiposAccesoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarTiposAccesoResponse");
     private final static QName _InsertarTipoControlDistribucionResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarTipoControlDistribucionResponse");
-    private final static QName _DeptoPorId_QNAME = new QName("http://endpoint.siscomputo.com.co/", "deptoPorId");
+    private final static QName _ActualizarModificadorResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarModificadorResponse");
     private final static QName _InsertarMetodoProteccionResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarMetodoProteccionResponse");
     private final static QName _InsertarMetodoRecuperacionResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarMetodoRecuperacionResponse");
     private final static QName _ListaDisposiciones_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaDisposiciones");
@@ -69,9 +75,11 @@ public class ObjectFactory {
     private final static QName _ActualizarPlantilla_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarPlantilla");
     private final static QName _ActualizarMetodoRecuperacion_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarMetodoRecuperacion");
     private final static QName _InsertarDisposicionResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarDisposicionResponse");
+    private final static QName _InsertarModificador_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarModificador");
     private final static QName _ListaMetodoRecuperacionResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaMetodoRecuperacionResponse");
     private final static QName _ActualizarTipoAlmacenamientoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarTipoAlmacenamientoResponse");
     private final static QName _ActualizarMetodoProteccion_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarMetodoProteccion");
+    private final static QName _ElaboradorPorId_QNAME = new QName("http://endpoint.siscomputo.com.co/", "elaboradorPorId");
     private final static QName _ListaElaborador_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaElaborador");
     private final static QName _ListaMetodoProteccionResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaMetodoProteccionResponse");
 
@@ -107,6 +115,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link InsertarModificador }
+     * 
+     */
+    public InsertarModificador createInsertarModificador() {
+        return new InsertarModificador();
+    }
+
+    /**
      * Create an instance of {@link ListaMetodoRecuperacionResponse }
      * 
      */
@@ -128,6 +144,14 @@ public class ObjectFactory {
      */
     public ActualizarMetodoProteccion createActualizarMetodoProteccion() {
         return new ActualizarMetodoProteccion();
+    }
+
+    /**
+     * Create an instance of {@link ElaboradorPorId }
+     * 
+     */
+    public ElaboradorPorId createElaboradorPorId() {
+        return new ElaboradorPorId();
     }
 
     /**
@@ -171,6 +195,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ListaModificador }
+     * 
+     */
+    public ListaModificador createListaModificador() {
+        return new ListaModificador();
+    }
+
+    /**
      * Create an instance of {@link ListaTipoControlDistribucionResponse }
      * 
      */
@@ -195,11 +227,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DeptoPorId }
+     * Create an instance of {@link ActualizarModificadorResponse }
      * 
      */
-    public DeptoPorId createDeptoPorId() {
-        return new DeptoPorId();
+    public ActualizarModificadorResponse createActualizarModificadorResponse() {
+        return new ActualizarModificadorResponse();
     }
 
     /**
@@ -323,6 +355,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ModificadorPorId }
+     * 
+     */
+    public ModificadorPorId createModificadorPorId() {
+        return new ModificadorPorId();
+    }
+
+    /**
      * Create an instance of {@link ActualizarTiposAcceso }
      * 
      */
@@ -363,6 +403,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ModificadorPorIdResponse }
+     * 
+     */
+    public ModificadorPorIdResponse createModificadorPorIdResponse() {
+        return new ModificadorPorIdResponse();
+    }
+
+    /**
      * Create an instance of {@link InsertarElaboradorResponse }
      * 
      */
@@ -395,6 +443,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ListaModificadorResponse }
+     * 
+     */
+    public ListaModificadorResponse createListaModificadorResponse() {
+        return new ListaModificadorResponse();
+    }
+
+    /**
      * Create an instance of {@link ActualizarTipoControlDistribucion }
      * 
      */
@@ -408,6 +464,14 @@ public class ObjectFactory {
      */
     public InsertarMetodoProteccion createInsertarMetodoProteccion() {
         return new InsertarMetodoProteccion();
+    }
+
+    /**
+     * Create an instance of {@link ActualizarModificador }
+     * 
+     */
+    public ActualizarModificador createActualizarModificador() {
+        return new ActualizarModificador();
     }
 
     /**
@@ -451,14 +515,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DeptoPorIdResponse }
-     * 
-     */
-    public DeptoPorIdResponse createDeptoPorIdResponse() {
-        return new DeptoPorIdResponse();
-    }
-
-    /**
      * Create an instance of {@link ListaPlantillaResponse }
      * 
      */
@@ -467,11 +523,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ElaboradorPorIdResponse }
+     * 
+     */
+    public ElaboradorPorIdResponse createElaboradorPorIdResponse() {
+        return new ElaboradorPorIdResponse();
+    }
+
+    /**
      * Create an instance of {@link ListaPlantilla }
      * 
      */
     public ListaPlantilla createListaPlantilla() {
         return new ListaPlantilla();
+    }
+
+    /**
+     * Create an instance of {@link InsertarModificadorResponse }
+     * 
+     */
+    public InsertarModificadorResponse createInsertarModificadorResponse() {
+        return new InsertarModificadorResponse();
     }
 
     /**
@@ -571,6 +643,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ModificadorEntity }
+     * 
+     */
+    public ModificadorEntity createModificadorEntity() {
+        return new ModificadorEntity();
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarPlantillaResponse }{@code >}}
      * 
      */
@@ -589,6 +669,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListaModificadorResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaModificadorResponse")
+    public JAXBElement<ListaModificadorResponse> createListaModificadorResponse(ListaModificadorResponse value) {
+        return new JAXBElement<ListaModificadorResponse>(_ListaModificadorResponse_QNAME, ListaModificadorResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarTipoControlDistribucion }{@code >}}
      * 
      */
@@ -604,6 +693,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarMetodoProteccion")
     public JAXBElement<InsertarMetodoProteccion> createInsertarMetodoProteccion(InsertarMetodoProteccion value) {
         return new JAXBElement<InsertarMetodoProteccion>(_InsertarMetodoProteccion_QNAME, InsertarMetodoProteccion.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarModificador }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarModificador")
+    public JAXBElement<ActualizarModificador> createActualizarModificador(ActualizarModificador value) {
+        return new JAXBElement<ActualizarModificador>(_ActualizarModificador_QNAME, ActualizarModificador.class, null, value);
     }
 
     /**
@@ -652,15 +750,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link DeptoPorIdResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "deptoPorIdResponse")
-    public JAXBElement<DeptoPorIdResponse> createDeptoPorIdResponse(DeptoPorIdResponse value) {
-        return new JAXBElement<DeptoPorIdResponse>(_DeptoPorIdResponse_QNAME, DeptoPorIdResponse.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ListaPlantillaResponse }{@code >}}
      * 
      */
@@ -670,12 +759,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ElaboradorPorIdResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "elaboradorPorIdResponse")
+    public JAXBElement<ElaboradorPorIdResponse> createElaboradorPorIdResponse(ElaboradorPorIdResponse value) {
+        return new JAXBElement<ElaboradorPorIdResponse>(_ElaboradorPorIdResponse_QNAME, ElaboradorPorIdResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ListaPlantilla }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaPlantilla")
     public JAXBElement<ListaPlantilla> createListaPlantilla(ListaPlantilla value) {
         return new JAXBElement<ListaPlantilla>(_ListaPlantilla_QNAME, ListaPlantilla.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarModificadorResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarModificadorResponse")
+    public JAXBElement<InsertarModificadorResponse> createInsertarModificadorResponse(InsertarModificadorResponse value) {
+        return new JAXBElement<InsertarModificadorResponse>(_InsertarModificadorResponse_QNAME, InsertarModificadorResponse.class, null, value);
     }
 
     /**
@@ -742,6 +849,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ModificadorPorId }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "ModificadorPorId")
+    public JAXBElement<ModificadorPorId> createModificadorPorId(ModificadorPorId value) {
+        return new JAXBElement<ModificadorPorId>(_ModificadorPorId_QNAME, ModificadorPorId.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarTiposAcceso }{@code >}}
      * 
      */
@@ -784,6 +900,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaTipoAlmacenamiento")
     public JAXBElement<ListaTipoAlmacenamiento> createListaTipoAlmacenamiento(ListaTipoAlmacenamiento value) {
         return new JAXBElement<ListaTipoAlmacenamiento>(_ListaTipoAlmacenamiento_QNAME, ListaTipoAlmacenamiento.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ModificadorPorIdResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "ModificadorPorIdResponse")
+    public JAXBElement<ModificadorPorIdResponse> createModificadorPorIdResponse(ModificadorPorIdResponse value) {
+        return new JAXBElement<ModificadorPorIdResponse>(_ModificadorPorIdResponse_QNAME, ModificadorPorIdResponse.class, null, value);
     }
 
     /**
@@ -832,6 +957,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListaModificador }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaModificador")
+    public JAXBElement<ListaModificador> createListaModificador(ListaModificador value) {
+        return new JAXBElement<ListaModificador>(_ListaModificador_QNAME, ListaModificador.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ListaTipoControlDistribucionResponse }{@code >}}
      * 
      */
@@ -859,12 +993,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link DeptoPorId }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarModificadorResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "deptoPorId")
-    public JAXBElement<DeptoPorId> createDeptoPorId(DeptoPorId value) {
-        return new JAXBElement<DeptoPorId>(_DeptoPorId_QNAME, DeptoPorId.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarModificadorResponse")
+    public JAXBElement<ActualizarModificadorResponse> createActualizarModificadorResponse(ActualizarModificadorResponse value) {
+        return new JAXBElement<ActualizarModificadorResponse>(_ActualizarModificadorResponse_QNAME, ActualizarModificadorResponse.class, null, value);
     }
 
     /**
@@ -976,6 +1110,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarModificador }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarModificador")
+    public JAXBElement<InsertarModificador> createInsertarModificador(InsertarModificador value) {
+        return new JAXBElement<InsertarModificador>(_InsertarModificador_QNAME, InsertarModificador.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ListaMetodoRecuperacionResponse }{@code >}}
      * 
      */
@@ -1000,6 +1143,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarMetodoProteccion")
     public JAXBElement<ActualizarMetodoProteccion> createActualizarMetodoProteccion(ActualizarMetodoProteccion value) {
         return new JAXBElement<ActualizarMetodoProteccion>(_ActualizarMetodoProteccion_QNAME, ActualizarMetodoProteccion.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ElaboradorPorId }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "elaboradorPorId")
+    public JAXBElement<ElaboradorPorId> createElaboradorPorId(ElaboradorPorId value) {
+        return new JAXBElement<ElaboradorPorId>(_ElaboradorPorId_QNAME, ElaboradorPorId.class, null, value);
     }
 
     /**

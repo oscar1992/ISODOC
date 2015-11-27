@@ -41,7 +41,8 @@ import javax.xml.bind.annotation.XmlType;
     TipoAlmacenamientoEntity.class,
     ElaboradorEntity.class,
     MetodoRecuperacionEntity.class,
-    PlantillaEntity.class
+    PlantillaEntity.class,
+    ModificadorEntity.class
 })
 public class ObjetoRetornaEntity
     extends ObjetoTraza
