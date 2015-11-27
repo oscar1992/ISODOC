@@ -20,7 +20,7 @@
                         <p:ajax event="rowSelect" listener="#{TiposDocuemntales.onRowSelect}" update=":tipoDocumentalesForm:msgs,:ActualizarModal:actualizartipoDocumentalModal" oncomplete="PF('actualizarTipoDocumental').show()"/>
                             <f:facet name="header">
                                 <h:outputText value="CONSULTA DE TIPOS DOCUMENTALES" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
-                                <p:inputText id="globalFilter" onkeyup="PF('TablaSedes').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                                <p:inputText id="globalFilter" onkeyup="PF('TablatipoDocumentales').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
                                 <h:outputText value="Buscar" style="color: #FFF; float: right"/>
                             </f:facet>
                             
