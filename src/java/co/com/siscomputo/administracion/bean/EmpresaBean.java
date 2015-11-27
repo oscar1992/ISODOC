@@ -28,6 +28,7 @@ public class EmpresaBean {
     private ArrayList<EmpresaEntity> lista;
     private ArrayList<EmpresaEntity> listaFiltro;
     private EmpresaEntity empresaObjeto;
+    private EmpresaEntity empresaObjetoInsercion;
     private boolean ingresar ;
     private boolean actualizar;
     private boolean eliminar;
@@ -54,6 +55,14 @@ public class EmpresaBean {
 
     public void setEmpresaObjeto(EmpresaEntity empresaObjeto) {
         this.empresaObjeto = empresaObjeto;
+    }
+
+    public EmpresaEntity getEmpresaObjetoInsercion() {
+        return empresaObjetoInsercion;
+    }
+
+    public void setEmpresaObjetoInsercion(EmpresaEntity empresaObjetoInsercion) {
+        this.empresaObjetoInsercion = empresaObjetoInsercion;
     }
 
     public boolean isIngresar() {
@@ -111,7 +120,7 @@ public class EmpresaBean {
     public void ingresarEmpresa(){
         try {
             EmpresaLogic empresaLogic=new EmpresaLogic();
-            EmpresaEntity empresaEntity=empresaLogic.ingresarEmpresa(empresaObjeto);
+            EmpresaEntity empresaEntity=empresaLogic.ingresarEmpresa(empresaObjetoInsercion);
             FacesMessage msg=null;
             if(empresaEntity != null){
                 msg=new FacesMessage("", "Empresa Ingresada Correctamente: "+empresaEntity.getNombreEmpresa());
@@ -207,6 +216,7 @@ public class EmpresaBean {
      */
     public void nuevaEmpresa(){
         empresaObjeto=new EmpresaEntity();
+        empresaObjetoInsercion=new EmpresaEntity();
     }
     
     /**

@@ -30,6 +30,7 @@ public class RolesBean implements Serializable{
     private ArrayList<RolesEntity> lista;
     private ArrayList<RolesEntity> listaFiltro;
     private RolesEntity rolesObjeto;
+    private RolesEntity rolesObjetoInsercion;
     private boolean ingresar ;
     private boolean actualizar;
     private boolean eliminar;
@@ -42,6 +43,7 @@ public class RolesBean implements Serializable{
 
     public RolesBean() {
         rolesObjeto=new RolesEntity();
+        rolesObjetoInsercion=new RolesEntity();
     }
     
     
@@ -69,6 +71,14 @@ public class RolesBean implements Serializable{
         this.rolesObjeto = rolesObjeto;
     }
 
+    public RolesEntity getRolesObjetoInsercion() {
+        return rolesObjetoInsercion;
+    }
+
+    public void setRolesObjetoInsercion(RolesEntity rolesObjetoInsercion) {
+        this.rolesObjetoInsercion = rolesObjetoInsercion;
+    }
+    
     public boolean isIngresar() {
         return ingresar;
     }
@@ -119,7 +129,7 @@ public class RolesBean implements Serializable{
     public void ingresarRol(){
         try{
             RolesLogic rolesLogic=new RolesLogic();
-            RolesEntity rolEnttity=rolesLogic.ingresarRol(rolesObjeto);
+            RolesEntity rolEnttity=rolesLogic.ingresarRol(rolesObjetoInsercion);
             FacesMessage msg=null;
             if(rolEnttity!=null){
                 msg=new FacesMessage("", "Rol Ingresado Correctamente: "+rolesObjeto.getNombreRol());
@@ -207,6 +217,7 @@ public class RolesBean implements Serializable{
      */
     public void nuevoObjetoPerfil(){
         rolesObjeto=new RolesEntity();
+        rolesObjetoInsercion=new RolesEntity();
     }
     /**
      * Método que evalua los accesos al formulario

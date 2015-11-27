@@ -13,7 +13,7 @@
             <h:body>
                 <h:form id="AreasForm">
                     <div class="prueba" style="color: white; ">
-                        <p:growl id="msgs" showDetail="true" life="3000"/>
+                        <p:growl id="msgs" showDetail="true" life="3000" autoUpdate="true"/>
                     </div>
                     
                     <p:dataTable var="area" value="#{Areas.lista}" filteredValue="#{Areas.listaFiltro}" reflow="true" widgetVar="TablaAreas"
@@ -50,16 +50,16 @@
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
                             
                             <h:outputText value="Nombre de Área"></h:outputText>
-                            <p:inputText required="true" label="Nombre de Área" value="#{Areas.areaObjeto.nombreArea}"/>
+                            <p:inputText required="true" label="Nombre de Área" value="#{Areas.areaObjetoInsercion.nombreArea}"/>
                             <h:outputText value="Código de Área"></h:outputText>
-                            <p:inputText required="true" label="Cóodigo de Área" value="#{Areas.areaObjeto.codigoArea}"/>                            
+                            <p:inputText required="true" label="Cóodigo de Área" value="#{Areas.areaObjetoInsercion.codigoArea}"/>                            
                             <h:outputText value="Selecione el estado"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarArea" value="#{Areas.areaObjeto.estadoArea}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableIngresarArea" value="#{Areas.areaObjetoInsercion.estadoArea}" style="width: 150px;">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="1" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
                             <h:outputText value="Selecione la Sede "></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarAreaSede" value="#{Areas.areaObjeto.idSede.idSede}" style="width: 150px;" >
+                            <p:selectOneMenu id="desplegableIngresarAreaSede" value="#{Areas.areaObjetoInsercion.idSede.idSede}" style="width: 150px;" >
                                 <f:selectItem itemLabel="Selecione Sede" itemValue="1" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaSedes}"/>
                             </p:selectOneMenu>

@@ -20,7 +20,7 @@
                             <p:ajax event="rowSelect" listener="#{Paises.onRowSelect}" update=":PaisesForm:msgs,:ActualizarModal:actualizarPaisModal" oncomplete="PF('actualizarPais').show()"/>
                             <f:facet name="header">
                                 <h:outputText value="CONSULTA DE PAISES" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
-                                <p:inputText id="globalFilter" onkeyup="PF('TablaSedes').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                                <p:inputText id="globalFilter" onkeyup="PF('TablaPaises').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
                                 <h:outputText value="Buscar" style="color: #FFF; float: right"/>
                             </f:facet>
                             
@@ -32,7 +32,7 @@
                             </p:column>
                             <p:column headerText="Estado del País" filterBy="#{pais.estadoPais}">
                                 <h:outputText value="Activo" rendered="#{pais.estadoPais == 'A'}"/>
-                                <h:outputText value="Inctivo" rendered="#{pais.estadoPais == 'I'}"/> 
+                                <h:outputText value="InActivo" rendered="#{pais.estadoPais == 'I'}"/> 
                             </p:column>
                             
                         </p:dataTable>
@@ -46,11 +46,11 @@
                         <p:messages autoUpdate="true"/>
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
                             <h:outputText value="Nombre del Pais"></h:outputText>
-                            <p:inputText required="true" label="nombre del Pais" value="#{Paises.paisObjeto.nombrePais}"/>
+                            <p:inputText required="true" label="nombre del Pais" value="#{Paises.paisObjetoInsercion.nombrePais}"/>
                             <h:outputText value="Código del Pais"></h:outputText>
-                            <p:inputText required="true" label="codigo del Pais" value="#{Paises.paisObjeto.codPais}"/>
+                            <p:inputText required="true" label="codigo del Pais" value="#{Paises.paisObjetoInsercion.codPais}"/>
                             <h:outputText value="Estado del Pais"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarSede" value="#{Paises.paisObjeto.estadoPais}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableIngresarSede" value="#{Paises.paisObjetoInsercion.estadoPais}" style="width: 150px;">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>

@@ -31,7 +31,8 @@ public class CiudadBean {
     private ArrayList<CiudadEntity> lista;
     private ArrayList<CiudadEntity> listaFiltro;
     private CiudadEntity ciudadObjeto;
-    private boolean ingresar ;
+    private CiudadEntity ciudadObjetoInsercion;
+    private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
 
@@ -65,6 +66,14 @@ public class CiudadBean {
         this.ciudadObjeto = ciudadObjeto;
     }
 
+    public CiudadEntity getCiudadObjetoInsercion() {
+        return ciudadObjetoInsercion;
+    }
+
+    public void setCiudadObjetoInsercion(CiudadEntity ciudadObjetoInsercion) {
+        this.ciudadObjetoInsercion = ciudadObjetoInsercion;
+    }
+
     public boolean isIngresar() {
         return ingresar;
     }
@@ -88,7 +97,6 @@ public class CiudadBean {
     public void setEliminar(boolean eliminar) {
         this.eliminar = eliminar;
     }
-    
 
     /**
      * Método que trae la lista de ciudades del servicio web
@@ -108,7 +116,7 @@ public class CiudadBean {
     public void ingresarCiudad() {
         try {
             CiudadLogic ciudadLogic = new CiudadLogic();
-            CiudadEntity ciudadEntity = ciudadLogic.ingresaCiudad(ciudadObjeto);
+            CiudadEntity ciudadEntity = ciudadLogic.ingresaCiudad(ciudadObjetoInsercion);
             FacesMessage msg = null;
             if (ciudadEntity != null) {
                 msg = new FacesMessage("", "Ciudad ingresada Correctamente: " + ciudadEntity.getNombreCiudad());
@@ -192,7 +200,7 @@ public class CiudadBean {
      * Método que "elimna" una Ciudad actualizando su estado
      */
     public void eliminarCiudad() {
-        System.out.println("CIUD: "+ciudadObjeto.getNombreCiudad()+"-"+ciudadObjeto.getIdCiudad());
+        System.out.println("CIUD: " + ciudadObjeto.getNombreCiudad() + "-" + ciudadObjeto.getIdCiudad());
         CiudadLogic ciudadLogic = new CiudadLogic();
         ciudadObjeto.setEstadoCiudad("E");
         ciudadLogic.actualizarCiudad(ciudadObjeto);
@@ -223,14 +231,15 @@ public class CiudadBean {
      */
     public void nuevaCiuidadObjeto() {
         ciudadObjeto = new CiudadEntity();
-        
-            DepartamentoEntity departamento = new DepartamentoEntity();
-            departamento.setIdDepartamento(-1);
-            ciudadObjeto.setCiudadDepartamento(departamento);
-        
+        ciudadObjetoInsercion = new CiudadEntity();
+
+        DepartamentoEntity departamento = new DepartamentoEntity();
+        departamento.setIdDepartamento(-1);
+        ciudadObjeto.setCiudadDepartamento(departamento);
+        ciudadObjetoInsercion.setCiudadDepartamento(departamento);
 
     }
-    
+
     /**
      * Método que evalua los accesos al formulario
      */

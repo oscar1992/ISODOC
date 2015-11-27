@@ -29,6 +29,7 @@ public class SedeBean implements Serializable{
     private ArrayList<SedeEntity> lista;
     private ArrayList<SedeEntity> listaFiltro;
     private SedeEntity sedeObjeto;
+    private SedeEntity sedeObjetoInsercion;
     private boolean ingresar ;
     private boolean actualizar;
     private boolean eliminar;
@@ -61,6 +62,14 @@ public class SedeBean implements Serializable{
 
     public void setSedeObjeto(SedeEntity sedeObjeto) {
         this.sedeObjeto = sedeObjeto;
+    }
+
+    public SedeEntity getSedeObjetoInsercion() {
+        return sedeObjetoInsercion;
+    }
+
+    public void setSedeObjetoInsercion(SedeEntity sedeObjetoInsercion) {
+        this.sedeObjetoInsercion = sedeObjetoInsercion;
     }
 
     public boolean isIngresar() {
@@ -104,7 +113,7 @@ public class SedeBean implements Serializable{
     public void ingresarSede(){
         try {
             SedesLogic sedesLogic=new SedesLogic();
-            SedeEntity sedeEntity=sedesLogic.ingresaSede(sedeObjeto);
+            SedeEntity sedeEntity=sedesLogic.ingresaSede(sedeObjetoInsercion);
             FacesMessage msg=null;
             if(sedeEntity != null){
                 msg=new FacesMessage("", "Sede ingresada Correctamente: "+sedeEntity.getNombreSede());
@@ -180,7 +189,7 @@ public class SedeBean implements Serializable{
         sedeObjeto.setEstadoSede("E");
         sedesLogic.actualizarSede(sedeObjeto);
         eliminarSedeLista(sedeObjeto);
-        sedeObjeto=new SedeEntity();
+        
         RequestContext.getCurrentInstance().execute("PF('eliminarSede').hide()");
         nuevaSedeObjeto();
     }
@@ -202,6 +211,7 @@ public class SedeBean implements Serializable{
      */
     public void nuevaSedeObjeto(){
         sedeObjeto=new SedeEntity();
+        sedeObjetoInsercion=new SedeEntity();
     }
     /**
      * Método que evalua los accesos al formulario

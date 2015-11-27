@@ -25,6 +25,7 @@ public class PaisBean implements Serializable {
     private ArrayList<PaisEntity> lista;
     private ArrayList<PaisEntity> listaFiltro;
     private PaisEntity paisObjeto;
+    private PaisEntity paisObjetoInsercion;
     private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
@@ -53,6 +54,14 @@ public class PaisBean implements Serializable {
         this.paisObjeto = paisObjeto;
     }
 
+    public PaisEntity getPaisObjetoInsercion() {
+        return paisObjetoInsercion;
+    }
+
+    public void setPaisObjetoInsercion(PaisEntity paisObjetoInsercion) {
+        this.paisObjetoInsercion = paisObjetoInsercion;
+    }
+    
     public boolean isIngresar() {
         return ingresar;
     }
@@ -85,6 +94,7 @@ public class PaisBean implements Serializable {
 
     public PaisBean() {
         paisObjeto = new PaisEntity();
+        paisObjetoInsercion = new PaisEntity();
 
     }
     /**
@@ -105,7 +115,7 @@ public class PaisBean implements Serializable {
     public void ingresarPais() {
         try {
             PaisesLogic paisesLogic = new PaisesLogic();
-            PaisEntity paisEntity = paisesLogic.ingresaPais(paisObjeto);
+            PaisEntity paisEntity = paisesLogic.ingresaPais(paisObjetoInsercion);
             FacesMessage msg = null;
             if (paisEntity != null) {
                 msg = new FacesMessage("", "País Ingresado Correctamente: " + paisEntity.getNombrePais());
@@ -126,7 +136,7 @@ public class PaisBean implements Serializable {
      * @param paisEntity
      */
     private void adicionarPaisLista(PaisEntity paisEntity) {
-        lista.add(paisObjeto);
+        lista.add(paisEntity);
     }
 
     /**
@@ -210,6 +220,7 @@ public class PaisBean implements Serializable {
      */
     public void nuevoPais() {
         paisObjeto = new PaisEntity();
+        paisObjetoInsercion = new PaisEntity();
         //System.out.println("PAIS: "+paisObjeto.getNombrePais());
     }
 
@@ -225,7 +236,7 @@ public class PaisBean implements Serializable {
             for (MenuPermisosEntity nivel1 : permisoObj.getSubNivel()) {
                 for (MenuPermisosEntity nivel2 : nivel1.getSubNivel()) {
                     int idPer = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idPermiso");
-                    System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
+                    
                     if (idPer == nivel2.getAsociadoMenu()) {
                         switch (nivel2.getNombrePermiso()) {
                             case "insert":

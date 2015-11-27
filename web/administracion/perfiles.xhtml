@@ -13,7 +13,7 @@
             <h:body>
                 <h:form id="PerfilesForm">
                     <div class="prueba" style="color: white; ">
-                        <p:growl id="msgs" showDetail="true" life="3000"/>
+                        <p:growl id="msgs" showDetail="true" life="3000" autoUpdate="true"/>
                     </div>
                     <p:dataTable var="perfil" value="#{Perfiles.lista}" filteredValue="#{Perfiles.listaFiltro}" reflow="true"
                                  widgetVar="TablaPerfiles" id="tablaPerfiles" selectionMode="single" selection="#{Perfiles.rolesObjeto}"
@@ -43,9 +43,9 @@
                         <p:messages autoUpdate="true"/>
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
                             <h:outputText value="Nombre del Perfil"></h:outputText>
-                            <p:inputText required="true" label="Nombre de Perfil" value="#{Perfiles.rolesObjeto.nombreRol}"/>
+                            <p:inputText required="true" label="Nombre de Perfil" value="#{Perfiles.rolesObjetoInsercion.nombreRol}"/>
                             <h:outputText value="Estado del Perfil"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarPerfil" value="#{Perfiles.rolesObjeto.estadoRol}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableIngresarPerfil" value="#{Perfiles.rolesObjetoInsercion.estadoRol}" style="width: 150px;">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>

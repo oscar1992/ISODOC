@@ -164,9 +164,9 @@ public class ModificadorBean implements Serializable {
                     int v1 = objetoModificador.getIdModificador();
                     int v2 = item.getIdModificador();
                     if (v1 == v2) {
-                        UsuarioLogic paisesLogic = new UsuarioLogic();
-                        PaisEntity pais = paisesLogic.paisPorId(departamentoObjeto.getIdPais().getIdPais());
-                        departamentoObjeto.setIdPais(pais);
+                        UsuarioLogic usuarioLogic = new UsuarioLogic();
+                        UsuarioEntity usuarioEntity = usuarioLogic.usuarioPorID(objetoModificador.getUsuarioModificador().getIdUsuario());
+                        objetoModificador.setUsuarioModificador(usuarioEntity);
                         listaaux.add(objetoModificador);
                     } else {
                         listaaux.add(item);

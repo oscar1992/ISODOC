@@ -31,6 +31,7 @@ public class AreaBean {
     private ArrayList<AreaEntity> lista;
     private ArrayList<AreaEntity> listaFiltro;
     private AreaEntity areaObjeto;
+    private AreaEntity areaObjetoInsercion;
     private boolean ingresar ;
     private boolean actualizar;
     private boolean eliminar;
@@ -42,8 +43,7 @@ public class AreaBean {
     }
 
     public AreaBean() {
-        areaObjeto = new AreaEntity();
-        areaObjeto.setIdSede(new SedeEntity());
+        nuevoAreaObjeto();
     }
 
     public ArrayList<AreaEntity> getLista() {
@@ -69,6 +69,15 @@ public class AreaBean {
     public void setAreaObjeto(AreaEntity areaObjeto) {
         this.areaObjeto = areaObjeto;
     }
+
+    public AreaEntity getAreaObjetoInsercion() {
+        return areaObjetoInsercion;
+    }
+
+    public void setAreaObjetoInsercion(AreaEntity areaObjetoInsercion) {
+        this.areaObjetoInsercion = areaObjetoInsercion;
+    }
+    
 
     public boolean isIngresar() {
         return ingresar;
@@ -112,7 +121,7 @@ public class AreaBean {
     public void ingresarArea() {
         try {
             AreaLogic areaLogic = new AreaLogic();
-            AreaEntity areaEntity = areaLogic.ingresarArea(areaObjeto);
+            AreaEntity areaEntity = areaLogic.ingresarArea(areaObjetoInsercion);
             FacesMessage msg = null;
             if (areaEntity != null) {
                 msg = new FacesMessage("", "Area Ingresado Correctamente: " + areaEntity.getNombreArea());
@@ -124,7 +133,7 @@ public class AreaBean {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        areaObjeto = new AreaEntity();
+        nuevoAreaObjeto();
     }
 
     /**
@@ -133,6 +142,9 @@ public class AreaBean {
      * @param areaEntity
      */
     public void adicionaAreaLista(AreaEntity areaEntity) {
+        SedesLogic sedesLogic=new SedesLogic();
+        SedeEntity sedeEntity=sedesLogic.sedePorId(areaObjetoInsercion.getIdSede().getIdSede());
+        areaEntity.setIdSede(sedeEntity);
         lista.add(areaEntity);
     }
 
@@ -202,7 +214,7 @@ public void onRowSelect(SelectEvent event) {
         areaObjeto.setEstadoArea("E");
         areaLogic.actualizarArea(areaObjeto);
         eliminarAreaLista(areaObjeto);
-        areaObjeto = new AreaEntity();
+        nuevoAreaObjeto();
         RequestContext.getCurrentInstance().execute("PF('eliminarArea').hide()");
     }
 
@@ -227,9 +239,11 @@ public void onRowSelect(SelectEvent event) {
     public void nuevoAreaObjeto() {
         System.out.println("Nuevo");
         areaObjeto = new AreaEntity();
+        areaObjetoInsercion = new AreaEntity();
         SedeEntity sede = new SedeEntity();
         sede.setIdSede(-1);
         areaObjeto.setIdSede(sede);
+        areaObjetoInsercion.setIdSede(sede);
     }
     /**
      * Método que evalua los accesos al formulario
@@ -243,7 +257,7 @@ public void onRowSelect(SelectEvent event) {
             for (MenuPermisosEntity nivel1 : permisoObj.getSubNivel()) {
                 for (MenuPermisosEntity nivel2 : nivel1.getSubNivel()) {
                     int idPer = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idPermiso");
-                    System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
+                    //System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
                     if (idPer == nivel2.getAsociadoMenu()) {
                         switch (nivel2.getNombrePermiso()) {
                             case "insert":

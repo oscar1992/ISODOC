@@ -13,7 +13,7 @@
             <h:body>
                 <h:form id="SedesForm">
                     <div class="prueba" style="color: white; ">
-                        <p:growl id="msgs" showDetail="true" life="3000"/>
+                        <p:growl id="msgs" showDetail="true" life="3000" autoUpdate="true"/>
                     </div>
                     <p:dataTable var="sede" value="#{Sedes.lista}" filteredValue="#{Sedes.listaFiltro}" reflow="true" widgetVar="TablaSedes" id="tablaSedes" selectionMode="single"
                                  selection="#{Sedes.sedeObjeto}" rowKey="#{sede.idSede}" class="TABLA" paginator="true" rows="7">
@@ -45,11 +45,11 @@
                         <p:messages autoUpdate="true"/>
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
                             <h:outputText value="Nombre de la sede"></h:outputText>
-                            <p:inputText required="true" label="Nombre de la Sede" value="#{Sedes.sedeObjeto.nombreSede}"/>
+                            <p:inputText required="true" label="Nombre de la Sede" value="#{Sedes.sedeObjetoInsercion.nombreSede}"/>
                             <h:outputText value="Código de la sede"></h:outputText>
-                            <p:inputText required="true" label="Nombre de la Sede" value="#{Sedes.sedeObjeto.codigoSede}"/>
+                            <p:inputText required="true" label="Nombre de la Sede" value="#{Sedes.sedeObjetoInsercion.codigoSede}"/>
                             <h:outputText value="Estado de la sede"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarSede" value="#{Sedes.sedeObjeto.estadoSede}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableIngresarSede" value="#{Sedes.sedeObjetoInsercion.estadoSede}" style="width: 150px;">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>

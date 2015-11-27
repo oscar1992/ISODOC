@@ -40,7 +40,7 @@
                             
                         </p:dataTable>
                         <br/>
-                        <p:commandButton value="Insertar" type="button" onclick="PF('insertarDepartamento').show();" update=":DepartamentoForm:msgs" class="botonNormal" rendered="#{Departamentos.ingresar}"></p:commandButton>
+                        <p:commandButton value="Insertar" type="button" onclick="PF('insertarDepartamento').show();" update=":DepartamentoForm:msgs" class="botonNormal" rendered="#{Departamentos.ingresar}" ></p:commandButton>
                     
                 </h:form>
                 <h:form id="IngresarModal">
@@ -51,16 +51,16 @@
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
                             
                             <h:outputText value="Nombre del Departamento"></h:outputText>
-                            <p:inputText required="true" label="nombre del Departamento" value="#{Departamentos.departamentoObjeto.nombreDepartamento}"/>
+                            <p:inputText required="true" label="nombre del Departamento" value="#{Departamentos.departamentoObjetoInsercion.nombreDepartamento}"/>
                             <h:outputText value="Código del Departamento"></h:outputText>
-                            <p:inputText required="true" label="codigo del Departamento" value="#{Departamentos.departamentoObjeto.codigoDepartamento}"/>
+                            <p:inputText required="true" label="codigo del Departamento" value="#{Departamentos.departamentoObjetoInsercion.codigoDepartamento}"/>
                             <h:outputText value="Estado del Departamento"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarSede" value="#{Departamentos.departamentoObjeto.estadoDepartamento}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableIngresarSede" value="#{Departamentos.departamentoObjetoInsercion.estadoDepartamento}" style="width: 150px;">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
                             <h:outputText value="País del Departamento"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarDepartamentoPais" value="#{Departamentos.departamentoObjeto.idPais.idPais}" style="width: 150px;" >
+                            <p:selectOneMenu id="desplegableIngresarDepartamentoPais" value="#{Departamentos.departamentoObjetoInsercion.idPais.idPais}" style="width: 150px;" >
                                 <f:selectItem itemLabel="Selecione Pais" itemValue="" noSelectionOption="false"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaPaises}"/>
                             </p:selectOneMenu>

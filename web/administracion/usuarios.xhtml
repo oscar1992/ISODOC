@@ -60,22 +60,22 @@
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
 
                             <h:outputText value="Nombre del Usuario"></h:outputText>
-                            <p:inputText required="true" label="Nombre de usuario" value="#{Usuario.usuarioObjeto.nombre}"/> 
+                            <p:inputText required="true" label="Nombre de usuario" value="#{Usuario.usuarioObjetoInsercion.nombre}"/> 
                             <h:outputText value="Apellido del Usuario "></h:outputText>
-                            <p:inputText required="true" label="Apellido de usuario" value="#{Usuario.usuarioObjeto.apellido}"/> 
+                            <p:inputText required="true" label="Apellido de usuario" value="#{Usuario.usuarioObjetoInsercion.apellido}"/> 
                             <h:outputText value="Nombre de Acceso "></h:outputText>
-                            <p:inputText required="true" label="Nombre de Acceso" value="#{Usuario.usuarioObjeto.nombreUsuario}"/> 
+                            <p:inputText required="true" label="Nombre de Acceso" value="#{Usuario.usuarioObjetoInsercion.nombreUsuario}"/> 
                             <h:outputText value="Contraseña "></h:outputText>
-                            <p:inputText required="true" label="Contraseña de usuario" value="#{Usuario.usuarioObjeto.clave}"/> 
+                            <p:inputText required="true" label="Contraseña de usuario" value="#{Usuario.usuarioObjetoInsercion.clave}"/> 
 
                             <h:outputText value="Correo "></h:outputText>
-                            <p:inputText required="true" label="Correo de usuario" value="#{Usuario.usuarioObjeto.email}"/>                                 
+                            <p:inputText required="true" label="Correo de usuario" value="#{Usuario.usuarioObjetoInsercion.email}"/>                                 
                             <h:outputText value="Número de teléfono "></h:outputText>
-                            <p:inputText required="true" label="Teléfono de usuario" value="#{Usuario.usuarioObjeto.telefono}"/> 
+                            <p:inputText required="true" label="Teléfono de usuario" value="#{Usuario.usuarioObjetoInsercion.telefono}"/> 
                             <h:outputText value="Número de identificación "></h:outputText>
-                            <p:inputText required="true" label="Número de identificación de usuario" value="#{Usuario.usuarioObjeto.numeroIdentificacion}"/> 
+                            <p:inputText required="true" label="Número de identificación de usuario" value="#{Usuario.usuarioObjetoInsercion.numeroIdentificacion}"/> 
                             <h:outputText value="Estado "></h:outputText>                            
-                            <p:selectOneMenu id="desplegableIngresarusuario" value="#{Usuario.usuarioObjeto.estado}" style="width: 150px;" >
+                            <p:selectOneMenu id="desplegableIngresarusuario" value="#{Usuario.usuarioObjetoInsercion.estado}" style="width: 150px;" >
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="false"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>

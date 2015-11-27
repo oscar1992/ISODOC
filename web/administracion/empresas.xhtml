@@ -19,7 +19,7 @@
                         <p:ajax event="rowSelect" listener="#{Empresas.onRowSelect}" update=":EmpresasForm:msgs,:ActualizarModal:actualizarEmpresaModal" oncomplete="PF('actualizarEmpresa').show()"/>
                         <f:facet name="header">
                             <h:outputText value="CONSULTA DE EMPRESAS" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
-                            <p:inputText id="globalFilter" onkeyup="PF('TablaSedes').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                            <p:inputText id="globalFilter" onkeyup="PF('TablaEmpresas').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
                             <h:outputText value="Buscar" style="color: #FFF; float: right"/>
                         </f:facet>
                         <p:column headerText="Nombre de la Empresa" filterBy="#{empresa.nombreEmpresa}">
@@ -43,11 +43,11 @@
                         <p:messages autoUpdate="true"/>
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
                             <h:outputText value="Nombre de la Empresa"></h:outputText>
-                            <p:inputText required="true" value="#{Empresas.empresaObjeto.nombreEmpresa}"/>
+                            <p:inputText required="true" value="#{Empresas.empresaObjetoInsercion.nombreEmpresa}"/>
                             <h:outputText value="Código de la Empresa"></h:outputText>
-                            <p:inputText required="true" value="#{Empresas.empresaObjeto.codigoEmpresa}"/>
+                            <p:inputText required="true" value="#{Empresas.empresaObjetoInsercion.codigoEmpresa}"/>
                             <h:outputText value="Nombre de la Empresa"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarPerfil" value="#{Empresas.empresaObjeto.estadoEmpresa}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableIngresarPerfil" value="#{Empresas.empresaObjetoInsercion.estadoEmpresa}" style="width: 150px;">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>

@@ -28,6 +28,7 @@ import org.primefaces.event.SelectEvent;
 public class UsuarioBean implements Serializable {
 
     private UsuarioEntity usuarioObjeto;
+    private UsuarioEntity usuarioObjetoInsercion;
     private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
@@ -44,6 +45,7 @@ public class UsuarioBean implements Serializable {
 
     public UsuarioBean() {
         usuarioObjeto=new UsuarioEntity();
+        usuarioObjetoInsercion=new UsuarioEntity();
     }
     
     
@@ -83,6 +85,14 @@ public class UsuarioBean implements Serializable {
         this.usuarioObjeto = usuarioObjeto;
     }
 
+    public UsuarioEntity getUsuarioObjetoInsercion() {
+        return usuarioObjetoInsercion;
+    }
+
+    public void setUsuarioObjetoInsercion(UsuarioEntity usuarioObjetoInsercion) {
+        this.usuarioObjetoInsercion = usuarioObjetoInsercion;
+    }
+     
     /**
      * Funcion con la cual inserto un usuario en el sistema
      */
@@ -90,7 +100,7 @@ public class UsuarioBean implements Serializable {
         try {
 
             UsuarioLogic logicaUsuario = new UsuarioLogic();
-            UsuarioEntity usuarioInserto = logicaUsuario.ingresarUsuario(usuarioObjeto);
+            UsuarioEntity usuarioInserto = logicaUsuario.ingresarUsuario(usuarioObjetoInsercion);
             FacesMessage msg = null;
             if (usuarioInserto != null) {
                 msg = new FacesMessage("", "Usuario insertado correctamente: " + (usuarioObjeto.getNombre()));
@@ -181,7 +191,7 @@ public class UsuarioBean implements Serializable {
         logicaUsusario.actualizarUsuario(usuarioObjeto);
         eliminarUsuarioLista(usuarioObjeto);
         usuarioObjeto=new UsuarioEntity();
-        RequestContext.getCurrentInstance().execute("PF('eliminarUsuario').hide()");
+        RequestContext.getCurrentInstance().execute("PF('actualizarUsuario').hide()");
     }
 
     /**
@@ -238,7 +248,7 @@ public class UsuarioBean implements Serializable {
             for (MenuPermisosEntity nivel1 : permisoObj.getSubNivel()) {
                 for (MenuPermisosEntity nivel2 : nivel1.getSubNivel()) {
                     int idPer = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idPermiso");
-                    System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
+                    //System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
                     if (idPer == nivel2.getAsociadoMenu()) {
                         switch (nivel2.getNombrePermiso()) {
                             case "insert":

@@ -31,6 +31,7 @@ public class DepartamentoBean {
     private ArrayList<DepartamentoEntity> lista;
     private ArrayList<DepartamentoEntity> listaFiltro;
     private DepartamentoEntity departamentoObjeto;
+    private DepartamentoEntity departamentoObjetoInsercion;
     private boolean ingresar ;
     private boolean actualizar;
     private boolean eliminar;
@@ -59,6 +60,14 @@ public class DepartamentoBean {
         this.departamentoObjeto = departamentoObjeto;
     }
 
+    public DepartamentoEntity getDepartamentoObjetoInsercion() {
+        return departamentoObjetoInsercion;
+    }
+
+    public void setDepartamentoObjetoInsercion(DepartamentoEntity departamentoObjetoInsercion) {
+        this.departamentoObjetoInsercion = departamentoObjetoInsercion;
+    }
+    
     public boolean isIngresar() {
         return ingresar;
     }
@@ -93,8 +102,9 @@ public class DepartamentoBean {
      * Método que inicializa el departamento con el país
      */
     public DepartamentoBean() {
-        departamentoObjeto = new DepartamentoEntity();
-        departamentoObjeto.setIdPais(new PaisEntity());
+        //departamentoObjeto = new DepartamentoEntity();
+        //departamentoObjeto.setIdPais(new PaisEntity());
+        nuevoDepartamentoObjeto();
     }
 
     /**
@@ -115,7 +125,12 @@ public class DepartamentoBean {
     public void ingresarDepartamento() {
         try {
             DepartamentoLogic departamentoLogic = new DepartamentoLogic();
-            DepartamentoEntity departamentoEntity = departamentoLogic.ingresaDepartameto(departamentoObjeto);
+            
+            System.out.println("id: "+departamentoObjeto.getIdDepartamento());
+            departamentoObjeto.setIdDepartamento(0);
+            DepartamentoEntity departamentoEntity = departamentoLogic.ingresaDepartameto(departamentoObjetoInsercion);
+            System.out.println("ide: "+departamentoEntity.getIdDepartamento());
+            departamentoEntity.setIdDepartamento(departamentoEntity.getIdDepartamento());
             FacesMessage msg = null;
             if (departamentoEntity != null) {
                 msg = new FacesMessage("", "Departamento Ingresado Correctamente: " + departamentoEntity.getNombreDepartamento());
@@ -126,8 +141,9 @@ public class DepartamentoBean {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        nuevoDepartamentoObjeto();
+        
         RequestContext.getCurrentInstance().execute("PF('insertarDepartamento').hide()");
+        nuevoDepartamentoObjeto();
 
     }
 
@@ -137,8 +153,9 @@ public class DepartamentoBean {
      */
     private void adicionarDepartamentoLista(DepartamentoEntity departamentoEntity) {
         PaisesLogic paisesLogic = new PaisesLogic();
-        PaisEntity pais = paisesLogic.paisPorId(departamentoObjeto.getIdPais().getIdPais());
+        PaisEntity pais = paisesLogic.paisPorId(departamentoObjetoInsercion.getIdPais().getIdPais());
         departamentoEntity.setIdPais(pais);
+        System.out.println("deptoid: "+departamentoEntity.getIdDepartamento());
         lista.add(departamentoEntity);
     }
 
@@ -154,6 +171,7 @@ public class DepartamentoBean {
         } else if ("Error".equalsIgnoreCase(valida)) {
 
         }
+        nuevoDepartamentoObjeto();
         RequestContext.getCurrentInstance().execute("PF('actualizarDepartamento').hide()");
     }
 
@@ -168,6 +186,7 @@ public class DepartamentoBean {
             if (lista != null) {
                 for (DepartamentoEntity item : lista) {
                     if (departamentoObjeto.getIdDepartamento() == item.getIdDepartamento()) {
+                        System.out.println("ACTUA");
                         PaisesLogic paisesLogic = new PaisesLogic();
                         PaisEntity pais = paisesLogic.paisPorId(departamentoObjeto.getIdPais().getIdPais());
                         departamentoObjeto.setIdPais(pais);
@@ -193,7 +212,7 @@ public class DepartamentoBean {
         departamentoObjeto = (DepartamentoEntity) event.getObject();
         if (departamentoObjeto.getIdPais() == null) {
             PaisEntity pais = new PaisEntity();
-            pais.setIdPais(-1);;
+            pais.setIdPais(-1);
             departamentoObjeto.setIdPais(pais);
         }
     }
@@ -231,10 +250,12 @@ public class DepartamentoBean {
      */
     public void nuevoDepartamentoObjeto() {
         departamentoObjeto = new DepartamentoEntity();
+        departamentoObjetoInsercion = new DepartamentoEntity();
         PaisEntity pais = new PaisEntity();
         pais.setIdPais(-1);
         departamentoObjeto.setIdPais(pais);
-        //System.out.println("NULEA: " + departamentoObjeto.getNombreDepartamento());
+        departamentoObjetoInsercion.setIdPais(pais);
+        System.out.println("NULEA: " + departamentoObjeto.getNombreDepartamento());
     }
     
     /**
@@ -249,7 +270,7 @@ public class DepartamentoBean {
             for (MenuPermisosEntity nivel1 : permisoObj.getSubNivel()) {
                 for (MenuPermisosEntity nivel2 : nivel1.getSubNivel()) {
                     int idPer = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idPermiso");
-                    System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
+                    //System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
                     if (idPer == nivel2.getAsociadoMenu()) {
                         switch (nivel2.getNombrePermiso()) {
                             case "insert":
