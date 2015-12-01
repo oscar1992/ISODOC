@@ -30,6 +30,7 @@ public class TiposDocuemntalesBean implements Serializable{
     private ArrayList<TiposDocumentalesEntity> lista;
     private ArrayList<TiposDocumentalesEntity> listaFiltro;
     private TiposDocumentalesEntity tiposDobjeto;
+    private TiposDocumentalesEntity tiposDobjetoInsercion;
     private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
@@ -58,6 +59,14 @@ public class TiposDocuemntalesBean implements Serializable{
         this.tiposDobjeto = tiposDobjeto;
     }
 
+    public TiposDocumentalesEntity getTiposDobjetoInsercion() {
+        return tiposDobjetoInsercion;
+    }
+
+    public void setTiposDobjetoInsercion(TiposDocumentalesEntity tiposDobjetoInsercion) {
+        this.tiposDobjetoInsercion = tiposDobjetoInsercion;
+    }
+    
     public boolean isIngresar() {
         return ingresar;
     }
@@ -91,7 +100,8 @@ public class TiposDocuemntalesBean implements Serializable{
 
     public TiposDocuemntalesBean() {
         tiposDobjeto=new TiposDocumentalesEntity();
-        System.out.println("TT");
+        tiposDobjetoInsercion=new TiposDocumentalesEntity();
+       
     }
 
     /**
@@ -114,7 +124,7 @@ public class TiposDocuemntalesBean implements Serializable{
         
         try {
             TiposDocumentalesLogic tiposDocumentalesLogic = new TiposDocumentalesLogic();
-            TiposDocumentalesEntity tiposDocumentalesEntity = tiposDocumentalesLogic.ingresaTipoDocumental(tiposDobjeto);
+            TiposDocumentalesEntity tiposDocumentalesEntity = tiposDocumentalesLogic.ingresaTipoDocumental(tiposDobjetoInsercion);
             FacesMessage msg = null;
             if (tiposDocumentalesEntity != null) {
                 msg = new FacesMessage("", "Tipo Documental Ingresado Correctamente" + tiposDocumentalesEntity.getNombreTipoDocumental());
@@ -145,6 +155,7 @@ public class TiposDocuemntalesBean implements Serializable{
      */
     private void nuevoTipoDocumental() {
         tiposDobjeto = new TiposDocumentalesEntity();
+        tiposDobjetoInsercion = new TiposDocumentalesEntity();
         System.out.println("NN");
     }
 

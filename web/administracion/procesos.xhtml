@@ -48,13 +48,13 @@
                         <p:messages autoUpdate="true"/>
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
                             <h:outputText value="Nombre del Procesos"></h:outputText>
-                            <p:inputText required="true" label="nombre del Proceso" value="#{Procesos.procesosObjeto.nombrePreoceso}"/>                            
+                            <p:inputText required="true" label="nombre del Proceso" value="#{Procesos.procesosObjetoInsercion.nombrePreoceso}"/>                            
                             <h:outputText value="MacroProceso del Procesos"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarMacroProceso" value="#{Procesos.procesosObjeto.idMacroProceso.idMacroproceso}" style="width: 150px;">                                
+                            <p:selectOneMenu id="desplegableIngresarMacroProceso" value="#{Procesos.procesosObjetoInsercion.idMacroProceso.idMacroproceso}" style="width: 150px;">                                
                                 <f:selectItems value="#{ListaAdministracionBean.listaMacroProcesos}"/>
                             </p:selectOneMenu>
                             <h:outputText value="Estado del Procesos"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresar" value="#{Procesos.procesosObjeto.estadoProceso}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableIngresar" value="#{Procesos.procesosObjetoInsercion.estadoProceso}" style="width: 150px;">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>

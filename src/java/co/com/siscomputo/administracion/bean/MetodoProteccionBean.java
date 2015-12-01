@@ -24,6 +24,7 @@ public class MetodoProteccionBean implements Serializable{
     private ArrayList<MetodoProteccionEntity> lista;
     private ArrayList<MetodoProteccionEntity> listaFiltro;
     private MetodoProteccionEntity objetoMetodoProteccion;
+    private MetodoProteccionEntity objetoMetodoProteccionInsercion;
     private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
@@ -50,6 +51,14 @@ public class MetodoProteccionBean implements Serializable{
 
     public void setObjetoMetodoProteccion(MetodoProteccionEntity objetoMetodoProteccion) {
         this.objetoMetodoProteccion = objetoMetodoProteccion;
+    }
+
+    public MetodoProteccionEntity getObjetoMetodoProteccionInsercion() {
+        return objetoMetodoProteccionInsercion;
+    }
+
+    public void setObjetoMetodoProteccionInsercion(MetodoProteccionEntity objetoMetodoProteccionInsercion) {
+        this.objetoMetodoProteccionInsercion = objetoMetodoProteccionInsercion;
     }
 
     public boolean isIngresar() {
@@ -80,8 +89,11 @@ public class MetodoProteccionBean implements Serializable{
     public void init(){
         consultarMetodoProteccion();
         permisos();
-    }    public MetodoProteccionBean() {
+    }   
+    
+    public MetodoProteccionBean() {
         objetoMetodoProteccion=new MetodoProteccionEntity();
+        objetoMetodoProteccionInsercion=new MetodoProteccionEntity();
     }
     /**
      * Método que tra una lista de Métodos de Protección
@@ -100,11 +112,11 @@ public class MetodoProteccionBean implements Serializable{
     public void instertarMetodoProteccion(){
         try {
             MetodoProteccionLogic metodoProteccionLogic=new MetodoProteccionLogic();
-            MetodoProteccionEntity metodoProteccionEntity=metodoProteccionLogic.insertarMetodoProteccion(objetoMetodoProteccion);
+            MetodoProteccionEntity metodoProteccionEntity=metodoProteccionLogic.insertarMetodoProteccion(objetoMetodoProteccionInsercion);
             FacesMessage msg=null;
             if(metodoProteccionEntity!=null){
                 msg=new FacesMessage("", "inserción de Métodos de Protección correcto");
-                adicionarMetodoPtoteccionLista(objetoMetodoProteccion);
+                adicionarMetodoPtoteccionLista(metodoProteccionEntity);
             }else{
                 msg=new FacesMessage("", "inserción de Métodos de Protección incorrecto");
             }
@@ -198,6 +210,7 @@ public class MetodoProteccionBean implements Serializable{
      */
     public void nuevoMetodoProteccionObjeto() {
         objetoMetodoProteccion=new MetodoProteccionEntity();
+        objetoMetodoProteccionInsercion=new MetodoProteccionEntity();
     }
 /**
      * Método que evalua los accesos al formulario
@@ -211,7 +224,7 @@ public class MetodoProteccionBean implements Serializable{
             for (MenuPermisosEntity nivel1 : permisoObj.getSubNivel()) {
                 for (MenuPermisosEntity nivel2 : nivel1.getSubNivel()) {
                     int idPer = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idPermiso");
-                    System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
+                    //System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
                     if (idPer == nivel2.getAsociadoMenu()) {
                         switch (nivel2.getNombrePermiso()) {
                             case "insert":

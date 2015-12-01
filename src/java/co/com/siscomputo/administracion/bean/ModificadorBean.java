@@ -187,10 +187,10 @@ public class ModificadorBean implements Serializable {
      */
     public void onRowSelect(SelectEvent event) {
         objetoModificador = (ModificadorEntity) event.getObject();
-        if (objetoModificador.getidUsuario() == null) {
+        if (objetoModificador.getUsuarioModificador()== null) {
             UsuarioEntity pais = new UsuarioEntity();
-            pais.setidUsuario(-1);
-            objetoModificador.setidUsuario(pais);
+            pais.setIdUsuario(-1);
+            objetoModificador.setUsuarioModificador(pais);
         }
     }
 
@@ -227,8 +227,8 @@ public class ModificadorBean implements Serializable {
     public void nuevoModificadorObjeto() {
         objetoModificador = new ModificadorEntity();
         UsuarioEntity usuario = new UsuarioEntity();
-        usuario.setidUsuario(-1);
-        objetoModificador.setidUsuario(usuario);
+        usuario.setIdUsuario(-1);
+        objetoModificador.setUsuarioModificador(usuario);
     }
 
     /**

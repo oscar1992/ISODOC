@@ -31,6 +31,7 @@ public class ProcesosBean implements Serializable{
     private ArrayList<ProcesosEntity> listaProcesos;
     private ArrayList<ProcesosEntity> listaProcesosFiltro;
     private ProcesosEntity procesosObjeto;
+    private ProcesosEntity procesosObjetoInsercion;
     private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
@@ -57,6 +58,14 @@ public class ProcesosBean implements Serializable{
 
     public void setProcesosObjeto(ProcesosEntity procesosObjeto) {
         this.procesosObjeto = procesosObjeto;
+    }
+
+    public ProcesosEntity getProcesosObjetoInsercion() {
+        return procesosObjetoInsercion;
+    }
+
+    public void setProcesosObjetoInsercion(ProcesosEntity procesosObjetoInsercion) {
+        this.procesosObjetoInsercion = procesosObjetoInsercion;
     }
 
     public boolean isIngresar() {
@@ -91,7 +100,7 @@ public class ProcesosBean implements Serializable{
     }
     
     public ProcesosBean() {
-        
+        nuevoProceso();
     }
     
     /**
@@ -111,7 +120,7 @@ public class ProcesosBean implements Serializable{
     public void ingresarProcesos(){
         try {
             ProcesosLogic procesosLogic=new ProcesosLogic();
-            ProcesosEntity procesosEntity=procesosLogic.ingresaProceso(procesosObjeto);
+            ProcesosEntity procesosEntity=procesosLogic.ingresaProceso(procesosObjetoInsercion);
             FacesMessage msg=null;
             if(procesosEntity!=null){
                 msg = new FacesMessage("", "Proceso Ingresado Correctamente: " + procesosEntity.getNombrePreoceso());
@@ -122,7 +131,7 @@ public class ProcesosBean implements Serializable{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        RequestContext.getCurrentInstance().execute("PF('insertarProceso').hide()");
+        RequestContext.getCurrentInstance().execute("PF('insertarProcesos').hide()");
         nuevoProceso();
     }
     /**
@@ -147,8 +156,7 @@ public class ProcesosBean implements Serializable{
             actualizarListaProceso(procesosObjeto);
         }else if("Error".equalsIgnoreCase(valida)){
             
-        }
-        
+        }        
         RequestContext.getCurrentInstance().execute("PF('actualizarProcesos').hide()");
     } 
     /**
@@ -181,9 +189,11 @@ public class ProcesosBean implements Serializable{
      */
     public void nuevoProceso() {
         procesosObjeto=new ProcesosEntity();
+        procesosObjetoInsercion=new ProcesosEntity();
         MacroprocesosEntity macroprocesosEntity=new MacroprocesosEntity();
         macroprocesosEntity.setIdMacroproceso(-1);
         procesosObjeto.setIdMacroProceso(macroprocesosEntity);
+        procesosObjetoInsercion.setIdMacroProceso(macroprocesosEntity);
         
     }
     /**
@@ -240,7 +250,7 @@ public class ProcesosBean implements Serializable{
             for (MenuPermisosEntity nivel1 : permisoObj.getSubNivel()) {
                 for (MenuPermisosEntity nivel2 : nivel1.getSubNivel()) {
                     int idPer = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idPermiso");
-                    System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
+                    
                     if (idPer == nivel2.getAsociadoMenu()) {
                         switch (nivel2.getNombrePermiso()) {
                             case "insert":

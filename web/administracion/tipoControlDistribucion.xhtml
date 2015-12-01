@@ -44,10 +44,10 @@
 
                             <h:outputText value="nombre del Tipo de Control de distribución"></h:outputText>
 
-                            <p:inputText required="true" label="nombre del Tipo de Control de distribución" value="#{TipoControlDistribucion.objetoTipoControlDistribucion.nombreTipoControlDistribucion}"/>
+                            <p:inputText required="true" label="nombre del Tipo de Control de distribución" value="#{TipoControlDistribucion.objetoTipoControlDistribucionInsercion.nombreTipoControlDistribucion}"/>
 
                             <h:outputText value="Estado del Tipo de Control de distribución"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarEstado" value="#{TipoControlDistribucion.objetoTipoControlDistribucion.estadoTipoControlDistribucion}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableIngresarEstado" value="#{TipoControlDistribucion.objetoTipoControlDistribucionInsercion.estadoTipoControlDistribucion}" style="width: 150px;">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>

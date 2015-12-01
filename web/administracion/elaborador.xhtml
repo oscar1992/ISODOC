@@ -43,7 +43,7 @@
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
                             
                             <h:outputText value="Estado del Aprobador Elaborador"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarEstado" value="#{Elaborador.objetoElaborador.estadoElaborador}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableIngresarEstado" value="#{Elaborador.objetoElaboradorInsercion.estadoElaborador}" style="width: 150px;">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>

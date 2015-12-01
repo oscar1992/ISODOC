@@ -48,14 +48,14 @@
                         <p:messages autoUpdate="true"/>
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
                             <h:outputText value="Nombre del Subprocesos"></h:outputText>
-                            <p:inputText required="true" label="nombre del Subproceso" value="#{Subprocesos.subProcesoObjeto.nombreSubproceso}"/>                            
+                            <p:inputText required="true" label="nombre del Subproceso" value="#{Subprocesos.subProcesoObjetoInsercion.nombreSubproceso}"/>                            
                             <h:outputText value="Subproceso del Subprocesos"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarMacroSubproceso" value="#{Subprocesos.subProcesoObjeto.idProcesos.idProcesos}" style="width: 150px;">                                
+                            <p:selectOneMenu id="desplegableIngresarMacroSubproceso" value="#{Subprocesos.subProcesoObjetoInsercion.idProcesos.idProcesos}" style="width: 150px;">                                
                                 <f:selectItem itemLabel="Selecione Proceso" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaProcesos}"/>
                             </p:selectOneMenu>
                             <h:outputText value="Estado del Subprocesos"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresar" value="#{Subprocesos.subProcesoObjeto.estadoSubproceso}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableIngresar" value="#{Subprocesos.subProcesoObjetoInsercion.estadoSubproceso}" style="width: 150px;">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>

@@ -17,7 +17,7 @@
     text-shadow: none;
     max-width: 300px;
     text-align: center;
-    
+
 }
 /*
     Color del hover de la lista
@@ -109,7 +109,7 @@
     font-size: 12px;
     margin:0;
     color: #666666;
-   
+
 }
 /*
     Estilo de la lista de los elelemtos del menú lateral
@@ -117,7 +117,7 @@
 .list-group{
     margin:0;
     text-decoration-color: #000000;
-    
+
 }
 
 
@@ -128,7 +128,7 @@
     margin:0px;padding:0px;
     width:100%;
     border:1px solid #7f7f7f;
-    
+
 }
 /*
     Estilo general de la tabla que contiene datos y textos
@@ -161,7 +161,7 @@
     Estilo de la cabcera de la tabla
 */
 .TABLA th{
-    
+
     text-decoration: #ffffff;
     background-color: #666666;
 
@@ -176,7 +176,7 @@
     height: 60px;
     padding-bottom: 7px;
     padding-top: 1px;
-    
+
 }
 /*
     Estilo de la cabcera de la tabla
@@ -246,13 +246,13 @@
     border: none;
     border-radius: 5px;
     text-decoration-color: #ac2925;
-    
+
 }
 
 .ui-inputfield {
     color: #666666;
     width: 100%;
-   
+
 }
 
 .buscarTexto{
@@ -271,7 +271,7 @@
     border: solid #1f628d 0px;
     width: 120px;
     border-radius: 4px;
-      
+
 }
 .botonNormal2{
     font-family: Trebuchet MS;
@@ -390,11 +390,11 @@
     background-repeat: no-repeat;
     width: 20px;
     height: 20px;
-    
+
 }
 
 .ui-state-hover{
-    
+
 }
 
 .ui-selectonemenu{
@@ -471,7 +471,7 @@
     border-width: 1px;
     border-style: solid;
     border-color: inherit;
-    
+
     width: 133px;
     vertical-align: middle;
 }
@@ -511,4 +511,16 @@
     text-align: center;
     margin: 0;
     color: #666666;
+}
+//Estilo Botón Subir Archivo
+.ui-fileupload-buttonbar{
+    font-family: Trebuchet MS;
+    color: #ffffff;
+    font-size: 12px;
+    background: #666666;
+    font-weight: bolder;
+    text-decoration: none;
+    border: solid #1f628d 0px;
+    width: 120px;
+    border-radius: 4px;
 }

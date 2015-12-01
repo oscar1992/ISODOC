@@ -24,6 +24,7 @@ public class TiposAccesoBean implements Serializable{
     private ArrayList<TiposAccesoEntity> lista;
     private ArrayList<TiposAccesoEntity> listaFiltro;
     private TiposAccesoEntity objetoTiposAcceso;
+    private TiposAccesoEntity objetoTiposAccesoInsercion;
     private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
@@ -50,6 +51,14 @@ public class TiposAccesoBean implements Serializable{
 
     public void setObjetoTiposAcceso(TiposAccesoEntity objetoTiposAcceso) {
         this.objetoTiposAcceso = objetoTiposAcceso;
+    }
+
+    public TiposAccesoEntity getObjetoTiposAccesoInsercion() {
+        return objetoTiposAccesoInsercion;
+    }
+
+    public void setObjetoTiposAccesoInsercion(TiposAccesoEntity objetoTiposAccesoInsercion) {
+        this.objetoTiposAccesoInsercion = objetoTiposAccesoInsercion;
     }
 
     public boolean isIngresar() {
@@ -80,8 +89,10 @@ public class TiposAccesoBean implements Serializable{
     public void init(){
         consultarTiposAcceso();
         permisos();
-    }    public TiposAccesoBean() {
+    }    
+    public TiposAccesoBean() {
         objetoTiposAcceso=new TiposAccesoEntity();
+        objetoTiposAccesoInsercion=new TiposAccesoEntity();
     }
     /**
      * Método que tra una lista de Tipo de Acceso
@@ -100,11 +111,11 @@ public class TiposAccesoBean implements Serializable{
     public void instertarTiposAcceso(){
         try {
             TiposAccesoLogic tiposAccesoLogic=new TiposAccesoLogic();
-            TiposAccesoEntity tiposAccesoEntity=tiposAccesoLogic.insertarTiposAcceso(objetoTiposAcceso);
+            TiposAccesoEntity tiposAccesoEntity=tiposAccesoLogic.insertarTiposAcceso(objetoTiposAccesoInsercion);
             FacesMessage msg=null;
             if(tiposAccesoEntity!=null){
                 msg=new FacesMessage("", "inserción de Tipo de Acceso correcto");
-                adicionarMetodoPtoteccionLista(objetoTiposAcceso);
+                adicionarMetodoPtoteccionLista(tiposAccesoEntity);
             }else{
                 msg=new FacesMessage("", "inserción de Tipo de Acceso incorrecto");
             }
@@ -197,6 +208,7 @@ public class TiposAccesoBean implements Serializable{
      */
     public void nuevoTiposAccesoObjeto() {
         objetoTiposAcceso=new TiposAccesoEntity();
+        objetoTiposAccesoInsercion=new TiposAccesoEntity();
     }
 /**
      * Método que evalua los accesos al formulario
@@ -210,7 +222,7 @@ public class TiposAccesoBean implements Serializable{
             for (MenuPermisosEntity nivel1 : permisoObj.getSubNivel()) {
                 for (MenuPermisosEntity nivel2 : nivel1.getSubNivel()) {
                     int idPer = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idPermiso");
-                    System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
+                    //System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
                     if (idPer == nivel2.getAsociadoMenu()) {
                         switch (nivel2.getNombrePermiso()) {
                             case "insert":

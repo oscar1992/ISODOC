@@ -24,6 +24,7 @@ public class TipoAlmacenamientoBean implements Serializable{
     private ArrayList<TipoAlmacenamientoEntity> lista;
     private ArrayList<TipoAlmacenamientoEntity> listaFiltro;
     private TipoAlmacenamientoEntity objetoTipoAlmacenamiento;
+    private TipoAlmacenamientoEntity objetoTipoAlmacenamientoInsercion;
     private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
@@ -50,6 +51,14 @@ public class TipoAlmacenamientoBean implements Serializable{
 
     public void setObjetoTipoAlmacenamiento(TipoAlmacenamientoEntity objetoTipoAlmacenamiento) {
         this.objetoTipoAlmacenamiento = objetoTipoAlmacenamiento;
+    }
+
+    public TipoAlmacenamientoEntity getObjetoTipoAlmacenamientoInsercion() {
+        return objetoTipoAlmacenamientoInsercion;
+    }
+
+    public void setObjetoTipoAlmacenamientoInsercion(TipoAlmacenamientoEntity objetoTipoAlmacenamientoInsercion) {
+        this.objetoTipoAlmacenamientoInsercion = objetoTipoAlmacenamientoInsercion;
     }
 
     public boolean isIngresar() {
@@ -83,6 +92,7 @@ public class TipoAlmacenamientoBean implements Serializable{
     }   
     public TipoAlmacenamientoBean() {
         objetoTipoAlmacenamiento=new TipoAlmacenamientoEntity();
+        objetoTipoAlmacenamientoInsercion=new TipoAlmacenamientoEntity();
     }
     /**
      * Método que tra una lista de Tipo de Almacenamiento
@@ -101,11 +111,11 @@ public class TipoAlmacenamientoBean implements Serializable{
     public void instertarTipoAlmacenamiento(){
         try {
             TipoAlmacenamientoLogic tipoAlmacenamientoLogic=new TipoAlmacenamientoLogic();
-            TipoAlmacenamientoEntity tipoAlmacenamientoEntity=tipoAlmacenamientoLogic.insertarTipoAlmacenamiento(objetoTipoAlmacenamiento);
+            TipoAlmacenamientoEntity tipoAlmacenamientoEntity=tipoAlmacenamientoLogic.insertarTipoAlmacenamiento(objetoTipoAlmacenamientoInsercion);
             FacesMessage msg=null;
             if(tipoAlmacenamientoEntity!=null){
                 msg=new FacesMessage("", "inserción de Tipo de Almacenamiento correcto");
-                adicionarMetodoPtoteccionLista(objetoTipoAlmacenamiento);
+                adicionarMetodoPtoteccionLista(tipoAlmacenamientoEntity);
             }else{
                 msg=new FacesMessage("", "inserción de Tipo de Almacenamiento incorrecto");
             }
@@ -198,6 +208,7 @@ public class TipoAlmacenamientoBean implements Serializable{
      */
     public void nuevoTipoAlmacenamientoObjeto() {
         objetoTipoAlmacenamiento=new TipoAlmacenamientoEntity();
+        objetoTipoAlmacenamientoInsercion=new TipoAlmacenamientoEntity();
     }
 /**
      * Método que evalua los accesos al formulario
@@ -211,7 +222,7 @@ public class TipoAlmacenamientoBean implements Serializable{
             for (MenuPermisosEntity nivel1 : permisoObj.getSubNivel()) {
                 for (MenuPermisosEntity nivel2 : nivel1.getSubNivel()) {
                     int idPer = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idPermiso");
-                    System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
+                    //System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
                     if (idPer == nivel2.getAsociadoMenu()) {
                         switch (nivel2.getNombrePermiso()) {
                             case "insert":

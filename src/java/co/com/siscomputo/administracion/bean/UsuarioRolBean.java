@@ -145,21 +145,19 @@ public class UsuarioRolBean implements Serializable {
 
     
     public UsuarioRolBean() {
-        
-        consultarUsuarioRol();
-    }
-
-    @PostConstruct
-    public void init() {
         usuarioRolObjeto=new UsuarioRolEntity();
         usuarioObjeto = new UsuarioEntity();
         roles = new DualListModel<>();
         rolesNombre = new ArrayList<>();
         rolesSelecion = new ArrayList<>();
         idArea=null;
-        permisos();
-        //consultarListaRoles();
         
+    }
+
+    @PostConstruct
+    public void init() {        
+        permisos();
+        consultarListaRoles();        
     }
     
     

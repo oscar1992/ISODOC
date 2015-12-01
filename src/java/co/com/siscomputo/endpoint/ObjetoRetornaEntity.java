@@ -42,6 +42,7 @@ import javax.xml.bind.annotation.XmlType;
     ElaboradorEntity.class,
     MetodoRecuperacionEntity.class,
     PlantillaEntity.class,
+    AccionEntity.class,
     ModificadorEntity.class
 })
 public class ObjetoRetornaEntity

@@ -43,10 +43,10 @@
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
                             
                             <h:outputText value="Nombre del Método de Recuperación"></h:outputText>
-                            <p:inputText required="true" label="nombre del Método de Recuperación" value="#{MetodoRecuperacion.metodoRecuperacionObjeto.nombreMetodoRecuperacion}"/>
+                            <p:inputText required="true" label="nombre del Método de Recuperación" value="#{MetodoRecuperacion.metodoRecuperacionObjetoInsercion.nombreMetodoRecuperacion}"/>
                             
                             <h:outputText value="Estado del Método de Recuperación"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarEstado" value="#{MetodoRecuperacion.metodoRecuperacionObjeto.estadoMetodoRecuperacion}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableIngresarEstado" value="#{MetodoRecuperacion.metodoRecuperacionObjetoInsercion.estadoMetodoRecuperacion}" style="width: 150px;">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>

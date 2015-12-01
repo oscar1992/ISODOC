@@ -44,10 +44,10 @@
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
                             
                             <h:outputText value="Nombre del Disposicion"></h:outputText>
-                            <p:inputText required="true" label="nombre del Disposicion" value="#{Disposiciones.disposiscionObjeto.nombreDisposiciones}"/>
+                            <p:inputText required="true" label="nombre del Disposicion" value="#{Disposiciones.disposiscionObjetoInsercion.nombreDisposiciones}"/>
                             
                             <h:outputText value="Estado del Disposicion"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarSede" value="#{Disposiciones.disposiscionObjeto.estadoDisposiciones}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableIngresarSede" value="#{Disposiciones.disposiscionObjetoInsercion.estadoDisposiciones}" style="width: 150px;">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>

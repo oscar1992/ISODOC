@@ -61,6 +61,7 @@ public class ProcesosLogic {
         try {
             procRta=port.ingresaProceso(proc);
         } catch (Exception e) {
+            procRta=null;
             e.printStackTrace();
         }
         return procRta;

@@ -28,6 +28,7 @@ public class DisposicionesBean implements Serializable {
     ArrayList<DisposicionesEntity> lista;
     ArrayList<DisposicionesEntity> listaFiltro;
     DisposicionesEntity disposiscionObjeto;
+    DisposicionesEntity disposiscionObjetoInsercion;
     private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
@@ -54,6 +55,14 @@ public class DisposicionesBean implements Serializable {
 
     public void setDisposiscionObjeto(DisposicionesEntity disposiscionObjeto) {
         this.disposiscionObjeto = disposiscionObjeto;
+    }
+
+    public DisposicionesEntity getDisposiscionObjetoInsercion() {
+        return disposiscionObjetoInsercion;
+    }
+
+    public void setDisposiscionObjetoInsercion(DisposicionesEntity disposiscionObjetoInsercion) {
+        this.disposiscionObjetoInsercion = disposiscionObjetoInsercion;
     }
 
     public boolean isIngresar() {
@@ -87,6 +96,7 @@ public class DisposicionesBean implements Serializable {
 
     public DisposicionesBean() {
         disposiscionObjeto=new DisposicionesEntity();
+        disposiscionObjetoInsercion=new DisposicionesEntity();
     }
     
     
@@ -108,7 +118,7 @@ public class DisposicionesBean implements Serializable {
     public void insertarDisposicion() {
         try {
             DisposicionesLogic disposicionesLogic = new DisposicionesLogic();
-            DisposicionesEntity disposicionesEntity = disposicionesLogic.ingresaDisposicion(disposiscionObjeto);
+            DisposicionesEntity disposicionesEntity = disposicionesLogic.ingresaDisposicion(disposiscionObjetoInsercion);
             FacesMessage msg = null;
             if (disposicionesEntity != null) {
                 msg = new FacesMessage("", "Inserción de disposición correcta" + disposicionesEntity.getNombreDisposiciones());
@@ -152,6 +162,7 @@ public class DisposicionesBean implements Serializable {
      */
     public void nuevoDisposicionObjeto() {
         disposiscionObjeto=new DisposicionesEntity();
+        disposiscionObjetoInsercion=new DisposicionesEntity();
     }
     /**
      * Método que actualiza visualmente la lista de siaposiciones
@@ -222,7 +233,7 @@ public class DisposicionesBean implements Serializable {
             for (MenuPermisosEntity nivel1 : permisoObj.getSubNivel()) {
                 for (MenuPermisosEntity nivel2 : nivel1.getSubNivel()) {
                     int idPer = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idPermiso");
-                    System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
+                    
                     if (idPer == nivel2.getAsociadoMenu()) {
                         switch (nivel2.getNombrePermiso()) {
                             case "insert":

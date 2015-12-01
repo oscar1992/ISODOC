@@ -43,10 +43,10 @@
 
                             <h:outputText value="Nombre del Tipo de Acceso"></h:outputText>
 
-                            <p:inputText required="true" label="nombre del Tipo de Acceso" value="#{TiposAcceso.objetoTiposAcceso.nombreTiposAcceso}"/>
+                            <p:inputText required="true" label="nombre del Tipo de Acceso" value="#{TiposAcceso.objetoTiposAccesoInsercion.nombreTiposAcceso}"/>
 
                             <h:outputText value="Estado del Tipo de Acceso"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarEstado" value="#{TiposAcceso.objetoTiposAcceso.estadoTiposAcceso}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableIngresarEstado" value="#{TiposAcceso.objetoTiposAccesoInsercion.estadoTiposAcceso}" style="width: 150px;">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>

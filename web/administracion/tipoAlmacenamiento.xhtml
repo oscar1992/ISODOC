@@ -45,10 +45,10 @@
                             
                             <h:outputText value="nombre del Tipo de Almacenamiento"></h:outputText>
 
-                            <p:inputText required="true" label="nombre del Tipo de Almacenamiento" value="#{TipoAlmacenamiento.objetoTipoAlmacenamiento.nombreTipoAlmacenamiento}"/>
+                            <p:inputText required="true" label="nombre del Tipo de Almacenamiento" value="#{TipoAlmacenamiento.objetoTipoAlmacenamientoInsercion.nombreTipoAlmacenamiento}"/>
 
                             <h:outputText value="Estado del Tipo de Almacenamiento"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarEstado" value="#{TipoAlmacenamiento.objetoTipoAlmacenamiento.estadoTipoAlmacenamiento}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableIngresarEstado" value="#{TipoAlmacenamiento.objetoTipoAlmacenamientoInsercion.estadoTipoAlmacenamiento}" style="width: 150px;">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>

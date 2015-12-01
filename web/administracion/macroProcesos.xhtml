@@ -32,6 +32,7 @@
                                 <h:outputText value="Activo" rendered="#{macro.estadoMacroproceso == 'A'}"/>
                                 <h:outputText value="Inactivo" rendered="#{macro.estadoMacroproceso == 'I'}"/> 
                             </p:column>
+                        
                             
                         </p:dataTable>
                         <br/>
@@ -44,9 +45,9 @@
                         <p:messages autoUpdate="true"/>
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
                             <h:outputText value="Nombre del MacroProcesos"></h:outputText>
-                            <p:inputText required="true" label="nombre del MacroProceso" value="#{MacroProcesos.macroProcesoObjeto.nombreMacroproceso}"/>                            
+                            <p:inputText required="true" label="nombre del MacroProceso" value="#{MacroProcesos.macroProcesoObjetoInsercion.nombreMacroproceso}"/>                            
                             <h:outputText value="Estado del MacroProcesos"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarMacro" value="#{MacroProcesos.macroProcesoObjeto.estadoMacroproceso}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableIngresarMacro" value="#{MacroProcesos.macroProcesoObjetoInsercion.estadoMacroproceso}" style="width: 150px;">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>

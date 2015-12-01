@@ -27,6 +27,7 @@ public class ElaboradorBean implements Serializable {
     private ArrayList<ElaboradorEntity> lista;
     private ArrayList<ElaboradorEntity> listaFiltro;
     private ElaboradorEntity objetoElaborador;
+    private ElaboradorEntity objetoElaboradorInsercion;
     private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
@@ -53,6 +54,14 @@ public class ElaboradorBean implements Serializable {
 
     public void setObjetoElaborador(ElaboradorEntity objetoElaborador) {
         this.objetoElaborador = objetoElaborador;
+    }
+
+    public ElaboradorEntity getObjetoElaboradorInsercion() {
+        return objetoElaboradorInsercion;
+    }
+
+    public void setObjetoElaboradorInsercion(ElaboradorEntity objetoElaboradorInsercion) {
+        this.objetoElaboradorInsercion = objetoElaboradorInsercion;
     }
 
     public boolean isIngresar() {
@@ -87,7 +96,9 @@ public class ElaboradorBean implements Serializable {
 
     public ElaboradorBean() {
         objetoElaborador = new ElaboradorEntity();
+        objetoElaboradorInsercion = new ElaboradorEntity();
         objetoElaborador.setUsuarioElaborador(new UsuarioEntity());
+        objetoElaboradorInsercion.setUsuarioElaborador(new UsuarioEntity());
     }
 
     /**
@@ -109,11 +120,11 @@ public class ElaboradorBean implements Serializable {
         System.out.println("INSERTA");
         try {
             ElaboradorLogic elaboradorLogic = new ElaboradorLogic();
-            ElaboradorEntity elaboradorEntity = elaboradorLogic.insertarElaborador(objetoElaborador);
+            ElaboradorEntity elaboradorEntity = elaboradorLogic.insertarElaborador(objetoElaboradorInsercion);
             FacesMessage msg = null;
             if (elaboradorEntity != null) {
                 msg = new FacesMessage("", "inserción de Aprobador Elaborador correcto");
-                adicionarMetodoPtoteccionLista(objetoElaborador);
+                adicionarMetodoPtoteccionLista(elaboradorEntity);
             } else {
                 msg = new FacesMessage("", "inserción de Aprobador Elaborador incorrecto");
             }
@@ -196,7 +207,7 @@ public class ElaboradorBean implements Serializable {
     }
     
     public void onRowSelect2(SelectEvent event){        
-        objetoElaborador.setUsuarioElaborador((UsuarioEntity) event.getObject());
+        objetoElaboradorInsercion.setUsuarioElaborador((UsuarioEntity) event.getObject());
         System.out.println("USU: "+((UsuarioEntity) event.getObject()).getNombre());
     }
     /**
@@ -231,9 +242,11 @@ public class ElaboradorBean implements Serializable {
      */
     public void nuevoElaboradorObjeto() {
         objetoElaborador = new ElaboradorEntity();
+        objetoElaboradorInsercion = new ElaboradorEntity();
         UsuarioEntity usuario = new UsuarioEntity();
         usuario.setIdUsuario(-1);
         objetoElaborador.setUsuarioElaborador(usuario);
+        objetoElaboradorInsercion.setUsuarioElaborador(usuario);
     }
 
     /**

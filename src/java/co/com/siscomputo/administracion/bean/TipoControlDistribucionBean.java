@@ -24,6 +24,7 @@ public class TipoControlDistribucionBean implements Serializable{
     private ArrayList<TipoControlDistribucionEntity> lista;
     private ArrayList<TipoControlDistribucionEntity> listaFiltro;
     private TipoControlDistribucionEntity objetoTipoControlDistribucion;
+    private TipoControlDistribucionEntity objetoTipoControlDistribucionInsercion;
     private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
@@ -50,6 +51,14 @@ public class TipoControlDistribucionBean implements Serializable{
 
     public void setObjetoTipoControlDistribucion(TipoControlDistribucionEntity objetoTipoControlDistribucion) {
         this.objetoTipoControlDistribucion = objetoTipoControlDistribucion;
+    }
+
+    public TipoControlDistribucionEntity getObjetoTipoControlDistribucionInsercion() {
+        return objetoTipoControlDistribucionInsercion;
+    }
+
+    public void setObjetoTipoControlDistribucionInsercion(TipoControlDistribucionEntity objetoTipoControlDistribucionInsercion) {
+        this.objetoTipoControlDistribucionInsercion = objetoTipoControlDistribucionInsercion;
     }
 
     public boolean isIngresar() {
@@ -80,8 +89,10 @@ public class TipoControlDistribucionBean implements Serializable{
     public void init(){
         consultarTipoControlDistribucion();
         permisos();
-    }    public TipoControlDistribucionBean() {
+    }    
+    public TipoControlDistribucionBean() {
         objetoTipoControlDistribucion=new TipoControlDistribucionEntity();
+        objetoTipoControlDistribucionInsercion=new TipoControlDistribucionEntity();
     }
     /**
      * Método que tra una lista de Tipo de Control de distribución
@@ -100,11 +111,11 @@ public class TipoControlDistribucionBean implements Serializable{
     public void instertarTipoControlDistribucion(){
         try {
             TipoControlDistribucionLogic tipoControlDistribucionLogic=new TipoControlDistribucionLogic();
-            TipoControlDistribucionEntity tipoControlDistribucionEntity=tipoControlDistribucionLogic.insertarTipoControlDistribucion(objetoTipoControlDistribucion);
+            TipoControlDistribucionEntity tipoControlDistribucionEntity=tipoControlDistribucionLogic.insertarTipoControlDistribucion(objetoTipoControlDistribucionInsercion);
             FacesMessage msg=null;
             if(tipoControlDistribucionEntity!=null){
                 msg=new FacesMessage("", "inserción de Tipo de Control de distribución correcto");
-                adicionarMetodoPtoteccionLista(objetoTipoControlDistribucion);
+                adicionarMetodoPtoteccionLista(tipoControlDistribucionEntity);
             }else{
                 msg=new FacesMessage("", "inserción de Tipo de Control de distribución incorrecto");
             }
@@ -197,6 +208,7 @@ public class TipoControlDistribucionBean implements Serializable{
      */
     public void nuevoTipoControlDistribucionObjeto() {
         objetoTipoControlDistribucion=new TipoControlDistribucionEntity();
+        objetoTipoControlDistribucionInsercion=new TipoControlDistribucionEntity();
     }
 /**
      * Método que evalua los accesos al formulario
@@ -210,7 +222,7 @@ public class TipoControlDistribucionBean implements Serializable{
             for (MenuPermisosEntity nivel1 : permisoObj.getSubNivel()) {
                 for (MenuPermisosEntity nivel2 : nivel1.getSubNivel()) {
                     int idPer = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idPermiso");
-                    System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
+                    //System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
                     if (idPer == nivel2.getAsociadoMenu()) {
                         switch (nivel2.getNombrePermiso()) {
                             case "insert":

@@ -43,10 +43,10 @@
                             
                             <h:outputText value="nombre del Método de Protección"></h:outputText>
 
-                            <p:inputText required="true" label="nombre del Método de Protección" value="#{MetodoProteccion.objetoMetodoProteccion.nombreMetodoProteccion}"/>
+                            <p:inputText required="true" label="nombre del Método de Protección" value="#{MetodoProteccion.objetoMetodoProteccionInsercion.nombreMetodoProteccion}"/>
 
                             <h:outputText value="Estado del Método de Protección"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarEstado" value="#{MetodoProteccion.objetoMetodoProteccion.estadoMetodoProteccion}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableIngresarEstado" value="#{MetodoProteccion.objetoMetodoProteccionInsercion.estadoMetodoProteccion}" style="width: 150px;">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>

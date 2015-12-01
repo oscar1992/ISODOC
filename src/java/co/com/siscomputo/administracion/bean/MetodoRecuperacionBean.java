@@ -28,6 +28,7 @@ public class MetodoRecuperacionBean {
     ArrayList<MetodoRecuperacionEntity> lista;
     ArrayList<MetodoRecuperacionEntity> listaFiltro;
     MetodoRecuperacionEntity metodoRecuperacionObjeto;
+    MetodoRecuperacionEntity metodoRecuperacionObjetoInsercion;
     private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
@@ -54,6 +55,14 @@ public class MetodoRecuperacionBean {
 
     public void setMetodoRecuperacionObjeto(MetodoRecuperacionEntity metodoRecuperacionObjeto) {
         this.metodoRecuperacionObjeto = metodoRecuperacionObjeto;
+    }
+
+    public MetodoRecuperacionEntity getMetodoRecuperacionObjetoInsercion() {
+        return metodoRecuperacionObjetoInsercion;
+    }
+
+    public void setMetodoRecuperacionObjetoInsercion(MetodoRecuperacionEntity metodoRecuperacionObjetoInsercion) {
+        this.metodoRecuperacionObjetoInsercion = metodoRecuperacionObjetoInsercion;
     }
 
     public boolean isIngresar() {
@@ -87,6 +96,7 @@ public class MetodoRecuperacionBean {
 
     public MetodoRecuperacionBean() {
         metodoRecuperacionObjeto=new MetodoRecuperacionEntity();
+        metodoRecuperacionObjetoInsercion=new MetodoRecuperacionEntity();
     }
     /**
      * Método que tra una lista de Métodos Disponibles
@@ -105,11 +115,11 @@ public class MetodoRecuperacionBean {
     public void instertarMetodoRecuperacion(){
         try {
             MetodoRecuperacionLogic metodoRecuperacionLogic=new MetodoRecuperacionLogic();
-            MetodoRecuperacionEntity metodoRecuperacionEntity=metodoRecuperacionLogic.inserttarMetodoRecuperaciom(metodoRecuperacionObjeto);
+            MetodoRecuperacionEntity metodoRecuperacionEntity=metodoRecuperacionLogic.inserttarMetodoRecuperaciom(metodoRecuperacionObjetoInsercion);
             FacesMessage msg=null;
             if(metodoRecuperacionEntity!=null){
                 msg=new FacesMessage("", "inserción de Método de Recuperación correcto");
-                adicionarMetodocuperacionLista(metodoRecuperacionObjeto);
+                adicionarMetodocuperacionLista(metodoRecuperacionEntity);
             }else{
                 msg=new FacesMessage("", "inserción de Método de Recuperación incorrecto");
             }
@@ -202,6 +212,7 @@ public class MetodoRecuperacionBean {
      */
     public void nuevoMetodoRecuperacionObjeto() {
         metodoRecuperacionObjeto=new MetodoRecuperacionEntity();
+        metodoRecuperacionObjetoInsercion=new MetodoRecuperacionEntity();
     }
     /**
      * Método que evalua los accesos al formulario
@@ -215,7 +226,7 @@ public class MetodoRecuperacionBean {
             for (MenuPermisosEntity nivel1 : permisoObj.getSubNivel()) {
                 for (MenuPermisosEntity nivel2 : nivel1.getSubNivel()) {
                     int idPer = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idPermiso");
-                    System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
+                    //System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
                     if (idPer == nivel2.getAsociadoMenu()) {
                         switch (nivel2.getNombrePermiso()) {
                             case "insert":

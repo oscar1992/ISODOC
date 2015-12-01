@@ -32,6 +32,7 @@ public class SubprocesoBean implements Serializable{
     private ArrayList<SubprocesoEntity> listaSubproceso;
     private ArrayList<SubprocesoEntity> listaSubprocesoFiltro;
     private SubprocesoEntity subProcesoObjeto;
+    private SubprocesoEntity subProcesoObjetoInsercion;
     private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
@@ -60,6 +61,14 @@ public class SubprocesoBean implements Serializable{
         this.subProcesoObjeto = subProcesoObjeto;
     }
 
+    public SubprocesoEntity getSubProcesoObjetoInsercion() {
+        return subProcesoObjetoInsercion;
+    }
+
+    public void setSubProcesoObjetoInsercion(SubprocesoEntity subProcesoObjetoInsercion) {
+        this.subProcesoObjetoInsercion = subProcesoObjetoInsercion;
+    }
+    
     public boolean isIngresar() {
         return ingresar;
     }
@@ -86,7 +95,7 @@ public class SubprocesoBean implements Serializable{
     
     
     public SubprocesoBean() {
-        
+        nuveoSubproceso();
     }
     @PostConstruct
     public void init(){
@@ -111,7 +120,7 @@ public class SubprocesoBean implements Serializable{
     public void ingresarSubproceso() {
         try {
             SubProcesosLogic subProcesosLogic = new SubProcesosLogic();
-            SubprocesoEntity subprocesoEntity = subProcesosLogic.ingresaProceso(subProcesoObjeto);
+            SubprocesoEntity subprocesoEntity = subProcesosLogic.ingresaProceso(subProcesoObjetoInsercion);
             FacesMessage msg = null;
             if (subprocesoEntity != null) {
                 msg = new FacesMessage("", "Subproceso Ingresado Correctamente: " + subprocesoEntity.getNombreSubproceso());
@@ -155,9 +164,11 @@ public class SubprocesoBean implements Serializable{
      */
     public void nuveoSubproceso() {
         subProcesoObjeto = new SubprocesoEntity();
+        subProcesoObjetoInsercion = new SubprocesoEntity();
         ProcesosEntity procesosEntity = new ProcesosEntity();
         procesosEntity.setIdProcesos(-1);
         subProcesoObjeto.setIdProcesos(procesosEntity);
+        subProcesoObjetoInsercion.setIdProcesos(procesosEntity);
     }
 
     /**
@@ -234,7 +245,7 @@ public class SubprocesoBean implements Serializable{
             for (MenuPermisosEntity nivel1 : permisoObj.getSubNivel()) {
                 for (MenuPermisosEntity nivel2 : nivel1.getSubNivel()) {
                     int idPer = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idPermiso");
-                    System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
+                    
                     if (idPer == nivel2.getAsociadoMenu()) {
                         switch (nivel2.getNombrePermiso()) {
                             case "insert":

@@ -30,6 +30,7 @@ public class MacroprocesoBean implements Serializable{
     private ArrayList<MacroprocesosEntity> listaMacroprocesos;
     private ArrayList<MacroprocesosEntity> listaMacroprocesosFiltro;
     private MacroprocesosEntity MacroProcesoObjeto;
+    private MacroprocesosEntity MacroProcesoObjetoInsercion;
     private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
@@ -56,6 +57,14 @@ public class MacroprocesoBean implements Serializable{
 
     public void setMacroProcesoObjeto(MacroprocesosEntity MacroProcesoObjeto) {
         this.MacroProcesoObjeto = MacroProcesoObjeto;
+    }
+
+    public MacroprocesosEntity getMacroProcesoObjetoInsercion() {
+        return MacroProcesoObjetoInsercion;
+    }
+
+    public void setMacroProcesoObjetoInsercion(MacroprocesosEntity MacroProcesoObjetoInsercion) {
+        this.MacroProcesoObjetoInsercion = MacroProcesoObjetoInsercion;
     }
 
     public boolean isIngresar() {
@@ -90,6 +99,7 @@ public class MacroprocesoBean implements Serializable{
 
     public MacroprocesoBean() {
         MacroProcesoObjeto = new MacroprocesosEntity();
+        MacroProcesoObjetoInsercion = new MacroprocesosEntity();
     }
     /**
      * Método que trae la lista de MacropProcesos del servicio web
@@ -108,7 +118,7 @@ public class MacroprocesoBean implements Serializable{
     public void ingresarMacroprosesos() {
         try {
             MacroProcesosLogic macroProcesosLogic = new MacroProcesosLogic();
-            MacroprocesosEntity macroprocesosEntity=macroProcesosLogic.ingresaMacroproceso(MacroProcesoObjeto);
+            MacroprocesosEntity macroprocesosEntity=macroProcesosLogic.ingresaMacroproceso(MacroProcesoObjetoInsercion);
             FacesMessage msg = null;
             if (macroprocesosEntity != null) {
                 msg = new FacesMessage("", "Macroproceso Ingresado Correctamente: " + macroprocesosEntity.getNombreMacroproceso());
@@ -119,7 +129,7 @@ public class MacroprocesoBean implements Serializable{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        RequestContext.getCurrentInstance().execute("PF('insertarMacro').hide()");
+        RequestContext.getCurrentInstance().execute("PF('insertarMacroProcesos').hide()");
         nuevoMacroproceso();
     }
 
@@ -144,7 +154,7 @@ public class MacroprocesoBean implements Serializable{
         } else {
 
         }
-        MacroProcesoObjeto = new MacroprocesosEntity();
+        nuevoMacroproceso();
         RequestContext.getCurrentInstance().execute("PF('actualizarMacroProcesos').hide()");
     }
 
@@ -179,6 +189,7 @@ public class MacroprocesoBean implements Serializable{
      */
     public void onRowSelect(SelectEvent event) {
         MacroProcesoObjeto = (MacroprocesosEntity) event.getObject();
+        //System.out.println("SELECCIÓN: "+MacroProcesoObjeto.getNombreMacroproceso());
     }
     /**
      * Método que "elimina" un macroProceso actualizando su estado
@@ -211,6 +222,7 @@ public class MacroprocesoBean implements Serializable{
      */
     public void nuevoMacroproceso() {
         MacroProcesoObjeto = new MacroprocesosEntity();
+        MacroProcesoObjetoInsercion = new MacroprocesosEntity();
     }
     /**
      * Método que evalua los accesos al formulario

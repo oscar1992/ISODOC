@@ -24,6 +24,7 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _ListaAccion_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaAccion");
     private final static QName _ActualizarPlantillaResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarPlantillaResponse");
     private final static QName _ActualizarMetodoRecuperacionResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarMetodoRecuperacionResponse");
     private final static QName _ListaModificadorResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaModificadorResponse");
@@ -53,12 +54,16 @@ public class ObjectFactory {
     private final static QName _InsertarDisposicion_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarDisposicion");
     private final static QName _ListaTipoAlmacenamiento_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaTipoAlmacenamiento");
     private final static QName _ModificadorPorIdResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "ModificadorPorIdResponse");
+    private final static QName _InsertarAccion_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarAccion");
+    private final static QName _ActualizarAccion_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarAccion");
     private final static QName _InsertarElaboradorResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarElaboradorResponse");
     private final static QName _ListaElaboradorResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaElaboradorResponse");
     private final static QName _InsertarTipoAlmacenamientoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarTipoAlmacenamientoResponse");
     private final static QName _InsertarPlantillaResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarPlantillaResponse");
     private final static QName _InsertarTipoControlDistribucion_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarTipoControlDistribucion");
+    private final static QName _ListaAccionResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaAccionResponse");
     private final static QName _ListaModificador_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaModificador");
+    private final static QName _InsertarAccionResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarAccionResponse");
     private final static QName _ListaTipoControlDistribucionResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaTipoControlDistribucionResponse");
     private final static QName _ActualizarTiposAccesoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarTiposAccesoResponse");
     private final static QName _InsertarTipoControlDistribucionResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarTipoControlDistribucionResponse");
@@ -76,6 +81,7 @@ public class ObjectFactory {
     private final static QName _ActualizarMetodoRecuperacion_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarMetodoRecuperacion");
     private final static QName _InsertarDisposicionResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarDisposicionResponse");
     private final static QName _InsertarModificador_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarModificador");
+    private final static QName _ActualizarAccionResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarAccionResponse");
     private final static QName _ListaMetodoRecuperacionResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaMetodoRecuperacionResponse");
     private final static QName _ActualizarTipoAlmacenamientoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarTipoAlmacenamientoResponse");
     private final static QName _ActualizarMetodoProteccion_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarMetodoProteccion");
@@ -120,6 +126,14 @@ public class ObjectFactory {
      */
     public InsertarModificador createInsertarModificador() {
         return new InsertarModificador();
+    }
+
+    /**
+     * Create an instance of {@link ActualizarAccionResponse }
+     * 
+     */
+    public ActualizarAccionResponse createActualizarAccionResponse() {
+        return new ActualizarAccionResponse();
     }
 
     /**
@@ -195,11 +209,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ListaAccionResponse }
+     * 
+     */
+    public ListaAccionResponse createListaAccionResponse() {
+        return new ListaAccionResponse();
+    }
+
+    /**
      * Create an instance of {@link ListaModificador }
      * 
      */
     public ListaModificador createListaModificador() {
         return new ListaModificador();
+    }
+
+    /**
+     * Create an instance of {@link InsertarAccionResponse }
+     * 
+     */
+    public InsertarAccionResponse createInsertarAccionResponse() {
+        return new InsertarAccionResponse();
     }
 
     /**
@@ -411,6 +441,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link InsertarAccion }
+     * 
+     */
+    public InsertarAccion createInsertarAccion() {
+        return new InsertarAccion();
+    }
+
+    /**
+     * Create an instance of {@link ActualizarAccion }
+     * 
+     */
+    public ActualizarAccion createActualizarAccion() {
+        return new ActualizarAccion();
+    }
+
+    /**
      * Create an instance of {@link InsertarElaboradorResponse }
      * 
      */
@@ -424,6 +470,14 @@ public class ObjectFactory {
      */
     public ListaElaboradorResponse createListaElaboradorResponse() {
         return new ListaElaboradorResponse();
+    }
+
+    /**
+     * Create an instance of {@link ListaAccion }
+     * 
+     */
+    public ListaAccion createListaAccion() {
+        return new ListaAccion();
     }
 
     /**
@@ -643,11 +697,28 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link AccionEntity }
+     * 
+     */
+    public AccionEntity createAccionEntity() {
+        return new AccionEntity();
+    }
+
+    /**
      * Create an instance of {@link ModificadorEntity }
      * 
      */
     public ModificadorEntity createModificadorEntity() {
         return new ModificadorEntity();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListaAccion }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaAccion")
+    public JAXBElement<ListaAccion> createListaAccion(ListaAccion value) {
+        return new JAXBElement<ListaAccion>(_ListaAccion_QNAME, ListaAccion.class, null, value);
     }
 
     /**
@@ -912,6 +983,24 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarAccion }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarAccion")
+    public JAXBElement<InsertarAccion> createInsertarAccion(InsertarAccion value) {
+        return new JAXBElement<InsertarAccion>(_InsertarAccion_QNAME, InsertarAccion.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarAccion }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarAccion")
+    public JAXBElement<ActualizarAccion> createActualizarAccion(ActualizarAccion value) {
+        return new JAXBElement<ActualizarAccion>(_ActualizarAccion_QNAME, ActualizarAccion.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link InsertarElaboradorResponse }{@code >}}
      * 
      */
@@ -957,12 +1046,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListaAccionResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaAccionResponse")
+    public JAXBElement<ListaAccionResponse> createListaAccionResponse(ListaAccionResponse value) {
+        return new JAXBElement<ListaAccionResponse>(_ListaAccionResponse_QNAME, ListaAccionResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ListaModificador }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaModificador")
     public JAXBElement<ListaModificador> createListaModificador(ListaModificador value) {
         return new JAXBElement<ListaModificador>(_ListaModificador_QNAME, ListaModificador.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarAccionResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarAccionResponse")
+    public JAXBElement<InsertarAccionResponse> createInsertarAccionResponse(InsertarAccionResponse value) {
+        return new JAXBElement<InsertarAccionResponse>(_InsertarAccionResponse_QNAME, InsertarAccionResponse.class, null, value);
     }
 
     /**
@@ -1116,6 +1223,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarModificador")
     public JAXBElement<InsertarModificador> createInsertarModificador(InsertarModificador value) {
         return new JAXBElement<InsertarModificador>(_InsertarModificador_QNAME, InsertarModificador.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarAccionResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarAccionResponse")
+    public JAXBElement<ActualizarAccionResponse> createActualizarAccionResponse(ActualizarAccionResponse value) {
+        return new JAXBElement<ActualizarAccionResponse>(_ActualizarAccionResponse_QNAME, ActualizarAccionResponse.class, null, value);
     }
 
     /**

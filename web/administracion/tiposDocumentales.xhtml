@@ -53,19 +53,19 @@
                         <p:messages autoUpdate="true"/>
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
                             <h:outputText value="Nombre del Tipo Documental"></h:outputText>
-                            <p:inputText required="true" label="nombre del tipoDocumental" value="#{TiposDocuemntales.tiposDobjeto.nombreTipoDocumental}"/>                            
+                            <p:inputText required="true" label="nombre del tipoDocumental" value="#{TiposDocuemntales.tiposDobjetoInsercion.nombreTipoDocumental}"/>                            
                             <h:outputText value="Iniciales del Tipo Documental"></h:outputText>
-                            <p:inputText required="true" label="iniciales del tipoDocumental" value="#{TiposDocuemntales.tiposDobjeto.inicialesTipoDocuemntal}"/>
+                            <p:inputText required="true" label="iniciales del tipoDocumental" value="#{TiposDocuemntales.tiposDobjetoInsercion.inicialesTipoDocuemntal}"/>
                             <h:outputText value="Consecutivo del Tipo Documental"></h:outputText>
-                            <p:inputText required="true" label="consecutivo del tipoDocumental" value="#{TiposDocuemntales.tiposDobjeto.consecutivoTipoDocuemntal}"/>
+                            <p:inputText required="true" label="consecutivo del tipoDocumental" value="#{TiposDocuemntales.tiposDobjetoInsercion.consecutivoTipoDocuemntal}"/>
                             
                             <h:outputText value="generación de la secuenacia del Tipo Documental"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarGeneracion" value="#{TiposDocuemntales.tiposDobjeto.genracionTipoDocumental}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableIngresarGeneracion" value="#{TiposDocuemntales.tiposDobjetoInsercion.genracionTipoDocumental}" style="width: 150px;">
                                 <f:selectItem itemLabel="Selecione Consecutivo" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaGeneracionTipoDocumental}"/>
                             </p:selectOneMenu>
                             <h:outputText value="Estado del Tipo Documental"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarEstado" value="#{TiposDocuemntales.tiposDobjeto.estadoTipoDocuemtal}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableIngresarEstado" value="#{TiposDocuemntales.tiposDobjetoInsercion.estadoTipoDocuemtal}" style="width: 150px;">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
