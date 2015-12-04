@@ -2,9 +2,11 @@ package co.com.siscomputo.administracion.bean;
 
 import co.com.siscomputo.administracion.logic.MacroProcesosLogic;
 import co.com.siscomputo.administracion.logic.UsuarioMacroprocesoLogic;
+import co.com.siscomputo.endpoint.AccionEntity;
 import co.com.siscomputo.endpoint.MacroprocesosEntity;
 import co.com.siscomputo.endpoint.UsuarioMacroprocesoEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
+import co.com.siscomputo.endpoint.ObjetoRetornaEntity;
 import co.com.siscomputo.endpoint.UsuarioEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -24,14 +26,13 @@ import org.primefaces.model.DualListModel;
  */
 @ManagedBean(name = "UsuarioMacroproceso")
 @ViewScoped
-public class UsuarioMacroprocesoBean implements Serializable{
-    
+public class UsuarioMacroprocesoBean implements Serializable {
+
     private ArrayList<UsuarioMacroprocesoEntity> lista;
     private ArrayList<UsuarioMacroprocesoEntity> listaFiltro;
     private UsuarioMacroprocesoEntity objetoUsuarioMacroproceso;
-    private UsuarioMacroprocesoEntity objetoUsuarioMacroprocesoInsercion;
     private Integer idUsuario;
-    private Integer idMacroproceso;
+    private Integer idAccion;
     private DualListModel<String> macros;
     private ArrayList<String> macrosNombre;
     private ArrayList<String> macrosSeleccion;
@@ -64,14 +65,6 @@ public class UsuarioMacroprocesoBean implements Serializable{
         this.objetoUsuarioMacroproceso = objetoUsuarioMacroproceso;
     }
 
-    public UsuarioMacroprocesoEntity getObjetoUsuarioMacroprocesoInsercion() {
-        return objetoUsuarioMacroprocesoInsercion;
-    }
-
-    public void setObjetoUsuarioMacroprocesoInsercion(UsuarioMacroprocesoEntity objetoUsuarioMacroprocesoInsercion) {
-        this.objetoUsuarioMacroprocesoInsercion = objetoUsuarioMacroprocesoInsercion;
-    }
-
     public Integer getIdUsuario() {
         return idUsuario;
     }
@@ -80,12 +73,12 @@ public class UsuarioMacroprocesoBean implements Serializable{
         this.idUsuario = idUsuario;
     }
 
-    public Integer getIdMacroproceso() {
-        return idMacroproceso;
+    public Integer getIdAccion() {
+        return idAccion;
     }
 
-    public void setIdMacroproceso(Integer idMacroproceso) {
-        this.idMacroproceso = idMacroproceso;
+    public void setIdAccion(Integer idAccion) {
+        this.idAccion = idAccion;
     }
 
     public DualListModel<String> getMacros() {
@@ -143,155 +136,184 @@ public class UsuarioMacroprocesoBean implements Serializable{
     public void setEliminar(boolean eliminar) {
         this.eliminar = eliminar;
     }
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         consultarUsuarioMacroproceso();
         permisos();
     }
+
     public UsuarioMacroprocesoBean() {
-        objetoUsuarioMacroproceso=new UsuarioMacroprocesoEntity();
-        objetoUsuarioMacroprocesoInsercion=new UsuarioMacroprocesoEntity();
-        usuarioEntity=new UsuarioEntity();
-        macros=new DualListModel<>();
-        macrosNombre=new ArrayList<>();
-        macrosSeleccion=new ArrayList<>();
-        idMacroproceso=null;
+        objetoUsuarioMacroproceso = new UsuarioMacroprocesoEntity();
+        
+        usuarioEntity = new UsuarioEntity();
+        macros = new DualListModel<>();
+        macrosNombre = new ArrayList<>();
+        macrosSeleccion = new ArrayList<>();
+        idAccion = null;
     }
+
     /**
      * Método que trae una lista de Usuario y su MacroProceso
      */
-    public void consultarListaMacroprocesos(){
+    public void consultarListaMacroprocesos() {
         try {
-            UsuarioMacroprocesoLogic usuarioMacroprocesoLogic=new UsuarioMacroprocesoLogic();
-            ArrayList<MacroprocesosEntity> listaMacros=usuarioMacroprocesoLogic.
-                    idUsuario);
-            for(MacroprocesosEntity macros: listaMacros){
+            MacroProcesosLogic macroProcesosLogic = new MacroProcesosLogic();
+            ArrayList<MacroprocesosEntity> listaMacroprocesos = macroProcesosLogic.listaMacroprocesos();
+            for (MacroprocesosEntity macros : listaMacroprocesos) {
                 macrosNombre.add(macros.getNombreMacroproceso());
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
-    public void consultarUsuarioMacroproceso(){
-        if(idUsuario!=null){
+
+    public void consultarUsuarioMacroproceso() {
+        if (idUsuario != null) {
             try {
-                macrosSeleccion=new ArrayList<>();
-                UsuarioMacroprocesoLogic usuarioMacroprocesoLogic=new UsuarioMacroprocesoLogic();
-                lista=usuarioMacroprocesoLogic.listaUsuarioMacroproceso();
+                macrosSeleccion = new ArrayList<>();
+                UsuarioMacroprocesoLogic usuarioMacroprocesoLogic = new UsuarioMacroprocesoLogic();
+                lista = usuarioMacroprocesoLogic.listaUsuarioMacroporcesoPorUsuario(idUsuario);
+                for (UsuarioMacroprocesoEntity usu : lista) {
+                    macrosSeleccion.add(usu.getIdMacroProceso().getNombreMacroproceso());
+                }
+                macros = new DualListModel<>(macrosNombre, macrosSeleccion);
             } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
+
+    /**
+     * Método que trae la lista de macroprocesos asignados
+     */
+    public void consultarusuarioMacroprocesoPorUsuarioAccion() {
+        if (idUsuario != null) {
+            try {
+                macrosSeleccion = new ArrayList<>();
+                UsuarioMacroprocesoLogic usuarioMacroprocesoLogic = new UsuarioMacroprocesoLogic();
+                lista = usuarioMacroprocesoLogic.listaUsuarioMacroporcesoPorUsuarioAccion(idUsuario, idAccion);
+                for (UsuarioMacroprocesoEntity usu : lista) {
+                    macrosSeleccion.add(usu.getIdMacroProceso().getNombreMacroproceso());
+                }
+                macros = new DualListModel<>(macrosNombre, macrosSeleccion);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("USUARIO NULO");
+        }
+    }
+
     /**
      * Método que permite insertar un Usuario y su MacroProceso nuevo
      */
-    public void instertarUsuarioMacroproceso(){
-        try {
-            UsuarioMacroprocesoLogic usuarioMacroprocesoLogic=new UsuarioMacroprocesoLogic();
-            UsuarioMacroprocesoEntity usuarioMacroprocesoEntity=usuarioMacroprocesoLogic.insertarUsuarioMacroproceso(objetoUsuarioMacroprocesoInsercion);
-            FacesMessage msg=null;
-            if(usuarioMacroprocesoEntity!=null){
-                msg=new FacesMessage("", "inserción de Usuario y su MacroProceso correcto");
-                adicionarMetodoPtoteccionLista(usuarioMacroprocesoEntity);
-            }else{
-                msg=new FacesMessage("", "inserción de Usuario y su MacroProceso incorrecto");
+    public void instertarUsuarioMacroproceso() {
+
+        if (macros.getTarget().size() > 0) {
+            try {
+                UsuarioMacroprocesoLogic usuarioMacroprocesoLogic = new UsuarioMacroprocesoLogic();
+                ObjetoRetornaEntity retorna = usuarioMacroprocesoLogic.insertarUsuarioMacroproceso((ArrayList<String>) macros.getTarget(), usuarioEntity, idAccion);
+                FacesMessage msg = null;
+                if (retorna != null) {
+                    msg = new FacesMessage("", "inserción de Usuario y su MacroProceso correcto");
+
+                } else {
+                    msg = new FacesMessage("", "inserción de Usuario y su MacroProceso incorrecto");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            nuevoUsuarioMacroprocesoObjeto();
         }
+
     }
+
+ 
+
     /**
-     * Método que añade un Usuario y su MacroProceso visualmente
-     * @param objetoUsuarioMacroproceso 
-     */
-    private void adicionarMetodoPtoteccionLista(UsuarioMacroprocesoEntity objetoUsuarioMacroproceso) {
-        lista.add(objetoUsuarioMacroproceso);
-    }
-/**
      * Método que permite actualizar un Usuario y su MacroProceso
      */
-    public void actualizarUsuarioMacroproceso(){
-        UsuarioMacroprocesoLogic metodoRecuperacionLogic=new UsuarioMacroprocesoLogic();
-        String valida=metodoRecuperacionLogic.actualizarUsuarioMacroproceso(objetoUsuarioMacroproceso);
-        FacesMessage msg=null;
-        if("Ok".equalsIgnoreCase(valida)){
-            msg=new FacesMessage("", "actualización de Usuario y su MacroProceso correcto");
+    public void actualizarUsuarioMacroproceso() {
+        UsuarioMacroprocesoLogic metodoRecuperacionLogic = new UsuarioMacroprocesoLogic();
+        String valida = metodoRecuperacionLogic.actualizarUsuarioMacroproceso(objetoUsuarioMacroproceso);
+        FacesMessage msg = null;
+        if ("Ok".equalsIgnoreCase(valida)) {
+            msg = new FacesMessage("", "actualización de Usuario y su MacroProceso correcto");
             actualizarUsuarioMacroprocesoLista(objetoUsuarioMacroproceso);
-        }else{
-            msg=new FacesMessage("", "actualización de Usuario y su MacroProceso incorrecto");
+        } else {
+            msg = new FacesMessage("", "actualización de Usuario y su MacroProceso incorrecto");
         }
         nuevoUsuarioMacroprocesoObjeto();
         RequestContext.getCurrentInstance().execute("PF('actualizarUsuarioMacroproceso').hide()");
     }
+
     /**
      * Método que actualiza visualmente la lista de Usuario y su MacroProceso
-     * @param objetoUsuarioMacroproceso 
+     *
+     * @param objetoUsuarioMacroproceso
      */
     private void actualizarUsuarioMacroprocesoLista(UsuarioMacroprocesoEntity objetoUsuarioMacroproceso) {
         try {
-            ArrayList<UsuarioMacroprocesoEntity>listaaux=new ArrayList<>();
-            if(lista!=null){
-                for(UsuarioMacroprocesoEntity item:lista){
-                    int v1=objetoUsuarioMacroproceso.getIdUsuarioMacroproceso();
-                    int v2=item.getIdUsuarioMacroproceso();
-                    if(v1==v2){
+            ArrayList<UsuarioMacroprocesoEntity> listaaux = new ArrayList<>();
+            if (lista != null) {
+                for (UsuarioMacroprocesoEntity item : lista) {
+                    int v1 = objetoUsuarioMacroproceso.getIdUsuarioMacroproceso();
+                    int v2 = item.getIdUsuarioMacroproceso();
+                    if (v1 == v2) {
                         listaaux.add(objetoUsuarioMacroproceso);
-                    }else{
+                    } else {
                         listaaux.add(item);
                     }
                 }
             }
-            this.lista=new ArrayList<>();
-            this.lista=listaaux;
+            this.lista = new ArrayList<>();
+            this.lista = listaaux;
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
-     * Método que se invoca al seleccionar una fila de la tabla
-     * @param event 
+     * Método que se invoca al seleccionar una fila de la tabla usuarios MacropProcesos    
+     * @param event
      */
-    public void onRowSelect(SelectEvent event){
-        objetoUsuarioMacroproceso=(UsuarioMacroprocesoEntity)event.getObject();
+    public void onRowSelect(SelectEvent event) {
+        objetoUsuarioMacroproceso = (UsuarioMacroprocesoEntity) event.getObject();
+    }
+    /**
+     * Método que se invoca al seleccionar una fila de la tabla usuarios    
+     * @param event
+     */
+    public void onRowSelect2(SelectEvent event) {
+        macrosNombre=new ArrayList<>();
+        macrosSeleccion=new ArrayList<>();
+        macros=new DualListModel<>(macrosNombre, macrosSeleccion);
+        usuarioEntity=(UsuarioEntity)event.getObject();
+        idUsuario=usuarioEntity.getIdUsuario();
+        consultarListaMacroprocesos();
+    }
+    /**
+     * Método que se invoca al seleccionar una fila de la tabla acciones
+     * @param event
+     */
+    public void onRowSelect3(SelectEvent event){
+        idUsuario=usuarioEntity.getIdUsuario();
+        objetoUsuarioMacroproceso.setIdAccion((AccionEntity)event.getObject());
+        idAccion=objetoUsuarioMacroproceso.getIdAccion().getIdAccion();
+        consultarusuarioMacroprocesoPorUsuarioAccion();
     }
     
-    public void onRowSelect2(SelectEvent event){
-         
-    }
-    /**
-    Método que elimina un Usuario y su MacroProceso
-    */
-    public void eliminarUsuarioMacroproceso(){
-        UsuarioMacroprocesoLogic metodoRecuperacionLogic=new UsuarioMacroprocesoLogic();
-        //objetoUsuarioMacroproceso.setEstadoUsuarioMacroproceso("E");
-        metodoRecuperacionLogic.actualizarUsuarioMacroproceso(objetoUsuarioMacroproceso);
-        eliminarUsuarioMacroprocesoLista(objetoUsuarioMacroproceso);
-        RequestContext.getCurrentInstance().execute("PF('actualizarUsuarioMacroproceso').hide()");
-        nuevoUsuarioMacroprocesoObjeto();
-    }
-    /**
-     * Método que elimina visualmente un objeto de la lista
-     * @param objetoUsuarioMacroproceso 
-     */
-    private void eliminarUsuarioMacroprocesoLista(UsuarioMacroprocesoEntity objetoUsuarioMacroproceso) {
-        Iterator itr=lista.iterator();
-        while(itr.hasNext()){
-            UsuarioMacroprocesoEntity metodoRecuperacionEntity=(UsuarioMacroprocesoEntity) itr.next();
-            if(metodoRecuperacionEntity.getIdUsuarioMacroproceso()==objetoUsuarioMacroproceso.getIdUsuarioMacroproceso()){
-                itr.remove();
-            }
-        }
-    }
+
     /**
      * Método que reinicia el objeto Usuario y su MacroProceso
      */
     public void nuevoUsuarioMacroprocesoObjeto() {
-        objetoUsuarioMacroproceso=new UsuarioMacroprocesoEntity();
-        objetoUsuarioMacroprocesoInsercion=new UsuarioMacroprocesoEntity();
+        objetoUsuarioMacroproceso = new UsuarioMacroprocesoEntity();
+        
     }
-/**
+
+    /**
      * Método que evalua los accesos al formulario
      */
     public void permisos() {
@@ -303,7 +325,7 @@ public class UsuarioMacroprocesoBean implements Serializable{
             for (MenuPermisosEntity nivel1 : permisoObj.getSubNivel()) {
                 for (MenuPermisosEntity nivel2 : nivel1.getSubNivel()) {
                     int idPer = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idPermiso");
-                    System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
+                    //System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
                     if (idPer == nivel2.getAsociadoMenu()) {
                         switch (nivel2.getNombrePermiso()) {
                             case "insert":
@@ -321,4 +343,4 @@ public class UsuarioMacroprocesoBean implements Serializable{
             }
         }
     }
-    }
+}

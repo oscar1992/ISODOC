@@ -87,4 +87,13 @@ public class SubProcesosLogic {
         }
         return rta;
     }
+    /**
+     * Método que permite selecionar un proceso por ID
+     * @param idProceso
+     * @return 
+     */
+    public SubprocesoEntity subProcesoPorId(int idsubProceso){
+        webService();
+        return port.subProcesoPorID(idsubProceso);
+    }
 }

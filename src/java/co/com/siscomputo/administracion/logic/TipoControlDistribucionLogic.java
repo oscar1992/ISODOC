@@ -10,7 +10,8 @@ import java.util.List;
  *
  * @author LENOVO
  */
-public class TipoControlDistribucionLogic {private Administacion_Service webService;
+public class TipoControlDistribucionLogic {
+    private Administacion_Service webService;
     private Administacion port;
     private List tipoControlDistribucion;
     

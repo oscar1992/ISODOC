@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="return" type="{http://endpoint.siscomputo.com.co/}usuarioMacroprocesoEntity" minOccurs="0"/>
+ *         &lt;element name="return" type="{http://endpoint.siscomputo.com.co/}objetoRetornaEntity" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -33,17 +33,17 @@ import javax.xml.bind.annotation.XmlType;
 public class IngresarUsuarioMacroprocesoResponse {
 
     @XmlElement(name = "return")
-    protected UsuarioMacroprocesoEntity _return;
+    protected ObjetoRetornaEntity _return;
 
     /**
      * Obtiene el valor de la propiedad return.
      * 
      * @return
      *     possible object is
-     *     {@link UsuarioMacroprocesoEntity }
+     *     {@link ObjetoRetornaEntity }
      *     
      */
-    public UsuarioMacroprocesoEntity getReturn() {
+    public ObjetoRetornaEntity getReturn() {
         return _return;
     }
 
@@ -52,10 +52,10 @@ public class IngresarUsuarioMacroprocesoResponse {
      * 
      * @param value
      *     allowed object is
-     *     {@link UsuarioMacroprocesoEntity }
+     *     {@link ObjetoRetornaEntity }
      *     
      */
-    public void setReturn(UsuarioMacroprocesoEntity value) {
+    public void setReturn(ObjetoRetornaEntity value) {
         this._return = value;
     }
 

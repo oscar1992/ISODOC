@@ -85,4 +85,13 @@ public class TiposDocumentalesLogic {
         }
         return rta;
     }
+    /**
+     * Método que devuelve una plantilla seleccionada por su ID
+     * @param idTipos 
+     * @return  
+     */
+    public TiposDocumentalesEntity TipoDocumentalPorId(int idTipos){
+        webService();
+        return port.tiposDocumetalesPorID(idTipos);
+    }
 }

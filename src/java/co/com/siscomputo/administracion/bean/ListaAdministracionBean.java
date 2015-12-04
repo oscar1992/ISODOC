@@ -9,24 +9,28 @@ import co.com.siscomputo.administracion.logic.AreaLogic;
 import co.com.siscomputo.administracion.logic.DepartamentoLogic;
 import co.com.siscomputo.administracion.logic.MacroProcesosLogic;
 import co.com.siscomputo.administracion.logic.PaisesLogic;
+import co.com.siscomputo.administracion.logic.PlantillaLogic;
 import co.com.siscomputo.administracion.logic.ProcesosLogic;
 import co.com.siscomputo.administracion.logic.RolesLogic;
 import co.com.siscomputo.administracion.logic.SedesLogic;
+import co.com.siscomputo.administracion.logic.SubProcesosLogic;
+import co.com.siscomputo.administracion.logic.TiposDocumentalesLogic;
 import co.com.siscomputo.endpoint.AreaEntity;
 import co.com.siscomputo.endpoint.DepartamentoEntity;
 import co.com.siscomputo.endpoint.MacroprocesosEntity;
 import co.com.siscomputo.endpoint.PaisEntity;
+import co.com.siscomputo.endpoint.PlantillaEntity;
 import co.com.siscomputo.endpoint.ProcesosEntity;
-import co.com.siscomputo.endpoint.RolPermisoEntity;
 import co.com.siscomputo.endpoint.RolesEntity;
 import co.com.siscomputo.endpoint.SedeEntity;
+import co.com.siscomputo.endpoint.SubprocesoEntity;
+import co.com.siscomputo.endpoint.TiposDocumentalesEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.swing.plaf.basic.BasicBorders;
 
 /**
  *
@@ -42,15 +46,36 @@ public class ListaAdministracionBean implements Serializable {
     private Map<String, Integer> listaRoles;
     private Map<String, Integer> listaMacroProcesos;
     private Map<String, Integer> listaProcesos;
+    private Map<String, Integer> listaSubProcesos;
     private Map<String, Integer> listaAreas;
     private Map<String, String> listaGeneracionTipoDocumental;
+    private Map<String, Integer> listaTipoDocumento;
+    private Map<String, Integer> listaPlantillas;
     private int seleccion;
+    private Integer idMacroProceso;
+    private Integer idProceso;
 
     @PostConstruct
     public void init() {        
         
     }
 
+    public Integer getIdMacroProceso() {
+        return idMacroProceso;
+    }
+
+    public void setIdMacroProceso(Integer idMacroProceso) {
+        this.idMacroProceso = idMacroProceso;
+    }
+
+    public Integer getIdProceso() {
+        return idProceso;
+    }
+
+    public void setIdProceso(Integer idProceso) {
+        this.idProceso = idProceso;
+    }
+    
     public int getSeleccion() {
         return seleccion;
     }
@@ -164,6 +189,14 @@ public class ListaAdministracionBean implements Serializable {
     public void setListamacroProcesos(Map<String, Integer> listamacroProcesos) {
         this.listaMacroProcesos = listamacroProcesos;
     }
+    /*
+    *Método que filtra la lista de procesos por macro-proceso
+    */
+    public void idMacrio(int idMacro){
+        System.out.println("MM: "+idMacro);
+        idMacroProceso=idMacro;
+        iniciarProcesos();
+    }
     /**
      * Método que inicializa la lista de macro procesos
      */
@@ -171,9 +204,10 @@ public class ListaAdministracionBean implements Serializable {
         listaMacroProcesos=new HashMap<String, Integer>();
         MacroProcesosLogic macroProcesosLogic=new MacroProcesosLogic();
         ArrayList<MacroprocesosEntity>listaMecroProcesosWS=macroProcesosLogic.listaMacroprocesos();
-        for(MacroprocesosEntity macro:listaMecroProcesosWS){
-            listaMacroProcesos.put(macro.getNombreMacroproceso(), macro.getIdMacroproceso());
-        }
+        for(MacroprocesosEntity macro:listaMecroProcesosWS){            
+                listaMacroProcesos.put(macro.getNombreMacroproceso(), macro.getIdMacroproceso());            
+            }
+         
     }
 
     public Map<String, Integer> getListaProcesos() {
@@ -185,6 +219,14 @@ public class ListaAdministracionBean implements Serializable {
         this.listaProcesos = listaProcesos;
     }
     /**
+     * Método que filtra los subprosesos por el id del proceso que los contiene
+     * @param idProceso 
+     */
+    public void idCambiaProceso(int idProceso){
+        this.idProceso=idProceso;
+        iniciarSubProcesos();
+    }
+    /**
      * Método que inicializa la lista de procesos
      */
     public void iniciarProcesos(){
@@ -192,7 +234,14 @@ public class ListaAdministracionBean implements Serializable {
         ProcesosLogic procesosLogic=new ProcesosLogic();
         ArrayList<ProcesosEntity>listaProcesosWS=procesosLogic.listaProcesos();
         for(ProcesosEntity proceso:listaProcesosWS){
-            listaProcesos.put(proceso.getNombrePreoceso(), proceso.getIdProcesos());
+            if(idMacroProceso==null){
+                listaProcesos.put(proceso.getNombrePreoceso(), proceso.getIdProcesos());
+            }else{
+                if(proceso.getIdMacroProceso().getIdMacroproceso()==idMacroProceso){
+                    listaProcesos.put(proceso.getNombrePreoceso()+"-"+proceso.getIdProcesos(), proceso.getIdProcesos());
+                }
+            }
+            
         }
     }
 
@@ -231,5 +280,66 @@ public class ListaAdministracionBean implements Serializable {
         listaGeneracionTipoDocumental=new HashMap<String, String>();
         listaGeneracionTipoDocumental.put("Automático", "Automático");
         listaGeneracionTipoDocumental.put("Manual", "Manual");
+    }
+
+    public Map<String, Integer> getListaTipoDocumento() {
+        iniciarTipoDocumento();
+        return listaTipoDocumento;
+    }
+
+    public void setListaTipoDocumento(Map<String, Integer> listaTipoDocumento) {
+        this.listaTipoDocumento = listaTipoDocumento;
+    }
+
+    public void iniciarTipoDocumento(){
+        listaTipoDocumento=new HashMap<String, Integer>();
+        TiposDocumentalesLogic tiposDocumentalesLogic=new TiposDocumentalesLogic();
+        ArrayList<TiposDocumentalesEntity>listaTiposDocumentalesWS=tiposDocumentalesLogic.listaTiposDocumentales();
+        for(TiposDocumentalesEntity tipos:listaTiposDocumentalesWS){
+            listaTipoDocumento.put(tipos.getNombreTipoDocumental(), tipos.getIdTipoDocumental());
+        }
+    }
+
+    public Map<String, Integer> getListaPlantillas() {
+        iniciarPlantillas();
+        return listaPlantillas;
+    }
+
+    public void setListaPlantillas(Map<String, Integer> listaPlantillas) {
+        this.listaPlantillas = listaPlantillas;
+    }
+    
+    public void iniciarPlantillas(){
+        listaPlantillas=new HashMap<String, Integer>();
+        PlantillaLogic plantillaLogic=new PlantillaLogic();
+        ArrayList<PlantillaEntity>listaPlantillaWS=plantillaLogic.listaPlantilla();
+        for(PlantillaEntity plantilla:listaPlantillaWS){
+            listaPlantillas.put(plantilla.getNombrePlantilla(), plantilla.getIdPlantilla());
+        }
+    }
+
+    public Map<String, Integer> getListaSubProcesos() {
+        iniciarSubProcesos();
+        return listaSubProcesos;
+    }
+
+    public void setListaSubProcesos(Map<String, Integer> listaSubProcesos) {
+        this.listaSubProcesos = listaSubProcesos;
+    }
+    
+    public void iniciarSubProcesos(){
+        listaSubProcesos=new HashMap<String, Integer>();
+        SubProcesosLogic subProcesosLogic=new SubProcesosLogic();
+        ArrayList<SubprocesoEntity>listaSubprocesoWS=subProcesosLogic.listaSubprocesos();
+        for(SubprocesoEntity subpro:listaSubprocesoWS){
+            if(idProceso==null){
+                listaSubProcesos.put(subpro.getNombreSubproceso(), subpro.getIdSubproceso());
+            }else{
+                if(subpro.getIdProcesos().getIdProcesos()==idProceso){
+                    listaSubProcesos.put(subpro.getNombreSubproceso(), subpro.getIdSubproceso());
+                }
+            }
+            
+        }
     }
 }

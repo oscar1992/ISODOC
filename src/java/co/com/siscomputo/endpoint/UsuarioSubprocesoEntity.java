@@ -16,9 +16,10 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;extension base="{http://endpoint.siscomputo.com.co/}objetoTraza">
  *       &lt;sequence>
+ *         &lt;element name="idAccion" type="{http://endpoint.siscomputo.com.co/}accionEntity" minOccurs="0"/>
  *         &lt;element name="idSubprocesoEntity" type="{http://endpoint.siscomputo.com.co/}subprocesoEntity" minOccurs="0"/>
+ *         &lt;element name="idUsuario" type="{http://endpoint.siscomputo.com.co/}usuarioEntity" minOccurs="0"/>
  *         &lt;element name="idUsuarioSubproceso" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="idusuario" type="{http://endpoint.siscomputo.com.co/}usuarioEntity" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -29,17 +30,43 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "usuarioSubprocesoEntity", propOrder = {
+    "idAccion",
     "idSubprocesoEntity",
-    "idUsuarioSubproceso",
-    "idusuario"
+    "idUsuario",
+    "idUsuarioSubproceso"
 })
 public class UsuarioSubprocesoEntity
     extends ObjetoTraza
 {
 
+    protected AccionEntity idAccion;
     protected SubprocesoEntity idSubprocesoEntity;
+    protected UsuarioEntity idUsuario;
     protected int idUsuarioSubproceso;
-    protected UsuarioEntity idusuario;
+
+    /**
+     * Obtiene el valor de la propiedad idAccion.
+     * 
+     * @return
+     *     possible object is
+     *     {@link AccionEntity }
+     *     
+     */
+    public AccionEntity getIdAccion() {
+        return idAccion;
+    }
+
+    /**
+     * Define el valor de la propiedad idAccion.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link AccionEntity }
+     *     
+     */
+    public void setIdAccion(AccionEntity value) {
+        this.idAccion = value;
+    }
 
     /**
      * Obtiene el valor de la propiedad idSubprocesoEntity.
@@ -66,6 +93,30 @@ public class UsuarioSubprocesoEntity
     }
 
     /**
+     * Obtiene el valor de la propiedad idUsuario.
+     * 
+     * @return
+     *     possible object is
+     *     {@link UsuarioEntity }
+     *     
+     */
+    public UsuarioEntity getIdUsuario() {
+        return idUsuario;
+    }
+
+    /**
+     * Define el valor de la propiedad idUsuario.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link UsuarioEntity }
+     *     
+     */
+    public void setIdUsuario(UsuarioEntity value) {
+        this.idUsuario = value;
+    }
+
+    /**
      * Obtiene el valor de la propiedad idUsuarioSubproceso.
      * 
      */
@@ -79,30 +130,6 @@ public class UsuarioSubprocesoEntity
      */
     public void setIdUsuarioSubproceso(int value) {
         this.idUsuarioSubproceso = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad idusuario.
-     * 
-     * @return
-     *     possible object is
-     *     {@link UsuarioEntity }
-     *     
-     */
-    public UsuarioEntity getIdusuario() {
-        return idusuario;
-    }
-
-    /**
-     * Define el valor de la propiedad idusuario.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link UsuarioEntity }
-     *     
-     */
-    public void setIdusuario(UsuarioEntity value) {
-        this.idusuario = value;
     }
 
 }

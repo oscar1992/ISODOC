@@ -1,7 +1,10 @@
 package co.com.siscomputo.administracion.logic;
 
-import co.com.siscomputo.endpoint.Administacion_Service;
+import co.com.siscomputo.endpoint.AccionEntity;
+import co.com.siscomputo.endpoint.MacroprocesosEntity;
+import co.com.siscomputo.endpoint.ObjetoRetornaEntity;
 import co.com.siscomputo.endpoint.Usuario;
+import co.com.siscomputo.endpoint.UsuarioEntity;
 import co.com.siscomputo.endpoint.UsuarioMacroprocesoEntity;
 import co.com.siscomputo.endpoint.Usuario_Service;
 import java.util.ArrayList;
@@ -51,11 +54,35 @@ public class UsuarioMacroprocesoLogic {
      * @param objeto
      * @return 
      */
-    public UsuarioMacroprocesoEntity insertarUsuarioMacroproceso(UsuarioMacroprocesoEntity objeto){
+    public ObjetoRetornaEntity insertarUsuarioMacroproceso(ArrayList<String> macrosNombres,UsuarioEntity objeto, int idAccion){
         webService();
-        UsuarioMacroprocesoEntity dispoRta=null;        
+        ObjetoRetornaEntity dispoRta=null;        
+        MacroProcesosLogic macroProcesosLogic=new MacroProcesosLogic();
+        ArrayList<MacroprocesosEntity> listMacros=macroProcesosLogic.listaMacroprocesos();
+        ArrayList<UsuarioMacroprocesoEntity> listaUsuarioMacroproceso=new ArrayList<>();
+        AccionLogic accionLogic=new AccionLogic();
+        ArrayList<AccionEntity> listaAcciones=accionLogic.listaAccion();
+        AccionEntity accion=null;
+        for(AccionEntity acciones:listaAcciones){
+            if(acciones.getIdAccion()==idAccion){
+                accion=acciones;
+                break;
+            }
+        }
+        for(MacroprocesosEntity macros: listMacros){
+            for(String nombreMacro: macrosNombres){
+                if(nombreMacro.equalsIgnoreCase(macros.getNombreMacroproceso())){
+                    UsuarioMacroprocesoEntity usuarioMacroprocesoEntity=new UsuarioMacroprocesoEntity();
+                    usuarioMacroprocesoEntity.setIdMacroProceso(macros);
+                    usuarioMacroprocesoEntity.setIdUsuario(objeto);
+                    usuarioMacroprocesoEntity.setIdAccion(accion);
+                    listaUsuarioMacroproceso.add(usuarioMacroprocesoEntity);
+                }
+            }
+        }
         try {
-            dispoRta = port.ingresarUsuarioMacroproceso(objeto);
+            port.limpiaUsuarioMacroProceso(objeto.getIdUsuario(), idAccion);
+            dispoRta = port.ingresarUsuarioMacroproceso(listaUsuarioMacroproceso);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -81,14 +108,32 @@ public class UsuarioMacroprocesoLogic {
         }
         return rta;
     }
-    public ArrayList<UsuarioMacroprocesoEntity> listaUsuarioMacroporcesoPorUsuario(int iUsuario){
+    /**
+     * Método que trae una lista de las relaciones entre usuarios y procesos, filtradas por usuario
+     * @return 
+     */
+    public ArrayList<UsuarioMacroprocesoEntity> listaUsuarioMacroporcesoPorUsuario(int idUsuario){
         webService();
         ArrayList<UsuarioMacroprocesoEntity> listaaux=new ArrayList<>();
-        ArrayList<Object> listaObjeto =(ArrayList<Object>) port.listaUsuarioMacroproceso().getRetorna();
+        ArrayList<Object> listaObjeto =(ArrayList<Object>) port.listaUsuarioMacroProcesosPorUsuario(idUsuario).getRetorna();
         for(Object obj:listaObjeto){
             UsuarioMacroprocesoEntity objectusuarioMacroproceso=(UsuarioMacroprocesoEntity) obj;
             listaaux.add(objectusuarioMacroproceso);
         }
+        return listaaux;
+    }
+    /**
+     * Método que trae una lista de las relaciones entre usuarios y procesos, filtradas por usuario y por acción
+     * @return 
+     */
+    public ArrayList<UsuarioMacroprocesoEntity> listaUsuarioMacroporcesoPorUsuarioAccion(int idUsuario, int idAccion){
+        webService();
+        ArrayList<UsuarioMacroprocesoEntity> listaaux=new ArrayList<>();
+        ArrayList<Object> listaObjeto =(ArrayList<Object>) port.listaUsuarioMacroProcesosPorUsuarioAccion(idUsuario, idAccion).getRetorna();
+        for(Object obj:listaObjeto){
+            UsuarioMacroprocesoEntity objectusuarioMacroproceso=(UsuarioMacroprocesoEntity) obj;
+            listaaux.add(objectusuarioMacroproceso);
+}
         return listaaux;
     }
 }

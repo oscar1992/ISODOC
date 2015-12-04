@@ -10,7 +10,8 @@ import java.util.List;
  *
  * @author LENOVO
  */
-public class TiposAccesoLogic {private Administacion_Service webService;
+public class TiposAccesoLogic {
+    private Administacion_Service webService;
     private Administacion port;
     private List tiposAcceso;
     

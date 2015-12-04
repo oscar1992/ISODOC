@@ -136,4 +136,19 @@ public class UsuarioLogic {
         webService();
         return port.usuarioPorId(idusuario);
     }
+    
+    /**
+     * Método que trae una lista de las relaciones entre usuarios y procesos, filtradas por usuario y por acción
+     * @return 
+     */
+    public ArrayList<UsuarioEntity> listaUsuarioMacroporcesoPorUsuarioAccion(int idUsuario, int idAccion, int tipo){
+        webService();
+        ArrayList<UsuarioEntity> listaaux=new ArrayList<>();
+        ArrayList<Object> listaObjeto =(ArrayList<Object>) port.listaUsuarioMacroProcesosPorUsuarioAccion(idUsuario, idAccion, tipo).getRetorna();
+        for(Object obj:listaObjeto){
+            UsuarioEntity objectusuarioMacroproceso=(UsuarioEntity) obj;
+            listaaux.add(objectusuarioMacroproceso);
+        }
+        return listaaux;
+    }
 }

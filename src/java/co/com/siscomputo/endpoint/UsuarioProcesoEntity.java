@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;extension base="{http://endpoint.siscomputo.com.co/}objetoTraza">
  *       &lt;sequence>
+ *         &lt;element name="idAccion" type="{http://endpoint.siscomputo.com.co/}accionEntity" minOccurs="0"/>
  *         &lt;element name="idProceso" type="{http://endpoint.siscomputo.com.co/}procesosEntity" minOccurs="0"/>
  *         &lt;element name="idUsuario" type="{http://endpoint.siscomputo.com.co/}usuarioEntity" minOccurs="0"/>
  *         &lt;element name="idUsuarioProceso" type="{http://www.w3.org/2001/XMLSchema}int"/>
@@ -29,6 +30,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "usuarioProcesoEntity", propOrder = {
+    "idAccion",
     "idProceso",
     "idUsuario",
     "idUsuarioProceso"
@@ -37,9 +39,34 @@ public class UsuarioProcesoEntity
     extends ObjetoTraza
 {
 
+    protected AccionEntity idAccion;
     protected ProcesosEntity idProceso;
     protected UsuarioEntity idUsuario;
     protected int idUsuarioProceso;
+
+    /**
+     * Obtiene el valor de la propiedad idAccion.
+     * 
+     * @return
+     *     possible object is
+     *     {@link AccionEntity }
+     *     
+     */
+    public AccionEntity getIdAccion() {
+        return idAccion;
+    }
+
+    /**
+     * Define el valor de la propiedad idAccion.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link AccionEntity }
+     *     
+     */
+    public void setIdAccion(AccionEntity value) {
+        this.idAccion = value;
+    }
 
     /**
      * Obtiene el valor de la propiedad idProceso.

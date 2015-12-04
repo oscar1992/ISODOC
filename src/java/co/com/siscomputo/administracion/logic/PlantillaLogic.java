@@ -10,7 +10,8 @@ import java.util.List;
  *
  * @author LENOVO
  */
-public class PlantillaLogic {private Administacion_Service webService;
+public class PlantillaLogic {
+    private Administacion_Service webService;
     private Administacion port;
     private List plantilla;
     
@@ -78,5 +79,13 @@ public class PlantillaLogic {private Administacion_Service webService;
             e.printStackTrace();            
         }
         return rta;
+    }
+    /**
+     * Método que devuelve una plantilla seleccionada por su ID
+     * @param idPlantilla
+     */
+    public PlantillaEntity PlantillaPorId(int idPlantilla){
+        webService();
+        return port.plantillaPorIdlantilla(idPlantilla);
     }
 }

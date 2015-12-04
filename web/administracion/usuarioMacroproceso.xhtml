@@ -15,24 +15,27 @@
                     <div class="prueba" style="color: white; ">
                         <p:growl id="msgs" showDetail="true" life="3000" autoUpdate="true"/>
                     </div>
-                    <p:dataTable var="usuario" value="#{Usuario.list}" filteredValue="#{Usuario.listfiltro}" editable="true" 
-                                     reflow="true" widgetVar="TablaUsuarios" id="tablaUsuarios" 
-                                     selectionMode="single" selection="#{Usuario.usuarioObjeto}" rowKey="#{usuario.idUsuario}"
-                                     class="TABLA" paginator="true" rows="7" >        
-                            <p:outputPanel class="facet">
-                                <f:facet name="header" >
-                                    <h:outputText value="USUARIOS" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
-                                    <p:inputText id="globalFilter" onkeyup="PF('TablaUsuarios').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
-                                    <h:outputText value="Buscar" style="color: #FFF; float: right"/>
-                                </f:facet> 
-                            </p:outputPanel>
-                        <p:ajax event="rowSelect" listener="#{UsuarioMacroproceso.onRowSelect2}" update=":IngresarModal:listaUsuarioRol" oncomplete="PF('insertarUsuarioRol').show()"/>
-                            <p:column headerText="Nombre" filterBy="#{usuario.nombre}">                                                        
-                                <h:outputText value="#{usuario.nombre}"/>                                      
-                            </p:column>
-                        </p:dataTable>
                     <br/>
-                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarUsuarioMacroproceso').show();" update=":UsuarioMacroprocesoForm:msgs" class="botonNormal" rendered="#{UsuarioMacroproceso.ingresar}"></p:commandButton>
+                    <p:outputLabel id="accion" value="ACCION: #{UsuarioRol.idArea != null}"/>
+                    <br/>
+                    <p:dataTable var="usuario" value="#{Usuario.list}" filteredValue="#{Usuario.listfiltro}" editable="true" 
+                                 reflow="true" widgetVar="TablaUsuarios" id="tablaUsuarios" 
+                                 selectionMode="single" selection="#{Usuario.usuarioObjeto}" rowKey="#{usuario.idUsuario}"
+                                 class="TABLA" paginator="true" rows="7" >        
+                        <p:outputPanel class="facet">
+                            <f:facet name="header" >
+                                <h:outputText value="USUARIOS" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                                <p:inputText id="globalFilter" onkeyup="PF('TablaUsuarios').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                                <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                            </f:facet> 
+                        </p:outputPanel>
+                        <p:ajax event="rowSelect" listener="#{UsuarioMacroproceso.onRowSelect2}"  oncomplete="PF('insertarUsuarioMacroproceso').show()"/>
+                        <p:column headerText="Nombre" filterBy="#{usuario.nombre}">                                                        
+                            <h:outputText value="#{usuario.nombre}"/>                                      
+                        </p:column>
+                    </p:dataTable>
+                    <br/>
+                    
 
                 </h:form>
                 <h:form id="IngresarModal">
@@ -40,50 +43,33 @@
                         #{UsuarioMacroproceso.nuevoUsuarioMacroprocesoObjeto()}                        
                         <p:messages autoUpdate="true"/>                        
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
-
-                            
-                            <h:outputText value="idMacro del Usuario y su MacroProceso"></h:outputText>
-                            <h:outputText value="idUsuario del Usuario y su MacroProceso"></h:outputText>
-                            <h:outputText value="idAccion del Usuario y su MacroProceso"></h:outputText>
-
-                            <p:inputText required="true" label="nombre del Usuario y su MacroProceso" value="#{UsuarioMacroproceso.objetoUsuarioMacroproceso.nombreUsuarioMacroproceso}"/>
-
-                            <h:outputText value="Estado del Usuario y su MacroProceso"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarEstado" value="#{UsuarioMacroproceso.objetoUsuarioMacroproceso.estadoUsuarioMacroproceso}" style="width: 150px;">
-                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
-                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
-                            </p:selectOneMenu>
-
+                            <p:dataTable var="accion" value="#{Accion.lista}" filteredValue="#{Accion.listaFiltro}" editable="true" 
+                                         reflow="true" widgetVar="TablaAccion" id="tablaUsuariosAccion" 
+                                         selectionMode="single" selection="#{Accion.objetoAccion}" rowKey="#{accion.idAccion}"
+                                         class="TABLA" paginator="true" rows="7">        
+                                <p:outputPanel class="facet">
+                                    <f:facet name="header" >
+                                        <h:outputText value="ACCIÓN" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                                        <p:inputText id="globalFilter" onkeyup="PF('TablaAccion').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                                        <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                                    </f:facet> 
+                                </p:outputPanel>
+                                <p:ajax event="rowSelect" listener="#{UsuarioMacroproceso.onRowSelect3}" update=":IngresarModal:listaUsuarioMacroproceso,:UsuarioMacroprocesoForm:accion"/>
+                                <p:column headerText="Acción" filterBy="#{accion.nombreAccion}">                                                        
+                                    <h:outputText value="#{accion.nombreAccion}"/>                                      
+                                </p:column>
+                            </p:dataTable>
                         </p:panelGrid>                        
-                        <p:commandButton value="Ingresar" update=":UsuarioMacroprocesoForm:tablaUsuarioMacroproceso,:IngresarModal:insertarUsuarioMacroprocesoModal" actionListener="#{UsuarioMacroproceso.instertarUsuarioMacroproceso()}" validateClient="true" class="botonNormal" />
+                        
+                        <p:pickList id="listaUsuarioMacroproceso" value="#{UsuarioMacroproceso.macros}" var="usuRol" itemLabel="#{usuRol}" itemValue="#{usuRol}" >
+                            <f:facet name="sourceCaption">MacroProcesos Disponibles</f:facet>
+                            <f:facet name="targetCaption">MacroProcesos del Usuario</f:facet>
+                        </p:pickList>
+
+                        <p:commandButton value="Insertar" actionListener="#{UsuarioMacroproceso.instertarUsuarioMacroproceso()}" update=":UsuarioMacroprocesoForm,:UsuarioMacroprocesoForm:msgs" class="botonNormal"  ></p:commandButton>
                     </p:dialog>
                 </h:form>
-                <h:form id="ActualizarModal">
-                    <p:dialog header="Actualizar Usuario y su MacroProceso" widgetVar="actualizarUsuarioMacroproceso" modal="true" id="actualizarUsuarioMacroprocesoModal" responsive="true">
-                        <p:messages autoUpdate="true"/>
-                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
-                            <h:outputText value="idUsuario del Usuario y su MacroProceso"></h:outputText>
-                            <p:inputText required="true" label="nombre del Usuario y su MacroProceso" value="#{UsuarioMacroproceso.objetoUsuarioMacroproceso.idUsuarioUsuarioMacroproceso}"/>
-                            <h:outputText value="idMacro del Usuario y su MacroProceso"></h:outputText>
-                            <p:inputText required="true" label="nombre del Usuario y su MacroProceso" value="#{UsuarioMacroproceso.objetoUsuarioMacroproceso.idMacroUsuarioMacroproceso}"/>
-                            <h:outputText value="idUsuario del Usuario y su MacroProceso"></h:outputText>
-                            <p:inputText required="true" label="nombre del Usuario y su MacroProceso" value="#{UsuarioMacroproceso.objetoUsuarioMacroproceso.idUsuarioUsuarioMacroproceso}"/>
-                            <h:outputText value="idAccion del Usuario y su MacroProceso"></h:outputText>
-                            <p:inputText required="true" label="nombre del Usuario y su MacroProceso" value="#{UsuarioMacroproceso.objetoUsuarioMacroproceso.idAccionUsuarioMacroproceso}"/>
-
-
-                            <h:outputText value="Estado del Usuario y su MacroProceso"></h:outputText>
-                            <p:selectOneMenu id="desplegableActualizarEstado" value="#{UsuarioMacroproceso.objetoUsuarioMacroproceso.estadoUsuarioMacroproceso}" style="width: 150px;">
-                                <f:selectItem itemLabel="Selecione Usuario y su MacroProceso" itemValue="" noSelectionOption="true"/>
-                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
-                            </p:selectOneMenu>
-                            <h:inputHidden value="#{UsuarioMacroproceso.objetoUsuarioMacroproceso.idUsuarioMacroproceso}"></h:inputHidden>
-                        </p:panelGrid>
-                        <p:commandButton  value="Actualizar" update=":UsuarioMacroprocesoForm:tablaUsuarioMacroproceso,:ActualizarModal:actualizarUsuarioMacroprocesoModal,UsuarioMacroprocesoForm:msgs" actionListener="#{UsuarioMacroproceso.actualizarUsuarioMacroproceso()}" validateClient="true" class="botonNormal" rendered="#{UsuarioMacroproceso.actualizar}"/>
-                        <p:commandButton value="Eliminar" update=":UsuarioMacroprocesoForm:tablaUsuarioMacroproceso,:ActualizarModal:actualizarUsuarioMacroprocesoModal,UsuarioMacroprocesoForm:msgs" actionListener="#{UsuarioMacroproceso.eliminarUsuarioMacroproceso()}" validateClient="true" class="botonNormal" rendered="#{UsuarioMacroproceso.eliminar}"/>
-                    </p:dialog>
-                </h:form>
-
+               
             </h:body>
         </ui:define>
     </ui:composition>

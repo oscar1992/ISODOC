@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="return" type="{http://endpoint.siscomputo.com.co/}elaboradorEntity" minOccurs="0"/>
+ *         &lt;element name="return" type="{http://endpoint.siscomputo.com.co/}departamentoEntity" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -33,17 +33,17 @@ import javax.xml.bind.annotation.XmlType;
 public class DeptoPorIdResponse {
 
     @XmlElement(name = "return")
-    protected ElaboradorEntity _return;
+    protected DepartamentoEntity _return;
 
     /**
      * Obtiene el valor de la propiedad return.
      * 
      * @return
      *     possible object is
-     *     {@link ElaboradorEntity }
+     *     {@link DepartamentoEntity }
      *     
      */
-    public ElaboradorEntity getReturn() {
+    public DepartamentoEntity getReturn() {
         return _return;
     }
 
@@ -52,10 +52,10 @@ public class DeptoPorIdResponse {
      * 
      * @param value
      *     allowed object is
-     *     {@link ElaboradorEntity }
+     *     {@link DepartamentoEntity }
      *     
      */
-    public void setReturn(ElaboradorEntity value) {
+    public void setReturn(DepartamentoEntity value) {
         this._return = value;
     }
 

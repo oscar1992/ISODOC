@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition template="/plantillas/PlantillaAdministracion.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form id="DocumentoProcesoForm">
+                    <div class="prueba" style="color: white; ">
+                        <p:growl id="msgs" showDetail="true" life="3000" autoUpdate="true"/>
+                    </div>
+                    <p:dataTable var="documentoProceso" value="#{DocumentoProceso.lista}" reflow="true" widgetVar="TablaDocumentoProceso" id="tablaDocumentoProceso" selectionMode="single"
+                                 selection="#{DocumentoProceso.objetoDocumentoProceso}" rowKey="#{documentoProceso.idDocumentoProceso}" class="TABLA" paginator="true" rows="7">
+                        <p:ajax event="rowSelect" listener="#{DocumentoProceso.onRowSelect}" update=":DocumentoProcesoForm:msgs,:ActualizarModal:actualizarDocumentoProcesoModal" oncomplete="PF('actualizarDocumentoProceso').show()"/>
+                        <f:facet name="header">
+                            <h:outputText value="CONSULTA DE USUARIOS ASIGNADOS SOBRE EL DOCUMENTO" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                            <p:inputText id="globalFilter" onkeyup="PF('TablaDocumentoProceso').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                            <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                        </f:facet>
+
+                        <p:column headerText="id del Usuarios Asignados Sobre el Documento" filterBy="#{documentoProceso.idDocumentoProceso}">
+                            <h:outputText value="#{documentoProceso.idDocumentoProceso}"/>
+                        </p:column>
+                        <p:column headerText="accion del Usuarios Asignados Sobre el Documento" filterBy="#{documentoProceso.accionDocumentoProceso}">
+                            <h:outputText value="#{documentoProceso.accionDocumentoProceso}"/>
+                        </p:column>
+                        <p:column headerText="documento del Usuarios Asignados Sobre el Documento" filterBy="#{documentoProceso.documentoDocumentoProceso}">
+                            <h:outputText value="#{documentoProceso.documentoDocumentoProceso}"/>
+                        </p:column>
+                        <p:column headerText="fecha del Usuarios Asignados Sobre el Documento" filterBy="#{documentoProceso.fechaDocumentoProceso}">
+                            <h:outputText value="#{documentoProceso.fechaDocumentoProceso}"/>
+                        </p:column>
+                        <p:column headerText="usuario del Usuarios Asignados Sobre el Documento" filterBy="#{documentoProceso.usuarioDocumentoProceso}">
+                            <h:outputText value="#{documentoProceso.usuarioDocumentoProceso}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                    <br/>
+                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarDocumentoProceso').show();" update=":DocumentoProcesoForm:msgs" class="botonNormal" rendered="#{DocumentoProceso.ingresar}"></p:commandButton>
+
+                </h:form>
+                <h:form id="IngresarModal">
+                    <p:dialog header="Insertar Usuarios Asignados Sobre el Documento" widgetVar="insertarDocumentoProceso" modal="true" id="insertarDocumentoProcesoModal" responsive="true">
+                        #{DocumentoProceso.nuevoDocumentoProcesoObjeto()}                        
+                        <p:messages autoUpdate="true"/>                        
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+
+                            <h:outputText value="id del Usuarios Asignados Sobre el Documento"></h:outputText>
+                            <h:outputText value="accion del Usuarios Asignados Sobre el Documento"></h:outputText>
+                            <h:outputText value="documento del Usuarios Asignados Sobre el Documento"></h:outputText>
+                            <h:outputText value="fecha del Usuarios Asignados Sobre el Documento"></h:outputText>
+                            <h:outputText value="usuario del Usuarios Asignados Sobre el Documento"></h:outputText>
+
+                            <p:inputText required="true" label="nombre del Usuarios Asignados Sobre el Documento" value="#{DocumentoProceso.objetoDocumentoProceso.nombreDocumentoProceso}"/>
+
+                            <h:outputText value="Estado del Usuarios Asignados Sobre el Documento"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarEstado" value="#{DocumentoProceso.objetoDocumentoProceso.estadoDocumentoProceso}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+
+                        </p:panelGrid>                        
+                        <p:commandButton value="Ingresar" update=":DocumentoProcesoForm:tablaDocumentoProceso,:IngresarModal:insertarDocumentoProcesoModal" actionListener="#{DocumentoProceso.instertarDocumentoProceso()}" validateClient="true" class="botonNormal" />
+                    </p:dialog>
+                </h:form>
+                <h:form id="ActualizarModal">
+                    <p:dialog header="Actualizar Usuarios Asignados Sobre el Documento" widgetVar="actualizarDocumentoProceso" modal="true" id="actualizarDocumentoProcesoModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            <h:outputText value="id del Usuarios Asignados Sobre el Documento"></h:outputText>
+                            <p:inputText required="true" label="nombre del Usuarios Asignados Sobre el Documento" value="#{DocumentoProceso.objetoDocumentoProceso.idDocumentoProceso}"/>
+                            <h:outputText value="accion del Usuarios Asignados Sobre el Documento"></h:outputText>
+                            <p:inputText required="true" label="nombre del Usuarios Asignados Sobre el Documento" value="#{DocumentoProceso.objetoDocumentoProceso.accionDocumentoProceso}"/>
+                            <h:outputText value="documento del Usuarios Asignados Sobre el Documento"></h:outputText>
+                            <p:inputText required="true" label="nombre del Usuarios Asignados Sobre el Documento" value="#{DocumentoProceso.objetoDocumentoProceso.documentoDocumentoProceso}"/>
+                            <h:outputText value="fecha del Usuarios Asignados Sobre el Documento"></h:outputText>
+                            <p:inputText required="true" label="nombre del Usuarios Asignados Sobre el Documento" value="#{DocumentoProceso.objetoDocumentoProceso.fechaDocumentoProceso}"/>
+                            <h:outputText value="usuario del Usuarios Asignados Sobre el Documento"></h:outputText>
+                            <p:inputText required="true" label="nombre del Usuarios Asignados Sobre el Documento" value="#{DocumentoProceso.objetoDocumentoProceso.usuarioDocumentoProceso}"/>
+
+
+                            <h:outputText value="Estado del Usuarios Asignados Sobre el Documento"></h:outputText>
+                            <p:selectOneMenu id="desplegableActualizarEstado" value="#{DocumentoProceso.objetoDocumentoProceso.estadoDocumentoProceso}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Usuarios Asignados Sobre el Documento" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+                            <h:inputHidden value="#{DocumentoProceso.objetoDocumentoProceso.idDocumentoProceso}"></h:inputHidden>
+                        </p:panelGrid>
+                        <p:commandButton  value="Actualizar" update=":DocumentoProcesoForm:tablaDocumentoProceso,:ActualizarModal:actualizarDocumentoProcesoModal,DocumentoProcesoForm:msgs" actionListener="#{DocumentoProceso.actualizarDocumentoProceso()}" validateClient="true" class="botonNormal" rendered="#{DocumentoProceso.actualizar}"/>
+                        <p:commandButton value="Eliminar" update=":DocumentoProcesoForm:tablaDocumentoProceso,:ActualizarModal:actualizarDocumentoProcesoModal,DocumentoProcesoForm:msgs" actionListener="#{DocumentoProceso.eliminarDocumentoProceso()}" validateClient="true" class="botonNormal" rendered="#{DocumentoProceso.eliminar}"/>
+                    </p:dialog>
+                </h:form>
+
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>
