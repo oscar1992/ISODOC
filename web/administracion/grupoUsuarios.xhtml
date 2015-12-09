@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition template="/plantillas/PlantillaAdministracion.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form id="GrupoUsuariosForm">
+                    <div class="prueba" style="color: white; ">
+                        <p:growl id="msgs" showDetail="true" life="3000" autoUpdate="true"/>
+                    </div>
+                    <p:dataTable var="grupoUsuarios" value="#{GrupoUsuarios.lista}" reflow="true" widgetVar="TablaGrupoUsuarios" id="tablaGrupoUsuarios" selectionMode="single"
+                                 selection="#{GrupoUsuarios.objetoGrupoUsuarios}" rowKey="#{grupoUsuarios.idGrupoUsuarios}" class="TABLA" paginator="true" rows="7">
+                        <p:ajax event="rowSelect" listener="#{GrupoUsuarios.onRowSelect}" update=":GrupoUsuariosForm:msgs,:ActualizarModal:actualizarGrupoUsuariosModal" oncomplete="PF('actualizarGrupoUsuarios').show()"/>
+                        <f:facet name="header">
+                            <h:outputText value="CONSULTA DE GRUPO DE USUARIOS" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                            <p:inputText id="globalFilter" onkeyup="PF('TablaGrupoUsuarios').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                            <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                        </f:facet>
+                        <p:column headerText="nombre del Grupo de Usuarios" filterBy="#{grupoUsuarios.nombreGrupoUsuarios}">
+                            <h:outputText value="#{grupoUsuarios.nombreGrupoUsuarios}"/>
+                        </p:column>
+                        <p:column headerText="estado del Grupo de Usuarios" filterBy="#{grupoUsuarios.estadoGrupoUsuarios}">
+                            <h:outputText value="Activo" rendered="#{grupoUsuarios.estadoGrupoUsuarios == 'A'}"/>
+                            <h:outputText value="Inctivo" rendered="#{grupoUsuarios.estadoGrupoUsuarios == 'I'}"/> </p:column>
+
+                    </p:dataTable>
+                    <br/>
+                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarGrupoUsuarios').show();" update=":GrupoUsuariosForm:msgs" class="botonNormal" rendered="#{GrupoUsuarios.ingresar}"></p:commandButton>
+
+                </h:form>
+                <h:form id="IngresarModal">
+                    <p:dialog header="Insertar Grupo de Usuarios" widgetVar="insertarGrupoUsuarios" modal="true" id="insertarGrupoUsuariosModal" responsive="true">
+                        #{GrupoUsuarios.nuevoGrupoUsuariosObjeto()}                        
+                        <p:messages autoUpdate="true"/>                        
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+
+                            
+                            <h:outputText value="nombre del Grupo de Usuarios"></h:outputText>
+
+                            <p:inputText required="true" label="nombre del Grupo de Usuarios" value="#{GrupoUsuarios.objetoGrupoUsuariosInsercion.nombreGrupoUsuarios}"/>
+
+                            <h:outputText value="Estado del Grupo de Usuarios"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarEstado" value="#{GrupoUsuarios.objetoGrupoUsuariosInsercion.estadoGrupoUsuarios}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+
+                        </p:panelGrid>                        
+                        <p:commandButton value="Ingresar" update=":GrupoUsuariosForm:tablaGrupoUsuarios,:IngresarModal:insertarGrupoUsuariosModal" actionListener="#{GrupoUsuarios.instertarGrupoUsuarios()}" validateClient="true" class="botonNormal" />
+                    </p:dialog>
+                </h:form>
+                <h:form id="ActualizarModal">
+                    <p:dialog header="Actualizar Grupo de Usuarios" widgetVar="actualizarGrupoUsuarios" modal="true" id="actualizarGrupoUsuariosModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            
+                            <h:outputText value="nombre del Grupo de Usuarios"></h:outputText>
+                            <p:inputText required="true" label="nombre del Grupo de Usuarios" value="#{GrupoUsuarios.objetoGrupoUsuarios.nombreGrupoUsuarios}"/>
+
+
+                            <h:outputText value="Estado del Grupo de Usuarios"></h:outputText>
+                            <p:selectOneMenu id="desplegableActualizarEstado" value="#{GrupoUsuarios.objetoGrupoUsuarios.estadoGrupoUsuarios}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Grupo de Usuarios" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+                            <h:inputHidden value="#{GrupoUsuarios.objetoGrupoUsuarios.idGrupoUsuarios}"></h:inputHidden>
+                        </p:panelGrid>
+                        <p:commandButton  value="Actualizar" update=":GrupoUsuariosForm:tablaGrupoUsuarios,:ActualizarModal:actualizarGrupoUsuariosModal,GrupoUsuariosForm:msgs" actionListener="#{GrupoUsuarios.actualizarGrupoUsuarios()}" validateClient="true" class="botonNormal" rendered="#{GrupoUsuarios.actualizar}"/>
+                        <p:commandButton value="Eliminar" update=":GrupoUsuariosForm:tablaGrupoUsuarios,:ActualizarModal:actualizarGrupoUsuariosModal,GrupoUsuariosForm:msgs" actionListener="#{GrupoUsuarios.eliminarGrupoUsuarios()}" validateClient="true" class="botonNormal" rendered="#{GrupoUsuarios.eliminar}"/>
+                    </p:dialog>
+                </h:form>
+
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>

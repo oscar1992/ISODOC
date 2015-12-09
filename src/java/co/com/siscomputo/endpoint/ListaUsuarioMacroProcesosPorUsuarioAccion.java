@@ -18,7 +18,6 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="idUsuario" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="idAccion" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="tipo" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -30,14 +29,12 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "listaUsuarioMacroProcesosPorUsuarioAccion", propOrder = {
     "idUsuario",
-    "idAccion",
-    "tipo"
+    "idAccion"
 })
 public class ListaUsuarioMacroProcesosPorUsuarioAccion {
 
     protected int idUsuario;
     protected int idAccion;
-    protected int tipo;
 
     /**
      * Obtiene el valor de la propiedad idUsuario.
@@ -69,22 +66,6 @@ public class ListaUsuarioMacroProcesosPorUsuarioAccion {
      */
     public void setIdAccion(int value) {
         this.idAccion = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad tipo.
-     * 
-     */
-    public int getTipo() {
-        return tipo;
-    }
-
-    /**
-     * Define el valor de la propiedad tipo.
-     * 
-     */
-    public void setTipo(int value) {
-        this.tipo = value;
     }
 
 }

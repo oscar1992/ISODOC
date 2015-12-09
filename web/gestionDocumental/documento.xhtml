@@ -111,13 +111,13 @@
 
                             </p:row>
                         </f:facet>
-                        <ui:repeat value="#{Accion.lista}" var="accion2">
+                        <ui:repeat value="#{DocumentoProceso.usuarioAccionProcesoEntity}" var="acciones2">
                             <p:row>
                                 <p:column>
-                                    <h:outputText value="#{accion2.nombreAccion}"/>
+                                    <h:outputText value="#{acciones2.accion.nombreAccion}"/>
                                 </p:column>      
                                 <p:column>
-                                    <p:pickList id="listausuarioProceso" value="#{DocumentoProceso.asigna}" var="usupro" itemLabel="#{usupro}" itemValue="#{usupro}">
+                                    <p:pickList id="listausuarioProceso" value="#{acciones2.seleccionDual}" var="usupro" itemLabel="#{usupro}" itemValue="#{usupro}">
                                         <f:facet name="sourceCaption">Usuarios disponibles</f:facet>
                                         <f:facet name="targetCaption">Usuarios de la Acción</f:facet>
                                     </p:pickList>                                    

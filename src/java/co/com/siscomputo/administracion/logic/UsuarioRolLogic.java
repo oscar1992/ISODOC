@@ -98,7 +98,9 @@ public class UsuarioRolLogic {
     /**
      * Método que inserta una relación usuario-rol nueva
      *
-     * @param usuarioRol
+     * @param rolNombres
+     * @param usuario
+     * @param idArea
      * @return
      */
     public ObjetoRetornaEntity ingresaUsuarioRol(ArrayList<String> rolNombres, UsuarioEntity usuario, int idArea) {

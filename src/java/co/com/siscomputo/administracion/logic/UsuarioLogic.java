@@ -144,10 +144,24 @@ public class UsuarioLogic {
     public ArrayList<UsuarioEntity> listaUsuarioMacroporcesoPorUsuarioAccion(int idUsuario, int idAccion, int tipo){
         webService();
         ArrayList<UsuarioEntity> listaaux=new ArrayList<>();
-        ArrayList<Object> listaObjeto =(ArrayList<Object>) port.listaUsuarioMacroProcesosPorUsuarioAccion(idUsuario, idAccion, tipo).getRetorna();
+        ArrayList<Object> listaObjeto =(ArrayList<Object>) port.listaUsuarioSelecionPorUsuarioAccion(idUsuario, idAccion, tipo).getRetorna();
         for(Object obj:listaObjeto){
             UsuarioEntity objectusuarioMacroproceso=(UsuarioEntity) obj;
             listaaux.add(objectusuarioMacroproceso);
+        }
+        return listaaux;
+    }
+    /**
+     * Método que trae una lista de usuarios asociados a una acción
+     * @param idAccion 
+     */
+    public ArrayList<UsuarioEntity> usuariosPorAccion(int idAccion){
+        webService();
+        ArrayList<UsuarioEntity>listaaux=new ArrayList<>();
+        ArrayList<Object>listaObjeto=(ArrayList<Object>) port.listaUsuariosPorAccion(idAccion).getRetorna();
+        for(Object obj:listaObjeto){
+            UsuarioEntity usuarioEntity=(UsuarioEntity)obj;
+            listaaux.add(usuarioEntity);
         }
         return listaaux;
     }

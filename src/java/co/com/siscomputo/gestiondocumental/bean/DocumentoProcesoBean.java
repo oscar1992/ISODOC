@@ -1,12 +1,14 @@
 package co.com.siscomputo.gestiondocumental.bean;
 
+import co.com.siscomputo.administracion.logic.AccionLogic;
 import co.com.siscomputo.administracion.logic.UsuarioLogic;
-import co.com.siscomputo.administracion.logic.UsuarioMacroprocesoLogic;
+import co.com.siscomputo.endpoint.AccionEntity;
 import co.com.siscomputo.endpoint.DocumentoEntity;
 import co.com.siscomputo.gestiondocumental.logic.DocumentoProcesoLogic;
 import co.com.siscomputo.endpoint.DocumentoProcesoEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.UsuarioEntity;
+import co.com.siscomputo.gestiondocumental.entities.UsuarioAccionProcesoEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -25,22 +27,33 @@ import org.primefaces.model.DualListModel;
  */
 @ManagedBean(name = "DocumentoProceso")
 @ViewScoped
-public class DocumentoProcesoBean implements Serializable{
+public class DocumentoProcesoBean implements Serializable {
+
     private ArrayList<DocumentoProcesoEntity> lista;
     private ArrayList<DocumentoProcesoEntity> listaFiltro;
     private DocumentoProcesoEntity objetoDocumentoProceso;
     private Integer idUsuario;
     private Integer idAccion;
     private Integer tipo;
-    private DualListModel<String>asigna;
-    private ArrayList<String>asignaNombre;
-    private ArrayList<String>asignaSeleccion;
+    private ArrayList<DualListModel<String>> asignaLista;
+    private ArrayList<ArrayList<String>> asignaNombre;
+    private ArrayList<ArrayList<String>> asignaSeleccion;
+    private ArrayList<UsuarioAccionProcesoEntity> usuarioAccionProcesoEntity;
     private UsuarioEntity usuarioEntity;
     private DocumentoEntity objetoDocumento;
     private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
 
+    public ArrayList<UsuarioAccionProcesoEntity> getUsuarioAccionProcesoEntity() {
+        return usuarioAccionProcesoEntity;
+    }
+
+    public void setUsuarioAccionProcesoEntity(ArrayList<UsuarioAccionProcesoEntity> usuarioAccionProcesoEntity) {
+        this.usuarioAccionProcesoEntity = usuarioAccionProcesoEntity;
+    }
+
+    
     public ArrayList<DocumentoProcesoEntity> getLista() {
         return lista;
     }
@@ -128,28 +141,28 @@ public class DocumentoProcesoBean implements Serializable{
     public void setTipo(Integer tipo) {
         this.tipo = tipo;
     }
-    
-    public DualListModel<String> getAsigna() {
-        return asigna;
+
+    public ArrayList<DualListModel<String>> getAsignaLista() {
+        return asignaLista;
     }
 
-    public void setAsigna(DualListModel<String> asigna) {
-        this.asigna = asigna;
+    public void setAsignaLista(ArrayList<DualListModel<String>> asignaLista) {
+        this.asignaLista = asignaLista;
     }
 
-    public ArrayList<String> getAsignaNombre() {
+    public ArrayList<ArrayList<String>> getAsignaNombre() {
         return asignaNombre;
     }
 
-    public void setAsignaNombre(ArrayList<String> asignaNombre) {
+    public void setAsignaNombre(ArrayList<ArrayList<String>> asignaNombre) {
         this.asignaNombre = asignaNombre;
     }
 
-    public ArrayList<String> getAsignaSeleccion() {
+    public ArrayList<ArrayList<String>> getAsignaSeleccion() {
         return asignaSeleccion;
     }
 
-    public void setAsignaSeleccion(ArrayList<String> asignaSeleccion) {
+    public void setAsignaSeleccion(ArrayList<ArrayList<String>> asignaSeleccion) {
         this.asignaSeleccion = asignaSeleccion;
     }
 
@@ -160,172 +173,182 @@ public class DocumentoProcesoBean implements Serializable{
     public void setUsuarioEntity(UsuarioEntity usuarioEntity) {
         this.usuarioEntity = usuarioEntity;
     }
-    
+
     @PostConstruct
-    public void init(){
-        consultarDocumentoMacroProceso();
-        
+    public void init() {
+        //consultarDocumentoMacroProceso();
+        iniciaAcciones();
         permisos();
-    }    
+    }
+
     public DocumentoProcesoBean() {
-        objetoDocumentoProceso=new DocumentoProcesoEntity();
-        usuarioEntity=new UsuarioEntity();
-        asigna=new DualListModel<>();
-        asignaNombre=new ArrayList<>();
-        asignaSeleccion=new ArrayList<>();
-        idAccion=null;
+        objetoDocumentoProceso = new DocumentoProcesoEntity();
+        usuarioEntity = new UsuarioEntity();
+        asignaLista = new ArrayList<>();
+        asignaNombre = new ArrayList<>();
+        asignaSeleccion = new ArrayList<>();
+        idAccion = null;
     }
-    /**
-     * Método que tra una lista de Usuarios Asignados Sobre el Documento
-     */
-    public void consultarUsuario(){
-        try {
-            UsuarioLogic usuarioLogic=new UsuarioLogic();
-            ArrayList<UsuarioEntity> listau=usuarioLogic.listaUsuarioMacroporcesoPorUsuarioAccion(idUsuario, idAccion, tipo);
-            for(UsuarioEntity usua:listau){
-                asignaNombre.add(usua.getNombre());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+
+    
+    
+    public void iniciaAcciones(){
+        AccionLogic accionLogic=new AccionLogic();
+        ArrayList<AccionEntity> listaAccion = accionLogic.listaAccion();
+        ArrayList<String>nombres;
+        ArrayList<String>selecion;
+        DualListModel lista;
+        UsuarioAccionProcesoEntity usuaccipro=new UsuarioAccionProcesoEntity();
+        usuarioAccionProcesoEntity=new ArrayList<>();
+        UsuarioLogic usuarioLogic=new UsuarioLogic();
+        ArrayList<UsuarioEntity> listaUsuarios=new ArrayList<>();
+        for(AccionEntity accion: listaAccion){
+            listaUsuarios=usuarioLogic.usuariosPorAccion(accion.getIdAccion());
+            nombres=
+            selecion=new ArrayList<>();
+            lista=new DualListModel(nombres, selecion);
+            usuaccipro.setSeleccionDual(lista);
+            usuaccipro.setAccion(accion);
+            usuaccipro.setNombres(nombres);
+            usuaccipro.setSelecion(selecion);
+            usuarioAccionProcesoEntity.add(usuaccipro);
         }
     }
     /**
-     * Método que tra una lista de Usuarios Asignados Sobre el Documento
+     * Método que permite insertar un Usuarios Asignados Sobre el Documento
+     * nuevo
      */
-    public void consultarDocumentoMacroProceso(){
+    public void instertarDocumentoProceso() {
         try {
-            DocumentoProcesoLogic documentoProcesoLogic=new DocumentoProcesoLogic();
-            lista=documentoProcesoLogic.listaDocumentoProceso();
-            for(DocumentoProcesoEntity docpro:lista){
-                asignaSeleccion.add(docpro.getUsuarioDocumentoProceso().getNombre());
-            }
-            asigna=new DualListModel<>(asignaNombre, asignaSeleccion);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-   
-    /**
-     * Método que permite insertar un Usuarios Asignados Sobre el Documento nuevo
-     */
-    public void instertarDocumentoProceso(){
-        try {
-            DocumentoProcesoLogic documentoProcesoLogic=new DocumentoProcesoLogic();
-            DocumentoProcesoEntity documentoProcesoEntity=documentoProcesoLogic.insertarDocumentoProceso(objetoDocumentoProceso);
-            FacesMessage msg=null;
-            if(documentoProcesoEntity!=null){
-                msg=new FacesMessage("", "inserción de Usuarios Asignados Sobre el Documento correcto");
+            DocumentoProcesoLogic documentoProcesoLogic = new DocumentoProcesoLogic();
+            DocumentoProcesoEntity documentoProcesoEntity = documentoProcesoLogic.insertarDocumentoProceso(objetoDocumentoProceso);
+            FacesMessage msg = null;
+            if (documentoProcesoEntity != null) {
+                msg = new FacesMessage("", "inserción de Usuarios Asignados Sobre el Documento correcto");
                 adicionarMetodoPtoteccionLista(objetoDocumentoProceso);
-            }else{
-                msg=new FacesMessage("", "inserción de Usuarios Asignados Sobre el Documento incorrecto");
+            } else {
+                msg = new FacesMessage("", "inserción de Usuarios Asignados Sobre el Documento incorrecto");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Método que añade un Usuarios Asignados Sobre el Documento visualmente
-     * @param objetoDocumentoProceso 
+     *
+     * @param objetoDocumentoProceso
      */
     private void adicionarMetodoPtoteccionLista(DocumentoProcesoEntity objetoDocumentoProceso) {
         lista.add(objetoDocumentoProceso);
     }
-/**
+
+    /**
      * Método que permite actualizar un Usuarios Asignados Sobre el Documento
      */
-    public void actualizarDocumentoProceso(){
-        DocumentoProcesoLogic metodoRecuperacionLogic=new DocumentoProcesoLogic();
-        String valida=metodoRecuperacionLogic.actualizarDocumentoProceso(objetoDocumentoProceso);
-        FacesMessage msg=null;
-        if("Ok".equalsIgnoreCase(valida)){
-            msg=new FacesMessage("", "actualización de Usuarios Asignados Sobre el Documento correcto");
+    public void actualizarDocumentoProceso() {
+        DocumentoProcesoLogic metodoRecuperacionLogic = new DocumentoProcesoLogic();
+        String valida = metodoRecuperacionLogic.actualizarDocumentoProceso(objetoDocumentoProceso);
+        FacesMessage msg = null;
+        if ("Ok".equalsIgnoreCase(valida)) {
+            msg = new FacesMessage("", "actualización de Usuarios Asignados Sobre el Documento correcto");
             actualizarDocumentoProcesoLista(objetoDocumentoProceso);
-        }else{
-            msg=new FacesMessage("", "actualización de Usuarios Asignados Sobre el Documento incorrecto");
+        } else {
+            msg = new FacesMessage("", "actualización de Usuarios Asignados Sobre el Documento incorrecto");
         }
         nuevoDocumentoProcesoObjeto();
         RequestContext.getCurrentInstance().execute("PF('actualizarDocumentoProceso').hide()");
     }
+
     /**
-     * Método que actualiza visualmente la lista de Usuarios Asignados Sobre el Documento
-     * @param objetoDocumentoProceso 
+     * Método que actualiza visualmente la lista de Usuarios Asignados Sobre el
+     * Documento
+     *
+     * @param objetoDocumentoProceso
      */
     private void actualizarDocumentoProcesoLista(DocumentoProcesoEntity objetoDocumentoProceso) {
         try {
-            ArrayList<DocumentoProcesoEntity>listaaux=new ArrayList<>();
-            if(lista!=null){
-                for(DocumentoProcesoEntity item:lista){
-                    int v1=objetoDocumentoProceso.getIdDocumentoProceso();
-                    int v2=item.getIdDocumentoProceso();
-                    if(v1==v2){
+            ArrayList<DocumentoProcesoEntity> listaaux = new ArrayList<>();
+            if (lista != null) {
+                for (DocumentoProcesoEntity item : lista) {
+                    int v1 = objetoDocumentoProceso.getIdDocumentoProceso();
+                    int v2 = item.getIdDocumentoProceso();
+                    if (v1 == v2) {
                         listaaux.add(objetoDocumentoProceso);
-                    }else{
+                    } else {
                         listaaux.add(item);
                     }
                 }
             }
-            this.lista=new ArrayList<>();
-            this.lista=listaaux;
+            this.lista = new ArrayList<>();
+            this.lista = listaaux;
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Método que se invoca al seleccionar una fila de la tabla
-     * @param event 
+     *
+     * @param event
      */
-    public void onRowSelect(SelectEvent event){
-        objetoDocumentoProceso=(DocumentoProcesoEntity)event.getObject();
+    public void onRowSelect(SelectEvent event) {
+        objetoDocumentoProceso = (DocumentoProcesoEntity) event.getObject();
     }
+
     /**
-    Método que elimina un Usuarios Asignados Sobre el Documento
-    */
-    public void eliminarDocumentoProceso(){
-        DocumentoProcesoLogic metodoRecuperacionLogic=new DocumentoProcesoLogic();
+     * Método que elimina un Usuarios Asignados Sobre el Documento
+     */
+    public void eliminarDocumentoProceso() {
+        DocumentoProcesoLogic metodoRecuperacionLogic = new DocumentoProcesoLogic();
         //objetoDocumentoProceso.setEstadoDocumentoProceso("E");
         metodoRecuperacionLogic.actualizarDocumentoProceso(objetoDocumentoProceso);
         eliminarDocumentoProcesoLista(objetoDocumentoProceso);
         RequestContext.getCurrentInstance().execute("PF('actualizarDocumentoProceso').hide()");
         nuevoDocumentoProcesoObjeto();
     }
+
     /**
      * Método que elimina visualmente un objeto de la lista
-     * @param objetoDocumentoProceso 
+     *
+     * @param objetoDocumentoProceso
      */
     private void eliminarDocumentoProcesoLista(DocumentoProcesoEntity objetoDocumentoProceso) {
-        Iterator itr=lista.iterator();
-        while(itr.hasNext()){
-            DocumentoProcesoEntity metodoRecuperacionEntity=(DocumentoProcesoEntity) itr.next();
-            if(metodoRecuperacionEntity.getIdDocumentoProceso()==objetoDocumentoProceso.getIdDocumentoProceso()){
+        Iterator itr = lista.iterator();
+        while (itr.hasNext()) {
+            DocumentoProcesoEntity metodoRecuperacionEntity = (DocumentoProcesoEntity) itr.next();
+            if (metodoRecuperacionEntity.getIdDocumentoProceso() == objetoDocumentoProceso.getIdDocumentoProceso()) {
                 itr.remove();
             }
         }
     }
+
     /**
      * Método que reinicia el objeto Usuarios Asignados Sobre el Documento
      */
     public void nuevoDocumentoProcesoObjeto() {
-        objetoDocumentoProceso=new DocumentoProcesoEntity();
+        objetoDocumentoProceso = new DocumentoProcesoEntity();
     }
-    
-    public void evalua(DocumentoEntity docuemnto){
+
+    public void evalua(DocumentoEntity docuemnto) {
         System.out.println("INGRESA");
-        objetoDocumento=docuemnto;      
-        if(objetoDocumento.getSubProcesoProcesoDocumento().getIdSubproceso()==-1){
-            tipo=3;
-            
-        }else if(objetoDocumento.getProcesoProcesoDocumento().getIdProcesos()==-1){
-            tipo=2;
-            
-        }else{
-            tipo=1;
+        objetoDocumento = docuemnto;
+        if (objetoDocumento.getSubProcesoProcesoDocumento().getIdSubproceso() == -1) {
+            tipo = 3;
+
+        } else if (objetoDocumento.getProcesoProcesoDocumento().getIdProcesos() == -1) {
+            tipo = 2;
+
+        } else {
+            tipo = 1;
         }
-        consultarUsuario();
-        System.out.println("SUB: "+objetoDocumento.getSubProcesoProcesoDocumento().getIdSubproceso());
-        System.out.println("PRO: "+objetoDocumento.getProcesoProcesoDocumento().getIdProcesos());
-        System.out.println("SUB: "+objetoDocumento.getMacroProcesoDocumento().getIdMacroproceso());
+        
+        System.out.println("SUB: " + objetoDocumento.getSubProcesoProcesoDocumento().getIdSubproceso());
+        System.out.println("PRO: " + objetoDocumento.getProcesoProcesoDocumento().getIdProcesos());
+        System.out.println("SUB: " + objetoDocumento.getMacroProcesoDocumento().getIdMacroproceso());
     }
-/**
+
+    /**
      * Método que evalua los accesos al formulario
      */
     public void permisos() {
@@ -355,4 +378,4 @@ public class DocumentoProcesoBean implements Serializable{
             }
         }
     }
-    }
+}

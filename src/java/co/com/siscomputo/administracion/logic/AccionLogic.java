@@ -61,7 +61,6 @@ public class AccionLogic {private Administacion_Service webService;
     }
 /**
      * Método que permite actualizar un Acción
-     * @param metodo
      * @return 
      */
     public String actualizarAccion(AccionEntity objeto){
