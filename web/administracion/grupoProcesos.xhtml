@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition template="/plantillas/PlantillaAdministracion.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form id="GrupoProcesoForm">
+                    <div class="prueba" style="color: white; ">
+                        <p:growl id="msgs" showDetail="true" life="3000" autoUpdate="true"/>
+                    </div>
+                    <p:dataTable var="grupoUsuarios" value="#{GrupoUsuarios.lista}" reflow="true" widgetVar="TablaGrupoUsuarios" id="tablaGrupoUsuarios" selectionMode="single"
+                                 selection="#{GrupoUsuarios.objetoGrupoUsuarios}" rowKey="#{grupoUsuarios.idGrupoUsuarios}" class="TABLA" paginator="true" rows="7">
+                        <p:ajax event="rowSelect" listener="#{GrupoProceso.onRowSelect}" update=":GrupoProcesoForm:msgs,:ActualizarModal:listaAcciones,:IngresarModal:listaProcesos" oncomplete="PF('insertarGrupoProceso').show()"/>
+                        <f:facet name="header">
+                            <h:outputText value="CONSULTA DE GRUPO DE USUARIOS" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                            <p:inputText id="globalFilter" onkeyup="PF('TablaGrupoUsuarios').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                            <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                        </f:facet>
+                        <p:column headerText="nombre del Grupo de Usuarios" filterBy="#{grupoUsuarios.nombreGrupoUsuarios}">
+                            <h:outputText value="#{grupoUsuarios.nombreGrupoUsuarios}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <br/>
+
+
+                </h:form>
+                <h:form id="IngresarModal">
+                    <p:dialog header="Insertar Grupo de Usuarios y Procesos" widgetVar="insertarGrupoProceso" modal="true" id="insertarGrupoProcesoModal" responsive="true">
+                        #{GrupoProceso.nuevoGrupoProcesoObjeto()}                        
+                        <p:messages autoUpdate="true"/> 
+                        <p:pickList id="listaProcesos" value="#{GrupoProceso.listaProcesos}" var="proceso" itemLabel="#{proceso}" itemValue="#{proceso}" >
+                            <p:ajax event="transfer" listener="#{GrupoProceso.onSelect}" update=":ActualizarModal:listaAcciones,:ActualizarModal:actualizarGrupoProcesoModal" />   
+                           
+                            <f:facet name="sourceCaption">Procesos Disponibles</f:facet>
+                             <p:ajax event="select" listener="#{GrupoProceso.onSelect2}" update=":ActualizarModal:listaAcciones,:ActualizarModal:actualizarGrupoProcesoModal" />   
+                            <f:facet name="targetCaption">Procesos del grupo</f:facet>
+                        </p:pickList>
+                    </p:dialog>
+                </h:form>
+                <h:form id="ActualizarModal">
+                    <p:dialog header="Acciones de #{GrupoProceso.nombreProceso}" widgetVar="actualizarGrupoProceso" modal="true" id="actualizarGrupoProcesoModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            <p:pickList id="listaAcciones" value="#{GrupoProceso.listaAcciones}" var="acciones" itemLabel="#{acciones}" itemValue="#{acciones}">
+                                <f:facet name="sourceCaption">Acciones Disponibles</f:facet>
+                                <f:facet name="targetCaption">Acciones del grupo</f:facet>
+                            </p:pickList>
+                            <p:commandButton value="Ingresar"  actionListener="#{GrupoProceso.instertarGrupoProceso()}" validateClient="true" class="botonNormal" />
+                        </p:panelGrid>
+                    </p:dialog>
+                </h:form>
+
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>

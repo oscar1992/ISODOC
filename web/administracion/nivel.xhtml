@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition template="/plantillas/PlantillaAdministracion.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form id="NivelForm">
+                    <div class="prueba" style="color: white; ">
+                        <p:growl id="msgs" showDetail="true" life="3000" autoUpdate="true"/>
+                    </div>
+                    <p:dataTable var="nivel" value="#{Nivel.lista}" reflow="true" widgetVar="TablaNivel" id="tablaNivel" selectionMode="single"
+                                 selection="#{Nivel.objetoNivel}" rowKey="#{nivel.idNivel}" class="TABLA" paginator="true" rows="7">
+                        <p:ajax event="rowSelect" listener="#{Nivel.onRowSelect}" update=":NivelForm:msgs,:ActualizarModal:actualizarNivelModal" oncomplete="PF('actualizarNivel').show()"/>
+                        <f:facet name="header">
+                            <h:outputText value="CONSULTA DE NIVEL DE PROCESO" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                            <p:inputText id="globalFilter" onkeyup="PF('TablaNivel').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                            <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                        </f:facet>
+
+                        <p:column headerText="nombre del Nivel de Proceso" filterBy="#{nivel.nombreNivel}">
+                            <h:outputText value="#{nivel.nombreNivel}"/>
+                        </p:column>
+                        <p:column headerText="estado del Nivel de Proceso" filterBy="#{nivel.estadoNivel}">
+                            <h:outputText value="Activo" rendered="#{nivel.estadoNivel == 'A'}"/>
+                            <h:outputText value="Inctivo" rendered="#{nivel.estadoNivel == 'I'}"/> </p:column>
+                        <p:column headerText="secuencia del Nivel de Proceso" filterBy="#{nivel.secuenciaNivel}">
+                            <h:outputText value="#{nivel.secuenciaNivel}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                    <br/>
+                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarNivel').show();" update=":NivelForm:msgs" class="botonNormal" rendered="#{Nivel.ingresar}"></p:commandButton>
+
+                </h:form>
+                <h:form id="IngresarModal">
+                    <p:dialog header="Insertar Nivel de Proceso" widgetVar="insertarNivel" modal="true" id="insertarNivelModal" responsive="true">
+                        #{Nivel.nuevoNivelObjeto()}                        
+                        <p:messages autoUpdate="true"/>                        
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+
+
+                            <h:outputText value="nombre del Nivel de Proceso"></h:outputText>
+                            <p:inputText required="true" label="nombre del Nivel de Proceso" value="#{Nivel.objetoNivelInsercion.nombreNivel}"/>
+                            <h:outputText value="secuencia del Nivel de Proceso"></h:outputText>
+
+                            <p:inputText required="true" label="nombre del Nivel de Proceso" value="#{Nivel.objetoNivelInsercion.secuenciaNivel}"/>
+
+                            <h:outputText value="Estado del Nivel de Proceso"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarEstado" value="#{Nivel.objetoNivelInsercion.estadoNivel}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+
+                        </p:panelGrid>                        
+                        <p:commandButton value="Ingresar" update=":NivelForm:tablaNivel,:IngresarModal:insertarNivelModal" actionListener="#{Nivel.instertarNivel()}" validateClient="true" class="botonNormal" />
+                    </p:dialog>
+                </h:form>
+                <h:form id="ActualizarModal">
+                    <p:dialog header="Actualizar Nivel de Proceso" widgetVar="actualizarNivel" modal="true" id="actualizarNivelModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            <h:outputText value="id del Nivel de Proceso"></h:outputText>
+                            <p:inputText required="true" label="nombre del Nivel de Proceso" value="#{Nivel.objetoNivel.idNivel}"/>
+                            <h:outputText value="nombre del Nivel de Proceso"></h:outputText>
+                            <p:inputText required="true" label="nombre del Nivel de Proceso" value="#{Nivel.objetoNivel.nombreNivel}"/>
+                            <h:outputText value="secuencia del Nivel de Proceso"></h:outputText>
+                            <p:inputText required="true" label="nombre del Nivel de Proceso" value="#{Nivel.objetoNivel.secuenciaNivel}"/>
+
+
+                            <h:outputText value="Estado del Nivel de Proceso"></h:outputText>
+                            <p:selectOneMenu id="desplegableActualizarEstado" value="#{Nivel.objetoNivel.estadoNivel}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Nivel de Proceso" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+                            <h:inputHidden value="#{Nivel.objetoNivel.idNivel}"></h:inputHidden>
+                        </p:panelGrid>
+                        <p:commandButton  value="Actualizar" update=":NivelForm:tablaNivel,:ActualizarModal:actualizarNivelModal,NivelForm:msgs" actionListener="#{Nivel.actualizarNivel()}" validateClient="true" class="botonNormal" rendered="#{Nivel.actualizar}"/>
+                        <p:commandButton value="Eliminar" update=":NivelForm:tablaNivel,:ActualizarModal:actualizarNivelModal,NivelForm:msgs" actionListener="#{Nivel.eliminarNivel()}" validateClient="true" class="botonNormal" rendered="#{Nivel.eliminar}"/>
+                    </p:dialog>
+                </h:form>
+
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>

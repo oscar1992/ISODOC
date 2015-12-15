@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/plantillas/PlantillaAdministracion.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form id="ProcesoForm">
+                    <div class="prueba" style="color: white; ">
+                        <p:growl id="msgs" showDetail="true" life="3000" autoUpdate="true"/>
+                    </div>
+                    <p:dataTable var="proceso" value="#{Proceso.lista}" reflow="true" widgetVar="TablaProceso" id="tablaProceso" selectionMode="single"
+                                 selection="#{Proceso.objetoProceso}" rowKey="#{proceso.idProceso}" class="TABLA" paginator="true" rows="7">
+                        <p:ajax event="rowSelect" listener="#{Proceso.onRowSelect}" update=":ProcesoForm:msgs,:ActualizarModal:actualizarProcesoModal" oncomplete="PF('actualizarProceso').show()"/>
+                        <f:facet name="header">
+                            <h:outputText value="CONSULTA DE PROCESOS" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                            <p:inputText id="globalFilter" onkeyup="PF('TablaProceso').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                            <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                        </f:facet>
+                        <p:column headerText="nombre del Proceso" filterBy="#{proceso.nombreProceso}">
+                            <h:outputText value="#{proceso.nombreProceso}"/>
+                        </p:column>
+                        <p:column headerText="nivel del Proceso" filterBy="#{proceso.nivelProceso}">
+                            <h:outputText value="#{proceso.nivelProceso.nombreNivel}"/>
+                            
+                        </p:column>
+                        <p:column headerText="asociado del Proceso" filterBy="#{proceso.asociadoProceso}">
+                            <h:outputText value="#{Proceso.nombreProceso(proceso.asociadoProceso)}"/>
+                        </p:column>
+                        <p:column headerText="estado del Proceso" filterBy="#{proceso.estadoProceso}">
+                            <h:outputText value="Activo" rendered="#{proceso.estadoProceso == 'A'}"/>
+                            <h:outputText value="Inctivo" rendered="#{proceso.estadoProceso == 'I'}"/> </p:column>
+
+                    </p:dataTable>
+                    <br/>
+                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarProceso').show();" update=":ProcesoForm:msgs" class="botonNormal" rendered="#{Proceso.ingresar}"></p:commandButton>
+
+                </h:form>
+                <h:form id="IngresarModal">
+                    <p:dialog header="Insertar Proceso" widgetVar="insertarProceso" modal="true" id="insertarProcesoModal" responsive="true">
+                        #{Proceso.nuevoProcesoObjeto()}                        
+                        <p:messages autoUpdate="true"/>                        
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            <h:outputText value="nombre del Proceso"></h:outputText>
+                            <p:inputText required="true" label="nombre del Proceso" value="#{Proceso.objetoProcesoInsercion.nombreProceso}"/>
+                            <h:outputText value="nivel del Proceso"></h:outputText>
+                            <p:selectOneMenu id="desplegableNivelProceso" value="#{Proceso.objetoProcesoInsercion.nivelProceso.idNivel}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione el nivel del Proceso" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaNivelProceso}"/>
+                            </p:selectOneMenu>
+                            <h:outputText value="asociado del Proceso"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarAsociado" value="#{Proceso.objetoProcesoInsercion.asociadoProceso}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Proceso" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaProcesoAsociado}"/>
+                            </p:selectOneMenu>
+                            <h:outputText value="Estado del Proceso"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarEstado" value="#{Proceso.objetoProcesoInsercion.estadoProceso}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+
+                        </p:panelGrid>                        
+                        <p:commandButton value="Ingresar" update=":ProcesoForm:tablaProceso,:IngresarModal:insertarProcesoModal" actionListener="#{Proceso.instertarProceso()}" validateClient="true" class="botonNormal" />
+                    </p:dialog>
+                </h:form>
+                <h:form id="ActualizarModal">
+                    <p:dialog header="Actualizar Proceso" widgetVar="actualizarProceso" modal="true" id="actualizarProcesoModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            <h:outputText value="id del Proceso"></h:outputText>
+
+                            <p:inputText required="true" label="nombre del Proceso" value="#{Proceso.objetoProceso.nombreProceso}"/>
+                            <h:outputText value="nivel del Proceso"></h:outputText>
+                            <p:selectOneMenu id="desplegableNivelProceso" value="#{Proceso.objetoProceso.nivelProceso.idNivel}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Proceso" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaNivelProceso}"/>
+                            </p:selectOneMenu>
+                            <h:outputText value="asociado del Proceso"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarAsociado" value="#{Proceso.objetoProceso.asociadoProceso}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Proceso" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaProcesoAsociado}"/>
+                            </p:selectOneMenu>
+                            <h:outputText value="Estado del Proceso"></h:outputText>
+                            <p:selectOneMenu id="desplegableActualizarEstado" value="#{Proceso.objetoProceso.estadoProceso}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Proceso" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+                            <h:inputHidden value="#{Proceso.objetoProceso.idProceso}"></h:inputHidden>
+                        </p:panelGrid>
+                        <p:commandButton  value="Actualizar" update=":ProcesoForm:tablaProceso,:ActualizarModal:actualizarProcesoModal,ProcesoForm:msgs" actionListener="#{Proceso.actualizarProceso()}" validateClient="true" class="botonNormal" rendered="#{Proceso.actualizar}"/>
+                        <p:commandButton value="Eliminar" update=":ProcesoForm:tablaProceso,:ActualizarModal:actualizarProcesoModal,ProcesoForm:msgs" actionListener="#{Proceso.eliminarProceso()}" validateClient="true" class="botonNormal" rendered="#{Proceso.eliminar}"/>
+                    </p:dialog>
+                </h:form>
+
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>

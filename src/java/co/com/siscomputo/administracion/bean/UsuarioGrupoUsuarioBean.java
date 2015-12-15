@@ -7,7 +7,7 @@ import co.com.siscomputo.endpoint.UsuarioGrupoUsuarioEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.ObjetoRetornaEntity;
 import co.com.siscomputo.endpoint.UsuarioEntity;
-import java.io.Serializable;
+import java.io.Serializable; 
 import java.util.ArrayList;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;

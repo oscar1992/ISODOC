@@ -5,21 +5,27 @@
  */
 package co.com.siscomputo.administracion.bean;
 
+import co.com.siscomputo.administracion.logic.AccionLogic;
 import co.com.siscomputo.administracion.logic.AreaLogic;
 import co.com.siscomputo.administracion.logic.DepartamentoLogic;
 import co.com.siscomputo.administracion.logic.MacroProcesosLogic;
+import co.com.siscomputo.administracion.logic.NivelLogic;
 import co.com.siscomputo.administracion.logic.PaisesLogic;
 import co.com.siscomputo.administracion.logic.PlantillaLogic;
+import co.com.siscomputo.administracion.logic.ProcesoLogic;
 import co.com.siscomputo.administracion.logic.ProcesosLogic;
 import co.com.siscomputo.administracion.logic.RolesLogic;
 import co.com.siscomputo.administracion.logic.SedesLogic;
 import co.com.siscomputo.administracion.logic.SubProcesosLogic;
 import co.com.siscomputo.administracion.logic.TiposDocumentalesLogic;
+import co.com.siscomputo.endpoint.AccionEntity;
 import co.com.siscomputo.endpoint.AreaEntity;
 import co.com.siscomputo.endpoint.DepartamentoEntity;
 import co.com.siscomputo.endpoint.MacroprocesosEntity;
+import co.com.siscomputo.endpoint.NivelEntity;
 import co.com.siscomputo.endpoint.PaisEntity;
 import co.com.siscomputo.endpoint.PlantillaEntity;
+import co.com.siscomputo.endpoint.ProcesoEntity;
 import co.com.siscomputo.endpoint.ProcesosEntity;
 import co.com.siscomputo.endpoint.RolesEntity;
 import co.com.siscomputo.endpoint.SedeEntity;
@@ -51,6 +57,10 @@ public class ListaAdministracionBean implements Serializable {
     private Map<String, String> listaGeneracionTipoDocumental;
     private Map<String, Integer> listaTipoDocumento;
     private Map<String, Integer> listaPlantillas;
+    private Map<String, Integer> listaNivelProceso;
+    private Map<String, Integer> listaProcesoAsociado;
+    private Map<String, Integer> listaAcciones;
+    private Map<String, Integer> listaProceso;
     private int seleccion;
     private Integer idMacroProceso;
     private Integer idProceso;
@@ -340,6 +350,79 @@ public class ListaAdministracionBean implements Serializable {
                 }
             }
             
+        }
+    }
+
+    public Map<String, Integer> getListaNivelProceso() {
+        iniciaroListaNivelProceso();
+        return listaNivelProceso;
+    }
+
+    public void setListaNivelProceso(Map<String, Integer> listaNivelProceso) {
+        this.listaNivelProceso = listaNivelProceso;
+    }
+    
+    public void iniciaroListaNivelProceso(){
+        listaNivelProceso=new HashMap<String, Integer>();
+        NivelLogic nivelLogic=new NivelLogic();
+        ArrayList<NivelEntity>listaNivelWS=nivelLogic.listaNivel();
+        for(NivelEntity nivel: listaNivelWS){            
+            listaNivelProceso.put(nivel.getNombreNivel(), nivel.getIdNivel());
+        }
+        
+    }
+
+    public Map<String, Integer> getListaProcesoAsociado() {
+        iniciarListaProcesoAsociado();
+        return listaProcesoAsociado;
+    }
+
+    public void setListaProcesoAsociado(Map<String, Integer> listaProcesoAsociado) {
+        this.listaProcesoAsociado = listaProcesoAsociado;
+    }
+    
+    public void iniciarListaProcesoAsociado(){
+        listaProcesoAsociado=new HashMap<String, Integer>();
+        ProcesoLogic procesoLogic=new ProcesoLogic();
+        ArrayList<ProcesoEntity>listaProcesoWS=procesoLogic.listaProceso();
+        for(ProcesoEntity proceso:listaProcesoWS){
+            listaProcesoAsociado.put(proceso.getNombreProceso(), proceso.getIdProceso());
+        }
+    }
+
+    public Map<String, Integer> getListaAcciones() {
+        iniciarlistaAcciones();
+        return listaAcciones;
+    }
+
+    public void setListaAcciones(Map<String, Integer> listaAcciones) {
+        this.listaAcciones = listaAcciones;
+    }
+    
+    public void iniciarlistaAcciones(){
+        listaAcciones=new HashMap<String, Integer>();
+        AccionLogic accionLogic=new AccionLogic();
+        ArrayList<AccionEntity>listaAccionesWS=accionLogic.listaAccion();
+        for(AccionEntity accion:listaAccionesWS){
+            listaAcciones.put(accion.getNombreAccion(), accion.getIdAccion());
+        }
+    }
+    
+    public Map<String, Integer> getListaProceso() {
+        iniciarListaProceso();
+        return listaProceso;
+    }
+
+    public void setListaProceso(Map<String, Integer> listaProceso) {
+        this.listaProceso = listaProceso;
+    }
+    
+    public void iniciarListaProceso(){
+        listaProceso=new HashMap<String, Integer>();
+        ProcesoLogic procesoLogic=new ProcesoLogic();
+        ArrayList<ProcesoEntity>listaProcesoWS=procesoLogic.listaProceso();
+        for(ProcesoEntity proceso:listaProcesoWS){
+            listaProceso.put(proceso.getNombreProceso(), proceso.getIdProceso());
         }
     }
 }

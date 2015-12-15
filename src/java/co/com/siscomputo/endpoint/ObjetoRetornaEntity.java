@@ -40,10 +40,13 @@ import javax.xml.bind.annotation.XmlType;
     UsuarioGrupoUsuarioEntity.class,
     GrupoUsuariosEntity.class,
     AccionEntity.class,
+    NivelEntity.class,
+    GrupoProcesoEntity.class,
     MetodoProteccionEntity.class,
     DisposicionesEntity.class,
     TipoControlDistribucionEntity.class,
     MetodoRecuperacionEntity.class,
+    ProcesoEntity.class,
     PlantillaEntity.class,
     ModificadorEntity.class
 })

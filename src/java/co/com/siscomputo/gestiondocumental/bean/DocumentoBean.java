@@ -1,7 +1,9 @@
 package co.com.siscomputo.gestiondocumental.bean;
 
 import co.com.siscomputo.administracion.logic.MacroProcesosLogic;
+import co.com.siscomputo.administracion.logic.NivelLogic;
 import co.com.siscomputo.administracion.logic.PlantillaLogic;
+import co.com.siscomputo.administracion.logic.ProcesoLogic;
 import co.com.siscomputo.administracion.logic.ProcesosLogic;
 import co.com.siscomputo.administracion.logic.SubProcesosLogic;
 import co.com.siscomputo.administracion.logic.TipoAlmacenamientoLogic;
@@ -10,7 +12,9 @@ import co.com.siscomputo.gestiondocumental.logic.DocumentoLogic;
 import co.com.siscomputo.endpoint.DocumentoEntity;
 import co.com.siscomputo.endpoint.MacroprocesosEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
+import co.com.siscomputo.endpoint.NivelEntity;
 import co.com.siscomputo.endpoint.PlantillaEntity;
+import co.com.siscomputo.endpoint.ProcesoEntity;
 import co.com.siscomputo.endpoint.ProcesosEntity;
 import co.com.siscomputo.endpoint.SubprocesoEntity;
 import co.com.siscomputo.endpoint.TiposDocumentalesEntity;
@@ -37,6 +41,9 @@ public class DocumentoBean implements Serializable {
     private ArrayList<DocumentoEntity> listaFiltro;
     private DocumentoEntity objetoDocumento;
     private DocumentoEntity objetoDocumentoInsercion;
+    private ArrayList<ArrayList<ProcesoEntity>> listaProcesos;
+    private ArrayList<NivelEntity> listaNivel;
+    private Integer idProceso;
     private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
@@ -71,6 +78,30 @@ public class DocumentoBean implements Serializable {
 
     public void setObjetoDocumentoInsercion(DocumentoEntity objetoDocumentoInsercion) {
         this.objetoDocumentoInsercion = objetoDocumentoInsercion;
+    }
+
+    public ArrayList<ArrayList<ProcesoEntity>> getListaProcesos() {
+        return listaProcesos;
+    }
+
+    public void setListaProcesos(ArrayList<ArrayList<ProcesoEntity>> listaProcesos) {
+        this.listaProcesos = listaProcesos;
+    }
+
+    public ArrayList<NivelEntity> getListaNivel() {
+        return listaNivel;
+    }
+
+    public void setListaNivel(ArrayList<NivelEntity> listaNivel) {
+        this.listaNivel = listaNivel;
+    }
+
+    public Integer getIdProceso() {
+        return idProceso;
+    }
+
+    public void setIdProceso(Integer idProceso) {
+        this.idProceso = idProceso;
     }
 
     public boolean isIngresar() {
@@ -116,11 +147,32 @@ public class DocumentoBean implements Serializable {
         try {
             DocumentoLogic documentoLogic = new DocumentoLogic();
             lista = documentoLogic.listaDocumento();
+            NivelLogic nivelLogic = new NivelLogic();
+            listaNivel = nivelLogic.listaNivel();
+            ArrayList<ProcesoEntity> listaProcesosTodos = new ArrayList<>();
+            ProcesoLogic procesoLogic = new ProcesoLogic();
+            listaProcesosTodos = procesoLogic.listaProceso();
+            listaProcesos=new ArrayList<>();
+            for (NivelEntity nivel : listaNivel) {
+                ArrayList<ProcesoEntity> lista = new ArrayList<>();
+                for (ProcesoEntity proceso : listaProcesosTodos) {
+                    if (nivel.getSecuenciaNivel() == proceso.getNivelProceso().getSecuenciaNivel()) {
+                        System.out.println("Proceso: "+proceso.getNombreProceso()+" - "+proceso.getNivelProceso().getSecuenciaNivel());
+                        lista.add(proceso);
+                    }
+                }
+                listaProcesos.add(lista);
+            }
+            System.out.println("list: "+listaProcesos.size());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
+    
+    public ArrayList<ProcesoEntity> listasProcesos(int nivel){
+        
+    }
+    
     /**
      * Método que permite insertar un Documento nuevo
      */
