@@ -49,6 +49,7 @@ public class DocumentoBean implements Serializable {
     private ArrayList<ArrayList<ProcesoEntity>> listaProcesos;
     private ArrayList<NivelEntity> listaNivel;
     private ArbolProcesoEntity arbolaux;
+    private ArbolProcesoEntity arbol2;
     private TreeNode raiz;
     private Integer tope;
     private boolean ingresar;
@@ -127,6 +128,14 @@ public class DocumentoBean implements Serializable {
         this.arbolaux = arbolaux;
     }
 
+    public ArbolProcesoEntity getArbol2() {
+        return arbol2;
+    }
+
+    public void setArbol2(ArbolProcesoEntity arbol2) {
+        this.arbol2 = arbol2;
+    }
+
     public boolean isIngresar() {
         return ingresar;
     }
@@ -176,6 +185,7 @@ public class DocumentoBean implements Serializable {
             ProcesoLogic procesoLogic = new ProcesoLogic();
             listaProcesosTodos = procesoLogic.listaProceso();
             listaProcesos = new ArrayList<>();
+
             Collections.sort(listaNivel, new ComparadorNivel());
             for (NivelEntity nivel : listaNivel) {
                 ArrayList<ProcesoEntity> lista = new ArrayList<>();
@@ -187,6 +197,7 @@ public class DocumentoBean implements Serializable {
                 }
                 listaProcesos.add(lista);
             }
+            armaArbol(listaProcesosTodos);
             iniciaArbolProcesos(listaProcesosTodos);
 
         } catch (Exception e) {
@@ -196,28 +207,26 @@ public class DocumentoBean implements Serializable {
 
     public void iniciaArbolProcesos(ArrayList<ProcesoEntity> listaProcesosTodos) {
         ArrayList<ArbolProcesoEntity> arbol = new ArrayList<>();
-        
-        
         for (ProcesoEntity proceso2 : listaProcesos.get(0)) {
             tope = listaNivel.size();
             ArbolProcesoEntity arbolObjeto = new ArbolProcesoEntity();
             arbolObjeto.setIdProceso(proceso2.getIdProceso());
             arbolObjeto.setNombreProceso(proceso2.getNombreProceso());
-            arbolObjeto.setListaProcesos(hijos(listaProcesosTodos, proceso2));
+            //arbolObjeto.setListaProcesos(hijos(listaProcesosTodos, proceso2));
             arbol.add(arbolObjeto);
         }
         raiz = new DefaultTreeNode("raiz", null);
         TreeNode[] nodos = new TreeNode[arbol.size()];
         int i = 0;
-        
+
         for (ArbolProcesoEntity arbolo : arbol) {
-            nodos[i] = new DefaultTreeNode(arbolo.getNombreProceso(), raiz);
+            //nodos[i] = new DefaultTreeNode(arbolo.getNombreProceso(), raiz);
             TreeNode[] nodos2 = new TreeNode[arbolo.getListaProcesos().size()];
             int j = 0;
             //for (ArbolProcesoEntity proceso4 : arbolo.getListaProcesos()) {
             if (arbolo.getListaProcesos().isEmpty()) {
             } else {
-                addNodos(arbolo.getListaProcesos(), nodos[i], j);
+                //addNodos(arbolo.getListaProcesos(), nodos[i], j);
             }
             //}
             j = 0;
@@ -229,15 +238,17 @@ public class DocumentoBean implements Serializable {
     public void addNodos(ArrayList<ArbolProcesoEntity> listaProceso, TreeNode nodoi, int j) {
         TreeNode[] nodos = new TreeNode[listaProceso.size()];
         int j2 = 0;
-        int tamalista=0;
+        int tamalista = 0;
         for (ArbolProcesoEntity proceso : listaProceso) {
-            System.out.println("PROC: "+proceso.getNombreProceso());
+            System.out.println("PROC: " + proceso.getNombreProceso());
             nodos[j] = new DefaultTreeNode(proceso.getNombreProceso(), nodoi);
-            ArbolProcesoEntity arbol2 = proceso;
-            if (arbol2.getListaProcesos().isEmpty()||arbol2.getListaProcesos()==null||tamalista>=listaProceso.size()) {
-                System.out.println("Sale: "+tamalista);
+            arbol2 = new ArbolProcesoEntity();
+            arbol2 = proceso;
+            if (arbol2.getListaProcesos().isEmpty() || arbol2.getListaProcesos() == null || tamalista >= listaProceso.size()) {
+                System.out.println("Sale: " + tamalista);
             } else {
-                addNodos(arbol2.getListaProcesos(), nodos[j], j2);                
+                addNodos(arbol2.getListaProcesos(), nodos[j], j2);
+                System.out.println("LLEGA??=");
             }
             tamalista++;
             j2++;
@@ -256,23 +267,23 @@ public class DocumentoBean implements Serializable {
      */
     public ArrayList<ArbolProcesoEntity> hijos(ArrayList<ProcesoEntity> listaProcesosTodos, ProcesoEntity procesoP) {
         ArrayList<ArbolProcesoEntity> retorna = new ArrayList<>();
-        arbolaux=new ArbolProcesoEntity();
+        arbolaux = new ArbolProcesoEntity();
         ArrayList<ArbolProcesoEntity> listaN = new ArrayList<>();
         for (ProcesoEntity proceso : listaProcesosTodos) {
             if (proceso.getAsociadoProceso() == procesoP.getIdProceso()) {
                 ProcesoEntity proceso2 = proceso;
-                if (procesoP.getNivelProceso().getSecuenciaNivel()<=tope) {
+                if (procesoP.getNivelProceso().getSecuenciaNivel() <= tope) {
                     System.out.println("tope: " + tope + " proc: " + procesoP.getNombreProceso());
-                                      
-                    listaN = hijos(listaProcesosTodos, proceso2);                    
+
+                    listaN = hijos(listaProcesosTodos, proceso2);
                     arbolaux.setListaProcesos(listaN);
-                    System.out.println("ListaN: "+arbolaux.getListaProcesos().size());
+                    System.out.println("ListaN: " + arbolaux.getListaProcesos().size());
                 }
                 System.out.println("Proc: " + proceso.getNombreProceso() + " secu: " + procesoP.getNivelProceso().getSecuenciaNivel());
                 arbolaux.setNombreProceso(proceso.getNombreProceso());
                 arbolaux.setIdProceso(proceso.getIdProceso());
                 System.out.println("///////////////");
-                
+
                 retorna.add(arbolaux);
                 for (ArbolProcesoEntity ret : retorna) {
                     System.out.println("ProcX: " + ret.getNombreProceso() + " - " + ret.getIdProceso());
@@ -283,6 +294,42 @@ public class DocumentoBean implements Serializable {
             System.out.println("Proc: " + ret.getNombreProceso() + " - " + ret.getIdProceso());
         }
         return retorna;
+    }
+
+    public void armaArbol(ArrayList<ProcesoEntity> listaProcesoTodos) {
+        
+        for(int i=0;i<listaProcesos.size();i++){
+            
+        }
+        for (ArrayList<ProcesoEntity> listas : listaProcesos) {
+            for (ProcesoEntity proc : listas) {
+                boolean sigue = false;
+                do {
+                    Object[] recibe = procesoPorId(proc.getIdProceso(), listaProcesoTodos);
+                    sigue = (boolean) recibe[1];
+                    ArrayList<ProcesoEntity> subLista = (ArrayList<ProcesoEntity>) recibe[0];
+                } while (sigue);
+
+                System.out.println("Proc: " + proc.getNombreProceso() + " - " + proc.getNivelProceso().getSecuenciaNivel() + " id- " + proc.getIdProceso() + " asoc- " + proc.getAsociadoProceso());
+
+            }
+            System.out.println("/////////");
+        }
+
+    }
+
+    public Object[] procesoPorId(int idProceso, ArrayList<ProcesoEntity> listaProcesoTodos) {
+        ArrayList<ProcesoEntity> retorna = new ArrayList<>();
+        Object[] devuelve = new Object[2];
+        for (ProcesoEntity proceso : listaProcesoTodos) {
+            if (proceso.getAsociadoProceso() == idProceso) {
+
+                retorna.add(proceso);
+            }
+        }
+        devuelve[0] = retorna;
+        devuelve[1] = true;
+        return devuelve;
     }
 
     /**
