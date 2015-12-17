@@ -6,7 +6,6 @@ import co.com.siscomputo.administracion.logic.PlantillaLogic;
 import co.com.siscomputo.administracion.logic.ProcesoLogic;
 import co.com.siscomputo.administracion.logic.ProcesosLogic;
 import co.com.siscomputo.administracion.logic.SubProcesosLogic;
-import co.com.siscomputo.administracion.logic.TipoAlmacenamientoLogic;
 import co.com.siscomputo.administracion.logic.TiposDocumentalesLogic;
 import co.com.siscomputo.gestiondocumental.logic.DocumentoLogic;
 import co.com.siscomputo.endpoint.DocumentoEntity;
@@ -18,8 +17,12 @@ import co.com.siscomputo.endpoint.ProcesoEntity;
 import co.com.siscomputo.endpoint.ProcesosEntity;
 import co.com.siscomputo.endpoint.SubprocesoEntity;
 import co.com.siscomputo.endpoint.TiposDocumentalesEntity;
+import co.com.siscomputo.gestiondocumental.entities.ArbolProcesoEntity;
+import co.com.siscomputo.utilidades.ComparadorNivel;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -28,6 +31,8 @@ import javax.faces.bean.ViewScoped;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import javax.faces.context.FacesContext;
+import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.model.TreeNode;
 
 /**
  *
@@ -43,7 +48,9 @@ public class DocumentoBean implements Serializable {
     private DocumentoEntity objetoDocumentoInsercion;
     private ArrayList<ArrayList<ProcesoEntity>> listaProcesos;
     private ArrayList<NivelEntity> listaNivel;
-    private Integer idProceso;
+    private ArbolProcesoEntity arbolaux;
+    private TreeNode raiz;
+    private Integer tope;
     private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
@@ -96,12 +103,28 @@ public class DocumentoBean implements Serializable {
         this.listaNivel = listaNivel;
     }
 
-    public Integer getIdProceso() {
-        return idProceso;
+    public TreeNode getRaiz() {
+        return raiz;
     }
 
-    public void setIdProceso(Integer idProceso) {
-        this.idProceso = idProceso;
+    public void setRaiz(TreeNode raiz) {
+        this.raiz = raiz;
+    }
+
+    public Integer getTope() {
+        return tope;
+    }
+
+    public void setTope(Integer tope) {
+        this.tope = tope;
+    }
+
+    public ArbolProcesoEntity getArbolaux() {
+        return arbolaux;
+    }
+
+    public void setArbolaux(ArbolProcesoEntity arbolaux) {
+        this.arbolaux = arbolaux;
     }
 
     public boolean isIngresar() {
@@ -152,27 +175,116 @@ public class DocumentoBean implements Serializable {
             ArrayList<ProcesoEntity> listaProcesosTodos = new ArrayList<>();
             ProcesoLogic procesoLogic = new ProcesoLogic();
             listaProcesosTodos = procesoLogic.listaProceso();
-            listaProcesos=new ArrayList<>();
+            listaProcesos = new ArrayList<>();
+            Collections.sort(listaNivel, new ComparadorNivel());
             for (NivelEntity nivel : listaNivel) {
                 ArrayList<ProcesoEntity> lista = new ArrayList<>();
                 for (ProcesoEntity proceso : listaProcesosTodos) {
                     if (nivel.getSecuenciaNivel() == proceso.getNivelProceso().getSecuenciaNivel()) {
-                        System.out.println("Proceso: "+proceso.getNombreProceso()+" - "+proceso.getNivelProceso().getSecuenciaNivel());
+                        //System.out.println("Proceso: " + proceso.getNombreProceso() + " - " + proceso.getNivelProceso().getSecuenciaNivel());
                         lista.add(proceso);
                     }
                 }
                 listaProcesos.add(lista);
             }
-            System.out.println("list: "+listaProcesos.size());
+            iniciaArbolProcesos(listaProcesosTodos);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
-    public ArrayList<ProcesoEntity> listasProcesos(int nivel){
+
+    public void iniciaArbolProcesos(ArrayList<ProcesoEntity> listaProcesosTodos) {
+        ArrayList<ArbolProcesoEntity> arbol = new ArrayList<>();
         
+        
+        for (ProcesoEntity proceso2 : listaProcesos.get(0)) {
+            tope = listaNivel.size();
+            ArbolProcesoEntity arbolObjeto = new ArbolProcesoEntity();
+            arbolObjeto.setIdProceso(proceso2.getIdProceso());
+            arbolObjeto.setNombreProceso(proceso2.getNombreProceso());
+            arbolObjeto.setListaProcesos(hijos(listaProcesosTodos, proceso2));
+            arbol.add(arbolObjeto);
+        }
+        raiz = new DefaultTreeNode("raiz", null);
+        TreeNode[] nodos = new TreeNode[arbol.size()];
+        int i = 0;
+        
+        for (ArbolProcesoEntity arbolo : arbol) {
+            nodos[i] = new DefaultTreeNode(arbolo.getNombreProceso(), raiz);
+            TreeNode[] nodos2 = new TreeNode[arbolo.getListaProcesos().size()];
+            int j = 0;
+            //for (ArbolProcesoEntity proceso4 : arbolo.getListaProcesos()) {
+            if (arbolo.getListaProcesos().isEmpty()) {
+            } else {
+                addNodos(arbolo.getListaProcesos(), nodos[i], j);
+            }
+            //}
+            j = 0;
+            i++;
+
+        }
     }
-    
+
+    public void addNodos(ArrayList<ArbolProcesoEntity> listaProceso, TreeNode nodoi, int j) {
+        TreeNode[] nodos = new TreeNode[listaProceso.size()];
+        int j2 = 0;
+        int tamalista=0;
+        for (ArbolProcesoEntity proceso : listaProceso) {
+            System.out.println("PROC: "+proceso.getNombreProceso());
+            nodos[j] = new DefaultTreeNode(proceso.getNombreProceso(), nodoi);
+            ArbolProcesoEntity arbol2 = proceso;
+            if (arbol2.getListaProcesos().isEmpty()||arbol2.getListaProcesos()==null||tamalista>=listaProceso.size()) {
+                System.out.println("Sale: "+tamalista);
+            } else {
+                addNodos(arbol2.getListaProcesos(), nodos[j], j2);                
+            }
+            tamalista++;
+            j2++;
+        }
+        System.out.println("Fin Ciclo");
+
+    }
+
+    /**
+     * Método que añade los procesod de un nivel inferior a sus padres a traves
+     * del objeto de manejo de la clase arbolproceso
+     *
+     * @param listaProcesosTodos
+     * @param procesoP
+     * @return
+     */
+    public ArrayList<ArbolProcesoEntity> hijos(ArrayList<ProcesoEntity> listaProcesosTodos, ProcesoEntity procesoP) {
+        ArrayList<ArbolProcesoEntity> retorna = new ArrayList<>();
+        arbolaux=new ArbolProcesoEntity();
+        ArrayList<ArbolProcesoEntity> listaN = new ArrayList<>();
+        for (ProcesoEntity proceso : listaProcesosTodos) {
+            if (proceso.getAsociadoProceso() == procesoP.getIdProceso()) {
+                ProcesoEntity proceso2 = proceso;
+                if (procesoP.getNivelProceso().getSecuenciaNivel()<=tope) {
+                    System.out.println("tope: " + tope + " proc: " + procesoP.getNombreProceso());
+                                      
+                    listaN = hijos(listaProcesosTodos, proceso2);                    
+                    arbolaux.setListaProcesos(listaN);
+                    System.out.println("ListaN: "+arbolaux.getListaProcesos().size());
+                }
+                System.out.println("Proc: " + proceso.getNombreProceso() + " secu: " + procesoP.getNivelProceso().getSecuenciaNivel());
+                arbolaux.setNombreProceso(proceso.getNombreProceso());
+                arbolaux.setIdProceso(proceso.getIdProceso());
+                System.out.println("///////////////");
+                
+                retorna.add(arbolaux);
+                for (ArbolProcesoEntity ret : retorna) {
+                    System.out.println("ProcX: " + ret.getNombreProceso() + " - " + ret.getIdProceso());
+                }
+            }
+        }
+        for (ArbolProcesoEntity ret : retorna) {
+            System.out.println("Proc: " + ret.getNombreProceso() + " - " + ret.getIdProceso());
+        }
+        return retorna;
+    }
+
     /**
      * Método que permite insertar un Documento nuevo
      */
@@ -350,7 +462,7 @@ public class DocumentoBean implements Serializable {
             for (MenuPermisosEntity nivel1 : permisoObj.getSubNivel()) {
                 for (MenuPermisosEntity nivel2 : nivel1.getSubNivel()) {
                     int idPer = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idPermiso");
-                    System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
+                    //System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
                     if (idPer == nivel2.getAsociadoMenu()) {
                         switch (nivel2.getNombrePermiso()) {
                             case "insert":

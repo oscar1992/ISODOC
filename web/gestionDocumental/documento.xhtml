@@ -43,7 +43,7 @@
 
                     </p:dataTable>
                     <br/>
-                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarDocumento').show();" update=":DocumentoForm:msgs" class="botonNormal" rendered="#{Documento.ingresar}"></p:commandButton>
+                    <!--<p:commandButton value="Insertar" type="button" onclick="PF('insertarDocumento').show();" update=":DocumentoForm:msgs" class="botonNormal" rendered="#{Documento.ingresar}"></p:commandButton>-->
 
                 </h:form>
                 <h:form id="IngresarModal">
@@ -98,29 +98,11 @@
                             <f:selectItems value="#{ListaAdministracionBean.listaSubProcesos}"/>
                         </p:selectOneMenu>   
                     </p:panelGrid>    
-                    <p:panelGrid class="TABLA">
-                        <f:facet name="header">
-                            <p:row>
-                                <p:column colspan="4">
-                                    Niveles de Procesos del sistema
-                                </p:column>
-                            </p:row>
-                        </f:facet>    
-                        <ui:repeat value="#{Documento.listaNivel}" var="nivel">
-                            <p:row>
-                                <p:column>
-                                    <h:outputText value="#{nivel.nombreNivel}"></h:outputText>
-                                </p:column>
-                                <p:column>
-                                    <p:selectOneMenu id="desplegableIngresarSubproceso" value="#{Documento.idProceso}" style="width: 150px;">
-                                        <f:selectItem itemLabel="Selecione Un Proceso" itemValue="" noSelectionOption="true"/>
-                                        <f:selectItems value="#{Documento.listaProcesos.get(iterator).getNombreProceso()}"/>
-                                    </p:selectOneMenu>
-                                </p:column>
-                            </p:row>
-                        </ui:repeat>
-                    </p:panelGrid>´
-
+                    <p:tree value="#{Documento.raiz}" var="nodo">
+                        <p:treeNode>
+                            <h:outputText value="#{nodo}"/>
+                        </p:treeNode>
+                    </p:tree>
                     <p:commandButton value="Asignar Usuarios" update=":DocumentoForm:tablaDocumento" actionListener="#{DocumentoProceso.evalua(Documento.objetoDocumentoInsercion)}" validateClient="true" class="botonNormal" />
                     <p:panelGrid class="TABLA" id="asignados">
                         <f:facet name="header">

@@ -22,7 +22,8 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "Proceso")
 @ViewScoped
-public class ProcesoBean implements Serializable{
+public class ProcesoBean implements Serializable {
+
     private ArrayList<ProcesoEntity> lista;
     private ArrayList<ProcesoEntity> listaFiltro;
     private ProcesoEntity objetoProceso;
@@ -95,156 +96,179 @@ public class ProcesoBean implements Serializable{
     public void setEliminar(boolean eliminar) {
         this.eliminar = eliminar;
     }
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         consultarProceso();
         permisos();
     }
+
     public ProcesoBean() {
         nuevoProcesoObjeto();
     }
+
     /**
      * Método que trae una lista de Procesos
      */
-    public void consultarProceso(){
+    public void consultarProceso() {
         try {
-            ProcesoLogic procesoLogic=new ProcesoLogic();
-            lista=procesoLogic.listaProceso();
+            ProcesoLogic procesoLogic = new ProcesoLogic();
+            lista = procesoLogic.listaProceso();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Método que permite insertar un Procesos nuevo
      */
-    public void instertarProceso(){
+    public void instertarProceso() {
         try {
-            ProcesoLogic procesoLogic=new ProcesoLogic();
-            ProcesoEntity procesoEntity=procesoLogic.insertarProceso(objetoProcesoInsercion);
-            System.out.println("-"+objetoProcesoInsercion.getNivelProceso());
-            FacesMessage msg=null;
-            if(procesoEntity!=null){
-                msg=new FacesMessage("", "inserción de Procesos correcto");
+            ProcesoLogic procesoLogic = new ProcesoLogic();
+            ProcesoEntity procesoEntity = procesoLogic.insertarProceso(objetoProcesoInsercion);
+            System.out.println("-" + objetoProcesoInsercion.getNivelProceso());
+            FacesMessage msg = null;
+            if (procesoEntity != null) {
+                msg = new FacesMessage("", "inserción de Procesos correcto");
                 adicionarMetodoPtoteccionLista(procesoEntity);
-            }else{
-                msg=new FacesMessage("", "inserción de Procesos incorrecto");
+            } else {
+                msg = new FacesMessage("", "inserción de Procesos incorrecto");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Método que añade un Procesos visualmente
-     * @param objetoProceso 
+     *
+     * @param objetoProceso
      */
     private void adicionarMetodoPtoteccionLista(ProcesoEntity objetoProceso) {
+        NivelLogic nivelLogic = new NivelLogic();
+        ArrayList<NivelEntity> listaNiveles = nivelLogic.listaNivel();
+        NivelEntity nivelEntity = new NivelEntity();
+        for (NivelEntity nivel : listaNiveles) {
+            if (nivel.getIdNivel() == objetoProceso.getNivelProceso().getIdNivel()) {
+                nivelEntity = nivel;
+            }
+        }
+        objetoProceso.setNivelProceso(nivelEntity);
         lista.add(objetoProceso);
     }
-/**
+
+    /**
      * Método que permite actualizar un Procesos
      */
-    public void actualizarProceso(){
-        ProcesoLogic metodoRecuperacionLogic=new ProcesoLogic();
-        String valida=metodoRecuperacionLogic.actualizarProceso(objetoProceso);
-        FacesMessage msg=null;
-        if("Ok".equalsIgnoreCase(valida)){
-            msg=new FacesMessage("", "actualización de Procesos correcto");
+    public void actualizarProceso() {
+        ProcesoLogic metodoRecuperacionLogic = new ProcesoLogic();
+        String valida = metodoRecuperacionLogic.actualizarProceso(objetoProceso);
+        FacesMessage msg = null;
+        if ("Ok".equalsIgnoreCase(valida)) {
+            msg = new FacesMessage("", "actualización de Procesos correcto");
             actualizarProcesoLista(objetoProceso);
-        }else{
-            msg=new FacesMessage("", "actualización de Procesos incorrecto");
+        } else {
+            msg = new FacesMessage("", "actualización de Procesos incorrecto");
         }
         nuevoProcesoObjeto();
         RequestContext.getCurrentInstance().execute("PF('actualizarProceso').hide()");
     }
+
     /**
      * Método que actualiza visualmente la lista de Procesos
-     * @param objetoProceso 
+     *
+     * @param objetoProceso
      */
     private void actualizarProcesoLista(ProcesoEntity objetoProceso) {
         try {
-            ArrayList<ProcesoEntity>listaaux=new ArrayList<>();
-            if(lista!=null){
-                for(ProcesoEntity item:lista){
-                    int v1=objetoProceso.getIdProceso();
-                    int v2=item.getIdProceso();
-                    if(v1==v2){
-                        NivelLogic nivelLogic=new NivelLogic();
-                        ArrayList<NivelEntity>listaNiveles=nivelLogic.listaNivel();
-                        NivelEntity nivelEntity=new NivelEntity();
-                        for(NivelEntity nivel: listaNiveles){
-                            if(nivel.getIdNivel()==objetoProceso.getNivelProceso().getIdNivel()){
-                                nivelEntity=nivel;
+            ArrayList<ProcesoEntity> listaaux = new ArrayList<>();
+            if (lista != null) {
+                for (ProcesoEntity item : lista) {
+                    int v1 = objetoProceso.getIdProceso();
+                    int v2 = item.getIdProceso();
+                    if (v1 == v2) {
+                        NivelLogic nivelLogic = new NivelLogic();
+                        ArrayList<NivelEntity> listaNiveles = nivelLogic.listaNivel();
+                        NivelEntity nivelEntity = new NivelEntity();
+                        for (NivelEntity nivel : listaNiveles) {
+                            if (nivel.getIdNivel() == objetoProceso.getNivelProceso().getIdNivel()) {
+                                nivelEntity = nivel;
                             }
                         }
                         objetoProceso.setNivelProceso(nivelEntity);
                         listaaux.add(objetoProceso);
-                    }else{
+                    } else {
                         listaaux.add(item);
                     }
                 }
             }
-            this.lista=new ArrayList<>();
-            this.lista=listaaux;
+            this.lista = new ArrayList<>();
+            this.lista = listaaux;
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Método que se invoca al seleccionar una fila de la tabla
-     * @param event 
+     *
+     * @param event
      */
-    public void onRowSelect(SelectEvent event){
-        objetoProceso=(ProcesoEntity)event.getObject();
+    public void onRowSelect(SelectEvent event) {
+        objetoProceso = (ProcesoEntity) event.getObject();
     }
+
     /**
-    Método que elimina un Procesos
-    */
-    public void eliminarProceso(){
-        ProcesoLogic metodoRecuperacionLogic=new ProcesoLogic();
+     * Método que elimina un Procesos
+     */
+    public void eliminarProceso() {
+        ProcesoLogic metodoRecuperacionLogic = new ProcesoLogic();
         objetoProceso.setEstadoProceso("E");
         metodoRecuperacionLogic.actualizarProceso(objetoProceso);
         eliminarProcesoLista(objetoProceso);
         RequestContext.getCurrentInstance().execute("PF('actualizarProceso').hide()");
         nuevoProcesoObjeto();
     }
+
     /**
      * Método que elimina visualmente un objeto de la lista
-     * @param objetoProceso 
+     *
+     * @param objetoProceso
      */
     private void eliminarProcesoLista(ProcesoEntity objetoProceso) {
-        Iterator itr=lista.iterator();
-        while(itr.hasNext()){
-            ProcesoEntity metodoRecuperacionEntity=(ProcesoEntity) itr.next();
-            if(metodoRecuperacionEntity.getIdProceso()==objetoProceso.getIdProceso()){
+        Iterator itr = lista.iterator();
+        while (itr.hasNext()) {
+            ProcesoEntity metodoRecuperacionEntity = (ProcesoEntity) itr.next();
+            if (metodoRecuperacionEntity.getIdProceso() == objetoProceso.getIdProceso()) {
                 itr.remove();
             }
         }
     }
+
     /**
      * Método que reinicia el objeto Procesos
      */
     public void nuevoProcesoObjeto() {
-        objetoProceso=new ProcesoEntity();
-        objetoProcesoInsercion=new ProcesoEntity();
-        NivelEntity nivel=new NivelEntity();
+        objetoProceso = new ProcesoEntity();
+        objetoProcesoInsercion = new ProcesoEntity();
+        NivelEntity nivel = new NivelEntity();
         nivel.setIdNivel(-1);
         objetoProceso.setNivelProceso(nivel);
         objetoProcesoInsercion.setNivelProceso(nivel);
     }
-    
+
     /**
      * Método que cambia el id por el nombre de un proceso
-     * @param idProceso 
+     *
+     * @param idProceso
      */
-    public String nombreProceso(int idProceso){        
-        ProcesoLogic procesoLogic=new ProcesoLogic();
-        System.out.println("pp: "+idProceso);
-        nombreAsociado=procesoLogic.procesoPorId(idProceso).getNombreProceso();
+    public String nombreProceso(int idProceso) {
+        ProcesoLogic procesoLogic = new ProcesoLogic();
+        System.out.println("pp: " + idProceso);
+        nombreAsociado = procesoLogic.procesoPorId(idProceso).getNombreProceso();
         return nombreAsociado;
     }
-    
-    
+
     /**
      * Método que evalua los accesos al formulario
      */
@@ -257,7 +281,7 @@ public class ProcesoBean implements Serializable{
             for (MenuPermisosEntity nivel1 : permisoObj.getSubNivel()) {
                 for (MenuPermisosEntity nivel2 : nivel1.getSubNivel()) {
                     int idPer = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idPermiso");
-                    
+
                     if (idPer == nivel2.getAsociadoMenu()) {
                         switch (nivel2.getNombrePermiso()) {
                             case "insert":
@@ -275,4 +299,4 @@ public class ProcesoBean implements Serializable{
             }
         }
     }
-    }
+}
