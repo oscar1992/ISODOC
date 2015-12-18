@@ -54,7 +54,7 @@
 
 
                         <h:outputText value="titulo del Documento"></h:outputText>
-                        <p:inputText required="true" label="nombre del Documento" value="#{Documento.objetoDocumentoInsercion.tituloDocumento}"/>
+                        <p:inputText required="false" label="nombre del Documento" value="#{Documento.objetoDocumentoInsercion.tituloDocumento}"/>
 
                         <h:outputText value="tipoDocumental del Documento"></h:outputText>                            
                         <p:selectOneMenu id="desplegableIngresarTipoD" value="#{Documento.objetoDocumentoInsercion.tipoDocumentalDocumento.idTipoDocumental}" style="width: 150px;">
@@ -69,7 +69,7 @@
                         </p:selectOneMenu>
 
                         <h:outputText value="version del Documento"></h:outputText>
-                        <p:inputText required="true" label="nombre del Documento" value="#{Documento.objetoDocumentoInsercion.versionDocumento}"/>
+                        <p:inputText required="flase" label="nombre del Documento" value="#{Documento.objetoDocumentoInsercion.versionDocumento}"/>
 
 
                         <h:outputText value="Estado del Documento"></h:outputText>
@@ -101,10 +101,10 @@
                     <h:outputText value="Seleciones un Proceso"/>
                     <p:tree value="#{Documento.raiz}" var="nodo" selection="#{Documento.arbolaux}" selectionMode="single">
                         <p:treeNode>
-                            <h:outputText value="#{nodo}"/>
+                            <h:outputText value="#{nodo.nombreProceso}"/>
                         </p:treeNode>
                     </p:tree>
-                    <p:commandButton value="Asignar Usuarios" update=":DocumentoForm:tablaDocumento" actionListener="#{DocumentoProceso.evalua(Documento.objetoDocumentoInsercion)}" validateClient="true" class="botonNormal" />
+                    <p:commandButton value="Asignar Usuarios" update=":DocumentoForm:tablaDocumento" actionListener="#{DocumentoProceso.evalua(Documento.arbolaux)}" validateClient="false" class="botonNormal" />
                     <p:panelGrid class="TABLA" id="asignados">
                         <f:facet name="header">
                             <p:row>
@@ -135,22 +135,7 @@
                             </p:row>
                         </ui:repeat>
                     </p:panelGrid>
-                    <p:dataTable var="accion" value="#{Accion.lista}" reflow="true" widgetVar="TablaAccion" id="tablaAccion" selectionMode="single"
-                                 selection="#{Accion.objetoAccion}" rowKey="#{accion.idAccion}" class="TABLA" paginator="true" rows="7">
-                        <p:ajax event="rowSelect" listener="#{Accion.onRowSelect}" oncomplete="PF('actualizarAccion').show()" />
-                        <f:facet name="header">
-                            <h:outputText value="CONSULTA DE ACCIÓN" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
-                            <p:inputText id="globalFilter" onkeyup="PF('TablaAccion').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
-                            <h:outputText value="Buscar" style="color: #FFF; float: right"/>
-                        </f:facet>
-
-
-                        <p:column headerText="nombre de la Acción" filterBy="#{accion.nombreAccion}">
-                            <h:outputText value="#{accion.nombreAccion}"/>
-                        </p:column>
-
-
-                    </p:dataTable>
+                    
                     <p:commandButton value="Ingresar" update=":DocumentoForm:tablaDocumento" actionListener="#{Documento.instertarDocumento()}" validateClient="true" class="botonNormal" />
 
                 </h:form>

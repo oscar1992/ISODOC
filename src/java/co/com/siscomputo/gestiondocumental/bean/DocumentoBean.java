@@ -49,7 +49,7 @@ public class DocumentoBean implements Serializable {
     private DocumentoEntity objetoDocumentoInsercion;
     private ArrayList<ArrayList<ProcesoEntity>> listaProcesos;
     private ArrayList<NivelEntity> listaNivel;
-    private ArbolProcesoEntity arbolaux;
+    private TreeNode arbolaux;
     
     private TreeNode raiz;
     private Integer tope;
@@ -121,11 +121,11 @@ public class DocumentoBean implements Serializable {
         this.tope = tope;
     }
 
-    public ArbolProcesoEntity getArbolaux() {
+    public TreeNode getArbolaux() {
         return arbolaux;
     }
 
-    public void setArbolaux(ArbolProcesoEntity arbolaux) {
+    public void setArbolaux(TreeNode arbolaux) {
         this.arbolaux = arbolaux;
     }
 
@@ -205,7 +205,7 @@ public class DocumentoBean implements Serializable {
         HashMap<ProcesoEntity, TreeNode> mapaApoyo = new HashMap<ProcesoEntity, TreeNode>();
         for (ArrayList<ProcesoEntity> listas : listaProcesos) {
             for (ProcesoEntity proc : listas) {
-                mapaApoyo.put(proc, new DefaultTreeNode(proc.getNombreProceso()));
+                mapaApoyo.put(proc, new DefaultTreeNode(proc));
                 //System.out.println("Proc: " + proc.getNombreProceso() + " - " + proc.getNivelProceso().getSecuenciaNivel() + " id- " + proc.getIdProceso() + " asoc- " + proc.getAsociadoProceso());
             }
         }        

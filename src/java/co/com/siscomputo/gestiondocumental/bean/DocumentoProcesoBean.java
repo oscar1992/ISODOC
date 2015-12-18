@@ -9,7 +9,9 @@ import co.com.siscomputo.gestiondocumental.logic.DocumentoProcesoLogic;
 import co.com.siscomputo.endpoint.DocumentoProcesoEntity;
 import co.com.siscomputo.endpoint.GrupoProcesoEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
+import co.com.siscomputo.endpoint.ProcesoEntity;
 import co.com.siscomputo.endpoint.UsuarioEntity;
+import co.com.siscomputo.gestiondocumental.entities.ArbolProcesoEntity;
 import co.com.siscomputo.gestiondocumental.entities.GrupoUsuarioAccionProcesoEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import javax.faces.context.FacesContext;
 import org.primefaces.model.DualListModel;
+import org.primefaces.model.TreeNode;
 
 /**
  *
@@ -194,8 +197,6 @@ public class DocumentoProcesoBean implements Serializable {
         idAccion = null;
     }
 
-    
-    
     public void iniciaAcciones(){
         AccionLogic accionLogic=new AccionLogic();
         ArrayList<AccionEntity> listaAccion = new ArrayList<>();
@@ -205,10 +206,10 @@ public class DocumentoProcesoBean implements Serializable {
         ArrayList<String>nombres;
         ArrayList<String>selecion=new ArrayList<>();
         DualListModel lista=new DualListModel();
-        GrupoUsuarioAccionProcesoEntity usuaccipro=new GrupoUsuarioAccionProcesoEntity();
-              
+        GrupoUsuarioAccionProcesoEntity usuaccipro=new GrupoUsuarioAccionProcesoEntity();         
+        usuarioAccionProcesoEntity=new ArrayList<>();
         for(AccionEntity accion: listaAccion){
-            usuarioAccionProcesoEntity=new ArrayList<>();  
+            usuaccipro=new GrupoUsuarioAccionProcesoEntity();
             nombres=new ArrayList<>();
             lista=new DualListModel();
             listaGrupos=grupoProcesoLogic.listaGruposProcesosPorAccion(accion.getIdAccion());
@@ -341,22 +342,11 @@ public class DocumentoProcesoBean implements Serializable {
         objetoDocumentoProceso = new DocumentoProcesoEntity();
     }
 
-    public void evalua(DocumentoEntity docuemnto) {
-        System.out.println("INGRESA");
-        objetoDocumento = docuemnto;
-        if (objetoDocumento.getSubProcesoProcesoDocumento().getIdSubproceso() == -1) {
-            tipo = 3;
-
-        } else if (objetoDocumento.getProcesoProcesoDocumento().getIdProcesos() == -1) {
-            tipo = 2;
-
-        } else {
-            tipo = 1;
-        }
+    public void evalua(TreeNode proceso) {
+        ProcesoEntity procesoEntity=new ProcesoEntity();
+        procesoEntity=(ProcesoEntity) proceso.getData();
+        System.out.println("INGRESA: "+procesoEntity.getNombreProceso());
         
-        System.out.println("SUB: " + objetoDocumento.getSubProcesoProcesoDocumento().getIdSubproceso());
-        System.out.println("PRO: " + objetoDocumento.getProcesoProcesoDocumento().getIdProcesos());
-        System.out.println("SUB: " + objetoDocumento.getMacroProcesoDocumento().getIdMacroproceso());
     }
 
     /**
