@@ -98,7 +98,8 @@
                             <f:selectItems value="#{ListaAdministracionBean.listaSubProcesos}"/>
                         </p:selectOneMenu>   
                     </p:panelGrid>    
-                    <p:tree value="#{Documento.raiz}" var="nodo">
+                    <h:outputText value="Seleciones un Proceso"/>
+                    <p:tree value="#{Documento.raiz}" var="nodo" selection="#{Documento.arbolaux}" selectionMode="single">
                         <p:treeNode>
                             <h:outputText value="#{nodo}"/>
                         </p:treeNode>

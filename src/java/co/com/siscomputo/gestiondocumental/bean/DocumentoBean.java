@@ -22,8 +22,9 @@ import co.com.siscomputo.utilidades.ComparadorNivel;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -49,7 +50,7 @@ public class DocumentoBean implements Serializable {
     private ArrayList<ArrayList<ProcesoEntity>> listaProcesos;
     private ArrayList<NivelEntity> listaNivel;
     private ArbolProcesoEntity arbolaux;
-    private ArbolProcesoEntity arbol2;
+    
     private TreeNode raiz;
     private Integer tope;
     private boolean ingresar;
@@ -128,14 +129,6 @@ public class DocumentoBean implements Serializable {
         this.arbolaux = arbolaux;
     }
 
-    public ArbolProcesoEntity getArbol2() {
-        return arbol2;
-    }
-
-    public void setArbol2(ArbolProcesoEntity arbol2) {
-        this.arbol2 = arbol2;
-    }
-
     public boolean isIngresar() {
         return ingresar;
     }
@@ -198,140 +191,51 @@ public class DocumentoBean implements Serializable {
                 listaProcesos.add(lista);
             }
             armaArbol(listaProcesosTodos);
-            iniciaArbolProcesos(listaProcesosTodos);
+
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void iniciaArbolProcesos(ArrayList<ProcesoEntity> listaProcesosTodos) {
-        ArrayList<ArbolProcesoEntity> arbol = new ArrayList<>();
-        for (ProcesoEntity proceso2 : listaProcesos.get(0)) {
-            tope = listaNivel.size();
-            ArbolProcesoEntity arbolObjeto = new ArbolProcesoEntity();
-            arbolObjeto.setIdProceso(proceso2.getIdProceso());
-            arbolObjeto.setNombreProceso(proceso2.getNombreProceso());
-            //arbolObjeto.setListaProcesos(hijos(listaProcesosTodos, proceso2));
-            arbol.add(arbolObjeto);
-        }
+    
+
+    public void armaArbol(ArrayList<ProcesoEntity> listaProcesoTodos) {
         raiz = new DefaultTreeNode("raiz", null);
-        TreeNode[] nodos = new TreeNode[arbol.size()];
-        int i = 0;
-
-        for (ArbolProcesoEntity arbolo : arbol) {
-            //nodos[i] = new DefaultTreeNode(arbolo.getNombreProceso(), raiz);
-            TreeNode[] nodos2 = new TreeNode[arbolo.getListaProcesos().size()];
-            int j = 0;
-            //for (ArbolProcesoEntity proceso4 : arbolo.getListaProcesos()) {
-            if (arbolo.getListaProcesos().isEmpty()) {
-            } else {
-                //addNodos(arbolo.getListaProcesos(), nodos[i], j);
+        HashMap<ProcesoEntity, TreeNode> mapaApoyo = new HashMap<ProcesoEntity, TreeNode>();
+        for (ArrayList<ProcesoEntity> listas : listaProcesos) {
+            for (ProcesoEntity proc : listas) {
+                mapaApoyo.put(proc, new DefaultTreeNode(proc.getNombreProceso()));
+                //System.out.println("Proc: " + proc.getNombreProceso() + " - " + proc.getNivelProceso().getSecuenciaNivel() + " id- " + proc.getIdProceso() + " asoc- " + proc.getAsociadoProceso());
             }
-            //}
-            j = 0;
-            i++;
-
+        }        
+        for (Map.Entry<ProcesoEntity, TreeNode> entrySet : mapaApoyo.entrySet()) {
+            ProcesoEntity key = entrySet.getKey();
+            TreeNode value = entrySet.getValue();
+            if (key.getNivelProceso().getSecuenciaNivel() != 1) {  
+                
+                mapaApoyo.get(ProcesoPorId(key.getAsociadoProceso(), listaProcesoTodos)).getChildren().add(value);
+                //System.out.println("NODO HIJO: " + value.getData().toString()+" Con PADRE: "+value.getParent());
+            } else {
+                //System.out.println("NODO PADRE: " + value.getData().toString());
+                raiz.getChildren().add(value);
+                
+            }
+            
+            //System.out.println("NODO: " + value.getData().toString());
         }
     }
-
-    public void addNodos(ArrayList<ArbolProcesoEntity> listaProceso, TreeNode nodoi, int j) {
-        TreeNode[] nodos = new TreeNode[listaProceso.size()];
-        int j2 = 0;
-        int tamalista = 0;
-        for (ArbolProcesoEntity proceso : listaProceso) {
-            System.out.println("PROC: " + proceso.getNombreProceso());
-            nodos[j] = new DefaultTreeNode(proceso.getNombreProceso(), nodoi);
-            arbol2 = new ArbolProcesoEntity();
-            arbol2 = proceso;
-            if (arbol2.getListaProcesos().isEmpty() || arbol2.getListaProcesos() == null || tamalista >= listaProceso.size()) {
-                System.out.println("Sale: " + tamalista);
-            } else {
-                addNodos(arbol2.getListaProcesos(), nodos[j], j2);
-                System.out.println("LLEGA??=");
+    
+    public ProcesoEntity ProcesoPorId(int idAsoc, ArrayList<ProcesoEntity> listaProcesoTodos){
+        ProcesoEntity retorna=new ProcesoEntity();
+        for(ProcesoEntity proceso:listaProcesoTodos){
+            if(idAsoc==proceso.getIdProceso()){
+                retorna=proceso;
             }
-            tamalista++;
-            j2++;
-        }
-        System.out.println("Fin Ciclo");
-
-    }
-
-    /**
-     * Método que añade los procesod de un nivel inferior a sus padres a traves
-     * del objeto de manejo de la clase arbolproceso
-     *
-     * @param listaProcesosTodos
-     * @param procesoP
-     * @return
-     */
-    public ArrayList<ArbolProcesoEntity> hijos(ArrayList<ProcesoEntity> listaProcesosTodos, ProcesoEntity procesoP) {
-        ArrayList<ArbolProcesoEntity> retorna = new ArrayList<>();
-        arbolaux = new ArbolProcesoEntity();
-        ArrayList<ArbolProcesoEntity> listaN = new ArrayList<>();
-        for (ProcesoEntity proceso : listaProcesosTodos) {
-            if (proceso.getAsociadoProceso() == procesoP.getIdProceso()) {
-                ProcesoEntity proceso2 = proceso;
-                if (procesoP.getNivelProceso().getSecuenciaNivel() <= tope) {
-                    System.out.println("tope: " + tope + " proc: " + procesoP.getNombreProceso());
-
-                    listaN = hijos(listaProcesosTodos, proceso2);
-                    arbolaux.setListaProcesos(listaN);
-                    System.out.println("ListaN: " + arbolaux.getListaProcesos().size());
-                }
-                System.out.println("Proc: " + proceso.getNombreProceso() + " secu: " + procesoP.getNivelProceso().getSecuenciaNivel());
-                arbolaux.setNombreProceso(proceso.getNombreProceso());
-                arbolaux.setIdProceso(proceso.getIdProceso());
-                System.out.println("///////////////");
-
-                retorna.add(arbolaux);
-                for (ArbolProcesoEntity ret : retorna) {
-                    System.out.println("ProcX: " + ret.getNombreProceso() + " - " + ret.getIdProceso());
-                }
-            }
-        }
-        for (ArbolProcesoEntity ret : retorna) {
-            System.out.println("Proc: " + ret.getNombreProceso() + " - " + ret.getIdProceso());
         }
         return retorna;
     }
-
-    public void armaArbol(ArrayList<ProcesoEntity> listaProcesoTodos) {
-        
-        for(int i=0;i<listaProcesos.size();i++){
-            
-        }
-        for (ArrayList<ProcesoEntity> listas : listaProcesos) {
-            for (ProcesoEntity proc : listas) {
-                boolean sigue = false;
-                do {
-                    Object[] recibe = procesoPorId(proc.getIdProceso(), listaProcesoTodos);
-                    sigue = (boolean) recibe[1];
-                    ArrayList<ProcesoEntity> subLista = (ArrayList<ProcesoEntity>) recibe[0];
-                } while (sigue);
-
-                System.out.println("Proc: " + proc.getNombreProceso() + " - " + proc.getNivelProceso().getSecuenciaNivel() + " id- " + proc.getIdProceso() + " asoc- " + proc.getAsociadoProceso());
-
-            }
-            System.out.println("/////////");
-        }
-
-    }
-
-    public Object[] procesoPorId(int idProceso, ArrayList<ProcesoEntity> listaProcesoTodos) {
-        ArrayList<ProcesoEntity> retorna = new ArrayList<>();
-        Object[] devuelve = new Object[2];
-        for (ProcesoEntity proceso : listaProcesoTodos) {
-            if (proceso.getAsociadoProceso() == idProceso) {
-
-                retorna.add(proceso);
-            }
-        }
-        devuelve[0] = retorna;
-        devuelve[1] = true;
-        return devuelve;
-    }
-
+    
     /**
      * Método que permite insertar un Documento nuevo
      */

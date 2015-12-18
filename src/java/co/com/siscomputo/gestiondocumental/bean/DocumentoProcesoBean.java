@@ -1,14 +1,16 @@
 package co.com.siscomputo.gestiondocumental.bean;
 
 import co.com.siscomputo.administracion.logic.AccionLogic;
+import co.com.siscomputo.administracion.logic.GrupoProcesoLogic;
 import co.com.siscomputo.administracion.logic.UsuarioLogic;
 import co.com.siscomputo.endpoint.AccionEntity;
 import co.com.siscomputo.endpoint.DocumentoEntity;
 import co.com.siscomputo.gestiondocumental.logic.DocumentoProcesoLogic;
 import co.com.siscomputo.endpoint.DocumentoProcesoEntity;
+import co.com.siscomputo.endpoint.GrupoProcesoEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.UsuarioEntity;
-import co.com.siscomputo.gestiondocumental.entities.UsuarioAccionProcesoEntity;
+import co.com.siscomputo.gestiondocumental.entities.GrupoUsuarioAccionProcesoEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -38,20 +40,22 @@ public class DocumentoProcesoBean implements Serializable {
     private ArrayList<DualListModel<String>> asignaLista;
     private ArrayList<ArrayList<String>> asignaNombre;
     private ArrayList<ArrayList<String>> asignaSeleccion;
-    private ArrayList<UsuarioAccionProcesoEntity> usuarioAccionProcesoEntity;
+    private ArrayList<GrupoUsuarioAccionProcesoEntity> usuarioAccionProcesoEntity;
     private UsuarioEntity usuarioEntity;
     private DocumentoEntity objetoDocumento;
     private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
 
-    public ArrayList<UsuarioAccionProcesoEntity> getUsuarioAccionProcesoEntity() {
+    public ArrayList<GrupoUsuarioAccionProcesoEntity> getUsuarioAccionProcesoEntity() {
         return usuarioAccionProcesoEntity;
     }
 
-    public void setUsuarioAccionProcesoEntity(ArrayList<UsuarioAccionProcesoEntity> usuarioAccionProcesoEntity) {
+    public void setUsuarioAccionProcesoEntity(ArrayList<GrupoUsuarioAccionProcesoEntity> usuarioAccionProcesoEntity) {
         this.usuarioAccionProcesoEntity = usuarioAccionProcesoEntity;
     }
+
+   
 
     
     public ArrayList<DocumentoProcesoEntity> getLista() {
@@ -194,23 +198,30 @@ public class DocumentoProcesoBean implements Serializable {
     
     public void iniciaAcciones(){
         AccionLogic accionLogic=new AccionLogic();
-        ArrayList<AccionEntity> listaAccion = accionLogic.listaAccion();
+        ArrayList<AccionEntity> listaAccion = new ArrayList<>();
+        listaAccion=accionLogic.listaAccion();
+        ArrayList<GrupoProcesoEntity> listaGrupos=new ArrayList<>();
+        GrupoProcesoLogic grupoProcesoLogic=new GrupoProcesoLogic();        
         ArrayList<String>nombres;
-        ArrayList<String>selecion;
-        DualListModel lista;
-        UsuarioAccionProcesoEntity usuaccipro=new UsuarioAccionProcesoEntity();
-        usuarioAccionProcesoEntity=new ArrayList<>();
-        UsuarioLogic usuarioLogic=new UsuarioLogic();
-        ArrayList<UsuarioEntity> listaUsuarios=new ArrayList<>();
+        ArrayList<String>selecion=new ArrayList<>();
+        DualListModel lista=new DualListModel();
+        GrupoUsuarioAccionProcesoEntity usuaccipro=new GrupoUsuarioAccionProcesoEntity();
+              
         for(AccionEntity accion: listaAccion){
-            listaUsuarios=usuarioLogic.usuariosPorAccion(accion.getIdAccion());
-            nombres=
-            selecion=new ArrayList<>();
-            lista=new DualListModel(nombres, selecion);
-            usuaccipro.setSeleccionDual(lista);
+            usuarioAccionProcesoEntity=new ArrayList<>();  
+            nombres=new ArrayList<>();
+            lista=new DualListModel();
+            listaGrupos=grupoProcesoLogic.listaGruposProcesosPorAccion(accion.getIdAccion());
             usuaccipro.setAccion(accion);
+            System.out.println("ACCION: "+accion.getNombreAccion());
+            for(GrupoProcesoEntity grupoproceso:listaGrupos){
+                System.out.println("NOMBRE: "+grupoproceso.getGrupoUsuarioProceso().getNombreGrupoUsuarios());
+                nombres.add(grupoproceso.getGrupoUsuarioProceso().getNombreGrupoUsuarios());
+            }
             usuaccipro.setNombres(nombres);
             usuaccipro.setSelecion(selecion);
+            lista=new DualListModel(nombres, selecion);
+            usuaccipro.setSeleccionDual(lista);
             usuarioAccionProcesoEntity.add(usuaccipro);
         }
     }

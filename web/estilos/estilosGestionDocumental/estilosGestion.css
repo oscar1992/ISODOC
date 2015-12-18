@@ -281,7 +281,7 @@
     width: 16px;
     text-indent: -99999px;
     overflow: hidden;
-
+    //background-image: url(/ISODOC/imagenes/buttons/flechaPequeña.png);
 }
 
 .ui-dialog-titlebar-close{
@@ -446,4 +446,21 @@
     background-repeat: no-repeat;
     width: 26px;
     height: 26px;
+}
+
+.ui-tree{
+    background-color: #cccccc;
+    border-radius: 5px;
+    border: solid #666666;
+}
+
+.ui-tree-toggler{
+    background-image: url(/ISODOC/imagenes/buttons/flechaPequeña.png);
+    background-repeat: no-repeat;
+    width: 26px;
+    height: 26px;
+}
+
+.ui-tree .ui-treenode-label.ui-state-highlight{
+    background-color: #0071bc;
 }

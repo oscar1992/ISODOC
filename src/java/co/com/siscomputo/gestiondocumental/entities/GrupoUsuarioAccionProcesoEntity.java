@@ -13,7 +13,7 @@ import org.primefaces.model.DualListModel;
  *
  * @author LENOVO
  */
-public class UsuarioAccionProcesoEntity {
+public class GrupoUsuarioAccionProcesoEntity {
     private AccionEntity accion;
     private DualListModel seleccionDual;
     private ArrayList<String> nombres;
