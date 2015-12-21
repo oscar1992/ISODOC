@@ -15,6 +15,7 @@ import co.com.siscomputo.gestiondocumental.entities.ArbolProcesoEntity;
 import co.com.siscomputo.gestiondocumental.entities.GrupoUsuarioAccionProcesoEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -40,12 +41,14 @@ public class DocumentoProcesoBean implements Serializable {
     private Integer idUsuario;
     private Integer idAccion;
     private Integer tipo;
+    private Integer idProceso;
     private ArrayList<DualListModel<String>> asignaLista;
     private ArrayList<ArrayList<String>> asignaNombre;
     private ArrayList<ArrayList<String>> asignaSeleccion;
     private ArrayList<GrupoUsuarioAccionProcesoEntity> usuarioAccionProcesoEntity;
     private UsuarioEntity usuarioEntity;
     private DocumentoEntity objetoDocumento;
+    private Date fechalimite;
     private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
@@ -57,9 +60,6 @@ public class DocumentoProcesoBean implements Serializable {
     public void setUsuarioAccionProcesoEntity(ArrayList<GrupoUsuarioAccionProcesoEntity> usuarioAccionProcesoEntity) {
         this.usuarioAccionProcesoEntity = usuarioAccionProcesoEntity;
     }
-
-   
-
     
     public ArrayList<DocumentoProcesoEntity> getLista() {
         return lista;
@@ -91,6 +91,22 @@ public class DocumentoProcesoBean implements Serializable {
 
     public void setObjetoDocumento(DocumentoEntity objetoDocumento) {
         this.objetoDocumento = objetoDocumento;
+    }
+
+    public Date getFechalimite() {
+        return fechalimite;
+    }
+
+    public void setFechalimite(Date fechalimite) {
+        this.fechalimite = fechalimite;
+    }
+
+    public Integer getIdproceso(){
+        return idProceso;
+    }
+    
+    public void setIdProceso(int idProceso){
+        this.idProceso=idProceso;
     }
 
     public boolean isIngresar() {
@@ -180,11 +196,12 @@ public class DocumentoProcesoBean implements Serializable {
     public void setUsuarioEntity(UsuarioEntity usuarioEntity) {
         this.usuarioEntity = usuarioEntity;
     }
+    
 
     @PostConstruct
     public void init() {
         //consultarDocumentoMacroProceso();
-        iniciaAcciones();
+        //iniciaAcciones();
         permisos();
     }
 
@@ -195,6 +212,7 @@ public class DocumentoProcesoBean implements Serializable {
         asignaNombre = new ArrayList<>();
         asignaSeleccion = new ArrayList<>();
         idAccion = null;
+        
     }
 
     public void iniciaAcciones(){
@@ -212,7 +230,7 @@ public class DocumentoProcesoBean implements Serializable {
             usuaccipro=new GrupoUsuarioAccionProcesoEntity();
             nombres=new ArrayList<>();
             lista=new DualListModel();
-            listaGrupos=grupoProcesoLogic.listaGruposProcesosPorAccion(accion.getIdAccion());
+            listaGrupos=grupoProcesoLogic.listaGruposProcesosPorAccion(accion.getIdAccion(), idProceso);
             usuaccipro.setAccion(accion);
             System.out.println("ACCION: "+accion.getNombreAccion());
             for(GrupoProcesoEntity grupoproceso:listaGrupos){
@@ -346,7 +364,8 @@ public class DocumentoProcesoBean implements Serializable {
         ProcesoEntity procesoEntity=new ProcesoEntity();
         procesoEntity=(ProcesoEntity) proceso.getData();
         System.out.println("INGRESA: "+procesoEntity.getNombreProceso());
-        
+        idProceso=procesoEntity.getIdProceso();
+        iniciaAcciones();
     }
 
     /**

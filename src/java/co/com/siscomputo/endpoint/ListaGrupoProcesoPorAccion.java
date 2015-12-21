@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="idAccion" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="idProceso" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -27,11 +28,13 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "listaGrupoProcesoPorAccion", propOrder = {
-    "idAccion"
+    "idAccion",
+    "idProceso"
 })
 public class ListaGrupoProcesoPorAccion {
 
     protected int idAccion;
+    protected int idProceso;
 
     /**
      * Obtiene el valor de la propiedad idAccion.
@@ -47,6 +50,22 @@ public class ListaGrupoProcesoPorAccion {
      */
     public void setIdAccion(int value) {
         this.idAccion = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad idProceso.
+     * 
+     */
+    public int getIdProceso() {
+        return idProceso;
+    }
+
+    /**
+     * Define el valor de la propiedad idProceso.
+     * 
+     */
+    public void setIdProceso(int value) {
+        this.idProceso = value;
     }
 
 }

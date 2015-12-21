@@ -35,9 +35,11 @@ public class ObjectFactory {
     private final static QName _ElaboradorPorIdResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "elaboradorPorIdResponse");
     private final static QName _ListaPlantilla_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaPlantilla");
     private final static QName _InsertarModificadorResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarModificadorResponse");
+    private final static QName _ActualizarGrupoDocumentoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarGrupoDocumentoResponse");
     private final static QName _InsertarTiposAccesoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarTiposAccesoResponse");
     private final static QName _LimpiaUsuarioGrupoProceso_QNAME = new QName("http://endpoint.siscomputo.com.co/", "limpiaUsuarioGrupoProceso");
     private final static QName _InsertarTipoAlmacenamiento_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarTipoAlmacenamiento");
+    private final static QName _ActualizarGrupoDocumento_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarGrupoDocumento");
     private final static QName _InsertarElaborador_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarElaborador");
     private final static QName _ListaTipoAlmacenamientoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaTipoAlmacenamientoResponse");
     private final static QName _ActualizarElaborador_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarElaborador");
@@ -56,6 +58,7 @@ public class ObjectFactory {
     private final static QName _ListaGrupoProcesoPorAccion_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaGrupoProcesoPorAccion");
     private final static QName _ActualizarTiposAccesoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarTiposAccesoResponse");
     private final static QName _InsertarTipoControlDistribucionResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarTipoControlDistribucionResponse");
+    private final static QName _ListaGrupoDocumentoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaGrupoDocumentoResponse");
     private final static QName _GrupoUsuariosPorId_QNAME = new QName("http://endpoint.siscomputo.com.co/", "grupoUsuariosPorId");
     private final static QName _ListaNivel_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaNivel");
     private final static QName _PlantillaPorIdlantillaResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "plantillaPorIdlantillaResponse");
@@ -70,10 +73,12 @@ public class ObjectFactory {
     private final static QName _ListaUsuarioGrupoUsuarioResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaUsuarioGrupoUsuarioResponse");
     private final static QName _ListaGrupoUsuarios_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaGrupoUsuarios");
     private final static QName _ActualizarGrupoUsuarios_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarGrupoUsuarios");
+    private final static QName _InsertarGrupoDocumento_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarGrupoDocumento");
     private final static QName _ListaAccion_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaAccion");
     private final static QName _ActualizarPlantillaResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarPlantillaResponse");
     private final static QName _InsertarGrupoProceso_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarGrupoProceso");
     private final static QName _ActualizarMetodoRecuperacionResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarMetodoRecuperacionResponse");
+    private final static QName _InsertarGrupoDocumentoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarGrupoDocumentoResponse");
     private final static QName _ListaGrupoProcesoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaGrupoProcesoResponse");
     private final static QName _PlantillaPorIdlantilla_QNAME = new QName("http://endpoint.siscomputo.com.co/", "plantillaPorIdlantilla");
     private final static QName _ListaModificadorResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaModificadorResponse");
@@ -93,6 +98,7 @@ public class ObjectFactory {
     private final static QName _ListaMetodoRecuperacion_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaMetodoRecuperacion");
     private final static QName _ActualizarUsuarioGrupoUsuario_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarUsuarioGrupoUsuario");
     private final static QName _ListaDisposicionesResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaDisposicionesResponse");
+    private final static QName _ListaGrupoDocumento_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaGrupoDocumento");
     private final static QName _ActualizarGrupoProceso_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarGrupoProceso");
     private final static QName _InsertarGrupoUsuariosResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarGrupoUsuariosResponse");
     private final static QName _ModificadorPorId_QNAME = new QName("http://endpoint.siscomputo.com.co/", "ModificadorPorId");
@@ -449,6 +455,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ListaGrupoDocumento }
+     * 
+     */
+    public ListaGrupoDocumento createListaGrupoDocumento() {
+        return new ListaGrupoDocumento();
+    }
+
+    /**
      * Create an instance of {@link ActualizarGrupoProceso }
      * 
      */
@@ -542,6 +556,14 @@ public class ObjectFactory {
      */
     public ActualizarMetodoRecuperacionResponse createActualizarMetodoRecuperacionResponse() {
         return new ActualizarMetodoRecuperacionResponse();
+    }
+
+    /**
+     * Create an instance of {@link InsertarGrupoDocumentoResponse }
+     * 
+     */
+    public InsertarGrupoDocumentoResponse createInsertarGrupoDocumentoResponse() {
+        return new InsertarGrupoDocumentoResponse();
     }
 
     /**
@@ -721,6 +743,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link InsertarGrupoDocumento }
+     * 
+     */
+    public InsertarGrupoDocumento createInsertarGrupoDocumento() {
+        return new InsertarGrupoDocumento();
+    }
+
+    /**
      * Create an instance of {@link ProcesoPorId2 }
      * 
      */
@@ -758,6 +788,14 @@ public class ObjectFactory {
      */
     public InsertarTipoControlDistribucionResponse createInsertarTipoControlDistribucionResponse() {
         return new InsertarTipoControlDistribucionResponse();
+    }
+
+    /**
+     * Create an instance of {@link ListaGrupoDocumentoResponse }
+     * 
+     */
+    public ListaGrupoDocumentoResponse createListaGrupoDocumentoResponse() {
+        return new ListaGrupoDocumentoResponse();
     }
 
     /**
@@ -830,6 +868,14 @@ public class ObjectFactory {
      */
     public InsertarTipoAlmacenamiento createInsertarTipoAlmacenamiento() {
         return new InsertarTipoAlmacenamiento();
+    }
+
+    /**
+     * Create an instance of {@link ActualizarGrupoDocumento }
+     * 
+     */
+    public ActualizarGrupoDocumento createActualizarGrupoDocumento() {
+        return new ActualizarGrupoDocumento();
     }
 
     /**
@@ -1017,6 +1063,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ActualizarGrupoDocumentoResponse }
+     * 
+     */
+    public ActualizarGrupoDocumentoResponse createActualizarGrupoDocumentoResponse() {
+        return new ActualizarGrupoDocumentoResponse();
+    }
+
+    /**
      * Create an instance of {@link InsertarTiposAccesoResponse }
      * 
      */
@@ -1041,6 +1095,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link MacroprocesosEntity }
+     * 
+     */
+    public MacroprocesosEntity createMacroprocesosEntity() {
+        return new MacroprocesosEntity();
+    }
+
+    /**
      * Create an instance of {@link TipoAlmacenamientoEntity }
      * 
      */
@@ -1054,6 +1116,14 @@ public class ObjectFactory {
      */
     public ElaboradorEntity createElaboradorEntity() {
         return new ElaboradorEntity();
+    }
+
+    /**
+     * Create an instance of {@link GrupoDocumentoEntity }
+     * 
+     */
+    public GrupoDocumentoEntity createGrupoDocumentoEntity() {
+        return new GrupoDocumentoEntity();
     }
 
     /**
@@ -1078,6 +1148,14 @@ public class ObjectFactory {
      */
     public GrupoUsuariosEntity createGrupoUsuariosEntity() {
         return new GrupoUsuariosEntity();
+    }
+
+    /**
+     * Create an instance of {@link SubprocesoEntity }
+     * 
+     */
+    public SubprocesoEntity createSubprocesoEntity() {
+        return new SubprocesoEntity();
     }
 
     /**
@@ -1145,6 +1223,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ProcesosEntity }
+     * 
+     */
+    public ProcesosEntity createProcesosEntity() {
+        return new ProcesosEntity();
+    }
+
+    /**
+     * Create an instance of {@link TiposDocumentalesEntity }
+     * 
+     */
+    public TiposDocumentalesEntity createTiposDocumentalesEntity() {
+        return new TiposDocumentalesEntity();
+    }
+
+    /**
      * Create an instance of {@link ProcesoEntity }
      * 
      */
@@ -1158,6 +1252,14 @@ public class ObjectFactory {
      */
     public PlantillaEntity createPlantillaEntity() {
         return new PlantillaEntity();
+    }
+
+    /**
+     * Create an instance of {@link DocumentoEntity }
+     * 
+     */
+    public DocumentoEntity createDocumentoEntity() {
+        return new DocumentoEntity();
     }
 
     /**
@@ -1268,6 +1370,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarGrupoDocumentoResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarGrupoDocumentoResponse")
+    public JAXBElement<ActualizarGrupoDocumentoResponse> createActualizarGrupoDocumentoResponse(ActualizarGrupoDocumentoResponse value) {
+        return new JAXBElement<ActualizarGrupoDocumentoResponse>(_ActualizarGrupoDocumentoResponse_QNAME, ActualizarGrupoDocumentoResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link InsertarTiposAccesoResponse }{@code >}}
      * 
      */
@@ -1292,6 +1403,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarTipoAlmacenamiento")
     public JAXBElement<InsertarTipoAlmacenamiento> createInsertarTipoAlmacenamiento(InsertarTipoAlmacenamiento value) {
         return new JAXBElement<InsertarTipoAlmacenamiento>(_InsertarTipoAlmacenamiento_QNAME, InsertarTipoAlmacenamiento.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarGrupoDocumento }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarGrupoDocumento")
+    public JAXBElement<ActualizarGrupoDocumento> createActualizarGrupoDocumento(ActualizarGrupoDocumento value) {
+        return new JAXBElement<ActualizarGrupoDocumento>(_ActualizarGrupoDocumento_QNAME, ActualizarGrupoDocumento.class, null, value);
     }
 
     /**
@@ -1457,6 +1577,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListaGrupoDocumentoResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaGrupoDocumentoResponse")
+    public JAXBElement<ListaGrupoDocumentoResponse> createListaGrupoDocumentoResponse(ListaGrupoDocumentoResponse value) {
+        return new JAXBElement<ListaGrupoDocumentoResponse>(_ListaGrupoDocumentoResponse_QNAME, ListaGrupoDocumentoResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GrupoUsuariosPorId }{@code >}}
      * 
      */
@@ -1583,6 +1712,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarGrupoDocumento }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarGrupoDocumento")
+    public JAXBElement<InsertarGrupoDocumento> createInsertarGrupoDocumento(InsertarGrupoDocumento value) {
+        return new JAXBElement<InsertarGrupoDocumento>(_InsertarGrupoDocumento_QNAME, InsertarGrupoDocumento.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ListaAccion }{@code >}}
      * 
      */
@@ -1616,6 +1754,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarMetodoRecuperacionResponse")
     public JAXBElement<ActualizarMetodoRecuperacionResponse> createActualizarMetodoRecuperacionResponse(ActualizarMetodoRecuperacionResponse value) {
         return new JAXBElement<ActualizarMetodoRecuperacionResponse>(_ActualizarMetodoRecuperacionResponse_QNAME, ActualizarMetodoRecuperacionResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarGrupoDocumentoResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarGrupoDocumentoResponse")
+    public JAXBElement<InsertarGrupoDocumentoResponse> createInsertarGrupoDocumentoResponse(InsertarGrupoDocumentoResponse value) {
+        return new JAXBElement<InsertarGrupoDocumentoResponse>(_InsertarGrupoDocumentoResponse_QNAME, InsertarGrupoDocumentoResponse.class, null, value);
     }
 
     /**
@@ -1787,6 +1934,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaDisposicionesResponse")
     public JAXBElement<ListaDisposicionesResponse> createListaDisposicionesResponse(ListaDisposicionesResponse value) {
         return new JAXBElement<ListaDisposicionesResponse>(_ListaDisposicionesResponse_QNAME, ListaDisposicionesResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListaGrupoDocumento }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaGrupoDocumento")
+    public JAXBElement<ListaGrupoDocumento> createListaGrupoDocumento(ListaGrupoDocumento value) {
+        return new JAXBElement<ListaGrupoDocumento>(_ListaGrupoDocumento_QNAME, ListaGrupoDocumento.class, null, value);
     }
 
     /**

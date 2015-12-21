@@ -140,10 +140,10 @@ public class GrupoProcesoLogic {
         return rta;
     }
     
-    public ArrayList<GrupoProcesoEntity> listaGruposProcesosPorAccion(int idAccion){
+    public ArrayList<GrupoProcesoEntity> listaGruposProcesosPorAccion(int idAccion, int idProceso){
         webService();
         ArrayList<GrupoProcesoEntity> listaaux = new ArrayList<>();
-        ArrayList<Object> listaObjeto = (ArrayList<Object>) port.listaGrupoProcesoPorAccion(idAccion).getRetorna();
+        ArrayList<Object> listaObjeto = (ArrayList<Object>) port.listaGrupoProcesoPorAccion(idAccion, idProceso).getRetorna();
         for (Object obj : listaObjeto) {
             GrupoProcesoEntity objectProceso = (GrupoProcesoEntity) obj;
             

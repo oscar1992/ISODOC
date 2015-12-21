@@ -37,6 +37,7 @@ import javax.xml.bind.annotation.XmlType;
     TiposAccesoEntity.class,
     TipoAlmacenamientoEntity.class,
     ElaboradorEntity.class,
+    GrupoDocumentoEntity.class,
     UsuarioGrupoUsuarioEntity.class,
     GrupoUsuariosEntity.class,
     AccionEntity.class,
@@ -46,8 +47,10 @@ import javax.xml.bind.annotation.XmlType;
     DisposicionesEntity.class,
     TipoControlDistribucionEntity.class,
     MetodoRecuperacionEntity.class,
+    TiposDocumentalesEntity.class,
     ProcesoEntity.class,
     PlantillaEntity.class,
+    DocumentoEntity.class,
     ModificadorEntity.class
 })
 public class ObjetoRetornaEntity

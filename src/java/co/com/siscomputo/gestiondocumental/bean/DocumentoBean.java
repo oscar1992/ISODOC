@@ -243,6 +243,7 @@ public class DocumentoBean implements Serializable {
         try {
             DocumentoLogic documentoLogic = new DocumentoLogic();
             DocumentoEntity documentoEntity = documentoLogic.insertarDocumento(objetoDocumentoInsercion);
+            System.out.println("OBJ: "+objetoDocumentoInsercion.getTipoDocumentalDocumento().getNombreTipoDocumental());
             FacesMessage msg = null;
             if (documentoEntity != null) {
                 msg = new FacesMessage("", "inserción de Documento correcto");
@@ -344,6 +345,7 @@ public class DocumentoBean implements Serializable {
      */
     public void onRowSelect(SelectEvent event) {
         objetoDocumento = (DocumentoEntity) event.getObject();
+        System.out.println("select: "+objetoDocumento.getTituloDocumento());
     }
 
     /**
