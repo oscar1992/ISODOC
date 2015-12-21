@@ -250,6 +250,8 @@ public class DocumentoProcesoBean implements Serializable {
      */
     public void instertarDocumentoProceso() {
         try {
+            
+            
             DocumentoProcesoLogic documentoProcesoLogic = new DocumentoProcesoLogic();
             DocumentoProcesoEntity documentoProcesoEntity = documentoProcesoLogic.insertarDocumentoProceso(objetoDocumentoProceso);
             FacesMessage msg = null;

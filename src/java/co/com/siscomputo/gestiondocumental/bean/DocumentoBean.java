@@ -1,5 +1,7 @@
 package co.com.siscomputo.gestiondocumental.bean;
 
+import co.com.siscomputo.administracion.logic.AccionLogic;
+import co.com.siscomputo.administracion.logic.GrupoProcesoLogic;
 import co.com.siscomputo.administracion.logic.MacroProcesosLogic;
 import co.com.siscomputo.administracion.logic.NivelLogic;
 import co.com.siscomputo.administracion.logic.PlantillaLogic;
@@ -7,8 +9,10 @@ import co.com.siscomputo.administracion.logic.ProcesoLogic;
 import co.com.siscomputo.administracion.logic.ProcesosLogic;
 import co.com.siscomputo.administracion.logic.SubProcesosLogic;
 import co.com.siscomputo.administracion.logic.TiposDocumentalesLogic;
+import co.com.siscomputo.endpoint.AccionEntity;
 import co.com.siscomputo.gestiondocumental.logic.DocumentoLogic;
 import co.com.siscomputo.endpoint.DocumentoEntity;
+import co.com.siscomputo.endpoint.GrupoProcesoEntity;
 import co.com.siscomputo.endpoint.MacroprocesosEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.NivelEntity;
@@ -17,11 +21,12 @@ import co.com.siscomputo.endpoint.ProcesoEntity;
 import co.com.siscomputo.endpoint.ProcesosEntity;
 import co.com.siscomputo.endpoint.SubprocesoEntity;
 import co.com.siscomputo.endpoint.TiposDocumentalesEntity;
-import co.com.siscomputo.gestiondocumental.entities.ArbolProcesoEntity;
+import co.com.siscomputo.gestiondocumental.entities.GrupoUsuarioAccionProcesoEntity;
 import co.com.siscomputo.utilidades.ComparadorNivel;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -33,6 +38,7 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import javax.faces.context.FacesContext;
 import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.model.DualListModel;
 import org.primefaces.model.TreeNode;
 
 /**
@@ -49,10 +55,11 @@ public class DocumentoBean implements Serializable {
     private DocumentoEntity objetoDocumentoInsercion;
     private ArrayList<ArrayList<ProcesoEntity>> listaProcesos;
     private ArrayList<NivelEntity> listaNivel;
-    private TreeNode arbolaux;
-    
+    private TreeNode arbolaux;    
     private TreeNode raiz;
     private Integer tope;
+    private Integer idProceso;
+    private ArrayList<GrupoUsuarioAccionProcesoEntity> usuarioAccionProcesoEntity;
     private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
@@ -129,6 +136,22 @@ public class DocumentoBean implements Serializable {
         this.arbolaux = arbolaux;
     }
 
+    public ArrayList<GrupoUsuarioAccionProcesoEntity> getUsuarioAccionProcesoEntity() {
+        return usuarioAccionProcesoEntity;
+    }
+
+    public void setUsuarioAccionProcesoEntity(ArrayList<GrupoUsuarioAccionProcesoEntity> usuarioAccionProcesoEntity) {
+        this.usuarioAccionProcesoEntity = usuarioAccionProcesoEntity;
+    }
+
+    public Integer getIdProceso() {
+        return idProceso;
+    }
+
+    public void setIdProceso(Integer idProceso) {
+        this.idProceso = idProceso;
+    }
+
     public boolean isIngresar() {
         return ingresar;
     }
@@ -191,7 +214,7 @@ public class DocumentoBean implements Serializable {
                 listaProcesos.add(lista);
             }
             armaArbol(listaProcesosTodos);
-
+            
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -243,6 +266,14 @@ public class DocumentoBean implements Serializable {
         try {
             DocumentoLogic documentoLogic = new DocumentoLogic();
             DocumentoEntity documentoEntity = documentoLogic.insertarDocumento(objetoDocumentoInsercion);
+            for(GrupoUsuarioAccionProcesoEntity listaUAPE:usuarioAccionProcesoEntity){
+                System.out.println("Lista: "+listaUAPE.getAccion().getNombreAccion());
+                System.out.println("TT: "+listaUAPE.getFechaLimite());
+                for(Object nomb:listaUAPE.getSeleccionDual().getTarget()){
+                    
+                    System.out.println("NOMB: "+nomb.toString());
+                }
+            }
             System.out.println("OBJ: "+objetoDocumentoInsercion.getTipoDocumentalDocumento().getNombreTipoDocumental());
             FacesMessage msg = null;
             if (documentoEntity != null) {
@@ -381,6 +412,8 @@ public class DocumentoBean implements Serializable {
     public void nuevoDocumentoObjeto() {
         objetoDocumento = new DocumentoEntity();
         objetoDocumentoInsercion = new DocumentoEntity();
+        Date fecha=new Date();
+        
         TiposDocumentalesEntity tiposDocumentalesEntity = new TiposDocumentalesEntity();
         tiposDocumentalesEntity.setIdTipoDocumental(-1);
         PlantillaEntity plantillaEntity = new PlantillaEntity();
@@ -402,7 +435,48 @@ public class DocumentoBean implements Serializable {
         objetoDocumentoInsercion.setPlantilla(plantillaEntity);
         objetoDocumentoInsercion.setTipoDocumentalDocumento(tiposDocumentalesEntity);
     }
-
+    /**
+     * Método que inicial las listas duales de selección de grupos de usuarios
+     */
+    public void iniciaAcciones(){
+        AccionLogic accionLogic=new AccionLogic();
+        ArrayList<AccionEntity> listaAccion = new ArrayList<>();
+        listaAccion=accionLogic.listaAccion();
+        ArrayList<GrupoProcesoEntity> listaGrupos=new ArrayList<>();
+        GrupoProcesoLogic grupoProcesoLogic=new GrupoProcesoLogic();        
+        ArrayList<String>nombres;
+        ArrayList<String>selecion=new ArrayList<>();
+        DualListModel lista=new DualListModel();
+        GrupoUsuarioAccionProcesoEntity usuaccipro=new GrupoUsuarioAccionProcesoEntity();         
+        usuarioAccionProcesoEntity=new ArrayList<>();
+        for(AccionEntity accion: listaAccion){
+            usuaccipro=new GrupoUsuarioAccionProcesoEntity();
+            nombres=new ArrayList<>();
+            lista=new DualListModel();
+            listaGrupos=grupoProcesoLogic.listaGruposProcesosPorAccion(accion.getIdAccion(), idProceso);
+            usuaccipro.setAccion(accion);
+            System.out.println("ACCION: "+accion.getNombreAccion());
+            for(GrupoProcesoEntity grupoproceso:listaGrupos){
+                System.out.println("NOMBRE: "+grupoproceso.getGrupoUsuarioProceso().getNombreGrupoUsuarios());
+                nombres.add(grupoproceso.getGrupoUsuarioProceso().getNombreGrupoUsuarios());
+            }
+            usuaccipro.setNombres(nombres);
+            usuaccipro.setSelecion(selecion);
+            lista=new DualListModel(nombres, selecion);
+            usuaccipro.setSeleccionDual(lista);
+            usuarioAccionProcesoEntity.add(usuaccipro);
+        }
+    
+    }
+    
+    
+    public void evalua(TreeNode proceso) {
+        ProcesoEntity procesoEntity=new ProcesoEntity();
+        procesoEntity=(ProcesoEntity) proceso.getData();
+        System.out.println("INGRESA: "+procesoEntity.getNombreProceso());
+        idProceso=procesoEntity.getIdProceso();
+        iniciaAcciones();
+    }
     /**
      * Método que evalua los accesos al formulario
      */

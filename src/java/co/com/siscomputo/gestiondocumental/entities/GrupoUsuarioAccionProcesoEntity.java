@@ -7,6 +7,7 @@ package co.com.siscomputo.gestiondocumental.entities;
 
 import co.com.siscomputo.endpoint.AccionEntity;
 import java.util.ArrayList;
+import java.util.Date;
 import org.primefaces.model.DualListModel;
 
 /**
@@ -18,6 +19,7 @@ public class GrupoUsuarioAccionProcesoEntity {
     private DualListModel seleccionDual;
     private ArrayList<String> nombres;
     private ArrayList<String> selecion;
+    private Date fechaLimite;
 
     public AccionEntity getAccion() {
         return accion;
@@ -49,6 +51,14 @@ public class GrupoUsuarioAccionProcesoEntity {
 
     public void setSelecion(ArrayList<String> selecion) {
         this.selecion = selecion;
+    }
+
+    public Date getFechaLimite() {
+        return fechaLimite;
+    }
+
+    public void setFechaLimite(Date fechaLimite) {
+        this.fechaLimite = fechaLimite;
     }
     
 }
