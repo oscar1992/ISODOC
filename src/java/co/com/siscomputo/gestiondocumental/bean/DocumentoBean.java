@@ -12,7 +12,9 @@ import co.com.siscomputo.administracion.logic.TiposDocumentalesLogic;
 import co.com.siscomputo.endpoint.AccionEntity;
 import co.com.siscomputo.gestiondocumental.logic.DocumentoLogic;
 import co.com.siscomputo.endpoint.DocumentoEntity;
+import co.com.siscomputo.endpoint.GrupoDocumentoEntity;
 import co.com.siscomputo.endpoint.GrupoProcesoEntity;
+import co.com.siscomputo.endpoint.GrupoUsuariosEntity;
 import co.com.siscomputo.endpoint.MacroprocesosEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.NivelEntity;
@@ -22,6 +24,7 @@ import co.com.siscomputo.endpoint.ProcesosEntity;
 import co.com.siscomputo.endpoint.SubprocesoEntity;
 import co.com.siscomputo.endpoint.TiposDocumentalesEntity;
 import co.com.siscomputo.gestiondocumental.entities.GrupoUsuarioAccionProcesoEntity;
+import co.com.siscomputo.gestiondocumental.logic.GrupoDocumentoLogic;
 import co.com.siscomputo.utilidades.ComparadorNivel;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -59,11 +62,19 @@ public class DocumentoBean implements Serializable {
     private TreeNode raiz;
     private Integer tope;
     private Integer idProceso;
+    private HashMap<String, GrupoUsuariosEntity>mapaGrupos;
     private ArrayList<GrupoUsuarioAccionProcesoEntity> usuarioAccionProcesoEntity;
     private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
 
+    public HashMap<String, GrupoUsuariosEntity> getMapaGrupos() {
+        return mapaGrupos;
+    }
+
+    public void setMapaGrupos(HashMap<String, GrupoUsuariosEntity> mapaGrupos) {
+        this.mapaGrupos = mapaGrupos;
+    }
     public ArrayList<DocumentoEntity> getLista() {
         return lista;
     }
@@ -266,12 +277,22 @@ public class DocumentoBean implements Serializable {
         try {
             DocumentoLogic documentoLogic = new DocumentoLogic();
             DocumentoEntity documentoEntity = documentoLogic.insertarDocumento(objetoDocumentoInsercion);
+            GrupoDocumentoLogic grupoDocumentoLogic=new GrupoDocumentoLogic();
+            
             for(GrupoUsuarioAccionProcesoEntity listaUAPE:usuarioAccionProcesoEntity){
+                GrupoDocumentoEntity grupoDocumentoEntity=new GrupoDocumentoEntity();
+                grupoDocumentoEntity.setAccionGrupoDocumento(listaUAPE.getAccion());
+                grupoDocumentoEntity.setDocumentoGrupoDocumento(documentoEntity);
+                
+                                
                 System.out.println("Lista: "+listaUAPE.getAccion().getNombreAccion());
-                System.out.println("TT: "+listaUAPE.getFechaLimite());
+                System.out.println("TTT: "+listaUAPE.getFechaLimite());
                 for(Object nomb:listaUAPE.getSeleccionDual().getTarget()){
-                    
-                    System.out.println("NOMB: "+nomb.toString());
+                    System.out.println("NOMB: "+nomb);
+                    GrupoUsuariosEntity grupoUsuariosEntity=new GrupoUsuariosEntity();
+                    grupoUsuariosEntity=mapaGrupos.get(nomb);
+                    grupoDocumentoEntity.setGrupousuariosGrupoDocumento(grupoUsuariosEntity);
+                    grupoDocumentoLogic.insertarGrupoDocumento(grupoDocumentoEntity);
                 }
             }
             System.out.println("OBJ: "+objetoDocumentoInsercion.getTipoDocumentalDocumento().getNombreTipoDocumental());
@@ -448,22 +469,25 @@ public class DocumentoBean implements Serializable {
         ArrayList<String>selecion=new ArrayList<>();
         DualListModel lista=new DualListModel();
         GrupoUsuarioAccionProcesoEntity usuaccipro=new GrupoUsuarioAccionProcesoEntity();         
-        usuarioAccionProcesoEntity=new ArrayList<>();
-        for(AccionEntity accion: listaAccion){
+        usuarioAccionProcesoEntity=new ArrayList<>();  
+        mapaGrupos=new HashMap<String, GrupoUsuariosEntity>();
+        for(AccionEntity accion: listaAccion){            
             usuaccipro=new GrupoUsuarioAccionProcesoEntity();
             nombres=new ArrayList<>();
-            lista=new DualListModel();
+            lista=new DualListModel<>();
             listaGrupos=grupoProcesoLogic.listaGruposProcesosPorAccion(accion.getIdAccion(), idProceso);
             usuaccipro.setAccion(accion);
             System.out.println("ACCION: "+accion.getNombreAccion());
             for(GrupoProcesoEntity grupoproceso:listaGrupos){
                 System.out.println("NOMBRE: "+grupoproceso.getGrupoUsuarioProceso().getNombreGrupoUsuarios());
                 nombres.add(grupoproceso.getGrupoUsuarioProceso().getNombreGrupoUsuarios());
+                mapaGrupos.put(grupoproceso.getGrupoUsuarioProceso().getNombreGrupoUsuarios(), grupoproceso.getGrupoUsuarioProceso());
             }
             usuaccipro.setNombres(nombres);
             usuaccipro.setSelecion(selecion);
             lista=new DualListModel(nombres, selecion);
             usuaccipro.setSeleccionDual(lista);
+            usuaccipro.setFechaLimite(new Date(System.currentTimeMillis()).toString());
             usuarioAccionProcesoEntity.add(usuaccipro);
         }
     

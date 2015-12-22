@@ -6,8 +6,8 @@
 package co.com.siscomputo.gestiondocumental.entities;
 
 import co.com.siscomputo.endpoint.AccionEntity;
+import co.com.siscomputo.endpoint.GrupoUsuariosEntity;
 import java.util.ArrayList;
-import java.util.Date;
 import org.primefaces.model.DualListModel;
 
 /**
@@ -16,10 +16,10 @@ import org.primefaces.model.DualListModel;
  */
 public class GrupoUsuarioAccionProcesoEntity {
     private AccionEntity accion;
-    private DualListModel seleccionDual;
+    private DualListModel<GrupoUsuariosEntity> seleccionDual;
     private ArrayList<String> nombres;
     private ArrayList<String> selecion;
-    private Date fechaLimite;
+    private String fechaLimite;
 
     public AccionEntity getAccion() {
         return accion;
@@ -45,6 +45,7 @@ public class GrupoUsuarioAccionProcesoEntity {
         this.nombres = nombres;
     }
 
+
     public ArrayList<String> getSelecion() {
         return selecion;
     }
@@ -53,12 +54,34 @@ public class GrupoUsuarioAccionProcesoEntity {
         this.selecion = selecion;
     }
 
-    public Date getFechaLimite() {
-        return fechaLimite;
+
+
+    
+
+    public String getFechaLimite() {
+        String retorna = fechaLimite;
+        int dia = 0;
+        int mes = 0;
+        try {
+            dia = Integer.parseInt(fechaLimite.substring(0, 2));
+            mes = Integer.parseInt(fechaLimite.substring(3, 5));
+        } catch (NumberFormatException numberFormatException) {
+        }
+        if(dia>31){            
+            System.out.println("se pasó");
+            retorna = fechaLimite.replaceAll(""+dia, "31");
+        }
+        if(mes>12){            
+            System.out.println("se pasó mm");
+            retorna = fechaLimite.replaceAll(""+mes, "12");
+        }
+        
+        return retorna;
     }
 
-    public void setFechaLimite(Date fechaLimite) {
+    public void setFechaLimite(String fechaLimite) {
         this.fechaLimite = fechaLimite;
     }
+
     
 }

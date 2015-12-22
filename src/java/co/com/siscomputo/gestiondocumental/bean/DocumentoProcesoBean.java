@@ -8,6 +8,7 @@ import co.com.siscomputo.endpoint.DocumentoEntity;
 import co.com.siscomputo.gestiondocumental.logic.DocumentoProcesoLogic;
 import co.com.siscomputo.endpoint.DocumentoProcesoEntity;
 import co.com.siscomputo.endpoint.GrupoProcesoEntity;
+import co.com.siscomputo.endpoint.GrupoUsuariosEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.ProcesoEntity;
 import co.com.siscomputo.endpoint.UsuarioEntity;

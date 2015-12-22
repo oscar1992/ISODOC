@@ -105,6 +105,7 @@
                         </p:treeNode>
                     </p:tree>
                     <p:commandButton value="Asignar Usuarios" update=":IngresarModal:asignados" actionListener="#{Documento.evalua(Documento.arbolaux)}" class="botonNormal" />
+                    
                     <p:panelGrid class="TABLA" id="asignados">
                         <f:facet name="header">
                             <p:row>
@@ -129,8 +130,9 @@
                                     </p:pickList>                                    
                                 </p:column>
                                 <p:column>
-                                    <p:outputLabel for="mask" value="Fecha"></p:outputLabel>
-                                    <p:calendar label="Fecha Límite" id="mask" value="#{acciones2.fechaLimite}" pattern="yyyy-MM-dd" mode="inline"><f:convertDateTime locale="co" pattern="yyyy-MM-dd" /></p:calendar>
+                                    
+                                    <!--<p:calendar label="Fecha Límite" id="multi" value="#{acciones2.fechaLimite}" pages="3" pattern="dd.MM.yyyy"><f:convertDateTime pattern="yyyy-MM-dd" timeStyle="short"/></p:calendar>-->
+                                    <p:inputMask id="fecha" value="#{acciones2.fechaLimite}" mask="99/99/9999"><p:ajax event="blur" update="fecha"/></p:inputMask>
                                 </p:column>
                             </p:row>
                         </ui:repeat>
