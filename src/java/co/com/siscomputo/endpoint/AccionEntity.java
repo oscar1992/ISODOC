@@ -22,6 +22,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="estadoAccion" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="idAccion" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="nombreAccion" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="ordenAccion" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -37,7 +38,8 @@ import javax.xml.bind.annotation.XmlType;
     "descripcionAccion",
     "estadoAccion",
     "idAccion",
-    "nombreAccion"
+    "nombreAccion",
+    "ordenAccion"
 })
 public class AccionEntity
     extends ObjetoRetornaEntity
@@ -49,6 +51,7 @@ public class AccionEntity
     protected String estadoAccion;
     protected int idAccion;
     protected String nombreAccion;
+    protected String ordenAccion;
 
     /**
      * Obtiene el valor de la propiedad actualizadorAccion.
@@ -168,6 +171,30 @@ public class AccionEntity
      */
     public void setNombreAccion(String value) {
         this.nombreAccion = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad ordenAccion.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getOrdenAccion() {
+        return ordenAccion;
+    }
+
+    /**
+     * Define el valor de la propiedad ordenAccion.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setOrdenAccion(String value) {
+        this.ordenAccion = value;
     }
 
 }

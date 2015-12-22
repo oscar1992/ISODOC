@@ -27,7 +27,7 @@
                         <p:column headerText="titulo del Documento" filterBy="#{documento.tituloDocumento}">
                             <h:outputText value="#{documento.tituloDocumento}"/>
                         </p:column>
-                        <p:column headerText="Tipo Documental" filterBy="#{documento.tipoDocumentalDocumento}">
+                        <p:column headerText="Tipo Documental" filterBy="#{documento.tipoDocumentalDocumento.nombreTipoDocumental}">
                             <h:outputText value="#{documento.tipoDocumentalDocumento.nombreTipoDocumental}"/>
                         </p:column>
                         <p:column headerText="plantilla del Documento" filterBy="#{documento.plantilla.nombrePlantilla}">
@@ -138,7 +138,7 @@
                         </ui:repeat>
                     </p:panelGrid>
                     
-                    <p:commandButton value="Ingresar" update=":DocumentoForm:tablaDocumento" actionListener="#{Documento.instertarDocumento()}" validateClient="true" class="botonNormal" ajax="false"/>
+                    <p:commandButton value="Ingresar" update=":DocumentoForm:tablaDocumento,:IngresarModal:asignados" actionListener="#{Documento.instertarDocumento()}" validateClient="true" class="botonNormal" ajax="false"/>
 
                 </h:form>
                 <h:form id="ActualizarModal">

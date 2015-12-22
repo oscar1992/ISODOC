@@ -50,9 +50,10 @@ public class GrupoDocumentoLogic {private Administacion_Service webService;
      * @return 
      */
     public GrupoDocumentoEntity insertarGrupoDocumento(GrupoDocumentoEntity objeto){
-        webService();
-        GrupoDocumentoEntity dispoRta=null;        
+        GrupoDocumentoEntity dispoRta=null;       
         try {
+        webService();
+        //System.out.println("OBJETOT: "+objeto.getFecha().toString());
             dispoRta = port.insertarGrupoDocumento(objeto);
         } catch (Exception e) {
             e.printStackTrace();

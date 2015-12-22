@@ -26,6 +26,7 @@ import co.com.siscomputo.endpoint.TiposDocumentalesEntity;
 import co.com.siscomputo.gestiondocumental.entities.GrupoUsuarioAccionProcesoEntity;
 import co.com.siscomputo.gestiondocumental.logic.GrupoDocumentoLogic;
 import co.com.siscomputo.utilidades.ComparadorNivel;
+import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,6 +41,7 @@ import javax.faces.bean.ViewScoped;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import javax.faces.context.FacesContext;
+import javax.xml.datatype.XMLGregorianCalendar;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.DualListModel;
 import org.primefaces.model.TreeNode;
@@ -278,24 +280,30 @@ public class DocumentoBean implements Serializable {
             DocumentoLogic documentoLogic = new DocumentoLogic();
             DocumentoEntity documentoEntity = documentoLogic.insertarDocumento(objetoDocumentoInsercion);
             GrupoDocumentoLogic grupoDocumentoLogic=new GrupoDocumentoLogic();
-            
+            GrupoDocumentoEntity grupoDocumentoEntity=new GrupoDocumentoEntity();
             for(GrupoUsuarioAccionProcesoEntity listaUAPE:usuarioAccionProcesoEntity){
-                GrupoDocumentoEntity grupoDocumentoEntity=new GrupoDocumentoEntity();
+                grupoDocumentoEntity=new GrupoDocumentoEntity();
                 grupoDocumentoEntity.setAccionGrupoDocumento(listaUAPE.getAccion());
                 grupoDocumentoEntity.setDocumentoGrupoDocumento(documentoEntity);
+                XMLGregorianCalendar calendar=new XMLGregorianCalendarImpl();
+                calendar.setYear(Integer.parseInt(listaUAPE.getFechaLimite().substring(6, 10)));
+                calendar.setMonth(Integer.parseInt(listaUAPE.getFechaLimite().substring(3, 5)));
+                calendar.setDay(Integer.parseInt(listaUAPE.getFechaLimite().substring(0, 2)));
                 
-                                
-                System.out.println("Lista: "+listaUAPE.getAccion().getNombreAccion());
-                System.out.println("TTT: "+listaUAPE.getFechaLimite());
+                //grupoDocumentoEntity.setFecha(calendar);  
+                grupoDocumentoEntity.setFecha(listaUAPE.getFechaLimite());  
+                //System.out.println("CALENDAR: "+grupoDocumentoEntity.getFecha().toString());
+                //System.out.println("Lista: "+listaUAPE.getAccion().getNombreAccion());
+                //System.out.println("TTT: "+listaUAPE.getFechaLimite());
                 for(Object nomb:listaUAPE.getSeleccionDual().getTarget()){
-                    System.out.println("NOMB: "+nomb);
+                    //System.out.println("NOMB: "+nomb);
                     GrupoUsuariosEntity grupoUsuariosEntity=new GrupoUsuariosEntity();
                     grupoUsuariosEntity=mapaGrupos.get(nomb);
                     grupoDocumentoEntity.setGrupousuariosGrupoDocumento(grupoUsuariosEntity);
                     grupoDocumentoLogic.insertarGrupoDocumento(grupoDocumentoEntity);
                 }
             }
-            System.out.println("OBJ: "+objetoDocumentoInsercion.getTipoDocumentalDocumento().getNombreTipoDocumental());
+            //System.out.println("OBJ: "+objetoDocumentoInsercion.getTipoDocumentalDocumento().getNombreTipoDocumental());
             FacesMessage msg = null;
             if (documentoEntity != null) {
                 msg = new FacesMessage("", "inserción de Documento correcto");
@@ -303,6 +311,10 @@ public class DocumentoBean implements Serializable {
             } else {
                 msg = new FacesMessage("", "inserción de Documento incorrecto");
             }
+            usuarioAccionProcesoEntity=new ArrayList<>();
+            RequestContext context= RequestContext.getCurrentInstance();
+            context.update(":IngresarModal:asignados");
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -433,7 +445,6 @@ public class DocumentoBean implements Serializable {
     public void nuevoDocumentoObjeto() {
         objetoDocumento = new DocumentoEntity();
         objetoDocumentoInsercion = new DocumentoEntity();
-        Date fecha=new Date();
         
         TiposDocumentalesEntity tiposDocumentalesEntity = new TiposDocumentalesEntity();
         tiposDocumentalesEntity.setIdTipoDocumental(-1);

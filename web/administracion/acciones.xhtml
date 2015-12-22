@@ -32,7 +32,11 @@
                         </p:column>
                         <p:column headerText="estado de la Acción" filterBy="#{accion.estadoAccion}">
                             <h:outputText value="Activo" rendered="#{accion.estadoAccion == 'A'}"/>
-                            <h:outputText value="Inctivo" rendered="#{accion.estadoAccion == 'I'}"/> </p:column>
+                            <h:outputText value="Inctivo" rendered="#{accion.estadoAccion == 'I'}"/> 
+                        </p:column>
+                        <p:column headerText="Órden  de la Acción" filterBy="#{accion.ordenAccion}">
+                            <h:outputText value="#{accion.ordenAccion}"/>
+                        </p:column>    
 
                     </p:dataTable>
                     <br/>
@@ -45,7 +49,7 @@
                         <p:messages autoUpdate="true"/>                        
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
 
-                            
+
                             <h:outputText value="nombre de la Acción"></h:outputText>
                             <p:inputText required="true" label="nombre de la Acción" value="#{Accion.objetoAccionInsercion.nombreAccion}"/>
                             <h:outputText value="descripcion de la Acción"></h:outputText>
@@ -54,8 +58,9 @@
                             <p:selectOneMenu id="desplegableIngresarEstado" value="#{Accion.objetoAccionInsercion.estadoAccion}" style="width: 150px;">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
-                            </p:selectOneMenu>
-
+                            </p:selectOneMenu>                            
+                            <h:outputText value="Órden de la Acción"></h:outputText>
+                            <p:inputText required="true" label="Órden de la Acción" value="#{Accion.objetoAccionInsercion.ordenAccion}"/>
                         </p:panelGrid>                        
                         <p:commandButton value="Ingresar" update=":AccionForm:tablaAccion,:IngresarModal:insertarAccionModal" actionListener="#{Accion.instertarAccion()}" validateClient="true" class="botonNormal" />
                     </p:dialog>
@@ -64,19 +69,18 @@
                     <p:dialog header="Actualizar Acción" widgetVar="actualizarAccion" modal="true" id="actualizarAccionModal" responsive="true">
                         <p:messages autoUpdate="true"/>
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
-                            <h:outputText value="id de la Acción"></h:outputText>
-                            <p:inputText required="true" label="nombre de la Acción" value="#{Accion.objetoAccion.idAccion}"/>
                             <h:outputText value="nombre de la Acción"></h:outputText>
                             <p:inputText required="true" label="nombre de la Acción" value="#{Accion.objetoAccion.nombreAccion}"/>
                             <h:outputText value="descripcion de la Acción"></h:outputText>
                             <p:inputText required="true" label="nombre de la Acción" value="#{Accion.objetoAccion.descripcionAccion}"/>
-
-
                             <h:outputText value="Estado de la Acción"></h:outputText>
                             <p:selectOneMenu id="desplegableActualizarEstado" value="#{Accion.objetoAccion.estadoAccion}" style="width: 150px;">
                                 <f:selectItem itemLabel="Selecione Acción" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
+                            <h:outputText value="Órden de la Acción"></h:outputText>
+                            <p:inputText required="true" label="Órden de la Acción" value="#{Accion.objetoAccion.ordenAccion}"/>
+                            
                             <h:inputHidden value="#{Accion.objetoAccion.idAccion}"></h:inputHidden>
                         </p:panelGrid>
                         <p:commandButton  value="Actualizar" update=":AccionForm:tablaAccion,:ActualizarModal:actualizarAccionModal,AccionForm:msgs" actionListener="#{Accion.actualizarAccion()}" validateClient="true" class="botonNormal" rendered="#{Accion.actualizar}"/>

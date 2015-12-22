@@ -68,11 +68,11 @@ public class GrupoUsuarioAccionProcesoEntity {
         } catch (NumberFormatException numberFormatException) {
         }
         if(dia>31){            
-            System.out.println("se pasó");
+            //System.out.println("se pasó");
             retorna = fechaLimite.replaceAll(""+dia, "31");
         }
         if(mes>12){            
-            System.out.println("se pasó mm");
+            //System.out.println("se pasó mm");
             retorna = fechaLimite.replaceAll(""+mes, "12");
         }
         
