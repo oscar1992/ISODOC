@@ -9,6 +9,7 @@ import co.com.siscomputo.administracion.logic.AccionLogic;
 import co.com.siscomputo.endpoint.AccionEntity;
 import co.com.siscomputo.endpoint.DocumentoEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
+import co.com.siscomputo.gestiondocumental.entities.PorEstadoEntity;
 import co.com.siscomputo.gestiondocumental.logic.DocumentoLogic;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -23,15 +25,16 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "PorEstado")
 @ViewScoped
-public class PorEstadoBean implements Serializable{
+public class PorEstadoBean implements Serializable {
+
     private ArrayList<DocumentoEntity> lista;
     private ArrayList<DocumentoEntity> listaFiltro;
-    private ArrayList<ArrayList<DocumentoEntity>> documentosAccion;
-    private DocumentoEntity objetoDocumento;
+    private ArrayList<PorEstadoEntity> documentosAccion;
+    private PorEstadoEntity objetoDocumento;
     private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
-    
+
     public ArrayList<DocumentoEntity> getLista() {
         return lista;
     }
@@ -48,21 +51,23 @@ public class PorEstadoBean implements Serializable{
         this.listaFiltro = listaFiltro;
     }
 
-    public ArrayList<ArrayList<DocumentoEntity>> getDocumentosAccion() {
+    public ArrayList<PorEstadoEntity> getDocumentosAccion() {
         return documentosAccion;
     }
 
-    public void setDocumentosAccion(ArrayList<ArrayList<DocumentoEntity>> documentosAccion) {
+    public void setDocumentosAccion(ArrayList<PorEstadoEntity> documentosAccion) {
         this.documentosAccion = documentosAccion;
     }
 
-    public DocumentoEntity getObjetoDocumento() {
+    public PorEstadoEntity getObjetoDocumento() {
         return objetoDocumento;
     }
 
-    public void setObjetoDocumento(DocumentoEntity objetoDocumento) {
+    public void setObjetoDocumento(PorEstadoEntity objetoDocumento) {
         this.objetoDocumento = objetoDocumento;
     }
+
+
 
     public boolean isIngresar() {
         return ingresar;
@@ -87,29 +92,58 @@ public class PorEstadoBean implements Serializable{
     public void setEliminar(boolean eliminar) {
         this.eliminar = eliminar;
     }
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         permisos();
         cargaPorAccion();
+        //objetoDocumento = new DocumentoEntity();
     }
+
+    public PorEstadoBean() {
+        nuevo();
+    }
+
     /**
-     * Método que carga los documentos separados por la acción "Estado" en el que se encuentren
+     * Método que carga los documentos separados por la acción "Estado" en el
+     * que se encuentren
      */
-    public void cargaPorAccion(){
-        
-        documentosAccion=new ArrayList<>();
-        AccionLogic accionLogic=new AccionLogic();
-        ArrayList<AccionEntity> listaAccion=accionLogic.listaAccion();
-        DocumentoLogic documentoLogic=new DocumentoLogic();
-        ArrayList<ArrayList<DocumentoEntity>>listasDocumentos=new ArrayList<>();
-        
-        /* for(AccionEntity accion:listaAccion){
-        listasDocumentos.add(documentoLogic.documetosPorAccion(accion));
-        }*/
-        documentosAccion=listasDocumentos;
-        System.out.println("CARGA");
+    public void cargaPorAccion() {
+
+        documentosAccion = new ArrayList<>();
+        AccionLogic accionLogic = new AccionLogic();
+        ArrayList<AccionEntity> listaAccion = accionLogic.listaAccion();
+        DocumentoLogic documentoLogic = new DocumentoLogic();
+        ArrayList<DocumentoEntity> listasDocumentos = new ArrayList<>();
+
+        for (AccionEntity accion : listaAccion) {
+            PorEstadoEntity porEstadoEntity = new PorEstadoEntity();
+            porEstadoEntity.setAccion(accion);
+            listasDocumentos = documentoLogic.documetosPorAccion(accion);
+            porEstadoEntity.setDocumentosAccion(listasDocumentos);
+            documentosAccion.add(porEstadoEntity);
+        }
+
     }
+
+    /**
+     * Método que se invoca al seleccionar una fila de la tabla
+     *
+     * @param event
+     */
+    public void onRowSelect(SelectEvent event) {
+        //objetoDocumento=new DocumentoEntity();
+        DocumentoEntity doc = (DocumentoEntity) event.getObject();
+        System.out.println("Selección: " + event.getObject().getClass().getCanonicalName());
+    }
+
+    /**
+     * Método que inicializa las variables del bean
+     */
+    public void nuevo() {
+        objetoDocumento = new PorEstadoEntity();
+    }
+
     /**
      * Método que evalua los accesos al formulario
      */
