@@ -28,6 +28,7 @@ import co.com.siscomputo.gestiondocumental.logic.GrupoDocumentoLogic;
 import co.com.siscomputo.utilidades.ComparadorNivel;
 import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -285,6 +286,11 @@ public class DocumentoBean implements Serializable {
                 grupoDocumentoEntity=new GrupoDocumentoEntity();
                 grupoDocumentoEntity.setAccionGrupoDocumento(listaUAPE.getAccion());
                 grupoDocumentoEntity.setDocumentoGrupoDocumento(documentoEntity);
+                System.out.println("GrupoDocumento: "+documentoEntity);
+                if(Integer.parseInt(listaUAPE.getAccion().getOrdenAccion())==1){
+                    documentoEntity.setAccionDocumento(listaUAPE.getAccion());
+                    documentoLogic.actualizarDocumento(documentoEntity);
+                }                
                 XMLGregorianCalendar calendar=new XMLGregorianCalendarImpl();
                 calendar.setYear(Integer.parseInt(listaUAPE.getFechaLimite().substring(6, 10)));
                 calendar.setMonth(Integer.parseInt(listaUAPE.getFechaLimite().substring(3, 5)));
@@ -303,6 +309,7 @@ public class DocumentoBean implements Serializable {
                     grupoDocumentoLogic.insertarGrupoDocumento(grupoDocumentoEntity);
                 }
             }
+            
             //System.out.println("OBJ: "+objetoDocumentoInsercion.getTipoDocumentalDocumento().getNombreTipoDocumental());
             FacesMessage msg = null;
             if (documentoEntity != null) {
@@ -488,9 +495,9 @@ public class DocumentoBean implements Serializable {
             lista=new DualListModel<>();
             listaGrupos=grupoProcesoLogic.listaGruposProcesosPorAccion(accion.getIdAccion(), idProceso);
             usuaccipro.setAccion(accion);
-            System.out.println("ACCION: "+accion.getNombreAccion());
+            //System.out.println("ACCION: "+accion.getNombreAccion());
             for(GrupoProcesoEntity grupoproceso:listaGrupos){
-                System.out.println("NOMBRE: "+grupoproceso.getGrupoUsuarioProceso().getNombreGrupoUsuarios());
+                //System.out.println("NOMBRE: "+grupoproceso.getGrupoUsuarioProceso().getNombreGrupoUsuarios());
                 nombres.add(grupoproceso.getGrupoUsuarioProceso().getNombreGrupoUsuarios());
                 mapaGrupos.put(grupoproceso.getGrupoUsuarioProceso().getNombreGrupoUsuarios(), grupoproceso.getGrupoUsuarioProceso());
             }
@@ -498,7 +505,12 @@ public class DocumentoBean implements Serializable {
             usuaccipro.setSelecion(selecion);
             lista=new DualListModel(nombres, selecion);
             usuaccipro.setSeleccionDual(lista);
-            usuaccipro.setFechaLimite(new Date(System.currentTimeMillis()).toString());
+            Date fecha=new Date(System.currentTimeMillis());
+            
+
+            SimpleDateFormat forma=new SimpleDateFormat("dd/MM/yyyy");
+
+            usuaccipro.setFechaLimite(""+forma.format(fecha));
             usuarioAccionProcesoEntity.add(usuaccipro);
         }
     

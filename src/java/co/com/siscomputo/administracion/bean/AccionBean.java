@@ -208,6 +208,15 @@ public class AccionBean implements Serializable{
         objetoAccion=new AccionEntity();
         objetoAccionInsercion=new AccionEntity();
     }
+    public void validaSecuencia(Integer secu){
+        for(AccionEntity accion:lista){
+            if(Integer.parseInt(accion.getOrdenAccion())==secu){
+                objetoAccionInsercion.setOrdenAccion("Orden ya seleccionado");
+                objetoAccion.setOrdenAccion("Orden ya seleccionado");
+            }
+        }
+    }
+    
 /**
      * Método que evalua los accesos al formulario
      */

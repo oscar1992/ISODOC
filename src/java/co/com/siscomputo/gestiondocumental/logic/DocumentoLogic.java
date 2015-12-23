@@ -1,5 +1,6 @@
 package co.com.siscomputo.gestiondocumental.logic;
 
+import co.com.siscomputo.endpoint.AccionEntity;
 import co.com.siscomputo.endpoint.DocumentoEntity;
 import co.com.siscomputo.endpoint.GestionDocumental;
 import co.com.siscomputo.endpoint.GestionDocumental_Service;
@@ -81,5 +82,19 @@ public class DocumentoLogic {
         return rta;
     }
     
-    
+    public ArrayList<DocumentoEntity> documetosPorAccion(AccionEntity accion){
+        webService();
+        ArrayList<DocumentoEntity> listaretorna=new ArrayList<>();
+        try {
+            ArrayList<Object>listaObjeto=new ArrayList<>();
+            listaObjeto=(ArrayList<Object>) port.listaDocumentoPorAccion(accion).getRetorna();
+            for(Object obj:listaObjeto){
+                DocumentoEntity documentoEntity=(DocumentoEntity) obj;
+                listaretorna.add(documentoEntity);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listaretorna;
+    }
 }

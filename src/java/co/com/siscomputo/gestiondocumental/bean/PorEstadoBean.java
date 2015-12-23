@@ -5,21 +5,29 @@
  */
 package co.com.siscomputo.gestiondocumental.bean;
 
+import co.com.siscomputo.administracion.logic.AccionLogic;
+import co.com.siscomputo.endpoint.AccionEntity;
 import co.com.siscomputo.endpoint.DocumentoEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.gestiondocumental.logic.DocumentoLogic;
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 /**
  *
  * @author LENOVO
  */
-public class PorEstadoBean {
+@ManagedBean(name = "PorEstado")
+@ViewScoped
+public class PorEstadoBean implements Serializable{
     private ArrayList<DocumentoEntity> lista;
     private ArrayList<DocumentoEntity> listaFiltro;
     private ArrayList<ArrayList<DocumentoEntity>> documentosAccion;
+    private DocumentoEntity objetoDocumento;
     private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
@@ -48,6 +56,14 @@ public class PorEstadoBean {
         this.documentosAccion = documentosAccion;
     }
 
+    public DocumentoEntity getObjetoDocumento() {
+        return objetoDocumento;
+    }
+
+    public void setObjetoDocumento(DocumentoEntity objetoDocumento) {
+        this.objetoDocumento = objetoDocumento;
+    }
+
     public boolean isIngresar() {
         return ingresar;
     }
@@ -74,11 +90,25 @@ public class PorEstadoBean {
     
     @PostConstruct
     public void init(){
-        
+        permisos();
+        cargaPorAccion();
     }
-    
+    /**
+     * Método que carga los documentos separados por la acción "Estado" en el que se encuentren
+     */
     public void cargaPorAccion(){
-        //DocumentoLogic
+        
+        documentosAccion=new ArrayList<>();
+        AccionLogic accionLogic=new AccionLogic();
+        ArrayList<AccionEntity> listaAccion=accionLogic.listaAccion();
+        DocumentoLogic documentoLogic=new DocumentoLogic();
+        ArrayList<ArrayList<DocumentoEntity>>listasDocumentos=new ArrayList<>();
+        
+        /* for(AccionEntity accion:listaAccion){
+        listasDocumentos.add(documentoLogic.documetosPorAccion(accion));
+        }*/
+        documentosAccion=listasDocumentos;
+        System.out.println("CARGA");
     }
     /**
      * Método que evalua los accesos al formulario

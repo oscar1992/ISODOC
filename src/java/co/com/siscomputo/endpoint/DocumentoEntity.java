@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;extension base="{http://endpoint.siscomputo.com.co/}objetoRetornaEntity">
  *       &lt;sequence>
+ *         &lt;element name="accionDocumento" type="{http://endpoint.siscomputo.com.co/}accionEntity" minOccurs="0"/>
  *         &lt;element name="estadoDocumento" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="idDocumento" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="macroProcesoDocumento" type="{http://endpoint.siscomputo.com.co/}macroprocesosEntity" minOccurs="0"/>
@@ -35,6 +36,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "documentoEntity", propOrder = {
+    "accionDocumento",
     "estadoDocumento",
     "idDocumento",
     "macroProcesoDocumento",
@@ -49,6 +51,7 @@ public class DocumentoEntity
     extends ObjetoRetornaEntity
 {
 
+    protected AccionEntity accionDocumento;
     protected String estadoDocumento;
     protected int idDocumento;
     protected MacroprocesosEntity macroProcesoDocumento;
@@ -58,6 +61,30 @@ public class DocumentoEntity
     protected TiposDocumentalesEntity tipoDocumentalDocumento;
     protected String tituloDocumento;
     protected String versionDocumento;
+
+    /**
+     * Obtiene el valor de la propiedad accionDocumento.
+     * 
+     * @return
+     *     possible object is
+     *     {@link AccionEntity }
+     *     
+     */
+    public AccionEntity getAccionDocumento() {
+        return accionDocumento;
+    }
+
+    /**
+     * Define el valor de la propiedad accionDocumento.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link AccionEntity }
+     *     
+     */
+    public void setAccionDocumento(AccionEntity value) {
+        this.accionDocumento = value;
+    }
 
     /**
      * Obtiene el valor de la propiedad estadoDocumento.
