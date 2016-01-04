@@ -90,6 +90,7 @@ public class ObjectFactory {
     private final static QName _ListaGrupoProcesoPorAccionResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaGrupoProcesoPorAccionResponse");
     private final static QName _ListaNivelResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaNivelResponse");
     private final static QName _ActualizarDisposicion_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarDisposicion");
+    private final static QName _AccionPorIdResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "accionPorIdResponse");
     private final static QName _ActualizarProceso_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarProceso");
     private final static QName _ListaPlantillaResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaPlantillaResponse");
     private final static QName _InsertarNivelResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarNivelResponse");
@@ -106,6 +107,7 @@ public class ObjectFactory {
     private final static QName _InsertarAccion_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarAccion");
     private final static QName _ListaElaboradorResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaElaboradorResponse");
     private final static QName _ListaGrupoProcesoAccion_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaGrupoProcesoAccion");
+    private final static QName _AccionPorId_QNAME = new QName("http://endpoint.siscomputo.com.co/", "accionPorId");
     private final static QName _InsertarPlantillaResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarPlantillaResponse");
     private final static QName _InsertarTipoControlDistribucion_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarTipoControlDistribucion");
     private final static QName _ListaAccionResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaAccionResponse");
@@ -268,6 +270,14 @@ public class ObjectFactory {
      */
     public ListaMetodoProteccionResponse createListaMetodoProteccionResponse() {
         return new ListaMetodoProteccionResponse();
+    }
+
+    /**
+     * Create an instance of {@link AccionPorId }
+     * 
+     */
+    public AccionPorId createAccionPorId() {
+        return new AccionPorId();
     }
 
     /**
@@ -652,6 +662,14 @@ public class ObjectFactory {
      */
     public ActualizarDisposicion createActualizarDisposicion() {
         return new ActualizarDisposicion();
+    }
+
+    /**
+     * Create an instance of {@link AccionPorIdResponse }
+     * 
+     */
+    public AccionPorIdResponse createAccionPorIdResponse() {
+        return new AccionPorIdResponse();
     }
 
     /**
@@ -1865,6 +1883,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AccionPorIdResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "accionPorIdResponse")
+    public JAXBElement<AccionPorIdResponse> createAccionPorIdResponse(AccionPorIdResponse value) {
+        return new JAXBElement<AccionPorIdResponse>(_AccionPorIdResponse_QNAME, AccionPorIdResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarProceso }{@code >}}
      * 
      */
@@ -2006,6 +2033,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaGrupoProcesoAccion")
     public JAXBElement<ListaGrupoProcesoAccion> createListaGrupoProcesoAccion(ListaGrupoProcesoAccion value) {
         return new JAXBElement<ListaGrupoProcesoAccion>(_ListaGrupoProcesoAccion_QNAME, ListaGrupoProcesoAccion.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AccionPorId }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "accionPorId")
+    public JAXBElement<AccionPorId> createAccionPorId(AccionPorId value) {
+        return new JAXBElement<AccionPorId>(_AccionPorId_QNAME, AccionPorId.class, null, value);
     }
 
     /**

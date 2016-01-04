@@ -28,7 +28,7 @@ public class MenuBean implements Serializable {
 
     private ArrayList<MenuModuloEntity> menu;
     private int idUsuario;
-    private int idModulo;
+    private Integer idModulo;
     private int idPermiso;
     private int numeroModulo;
     private String nombreModulo;
@@ -73,7 +73,7 @@ public class MenuBean implements Serializable {
     }
 
     public int getIdModulo() {
-        idModulo=(int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idModulo");
+        idModulo=(Integer) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idModulo");
         return idModulo;
     }
     /**
@@ -97,11 +97,34 @@ public class MenuBean implements Serializable {
      * @param idModulo 
      */
     public void setIdModulo(int idModulo, String subMenu, Integer idPermiso) {
+        System.out.println("MODULO:"+idModulo+" SUBMenu: "+subMenu+" idPermiso: "+idPermiso);
         if(idModulo!=-1) {
             this.idModulo = idModulo;
             setMenuLateral();
             this.nombreModulo+="/"+subMenu;
-            //System.out.println("MenuLateral: " + menuLateral.size() + " - " + this.idModulo);
+            System.out.println("MenuLateral: " + menuLateral.size() + " - " + this.idModulo);
+        } else  {
+            this.numeroModulo=-1;
+            this.nombreModulo="Inicio";
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("numeroModulo", numeroModulo);
+            
+            this.idModulo=-1;
+            //System.out.println("MenuLateral: Inicio - " + this.idModulo);
+        }
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idPermiso", idPermiso);
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("nombreModulo", nombreModulo);
+    }
+    /**
+     * Método que cambia el número y el nombre del medulo 
+     * @param idModulo 
+     */
+    public void setIdModulo2(int idModulo, String subMenu, Integer idPermiso) {
+        System.out.println("MODULO:"+idModulo+" SUBMenu: "+subMenu+" idPermiso: "+idPermiso);
+        if(idModulo!=-1) {
+            this.idModulo = idModulo;
+            setMenuLateral();
+            this.nombreModulo+="/"+subMenu;
+            System.out.println("MenuLateral: " + menuLateral.size() + " - " + this.idModulo);
         } else  {
             this.numeroModulo=-1;
             this.nombreModulo="Inicio";
@@ -206,6 +229,7 @@ public class MenuBean implements Serializable {
      * Método que pone en la sesión los datos del menú
      */
     public void cargaMenu() {
+        
         menu = (ArrayList<MenuModuloEntity>) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("menu");
     }
     

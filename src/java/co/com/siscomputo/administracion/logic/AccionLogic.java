@@ -78,4 +78,15 @@ public class AccionLogic {private Administacion_Service webService;
         }
         return rta;
     }
+    
+    public AccionEntity accionPorId(Integer idAccion){
+        webService();
+        AccionEntity accionEntity=new AccionEntity();
+        try {
+            accionEntity=port.accionPorId(idAccion);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return accionEntity;
+    }
 }

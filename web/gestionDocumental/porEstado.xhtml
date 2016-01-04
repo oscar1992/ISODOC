@@ -15,23 +15,79 @@
                     <div class="prueba" style="color: white; ">
                         <p:growl id="msgs" showDetail="true" life="3000" />
                     </div>
-                    <ui:repeat value="#{PorEstado.documentosAccion}" var="listadoc">
-                        
-                        <p:dataTable var="documento" value="#{listadoc.documentosAccion}" reflow="true" widgetVar="TablaDocumento" id="tablaDocumento" selectionMode="single"
-                                     selection="#{PorEstado.objetoDocumento}" rowKey="#{documento}" class="TABLA" paginator="true" rows="7">
-                            <p:ajax event="rowSelect" listener="#{PorEstado.onRowSelect}" update=":DocumentoForm:msgs" />
-                            <f:facet name="header">
-                                <h:outputText value="CONSULTA DE DOCUMENTO #{listadoc.accion.nombreAccion}" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
-                                <p:inputText id="globalFilter" onkeyup="PF('TablaDocumento').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
-                                <h:outputText value="Buscar" style="color: #FFF; float: right"/>
-                            </f:facet>
-                            <p:column headerText="Nombre">
-                                <h:outputText value="#{documento.tituloDocumento}"/>
-                                
-                            </p:column>
-                        </p:dataTable>
-                        <br/>
-                    </ui:repeat>
+
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Seleccione Estado:  "/>
+                        <p:selectOneRadio value="#{PorEstado.idAccion}">                        
+                            <f:selectItems value="#{PorEstado.listaAcciones}" var="accion" itemLabel="  #{accion.nombreAccion}" itemValue="#{accion.idAccion}"/>
+                        </p:selectOneRadio>
+                        <p:commandButton value="Mostrar" actionListener="#{PorEstado.objeto()}"  update=":DocumentoForm:tablaDocumento" class="botonNormal"></p:commandButton>
+                    </h:panelGrid>
+
+                    <br/>
+
+                    <p:dataTable var="documento" value="#{PorEstado.lista}" reflow="true" widgetVar="TablaDocumento" id="tablaDocumento" selectionMode="single"
+                                 selection="#{PorEstado.objetoDocumento}" rowKey="#{documento.idDocumento}" class="TABLA" paginator="true" rows="7">
+                        <p:ajax event="rowSelect" listener="#{PorEstado.onRowSelect}" update=":DocumentoForm:msgs,:MoverDocumento:moverDocumento " rendered="#{PorEstado.mostrarTabla}" oncomplete="PF('actualizarDocumento').show()"/>
+                        <f:facet name="header">
+                            <h:outputText value="CONSULTA DE DOCUMENTO" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                            <p:inputText id="globalFilter" onkeyup="PF('TablaDocumento').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                            <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                        </f:facet>
+
+                        <p:column headerText="titulo del Documento" filterBy="#{documento.tituloDocumento}">
+                            <h:outputText value="#{documento.tituloDocumento}"/>
+                        </p:column>
+                        <p:column headerText="Tipo Documental" filterBy="#{documento.tipoDocumentalDocumento.nombreTipoDocumental}">
+                            <h:outputText value="#{documento.tipoDocumentalDocumento.nombreTipoDocumental}"/>
+                        </p:column>
+                        <p:column headerText="plantilla del Documento" filterBy="#{documento.plantilla.nombrePlantilla}">
+                            <h:outputText value="#{documento.plantilla.nombrePlantilla}"/>
+                        </p:column>
+                        <p:column headerText="version del Documento" filterBy="#{documento.versionDocumento}">
+                            <h:outputText value="#{documento.versionDocumento}"/>
+                        </p:column>
+                        <p:column headerText="estado del Documento" filterBy="#{documento.estadoDocumento}">
+                            <h:outputText value="Activo" rendered="#{documento.estadoDocumento == 'A'}"/>
+                            <h:outputText value="Inctivo" rendered="#{documento.estadoDocumento == 'I'}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+                <h:form id="MoverDocumento">
+                    <p:dialog header="Actualizar Documento" widgetVar="actualizarDocumento" modal="true" id="moverDocumento" responsive="true">
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="4">
+                            <h:outputText value="Título del Documento"></h:outputText>
+                            <h:outputText value="#{PorEstado.objetoDocumento.tituloDocumento}"></h:outputText>
+                            
+                            <h:outputText value="Tipo Documental del Documento"></h:outputText>                            
+                            <h:outputText value="#{PorEstado.objetoDocumento.tipoDocumentalDocumento.nombreTipoDocumental}"></h:outputText>
+                            
+                            <h:outputText value="Plantilla del Documento"></h:outputText>
+                            <h:outputText value="#{PorEstado.objetoDocumento.plantilla.nombrePlantilla}"></h:outputText>
+                            
+                            <h:outputText value="Version del Documento"></h:outputText>
+                            <h:outputText value="#{PorEstado.objetoDocumento.versionDocumento}"></h:outputText>
+                            
+                            <h:outputText value="Estado del Documento"></h:outputText>
+                            <h:outputText value="#{PorEstado.objetoDocumento.estadoDocumento}"></h:outputText>
+                            
+
+                            <h:outputText value="MacroProceso del Documento"></h:outputText>
+                            <h:outputText value="#{PorEstado.objetoDocumento.macroProcesoDocumento.nombreMacroproceso}"></h:outputText>
+                     
+
+                            <h:outputText value="Proceso del Documento"></h:outputText>
+                            <h:outputText value="#{PorEstado.objetoDocumento.procesoProcesoDocumento.nombrePreoceso}"></h:outputText>
+                            
+
+                            <h:outputText value="SubProceso del Documento"></h:outputText>
+                            <h:outputText value="#{PorEstado.objetoDocumento.subProcesoProcesoDocumento.idProcesos.nombrePreoceso}"></h:outputText>
+                            
+                            
+                            <h:inputHidden value="#{PorEstado.objetoDocumento.idDocumento}"></h:inputHidden>
+                        </p:panelGrid>
+                    </p:dialog>                    
                 </h:form>
             </h:body>
         </ui:define>

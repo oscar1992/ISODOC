@@ -17,6 +17,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 /**
@@ -30,7 +31,11 @@ public class PorEstadoBean implements Serializable {
     private ArrayList<DocumentoEntity> lista;
     private ArrayList<DocumentoEntity> listaFiltro;
     private ArrayList<PorEstadoEntity> documentosAccion;
-    private PorEstadoEntity objetoDocumento;
+    private DocumentoEntity objetoDocumento;
+    private ArrayList<AccionEntity> listaAcciones;
+    private AccionEntity objetoAccion;
+    private Integer idAccion;
+    private boolean mostrarTabla;
     private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
@@ -59,16 +64,49 @@ public class PorEstadoBean implements Serializable {
         this.documentosAccion = documentosAccion;
     }
 
-    public PorEstadoEntity getObjetoDocumento() {
+    public DocumentoEntity getObjetoDocumento() {
         return objetoDocumento;
     }
 
-    public void setObjetoDocumento(PorEstadoEntity objetoDocumento) {
+    public void setObjetoDocumento(DocumentoEntity objetoDocumento) {
         this.objetoDocumento = objetoDocumento;
     }
 
+    public ArrayList<AccionEntity> getListaAcciones() {
+        return listaAcciones;
+    }
 
+    public void setListaAcciones(ArrayList<AccionEntity> listaAcciones) {
+        this.listaAcciones = listaAcciones;
+    }
 
+    public AccionEntity getObjetoAccion() {
+        return objetoAccion;
+    }
+
+    public void setObjetoAccion(AccionEntity objetoAccion) {
+        this.objetoAccion = objetoAccion;
+    }
+
+    public Integer getIdAccion() {
+        return idAccion;
+    }
+
+    public void setIdAccion(Integer idAccion) {
+        this.idAccion = idAccion;
+    }
+
+    public boolean isMostrarTabla() {
+        return mostrarTabla;
+    }
+
+    public void setMostrarTabla(boolean mostrarTabla) {
+        this.mostrarTabla = mostrarTabla;
+    }
+    
+    
+    
+    
     public boolean isIngresar() {
         return ingresar;
     }
@@ -96,11 +134,25 @@ public class PorEstadoBean implements Serializable {
     @PostConstruct
     public void init() {
         permisos();
-        cargaPorAccion();
-        //objetoDocumento = new DocumentoEntity();
+        
+        cargaAcciones();
+        //objetoDocumento = new DocumentoEntity();        
+        idAccion=null;
     }
-
+    /**
+     * Método que se llama al selecionar una accion, este carga los documentos asociados a la acción seleccionada
+     */
+    public void objeto(){        
+        System.out.println("OBJETOA: "+idAccion);
+        cargaPorAccion();
+        mostrarTabla=true;
+        RequestContext context= RequestContext.getCurrentInstance();
+        //context.update(":DocumentoForm:bot");
+        
+    }
+    
     public PorEstadoBean() {
+        
         nuevo();
     }
 
@@ -112,19 +164,17 @@ public class PorEstadoBean implements Serializable {
 
         documentosAccion = new ArrayList<>();
         AccionLogic accionLogic = new AccionLogic();
-        ArrayList<AccionEntity> listaAccion = accionLogic.listaAccion();
+        objetoAccion = accionLogic.accionPorId(idAccion);
         DocumentoLogic documentoLogic = new DocumentoLogic();
-        ArrayList<DocumentoEntity> listasDocumentos = new ArrayList<>();
-
-        for (AccionEntity accion : listaAccion) {
-            PorEstadoEntity porEstadoEntity = new PorEstadoEntity();
-            porEstadoEntity.setAccion(accion);
-            listasDocumentos = documentoLogic.documetosPorAccion(accion);
-            porEstadoEntity.setDocumentosAccion(listasDocumentos);
-            documentosAccion.add(porEstadoEntity);
-        }
-
+        lista= documentoLogic.documetosPorAccion(objetoAccion);
+        
     }
+
+    public void cargaAcciones() {
+        AccionLogic accionLogic = new AccionLogic();
+        listaAcciones = accionLogic.listaAccion();
+    }
+
 
     /**
      * Método que se invoca al seleccionar una fila de la tabla
@@ -132,16 +182,17 @@ public class PorEstadoBean implements Serializable {
      * @param event
      */
     public void onRowSelect(SelectEvent event) {
-        //objetoDocumento=new DocumentoEntity();
-        DocumentoEntity doc = (DocumentoEntity) event.getObject();
-        System.out.println("Selección: " + event.getObject().getClass().getCanonicalName());
+        objetoDocumento=new DocumentoEntity();
+        objetoDocumento = (DocumentoEntity) event.getObject();
+        
+        System.out.println("Selección: " + objetoDocumento.getTituloDocumento());
     }
 
     /**
      * Método que inicializa las variables del bean
      */
     public void nuevo() {
-        objetoDocumento = new PorEstadoEntity();
+        objetoDocumento = new DocumentoEntity();
     }
 
     /**
@@ -151,6 +202,7 @@ public class PorEstadoBean implements Serializable {
         ingresar = false;
         actualizar = false;
         eliminar = false;
+        
         ArrayList<MenuPermisosEntity> permisos = (ArrayList<MenuPermisosEntity>) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("menuLateral");
         for (MenuPermisosEntity permisoObj : permisos) {
             for (MenuPermisosEntity nivel1 : permisoObj.getSubNivel()) {

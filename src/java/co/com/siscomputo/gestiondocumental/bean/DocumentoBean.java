@@ -286,7 +286,7 @@ public class DocumentoBean implements Serializable {
                 grupoDocumentoEntity=new GrupoDocumentoEntity();
                 grupoDocumentoEntity.setAccionGrupoDocumento(listaUAPE.getAccion());
                 grupoDocumentoEntity.setDocumentoGrupoDocumento(documentoEntity);
-                System.out.println("GrupoDocumento: "+documentoEntity);
+                //System.out.println("GrupoDocumento: "+documentoEntity);
                 if(Integer.parseInt(listaUAPE.getAccion().getOrdenAccion())==1){
                     documentoEntity.setAccionDocumento(listaUAPE.getAccion());
                     documentoLogic.actualizarDocumento(documentoEntity);
@@ -416,7 +416,7 @@ public class DocumentoBean implements Serializable {
      */
     public void onRowSelect(SelectEvent event) {
         objetoDocumento = (DocumentoEntity) event.getObject();
-        System.out.println("select: "+objetoDocumento.getTituloDocumento());
+        //System.out.println("select: "+objetoDocumento.getTituloDocumento());
     }
 
     /**
@@ -520,7 +520,7 @@ public class DocumentoBean implements Serializable {
     public void evalua(TreeNode proceso) {
         ProcesoEntity procesoEntity=new ProcesoEntity();
         procesoEntity=(ProcesoEntity) proceso.getData();
-        System.out.println("INGRESA: "+procesoEntity.getNombreProceso());
+        //System.out.println("INGRESA: "+procesoEntity.getNombreProceso());
         idProceso=procesoEntity.getIdProceso();
         iniciaAcciones();
     }

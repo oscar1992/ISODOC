@@ -206,7 +206,7 @@ public class GrupoProcesoBean implements Serializable {
         try {
             GrupoProcesoLogic grupoProcesoLogic = new GrupoProcesoLogic();
             ArrayList<ProcesoEntity> listaProcesoEntity=new ArrayList<>();
-            System.out.println("IDGRUPOC: "+idGrupo);
+            //System.out.println("IDGRUPOC: "+idGrupo);
             listaProcesoEntity = grupoProcesoLogic.listaGrupoProceso(idGrupo);
             for(ProcesoEntity grupoP:listaProcesoEntity){
                 seleccionProcesos.add(grupoP.getNombreProceso());
@@ -342,7 +342,7 @@ public class GrupoProcesoBean implements Serializable {
         
         if(event.isAdd()){
         nombreProceso = (String) event.getItems().get(0);
-        System.out.println("Proceso: " + nombreProceso);
+        //System.out.println("Proceso: " + nombreProceso);
         RequestContext.getCurrentInstance().execute("PF('actualizarGrupoProceso').show()");
         cargaListaAcciones();
         }else{
@@ -360,7 +360,7 @@ public class GrupoProcesoBean implements Serializable {
         ArrayList<ProcesoEntity>listaProc=grupoProcesoLogic.listaGrupoProceso(idGrupo);
         for(ProcesoEntity proceso:listaProc){
             if(nombreProceso.equals(proceso.getNombreProceso())){
-                System.out.println("existe: "+nombreProceso);
+                //System.out.println("existe: "+nombreProceso);
                 idProceso=proceso.getIdProceso();                
                 RequestContext.getCurrentInstance().execute("PF('actualizarGrupoProceso').show()");
                 cargaListaAcciones();

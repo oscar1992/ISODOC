@@ -95,9 +95,10 @@ and open the template in the editor.
                                                         <ul>
                                                             <ui:repeat var="permisoListaN2" value="#{permisoListaN1.subNivel}">
                                                                 <li >
-                                                                    <h:outputLink value="#{permisoListaN2.ruta}" >
+                                                                    <h:outputText value="#{Menus.numeroModulo}"/>
+                                                                    <p:commandLink action="#{Menus.setRutaModulo(permisoListaN2.ruta)}" actionListener="#{Menus.setIdModulo2(moduloM.idModulo, permisoListaN1.nombrePermiso, permisoListaN1.idPermiso)}">
                                                                         <p:outputLabel value="#{permisoListaN2.nombrePermiso}"></p:outputLabel>
-                                                                    </h:outputLink>
+                                                                    </p:commandLink>
                                                                 </li>
                                                             </ui:repeat>
                                                         </ul>

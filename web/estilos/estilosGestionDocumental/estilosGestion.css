@@ -17,7 +17,7 @@
     text-shadow: none;
     max-width: 300px;
     text-align: center;
-    
+
 }
 /*
     Color del hover de la lista
@@ -89,7 +89,7 @@
 .list-group{
     margin:0;
     text-decoration-color: #000000;
-    
+
 }
 
 .detalles{
@@ -119,7 +119,7 @@
     font-size: 12px;
     margin:0;
     color: #666666;
-   
+
 }
 /*
     Estilo general de la tabla que contiene datos
@@ -128,7 +128,7 @@
     margin:0px;padding:0px;
     width:100%;
     border:1px solid #7f7f7f;
-    
+
 }
 /*
     Estilo general de la tabla que contiene datos y textos
@@ -334,11 +334,11 @@
     background-repeat: no-repeat;
     width: 20px;
     height: 20px;
-    
+
 }
 
 .ui-state-hover{
-    
+
 }
 
 .ui-selectonemenu{
@@ -463,4 +463,60 @@
 
 .ui-tree .ui-treenode-label.ui-state-highlight{
     background-color: #0071bc;
+}
+
+.ui-button-text-only .ui-button-text{
+    font-family: Trebuchet MS;
+    color: #ffffff;
+    font-size: 12px;
+    background: #0071bc;
+    font-weight: bolder;
+    text-decoration: none;
+    border: solid #1f628d 0px;
+    width: 110px;
+    border-radius: 4px;
+    height: 30px;
+}
+
+.ui-button-text-only .ui-button-text:hover{
+    font-family: Trebuchet MS;
+    color: #ffffff;
+    font-size: 12px;
+    background: #999999;
+    font-weight: bolder;
+    text-decoration: none;
+    border: solid #1f628d 0px;
+    width: 110px;
+    border-radius: 4px;
+    height: 30px;
+}
+
+.ui-button ui-widget ui-state-default ui-button-text-only ui-corner-right ui-state-active{
+    font-family: Trebuchet MS;
+    color: #ffffff;
+    font-size: 12px;
+    background: #0071bc;
+    font-weight: bolder;
+    text-decoration: none;
+    border: solid #1f628d 0px;
+    width: 110px;
+    border-radius: 4px;
+    height: 30px;
+}
+
+.ui-radiobutton{
+    background: #cccccc;
+    border-radius:50%;
+}
+
+.ui-state-active{
+    background: #357ebd;
+}
+
+.ui-icon-bullet{
+    background-image: url(/ISODOC/imagenes/buttons/punto.png);
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    background-position-x: 3px;
 }
