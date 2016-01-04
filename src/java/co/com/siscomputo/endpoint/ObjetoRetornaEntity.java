@@ -46,6 +46,7 @@ import javax.xml.bind.annotation.XmlType;
     MetodoProteccionEntity.class,
     DisposicionesEntity.class,
     TipoControlDistribucionEntity.class,
+    EmpresaEntity.class,
     MetodoRecuperacionEntity.class,
     TiposDocumentalesEntity.class,
     ProcesoEntity.class,

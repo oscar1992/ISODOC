@@ -8,6 +8,7 @@ package co.com.siscomputo.administracion.bean;
 import co.com.siscomputo.administracion.logic.AccionLogic;
 import co.com.siscomputo.administracion.logic.AreaLogic;
 import co.com.siscomputo.administracion.logic.DepartamentoLogic;
+import co.com.siscomputo.administracion.logic.EmpresaLogic;
 import co.com.siscomputo.administracion.logic.MacroProcesosLogic;
 import co.com.siscomputo.administracion.logic.NivelLogic;
 import co.com.siscomputo.administracion.logic.PaisesLogic;
@@ -21,6 +22,7 @@ import co.com.siscomputo.administracion.logic.TiposDocumentalesLogic;
 import co.com.siscomputo.endpoint.AccionEntity;
 import co.com.siscomputo.endpoint.AreaEntity;
 import co.com.siscomputo.endpoint.DepartamentoEntity;
+import co.com.siscomputo.endpoint.EmpresaEntity;
 import co.com.siscomputo.endpoint.MacroprocesosEntity;
 import co.com.siscomputo.endpoint.NivelEntity;
 import co.com.siscomputo.endpoint.PaisEntity;
@@ -61,6 +63,7 @@ public class ListaAdministracionBean implements Serializable {
     private Map<String, Integer> listaProcesoAsociado;
     private Map<String, Integer> listaAcciones;
     private Map<String, Integer> listaProceso;
+    private Map<String, Integer> listaEmpresas;
     private int seleccion;
     private Integer idMacroProceso;
     private Integer idProceso;
@@ -423,6 +426,24 @@ public class ListaAdministracionBean implements Serializable {
         ArrayList<ProcesoEntity>listaProcesoWS=procesoLogic.listaProceso();
         for(ProcesoEntity proceso:listaProcesoWS){
             listaProceso.put(proceso.getNombreProceso(), proceso.getIdProceso());
+        }
+    }
+
+    public Map<String, Integer> getListaEmpresas() {
+        iniciarListaEmpresas();
+        return listaEmpresas;
+    }
+
+    public void setListaEmpresas(Map<String, Integer> listaEmpresas) {
+        this.listaEmpresas = listaEmpresas;
+    }
+    
+    public void iniciarListaEmpresas(){
+        listaEmpresas=new HashMap<String, Integer>();
+        EmpresaLogic empresaLogic=new EmpresaLogic();
+        ArrayList<EmpresaEntity>listaEmpresasWS=empresaLogic.listaEmpresas();
+        for(EmpresaEntity empresa:listaEmpresasWS){
+            listaEmpresas.put(empresa.getNombreEmpresa(), empresa.getIdEmpresa());
         }
     }
 }

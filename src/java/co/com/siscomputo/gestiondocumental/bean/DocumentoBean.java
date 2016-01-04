@@ -12,6 +12,7 @@ import co.com.siscomputo.administracion.logic.TiposDocumentalesLogic;
 import co.com.siscomputo.endpoint.AccionEntity;
 import co.com.siscomputo.gestiondocumental.logic.DocumentoLogic;
 import co.com.siscomputo.endpoint.DocumentoEntity;
+import co.com.siscomputo.endpoint.EmpresaEntity;
 import co.com.siscomputo.endpoint.GrupoDocumentoEntity;
 import co.com.siscomputo.endpoint.GrupoProcesoEntity;
 import co.com.siscomputo.endpoint.GrupoUsuariosEntity;
@@ -216,7 +217,7 @@ public class DocumentoBean implements Serializable {
             listaProcesosTodos = procesoLogic.listaProceso();
             listaProcesos = new ArrayList<>();
 
-            Collections.sort(listaNivel, new ComparadorNivel());
+            Collections.reverse(listaNivel);
             for (NivelEntity nivel : listaNivel) {
                 ArrayList<ProcesoEntity> lista = new ArrayList<>();
                 for (ProcesoEntity proceso : listaProcesosTodos) {
@@ -463,6 +464,8 @@ public class DocumentoBean implements Serializable {
         procesosEntity.setIdProcesos(-1);
         SubprocesoEntity subprocesoEntity = new SubprocesoEntity();
         subprocesoEntity.setIdSubproceso(-1);
+        EmpresaEntity empresaEntity=new EmpresaEntity();
+        empresaEntity.setIdEmpresa(-1);
         objetoDocumento.setMacroProcesoDocumento(macroprocesosEntity);
         objetoDocumento.setProcesoProcesoDocumento(procesosEntity);
         objetoDocumento.setSubProcesoProcesoDocumento(subprocesoEntity);
@@ -473,6 +476,8 @@ public class DocumentoBean implements Serializable {
         objetoDocumento.setPlantilla(plantillaEntity);
         objetoDocumentoInsercion.setPlantilla(plantillaEntity);
         objetoDocumentoInsercion.setTipoDocumentalDocumento(tiposDocumentalesEntity);
+        objetoDocumento.setEmpresaDocumento(empresaEntity);
+        objetoDocumentoInsercion.setEmpresaDocumento(empresaEntity);
     }
     /**
      * Método que inicial las listas duales de selección de grupos de usuarios

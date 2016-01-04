@@ -1225,6 +1225,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link EmpresaEntity }
+     * 
+     */
+    public EmpresaEntity createEmpresaEntity() {
+        return new EmpresaEntity();
+    }
+
+    /**
      * Create an instance of {@link MetodoRecuperacionEntity }
      * 
      */

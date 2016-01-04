@@ -11,7 +11,7 @@
     <ui:composition template="/plantillas/PlantillaGestionDocumental.xhtml">
         <ui:define name="content">
             <h:body>
-                <h:form id="DocumentoForm">
+                <h:form id="DocumentoAccion">
                     <div class="prueba" style="color: white; ">
                         <p:growl id="msgs" showDetail="true" life="3000" />
                     </div>
@@ -21,14 +21,14 @@
                         <p:selectOneRadio value="#{PorEstado.idAccion}">                        
                             <f:selectItems value="#{PorEstado.listaAcciones}" var="accion" itemLabel="  #{accion.nombreAccion}" itemValue="#{accion.idAccion}"/>
                         </p:selectOneRadio>
-                        <p:commandButton value="Mostrar" actionListener="#{PorEstado.objeto()}"  update=":DocumentoForm:tablaDocumento" class="botonNormal"></p:commandButton>
+                        <p:commandButton value="Mostrar" actionListener="#{PorEstado.objeto()}"  update=":DocumentoAccion:tablaDocumento" class="botonNormal"></p:commandButton>
                     </h:panelGrid>
 
                     <br/>
 
                     <p:dataTable var="documento" value="#{PorEstado.lista}" reflow="true" widgetVar="TablaDocumento" id="tablaDocumento" selectionMode="single"
                                  selection="#{PorEstado.objetoDocumento}" rowKey="#{documento.idDocumento}" class="TABLA" paginator="true" rows="7">
-                        <p:ajax event="rowSelect" listener="#{PorEstado.onRowSelect}" update=":DocumentoForm:msgs,:MoverDocumento:moverDocumento " rendered="#{PorEstado.mostrarTabla}" oncomplete="PF('actualizarDocumento').show()"/>
+                        <p:ajax event="rowSelect" listener="#{PorEstado.onRowSelect}" update=":DocumentoAccion:msgs,:MoverDocumento:moverDocumento " rendered="#{PorEstado.mostrarTabla}" oncomplete="PF('actualizarDocumento').show()"/>
                         <f:facet name="header">
                             <h:outputText value="CONSULTA DE DOCUMENTO" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
                             <p:inputText id="globalFilter" onkeyup="PF('TablaDocumento').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
@@ -59,34 +59,36 @@
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="4">
                             <h:outputText value="Título del Documento"></h:outputText>
                             <h:outputText value="#{PorEstado.objetoDocumento.tituloDocumento}"></h:outputText>
-                            
+
                             <h:outputText value="Tipo Documental del Documento"></h:outputText>                            
                             <h:outputText value="#{PorEstado.objetoDocumento.tipoDocumentalDocumento.nombreTipoDocumental}"></h:outputText>
-                            
+
                             <h:outputText value="Plantilla del Documento"></h:outputText>
                             <h:outputText value="#{PorEstado.objetoDocumento.plantilla.nombrePlantilla}"></h:outputText>
-                            
+
                             <h:outputText value="Version del Documento"></h:outputText>
                             <h:outputText value="#{PorEstado.objetoDocumento.versionDocumento}"></h:outputText>
-                            
-                            <h:outputText value="Estado del Documento"></h:outputText>
-                            <h:outputText value="#{PorEstado.objetoDocumento.estadoDocumento}"></h:outputText>
-                            
+
+                            <h:outputText value="Estado del Documento"></h:outputText>                            
+                            <h:outputText value="Activo" rendered="#{PorEstado.objetoDocumento.estadoDocumento == 'A'}"/>
+                            <h:outputText value="Inctivo" rendered="#{PorEstado.objetoDocumento.estadoDocumento == 'I'}"/>
+
+
 
                             <h:outputText value="MacroProceso del Documento"></h:outputText>
                             <h:outputText value="#{PorEstado.objetoDocumento.macroProcesoDocumento.nombreMacroproceso}"></h:outputText>
-                     
+
 
                             <h:outputText value="Proceso del Documento"></h:outputText>
                             <h:outputText value="#{PorEstado.objetoDocumento.procesoProcesoDocumento.nombrePreoceso}"></h:outputText>
-                            
+
 
                             <h:outputText value="SubProceso del Documento"></h:outputText>
                             <h:outputText value="#{PorEstado.objetoDocumento.subProcesoProcesoDocumento.idProcesos.nombrePreoceso}"></h:outputText>
-                            
-                            
-                            <h:inputHidden value="#{PorEstado.objetoDocumento.idDocumento}"></h:inputHidden>
+
                         </p:panelGrid>
+                        <p:commandButton value="Enviar a #{PorEstado.nombreSiguiente}" actionListener="#{PorEstado.siguienteAccion()}"  update=":DocumentoAccion:tablaDocumento" class="botonNormal" rendered="#{PorEstado.botonSiguiente}" ajax="true"></p:commandButton>
+                        <h:inputHidden value="#{PorEstado.objetoDocumento.idDocumento}"></h:inputHidden>
                     </p:dialog>                    
                 </h:form>
             </h:body>

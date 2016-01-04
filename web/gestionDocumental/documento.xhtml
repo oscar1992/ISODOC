@@ -38,7 +38,7 @@
                         </p:column>
                         <p:column headerText="estado del Documento" filterBy="#{documento.estadoDocumento}">
                             <h:outputText value="Activo" rendered="#{documento.estadoDocumento == 'A'}"/>
-                            <h:outputText value="Inctivo" rendered="#{documento.estadoDocumento == 'I'}"/>
+                            <h:outputText value="Inactivo" rendered="#{documento.estadoDocumento == 'I'}"/>
                         </p:column>
 
                     </p:dataTable>
@@ -53,22 +53,22 @@
                     <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="4">
 
 
-                        <h:outputText value="titulo del Documento"></h:outputText>
+                        <h:outputText value="Título del Documento"></h:outputText>
                         <p:inputText required="true" label="nombre del Documento" value="#{Documento.objetoDocumentoInsercion.tituloDocumento}"/>
 
-                        <h:outputText value="tipoDocumental del Documento"></h:outputText>                            
+                        <h:outputText value="Tipo Documental del Documento"></h:outputText>                            
                         <p:selectOneMenu id="desplegableIngresarTipoD" value="#{Documento.objetoDocumentoInsercion.tipoDocumentalDocumento.idTipoDocumental}" style="width: 150px;">
                             <f:selectItem itemLabel="Selecione Tipo Documento" itemValue="" noSelectionOption="true"/>
                             <f:selectItems value="#{ListaAdministracionBean.listaTipoDocumento}"/>
                         </p:selectOneMenu>
 
-                        <h:outputText value="plantilla del Documento"></h:outputText>
+                        <h:outputText value="Plantilla del Documento"></h:outputText>
                         <p:selectOneMenu label="Plantilla" required="true" id="desplegableIngresarPlantilla" value="#{Documento.objetoDocumentoInsercion.plantilla.idPlantilla}" style="width: 150px;">
                             <f:selectItem itemLabel="Selecione la Plantilla del Documento" itemValue="" noSelectionOption="true"/>
                             <f:selectItems value="#{ListaAdministracionBean.listaPlantillas}"/>
                         </p:selectOneMenu>
 
-                        <h:outputText value="version del Documento"></h:outputText>
+                        <h:outputText value="Version del Documento"></h:outputText>
                         <p:inputText required="true" label="nombre del Documento" value="#{Documento.objetoDocumentoInsercion.versionDocumento}"/>
 
 
@@ -97,6 +97,12 @@
                             <f:selectItem itemLabel="Selecione un SubProceso" itemValue="#{-1}" noSelectionOption="true"/>
                             <f:selectItems value="#{ListaAdministracionBean.listaSubProcesos}"/>
                         </p:selectOneMenu>   
+
+                        <h:outputText value="Empresa"></h:outputText>
+                        <p:selectOneMenu id="desplegableIngresarEmpresa" value="#{Documento.objetoDocumentoInsercion.empresaDocumento.idEmpresa}" style="width: 150px;">
+                            <f:selectItem itemLabel="Selecione una Empresa" itemValue="#{-1}" noSelectionOption="true"/>
+                            <f:selectItems value="#{ListaAdministracionBean.listaEmpresas}"/>
+                        </p:selectOneMenu>   
                     </p:panelGrid>    
                     <h:outputText value="Seleciones un Proceso"/>
                     <p:tree value="#{Documento.raiz}" var="nodo" selection="#{Documento.arbolaux}" selectionMode="single">
@@ -105,7 +111,7 @@
                         </p:treeNode>
                     </p:tree>
                     <p:commandButton value="Asignar Usuarios" update=":IngresarModal:asignados" actionListener="#{Documento.evalua(Documento.arbolaux)}" class="botonNormal" />
-                    
+
                     <p:panelGrid class="TABLA" id="asignados">
                         <f:facet name="header">
                             <p:row>
@@ -130,14 +136,13 @@
                                     </p:pickList>                                    
                                 </p:column>
                                 <p:column>
-                                    
-                                    <p:calendar label="Fecha Límite" id="multi" value="#{acciones2.fechaLimite}" pages="3" pattern="dd.MM.yyyy"><f:convertDateTime pattern="yyyy-MM-dd" timeStyle="short"/></p:calendar>
-                                    <!--<p:inputMask id="fecha" value="#{acciones2.fechaLimite}" mask="99/99/9999"><p:ajax event="blur" update="fecha"/></p:inputMask>-->
+                                    <!--<p:calendar label="Fecha Límite" id="multi" value="#{acciones2.fechaLimite}" pages="3" pattern="dd.MM.yyyy"></p:calendar>-->
+                                        <p:inputMask id="fecha" value="#{acciones2.fechaLimite}" mask="99/99/9999"><p:ajax event="blur" update="fecha"/></p:inputMask>
                                 </p:column>
                             </p:row>
                         </ui:repeat>
                     </p:panelGrid>
-                    
+
                     <p:commandButton value="Ingresar" update=":DocumentoForm:tablaDocumento,:IngresarModal:asignados" actionListener="#{Documento.instertarDocumento()}" validateClient="true" class="botonNormal" ajax="false"/>
 
                 </h:form>

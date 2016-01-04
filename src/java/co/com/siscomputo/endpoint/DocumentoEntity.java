@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;extension base="{http://endpoint.siscomputo.com.co/}objetoRetornaEntity">
  *       &lt;sequence>
  *         &lt;element name="accionDocumento" type="{http://endpoint.siscomputo.com.co/}accionEntity" minOccurs="0"/>
+ *         &lt;element name="empresaDocumento" type="{http://endpoint.siscomputo.com.co/}empresaEntity" minOccurs="0"/>
  *         &lt;element name="estadoDocumento" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="idDocumento" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="macroProcesoDocumento" type="{http://endpoint.siscomputo.com.co/}macroprocesosEntity" minOccurs="0"/>
@@ -37,6 +38,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "documentoEntity", propOrder = {
     "accionDocumento",
+    "empresaDocumento",
     "estadoDocumento",
     "idDocumento",
     "macroProcesoDocumento",
@@ -52,6 +54,7 @@ public class DocumentoEntity
 {
 
     protected AccionEntity accionDocumento;
+    protected EmpresaEntity empresaDocumento;
     protected String estadoDocumento;
     protected int idDocumento;
     protected MacroprocesosEntity macroProcesoDocumento;
@@ -84,6 +87,30 @@ public class DocumentoEntity
      */
     public void setAccionDocumento(AccionEntity value) {
         this.accionDocumento = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad empresaDocumento.
+     * 
+     * @return
+     *     possible object is
+     *     {@link EmpresaEntity }
+     *     
+     */
+    public EmpresaEntity getEmpresaDocumento() {
+        return empresaDocumento;
+    }
+
+    /**
+     * Define el valor de la propiedad empresaDocumento.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link EmpresaEntity }
+     *     
+     */
+    public void setEmpresaDocumento(EmpresaEntity value) {
+        this.empresaDocumento = value;
     }
 
     /**

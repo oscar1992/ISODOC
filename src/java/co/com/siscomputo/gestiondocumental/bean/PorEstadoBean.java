@@ -11,9 +11,14 @@ import co.com.siscomputo.endpoint.DocumentoEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.gestiondocumental.entities.PorEstadoEntity;
 import co.com.siscomputo.gestiondocumental.logic.DocumentoLogic;
+import co.com.siscomputo.utilidades.ComparadorAccion;
+import co.com.siscomputo.utilidades.ComparadorAccion2;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -34,8 +39,11 @@ public class PorEstadoBean implements Serializable {
     private DocumentoEntity objetoDocumento;
     private ArrayList<AccionEntity> listaAcciones;
     private AccionEntity objetoAccion;
+    private AccionEntity accionSiguiente;
     private Integer idAccion;
+    private String nombreSiguiente;
     private boolean mostrarTabla;
+    private boolean botonSiguiente;
     private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
@@ -103,7 +111,32 @@ public class PorEstadoBean implements Serializable {
     public void setMostrarTabla(boolean mostrarTabla) {
         this.mostrarTabla = mostrarTabla;
     }
-    
+
+    public boolean isBotonSiguiente() {
+        return botonSiguiente;
+    }
+
+    public void setBotonSiguiente(boolean botonSiguiente) {
+        this.botonSiguiente = botonSiguiente;
+    }
+
+    public String getNombreSiguiente() {
+        return nombreSiguiente;
+    }
+
+    public void setNombreSiguiente(String nombreSiguiente) {
+        this.nombreSiguiente = nombreSiguiente;
+    }
+
+    public AccionEntity getAccionSiguiente() {
+        return accionSiguiente;
+    }
+
+    public void setAccionSiguiente(AccionEntity accionSiguiente) {
+        this.accionSiguiente = accionSiguiente;
+    }
+
+
     
     
     
@@ -134,25 +167,25 @@ public class PorEstadoBean implements Serializable {
     @PostConstruct
     public void init() {
         permisos();
-        
+
         cargaAcciones();
         //objetoDocumento = new DocumentoEntity();        
-        idAccion=null;
+        idAccion = null;
     }
+
     /**
-     * Método que se llama al selecionar una accion, este carga los documentos asociados a la acción seleccionada
+     * Método que se llama al selecionar una accion, este carga los documentos
+     * asociados a la acción seleccionada
      */
-    public void objeto(){        
-        System.out.println("OBJETOA: "+idAccion);
+    public void objeto() {
+        System.out.println("OBJETOA: " + idAccion);
         cargaPorAccion();
-        mostrarTabla=true;
-        RequestContext context= RequestContext.getCurrentInstance();
-        //context.update(":DocumentoForm:bot");
+        mostrarTabla = true;
         
     }
-    
+
     public PorEstadoBean() {
-        
+
         nuevo();
     }
 
@@ -161,20 +194,56 @@ public class PorEstadoBean implements Serializable {
      * que se encuentren
      */
     public void cargaPorAccion() {
-
-        documentosAccion = new ArrayList<>();
-        AccionLogic accionLogic = new AccionLogic();
-        objetoAccion = accionLogic.accionPorId(idAccion);
-        DocumentoLogic documentoLogic = new DocumentoLogic();
-        lista= documentoLogic.documetosPorAccion(objetoAccion);
+        if (idAccion != null) {
+            documentosAccion = new ArrayList<>();
+            AccionLogic accionLogic = new AccionLogic();
+            objetoAccion = accionLogic.accionPorId(idAccion);
+            if (ultimaAccion(objetoAccion)) {
+                botonSiguiente=false;
+            }else{
+                //Collections.sort(listaAcciones, new ComparadorAccion2());
+                //Collections.reverse(listaAcciones);
+                Iterator itr=listaAcciones.iterator();
+                accionSiguiente=new AccionEntity();
+                while (itr.hasNext()) {
+                    AccionEntity accionEntity=(AccionEntity) itr.next();
+                    
+                    if(accionEntity.getOrdenAccion()==objetoAccion.getOrdenAccion()){
+                        accionSiguiente=(AccionEntity) itr.next();
+                        System.out.println("Accion: "+accionSiguiente.getOrdenAccion());
+                    }
+                }
+                nombreSiguiente=accionSiguiente.getNombreAccion();
+                botonSiguiente=true;
+            }
+            DocumentoLogic documentoLogic = new DocumentoLogic();
+            lista = documentoLogic.documetosPorAccion(objetoAccion);
+        }
+    }
+    
+    public void siguienteAccion(){
+        objetoDocumento.setAccionDocumento(accionSiguiente);
+        DocumentoLogic documentoLogic=new DocumentoLogic();
+        String valida = documentoLogic.actualizarDocumento(objetoDocumento);
+        FacesMessage msg = null;
+        if ("Ok".equalsIgnoreCase(valida)) {
+            msg = new FacesMessage("", "actualización de Documento correcto");
+            
+        } else {
+            msg = new FacesMessage("", "actualización de Documento incorrecto");
+        }
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.update(":DocumentoAccion:tablaDocumento");
+        RequestContext.getCurrentInstance().execute("PF('actualizarDocumento').hide()");
         
     }
-
+    /**
+     * Método que carga la lista de acciones disponibles
+     */
     public void cargaAcciones() {
         AccionLogic accionLogic = new AccionLogic();
         listaAcciones = accionLogic.listaAccion();
     }
-
 
     /**
      * Método que se invoca al seleccionar una fila de la tabla
@@ -182,10 +251,29 @@ public class PorEstadoBean implements Serializable {
      * @param event
      */
     public void onRowSelect(SelectEvent event) {
-        objetoDocumento=new DocumentoEntity();
+        objetoDocumento = new DocumentoEntity();
         objetoDocumento = (DocumentoEntity) event.getObject();
-        
+
         System.out.println("Selección: " + objetoDocumento.getTituloDocumento());
+    }
+
+    /*
+     Método que evalua si la accipon selecionada posee una acción siguinete o es la última de la secuencia
+     */
+    public boolean ultimaAccion(AccionEntity accionEntity) {
+        boolean retorna = false;
+        AccionLogic accionLogic = new AccionLogic();
+        ArrayList<AccionEntity> listaAccionAux = accionLogic.listaAccion();
+        Collections.sort(listaAccionAux, new ComparadorAccion());
+        if (!listaAccionAux.isEmpty()) {
+            int mayor = Integer.parseInt(listaAccionAux.get(0).getOrdenAccion());
+            //System.out.println("Mayor: " + mayor);
+            if (mayor == Integer.parseInt(accionEntity.getOrdenAccion())) {
+                retorna = true;
+            }
+        }
+
+        return retorna;
     }
 
     /**
@@ -202,7 +290,7 @@ public class PorEstadoBean implements Serializable {
         ingresar = false;
         actualizar = false;
         eliminar = false;
-        
+
         ArrayList<MenuPermisosEntity> permisos = (ArrayList<MenuPermisosEntity>) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("menuLateral");
         for (MenuPermisosEntity permisoObj : permisos) {
             for (MenuPermisosEntity nivel1 : permisoObj.getSubNivel()) {
