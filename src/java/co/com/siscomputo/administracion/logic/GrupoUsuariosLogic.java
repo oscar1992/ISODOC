@@ -3,6 +3,8 @@ package co.com.siscomputo.administracion.logic;
 import co.com.siscomputo.endpoint.Administacion;
 import co.com.siscomputo.endpoint.Administacion_Service;
 import co.com.siscomputo.endpoint.GrupoUsuariosEntity;
+import co.com.siscomputo.endpoint.ObjetoRetornaEntity;
+import co.com.siscomputo.endpoint.UsuarioGrupoUsuarioEntity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,7 +82,11 @@ public class GrupoUsuariosLogic {
         }
         return rta;
     }
-    
+    /**
+     * Método que trae un grupo de Usuarios por Id
+     * @param idGrupo
+     * @return 
+     */
     public GrupoUsuariosEntity grupoPorId(int idGrupo){
         webService();
         GrupoUsuariosEntity grupoUsuariosEntity=new GrupoUsuariosEntity();
@@ -92,4 +98,21 @@ public class GrupoUsuariosLogic {
         }
         return grupoUsuariosEntity;
     }
+    
+    public ArrayList<GrupoUsuariosEntity> grupoPorUsuario(int idUsuario){
+        webService();
+        ArrayList<GrupoUsuariosEntity> grupoUsuariosEntity=new ArrayList<GrupoUsuariosEntity>();
+        try {
+            ObjetoRetornaEntity retorna=port.grupoUsuariosPorUsuario(idUsuario);
+            ArrayList<Object> listaObjeto=(ArrayList<Object>) retorna.getRetorna();
+            for(Object obj:listaObjeto){
+                UsuarioGrupoUsuarioEntity usuarioGrupoUsuarioEntity=(UsuarioGrupoUsuarioEntity) obj;
+                grupoUsuariosEntity.add(usuarioGrupoUsuarioEntity.getGrupoUsuario());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return grupoUsuariosEntity;
+    }
+    
 }

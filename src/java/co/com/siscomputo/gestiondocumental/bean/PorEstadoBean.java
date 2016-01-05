@@ -6,8 +6,10 @@
 package co.com.siscomputo.gestiondocumental.bean;
 
 import co.com.siscomputo.administracion.logic.AccionLogic;
+import co.com.siscomputo.administracion.logic.GrupoUsuariosLogic;
 import co.com.siscomputo.endpoint.AccionEntity;
 import co.com.siscomputo.endpoint.DocumentoEntity;
+import co.com.siscomputo.endpoint.GrupoUsuariosEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.gestiondocumental.entities.PorEstadoEntity;
 import co.com.siscomputo.gestiondocumental.logic.DocumentoLogic;
@@ -243,8 +245,16 @@ public class PorEstadoBean implements Serializable {
     public void cargaAcciones() {
         AccionLogic accionLogic = new AccionLogic();
         listaAcciones = accionLogic.listaAccion();
+        int idUsuario=(int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idUsuario");
+        System.out.println("ID Usuario: "+idUsuario);
+        ArrayList<GrupoUsuariosEntity> listaGrupos=new ArrayList<>();
+        GrupoUsuariosLogic grupoUsuariosLogic=new GrupoUsuariosLogic();
+        listaGrupos=grupoUsuariosLogic.grupoPorUsuario(idUsuario);
+        for(GrupoUsuariosEntity grupo:listaGrupos){
+            System.out.println("GRUPO: "+grupo.getNombreGrupoUsuarios());
+        }
     }
-
+    
     /**
      * Método que se invoca al seleccionar una fila de la tabla
      *
