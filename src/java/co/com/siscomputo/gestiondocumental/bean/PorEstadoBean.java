@@ -244,8 +244,9 @@ public class PorEstadoBean implements Serializable {
      */
     public void cargaAcciones() {
         AccionLogic accionLogic = new AccionLogic();
-        listaAcciones = accionLogic.listaAccion();
+        
         int idUsuario=(int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idUsuario");
+        listaAcciones = accionLogic.accionPorUsuario(idUsuario);
         System.out.println("ID Usuario: "+idUsuario);
         ArrayList<GrupoUsuariosEntity> listaGrupos=new ArrayList<>();
         GrupoUsuariosLogic grupoUsuariosLogic=new GrupoUsuariosLogic();

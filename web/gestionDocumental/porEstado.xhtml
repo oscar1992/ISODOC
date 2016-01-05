@@ -88,8 +88,14 @@
 
                         </p:panelGrid>
                         <p:commandButton value="Enviar a #{PorEstado.nombreSiguiente}" actionListener="#{PorEstado.siguienteAccion()}"  update=":DocumentoAccion:tablaDocumento" class="botonNormal" rendered="#{PorEstado.botonSiguiente}" ajax="true"></p:commandButton>
+                        <p:commandButton value="Lista de Distribución"   update=":DocumentoAccion:tablaDocumento" class="botonNormal" rendered="#{PorEstado.botonSiguiente}" ajax="true" oncomplete="PF('asociarDocumento').show()"></p:commandButton>
                         <h:inputHidden value="#{PorEstado.objetoDocumento.idDocumento}"></h:inputHidden>
                     </p:dialog>                    
+                </h:form>
+                <h:form id="AsociarDocumento">
+                    <p:dialog header="Asociar Documento" widgetVar="asociarDocumento" modal="true" id="asociarDocumento" responsive="true">
+                        
+                    </p:dialog>
                 </h:form>
             </h:body>
         </ui:define>

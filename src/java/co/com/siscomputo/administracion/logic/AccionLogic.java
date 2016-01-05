@@ -78,12 +78,36 @@ public class AccionLogic {private Administacion_Service webService;
         }
         return rta;
     }
-    
+    /**
+     * Método que trae una acción por ID
+     * @param idAccion
+     * @return 
+     */
     public AccionEntity accionPorId(Integer idAccion){
         webService();
         AccionEntity accionEntity=new AccionEntity();
         try {
             accionEntity=port.accionPorId(idAccion);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return accionEntity;
+    }
+    /**
+     * Método que trae una lista de acciones por ID
+     * @param idAccion
+     * @return 
+     */
+    public ArrayList<AccionEntity> accionPorUsuario(Integer idUsuario){
+        webService();
+        ArrayList<AccionEntity> accionEntity=new ArrayList<>();
+        ArrayList<Object> listaObjeto=new ArrayList<>();
+        try {
+            listaObjeto=(ArrayList<Object>) port.accionPorUsuario(idUsuario).getRetorna();
+            for(Object obj:listaObjeto){
+                AccionEntity accionEntity1=(AccionEntity) obj;
+                accionEntity.add(accionEntity1);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
