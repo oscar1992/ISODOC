@@ -210,7 +210,7 @@ public class PorEstadoBean implements Serializable {
                 while (itr.hasNext()) {
                     AccionEntity accionEntity=(AccionEntity) itr.next();
                     
-                    if(accionEntity.getOrdenAccion()==objetoAccion.getOrdenAccion()){
+                    if(accionEntity.getOrdenAccion() == null ? objetoAccion.getOrdenAccion() == null : accionEntity.getOrdenAccion().equals(objetoAccion.getOrdenAccion())){
                         accionSiguiente=(AccionEntity) itr.next();
                         System.out.println("Accion: "+accionSiguiente.getOrdenAccion());
                     }

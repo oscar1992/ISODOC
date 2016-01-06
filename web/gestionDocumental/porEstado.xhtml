@@ -88,12 +88,91 @@
 
                         </p:panelGrid>
                         <p:commandButton value="Enviar a #{PorEstado.nombreSiguiente}" actionListener="#{PorEstado.siguienteAccion()}"  update=":DocumentoAccion:tablaDocumento" class="botonNormal" rendered="#{PorEstado.botonSiguiente}" ajax="true"></p:commandButton>
-                        <p:commandButton value="Lista de Distribución"   update=":DocumentoAccion:tablaDocumento" class="botonNormal" rendered="#{PorEstado.botonSiguiente}" ajax="true" oncomplete="PF('asociarDocumento').show()"></p:commandButton>
+                        <p:commandButton value="Lista de Distribución"   update=":DocumentoAccion:tablaDocumento" class="botonNormal" rendered="#{PorEstado.botonSiguiente}" ajax="true" oncomplete="PF('listaDistribucion').show()"></p:commandButton>
                         <h:inputHidden value="#{PorEstado.objetoDocumento.idDocumento}"></h:inputHidden>
                     </p:dialog>                    
                 </h:form>
                 <h:form id="AsociarDocumento">
-                    <p:dialog header="Asociar Documento" widgetVar="asociarDocumento" modal="true" id="asociarDocumento" responsive="true">
+                    <p:dialog header="Lista Distribución" widgetVar="listaDistribucion" modal="true" id="listaDistribucion" responsive="true">
+                        <p:dataTable var="documento" value="#{DocumentoRol.lista}" reflow="true" widgetVar="TablaDocumento" id="tablaDocumento" selectionMode="single"
+                                     selection="#{DocumentoRol.objetoDocumentoRol}" rowKey="#{documento.idDocumentoRol}" class="TABLA" paginator="true" rows="7">
+                            <f:facet name="header">
+                                <h:outputText value="CONSULTA DE DOCUMENTO-ROL" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                                <p:inputText id="globalFilter" onkeyup="PF('TablaDocumento').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                                <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                            </f:facet>
+                            <p:column headerText="Rol Asociado" filterBy="#{documento.rolesentityDocumentoRol.nombreRol}">
+                                <h:outputText value="#{documento.rolesentityDocumentoRol.nombreRol}"/>
+                            </p:column>
+                        </p:dataTable>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="4">
+                            <p:panelGrid class="TABLA" id="asignados">
+                                <f:facet name="header">
+                                    <p:row style="background: #0071bc">
+                                        <p:column colspan="3">
+                                            LISTADO DE DISTRIBUCIÓN
+                                        </p:column>
+                                    </p:row>
+                                </f:facet>
+                                <p:row>
+                                    <p:column colspan="3">Ingrese el cargo y tipo en que se distribuirá el documento </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>Número de Copia</p:column>
+                                    <p:column>Cargo</p:column>
+                                    <p:column>Tipo de Control</p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column><p:inputText value="#{DocumentoRol.objetoDocumentoRolInsercion.copiaDocumentoRol}"/></p:column>
+                                    <p:column><p:selectOneMenu id="desplegableIngresarRol" value="#{DocumentoRol.objetoDocumentoRolInsercion.rolesentityDocumentoRol.idRol}" style="width: 150px;">                            
+                                            <f:selectItem itemLabel="Selecione Cargo" itemValue="" noSelectionOption="true"/>
+                                            <f:selectItems value="#{ListaAdministracionBean.listaRoles}"/>
+                                        </p:selectOneMenu></p:column>
+                                    <p:column><p:selectOneMenu id="desplegableIngresarTipo" value="#{DocumentoRol.objetoDocumentoRolInsercion.controlDocumentoRol}" style="width: 150px;">                            
+                                            <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                            <f:selectItems value="#{ListaGestionDocumentalBean.listaTipoControl}"/>
+                                        </p:selectOneMenu></p:column>
+                                </p:row>
+                            </p:panelGrid>
+                            <p:commandButton value="Agregar" action="#{DocumentoRol.instertarDocumentoRol}" update=":DocumentoAccion:tablaDocumento" class="botonNormal" ajax="true" ></p:commandButton>
+                        </p:panelGrid>
+                            
+                        <p:commandButton value="Crear Listado" update=":DocumentoAccion:tablaDocumento" class="botonNormal" ajax="true" oncomplete="PF('listaDistribucion2').show()"></p:commandButton>
+                    </p:dialog>
+                </h:form>
+                <h:form id="AsociarDocumento2">
+                    <p:dialog header="Lista Distribución" widgetVar="listaDistribucion2" modal="true" id="listaDistribucion2" responsive="true">
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="4">
+                            <p:panelGrid class="TABLA" id="asignados">
+                                <f:facet name="header">
+                                    <p:row style="background: #0071bc">
+                                        <p:column colspan="3">
+                                            LISTADO DE DISTRIBUCIÓN
+                                        </p:column>
+                                    </p:row>
+                                </f:facet>
+                                <p:row>
+                                    <p:column colspan="3">Ingrese el cargo y tipo en que se distribuirá el documento </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>Número de Copia</p:column>
+                                    <p:column>Cargo</p:column>
+                                    <p:column>Tipo de Control</p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column><p:inputText value="#{DocumentoRol.objetoDocumentoRolInsercion.copiaDocumentoRol}"/></p:column>
+                                    <p:column><p:selectOneMenu id="desplegableIngresarRol" value="#{DocumentoRol.objetoDocumentoRolInsercion.rolesentityDocumentoRol.idRol}" style="width: 150px;">                            
+                                            <f:selectItem itemLabel="Selecione Cargo" itemValue="" noSelectionOption="true"/>
+                                            <f:selectItems value="#{ListaAdministracionBean.listaRoles}"/>
+                                        </p:selectOneMenu></p:column>
+                                    <p:column><p:selectOneMenu id="desplegableIngresarTipo" value="#{DocumentoRol.objetoDocumentoRolInsercion.controlDocumentoRol}" style="width: 150px;">                            
+                                            <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                            <f:selectItems value="#{ListaGestionDocumentalBean.listaTipoControl}"/>
+                                        </p:selectOneMenu></p:column>
+                                </p:row>
+                            </p:panelGrid>
+                            
+                        </p:panelGrid>
                         
                     </p:dialog>
                 </h:form>

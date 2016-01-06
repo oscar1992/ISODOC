@@ -64,6 +64,7 @@ public class ListaAdministracionBean implements Serializable {
     private Map<String, Integer> listaAcciones;
     private Map<String, Integer> listaProceso;
     private Map<String, Integer> listaEmpresas;
+    
     private int seleccion;
     private Integer idMacroProceso;
     private Integer idProceso;
