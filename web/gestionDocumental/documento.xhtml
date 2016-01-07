@@ -49,15 +49,16 @@
                 <h:form id="IngresarModal">
 
                     #{Documento.nuevoDocumentoObjeto()}                        
-                    <p:messages autoUpdate="true"/>                        
-                    <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="4">
+                                       
+                    <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="4" id="datos">
 
 
                         <h:outputText value="Título del Documento"></h:outputText>
-                        <p:inputText required="true" label="nombre del Documento" value="#{Documento.objetoDocumentoInsercion.tituloDocumento}"/>
+                        <p:inputText id="nombre" required="true" label="nombre del Documento" value="#{Documento.objetoDocumentoInsercion.tituloDocumento}"/>
 
                         <h:outputText value="Tipo Documental del Documento"></h:outputText>                            
                         <p:selectOneMenu id="desplegableIngresarTipoD" value="#{Documento.objetoDocumentoInsercion.tipoDocumentalDocumento.idTipoDocumental}" style="width: 150px;">
+                            <p:ajax listener="#{Documento.traeConsecutivo()}" update="version"/>
                             <f:selectItem itemLabel="Selecione Tipo Documento" itemValue="" noSelectionOption="true"/>
                             <f:selectItems value="#{ListaAdministracionBean.listaTipoDocumento}"/>
                         </p:selectOneMenu>
@@ -69,7 +70,7 @@
                         </p:selectOneMenu>
 
                         <h:outputText value="Version del Documento"></h:outputText>
-                        <p:inputText required="true" label="nombre del Documento" value="#{Documento.objetoDocumentoInsercion.versionDocumento}"/>
+                        <p:inputMask required="true" id="version" label="nombre del Documento" value="#{Documento.objetoDocumentoInsercion.versionDocumento}" mask="#{Documento.consecutivo}-9?999" maxlength="4"/>
 
 
                         <h:outputText value="Estado del Documento"></h:outputText>
@@ -104,13 +105,13 @@
                             <f:selectItems value="#{ListaAdministracionBean.listaEmpresas}"/>
                         </p:selectOneMenu>   
                     </p:panelGrid>    
-                    <h:outputText value="Seleciones un Proceso"/>
-                    <p:tree value="#{Documento.raiz}" var="nodo" selection="#{Documento.arbolaux}" selectionMode="single">
+                    <h:outputText value="Selecione un Proceso"/>
+                    <p:tree value="#{Documento.raiz}" var="nodo" selection="#{Documento.arbolaux}" selectionMode="single" required="true" id="Proceso">
                         <p:treeNode>
                             <h:outputText value="#{nodo.nombreProceso}"/>
                         </p:treeNode>
                     </p:tree>
-                    <p:commandButton value="Asignar Usuarios" update=":IngresarModal:asignados" actionListener="#{Documento.evalua(Documento.arbolaux)}" class="botonNormal" />
+                    <p:commandButton value="Asignar Usuarios" update=":IngresarModal:asignados" process="@this,nombre,desplegableIngresarPlantilla,Proceso,version" actionListener="#{Documento.evalua(Documento.arbolaux)}" class="botonNormal" />
 
                     <p:panelGrid class="TABLA" id="asignados">
                         <f:facet name="header">
@@ -143,8 +144,8 @@
                         </ui:repeat>
                     </p:panelGrid>
 
-                    <p:commandButton value="Ingresar" update=":DocumentoForm:tablaDocumento,:IngresarModal:asignados" actionListener="#{Documento.instertarDocumento()}" validateClient="true" class="botonNormal" ajax="false"/>
-
+                    <p:commandButton id="Ingresar" value="Ingresar" update=":DocumentoForm:tablaDocumento,:IngresarModal:asignados" actionListener="#{Documento.instertarDocumento()}" validateClient="true" class="botonNormal" ajax="false"/>
+                    
                 </h:form>
                 <h:form id="ActualizarModal">
                     <p:dialog header="Actualizar Documento" widgetVar="actualizarDocumento" modal="true" id="actualizarDocumentoModal" responsive="true">
@@ -197,6 +198,7 @@
                         <p:commandButton  value="Actualizar" update=":DocumentoForm:tablaDocumento,:ActualizarModal:actualizarDocumentoModal,DocumentoForm:msgs" actionListener="#{Documento.actualizarDocumento()}" validateClient="true" class="botonNormal" rendered="#{Documento.actualizar}"/>
                         <p:commandButton value="Eliminar" update=":DocumentoForm:tablaDocumento,:ActualizarModal:actualizarDocumentoModal,DocumentoForm:msgs" actionListener="#{Documento.eliminarDocumento()}" validateClient="true" class="botonNormal" rendered="#{Documento.eliminar}"/>
                     </p:dialog>
+                    
                 </h:form>
 
             </h:body>

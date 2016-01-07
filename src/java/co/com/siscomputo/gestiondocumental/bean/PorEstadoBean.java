@@ -14,7 +14,6 @@ import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.gestiondocumental.entities.PorEstadoEntity;
 import co.com.siscomputo.gestiondocumental.logic.DocumentoLogic;
 import co.com.siscomputo.utilidades.ComparadorAccion;
-import co.com.siscomputo.utilidades.ComparadorAccion2;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -234,9 +233,9 @@ public class PorEstadoBean implements Serializable {
         } else {
             msg = new FacesMessage("", "actualización de Documento incorrecto");
         }
-        RequestContext context = RequestContext.getCurrentInstance();
-        context.update(":DocumentoAccion:tablaDocumento");
-        RequestContext.getCurrentInstance().execute("PF('actualizarDocumento').hide()");
+        //RequestContext context = RequestContext.getCurrentInstance();
+        //context.update(":DocumentoAccion:tablaDocumento");
+        //RequestContext.getCurrentInstance().execute("PF('actualizarDocumento').hide()");
         
     }
     /**
@@ -264,7 +263,7 @@ public class PorEstadoBean implements Serializable {
     public void onRowSelect(SelectEvent event) {
         objetoDocumento = new DocumentoEntity();
         objetoDocumento = (DocumentoEntity) event.getObject();
-
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Documento", objetoDocumento);
         System.out.println("Selección: " + objetoDocumento.getTituloDocumento());
     }
 

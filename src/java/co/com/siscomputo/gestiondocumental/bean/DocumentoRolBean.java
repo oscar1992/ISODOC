@@ -1,5 +1,7 @@
 package co.com.siscomputo.gestiondocumental.bean;
 
+import co.com.siscomputo.administracion.logic.RolesLogic;
+import co.com.siscomputo.endpoint.DocumentoEntity;
 import co.com.siscomputo.gestiondocumental.logic.DocumentoRolLogic;
 import co.com.siscomputo.endpoint.DocumentoRolEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
@@ -93,6 +95,7 @@ public class DocumentoRolBean implements Serializable{
     }
     public DocumentoRolBean() {
         nuevoDocumentoRolObjeto();
+        lista=new ArrayList<>();
     }
     /**
      * Método que trae una lista de Documentos Rol
@@ -110,18 +113,32 @@ public class DocumentoRolBean implements Serializable{
      */
     public void instertarDocumentoRol(){
         try {
+            DocumentoEntity documentoEntity=new DocumentoEntity();
+            RolesLogic rolesLogic=new RolesLogic();
+            RolesEntity rolesEntity=new RolesEntity();
+            Integer idRol = objetoDocumentoRolInsercion.getRolesentityDocumentoRol().getIdRol();
+            if (idRol==null) {
+                System.out.println("NULO:");
+            }else{
+                rolesEntity = rolesLogic.rolPorId(idRol);
+            }
+            documentoEntity=(DocumentoEntity) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("Documento");
+            objetoDocumentoRolInsercion.setDocumentoentityDocumentoRol(documentoEntity);
+            objetoDocumentoRolInsercion.setRolesentityDocumentoRol(rolesEntity);
             DocumentoRolLogic documentoRolLogic=new DocumentoRolLogic();
             DocumentoRolEntity documentoRolEntity=documentoRolLogic.insertarDocumentoRol(objetoDocumentoRolInsercion);
             FacesMessage msg=null;
             if(documentoRolEntity!=null){
                 msg=new FacesMessage("", "inserción de Documentos Rol correcto");
                 adicionarMetodoPtoteccionLista(documentoRolEntity);
+                System.out.println("Tama: "+lista.size());
             }else{
                 msg=new FacesMessage("", "inserción de Documentos Rol incorrecto");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
     }
     /**
      * Método que añade un Documentos Rol visualmente

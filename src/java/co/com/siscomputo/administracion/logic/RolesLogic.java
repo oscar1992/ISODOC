@@ -95,4 +95,19 @@ public class RolesLogic {
         }
         return rta;
     }
+    /**
+     * Método que trae un rol filtrado por su ID
+     * @param idRol
+     * @return 
+     */
+    public RolesEntity rolPorId(int idRol){
+        webService();
+        RolesEntity rolRta=null;
+        try{
+            rolRta=port.rolPorId(idRol);
+        }catch(Error e){
+            e.printStackTrace();
+        }
+        return rolRta;
+    }
 }

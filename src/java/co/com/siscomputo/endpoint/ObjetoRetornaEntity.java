@@ -36,10 +36,12 @@ import javax.xml.bind.annotation.XmlType;
 @XmlSeeAlso({
     DocumentoRolEntity.class,
     TiposDocumentalesEntity.class,
+    ProcesoEntity.class,
     DocumentoProcesoEntity.class,
     AccionEntity.class,
     PlantillaEntity.class,
     DocumentoEntity.class,
+    NivelEntity.class,
     EmpresaEntity.class
 })
 public class ObjetoRetornaEntity

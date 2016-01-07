@@ -269,6 +269,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ProcesoEntity }
+     * 
+     */
+    public ProcesoEntity createProcesoEntity() {
+        return new ProcesoEntity();
+    }
+
+    /**
      * Create an instance of {@link RolesEntity }
      * 
      */
@@ -314,6 +322,14 @@ public class ObjectFactory {
      */
     public DocumentoEntity createDocumentoEntity() {
         return new DocumentoEntity();
+    }
+
+    /**
+     * Create an instance of {@link NivelEntity }
+     * 
+     */
+    public NivelEntity createNivelEntity() {
+        return new NivelEntity();
     }
 
     /**
