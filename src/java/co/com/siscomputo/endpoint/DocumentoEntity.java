@@ -22,6 +22,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="idDocumento" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="macroProcesoDocumento" type="{http://endpoint.siscomputo.com.co/}macroprocesosEntity" minOccurs="0"/>
  *         &lt;element name="plantilla" type="{http://endpoint.siscomputo.com.co/}plantillaEntity" minOccurs="0"/>
+ *         &lt;element name="procesoDocumento" type="{http://endpoint.siscomputo.com.co/}procesoEntity" minOccurs="0"/>
  *         &lt;element name="procesoProcesoDocumento" type="{http://endpoint.siscomputo.com.co/}procesosEntity" minOccurs="0"/>
  *         &lt;element name="subProcesoProcesoDocumento" type="{http://endpoint.siscomputo.com.co/}subprocesoEntity" minOccurs="0"/>
  *         &lt;element name="tipoDocumentalDocumento" type="{http://endpoint.siscomputo.com.co/}tiposDocumentalesEntity" minOccurs="0"/>
@@ -43,6 +44,7 @@ import javax.xml.bind.annotation.XmlType;
     "idDocumento",
     "macroProcesoDocumento",
     "plantilla",
+    "procesoDocumento",
     "procesoProcesoDocumento",
     "subProcesoProcesoDocumento",
     "tipoDocumentalDocumento",
@@ -59,6 +61,7 @@ public class DocumentoEntity
     protected int idDocumento;
     protected MacroprocesosEntity macroProcesoDocumento;
     protected PlantillaEntity plantilla;
+    protected ProcesoEntity procesoDocumento;
     protected ProcesosEntity procesoProcesoDocumento;
     protected SubprocesoEntity subProcesoProcesoDocumento;
     protected TiposDocumentalesEntity tipoDocumentalDocumento;
@@ -199,6 +202,30 @@ public class DocumentoEntity
      */
     public void setPlantilla(PlantillaEntity value) {
         this.plantilla = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad procesoDocumento.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ProcesoEntity }
+     *     
+     */
+    public ProcesoEntity getProcesoDocumento() {
+        return procesoDocumento;
+    }
+
+    /**
+     * Define el valor de la propiedad procesoDocumento.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ProcesoEntity }
+     *     
+     */
+    public void setProcesoDocumento(ProcesoEntity value) {
+        this.procesoDocumento = value;
     }
 
     /**

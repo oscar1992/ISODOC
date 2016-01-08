@@ -23,7 +23,8 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "DocumentoRol")
 @ViewScoped
-public class DocumentoRolBean implements Serializable{
+public class DocumentoRolBean implements Serializable {
+
     private ArrayList<DocumentoRolEntity> lista;
     private ArrayList<DocumentoRolEntity> listaFiltro;
     private DocumentoRolEntity objetoDocumentoRol;
@@ -87,150 +88,169 @@ public class DocumentoRolBean implements Serializable{
     public void setEliminar(boolean eliminar) {
         this.eliminar = eliminar;
     }
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         consultarDocumentoRol();
         permisos();
     }
+
     public DocumentoRolBean() {
         nuevoDocumentoRolObjeto();
-        lista=new ArrayList<>();
+        lista = new ArrayList<>();
     }
+
     /**
      * Método que trae una lista de Documentos Rol
      */
-    public void consultarDocumentoRol(){
+    public void consultarDocumentoRol() {
         try {
-            DocumentoRolLogic documentoRolLogic=new DocumentoRolLogic();
-            lista=documentoRolLogic.listaDocumentoRol();
+            DocumentoRolLogic documentoRolLogic = new DocumentoRolLogic();
+            lista = documentoRolLogic.listaDocumentoRol();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Método que permite insertar un Documentos Rol nuevo
      */
-    public void instertarDocumentoRol(){
+    public void instertarDocumentoRol() {
+        System.out.println("INS");
         try {
-            DocumentoEntity documentoEntity=new DocumentoEntity();
-            RolesLogic rolesLogic=new RolesLogic();
-            RolesEntity rolesEntity=new RolesEntity();
+            DocumentoEntity documentoEntity = new DocumentoEntity();
+            RolesLogic rolesLogic = new RolesLogic();
+            RolesEntity rolesEntity = new RolesEntity();
             Integer idRol = objetoDocumentoRolInsercion.getRolesentityDocumentoRol().getIdRol();
-            if (idRol==null) {
+            if (idRol == null) {
                 System.out.println("NULO:");
-            }else{
+            } else {
                 rolesEntity = rolesLogic.rolPorId(idRol);
             }
-            documentoEntity=(DocumentoEntity) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("Documento");
+            documentoEntity = (DocumentoEntity) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("Documento");
+            int idDocumentoEntity = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idDocumento");
+            documentoEntity.setIdDocumento(idDocumentoEntity);
+            System.out.println("RECIBE: "+documentoEntity.getIdDocumento());
             objetoDocumentoRolInsercion.setDocumentoentityDocumentoRol(documentoEntity);
             objetoDocumentoRolInsercion.setRolesentityDocumentoRol(rolesEntity);
-            DocumentoRolLogic documentoRolLogic=new DocumentoRolLogic();
-            DocumentoRolEntity documentoRolEntity=documentoRolLogic.insertarDocumentoRol(objetoDocumentoRolInsercion);
-            FacesMessage msg=null;
-            if(documentoRolEntity!=null){
-                msg=new FacesMessage("", "inserción de Documentos Rol correcto");
+            DocumentoRolLogic documentoRolLogic = new DocumentoRolLogic();
+            DocumentoRolEntity documentoRolEntity = documentoRolLogic.insertarDocumentoRol(objetoDocumentoRolInsercion);
+            FacesMessage msg = null;
+            if (documentoRolEntity != null) {
+                msg = new FacesMessage("", "inserción de Documentos Rol correcto");
                 adicionarMetodoPtoteccionLista(documentoRolEntity);
-                System.out.println("Tama: "+lista.size());
-            }else{
-                msg=new FacesMessage("", "inserción de Documentos Rol incorrecto");
+                System.out.println("Tama: " + lista.size());
+            } else {
+                msg = new FacesMessage("", "inserción de Documentos Rol incorrecto");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }
+
     /**
      * Método que añade un Documentos Rol visualmente
-     * @param objetoDocumentoRol 
+     *
+     * @param objetoDocumentoRol
      */
     private void adicionarMetodoPtoteccionLista(DocumentoRolEntity objetoDocumentoRol) {
         lista.add(objetoDocumentoRol);
     }
-/**
+
+    /**
      * Método que permite actualizar un Documentos Rol
      */
-    public void actualizarDocumentoRol(){
-        DocumentoRolLogic metodoRecuperacionLogic=new DocumentoRolLogic();
-        String valida=metodoRecuperacionLogic.actualizarDocumentoRol(objetoDocumentoRol);
-        FacesMessage msg=null;
-        if("Ok".equalsIgnoreCase(valida)){
-            msg=new FacesMessage("", "actualización de Documentos Rol correcto");
+    public void actualizarDocumentoRol() {
+        DocumentoRolLogic metodoRecuperacionLogic = new DocumentoRolLogic();
+        String valida = metodoRecuperacionLogic.actualizarDocumentoRol(objetoDocumentoRol);
+        FacesMessage msg = null;
+        if ("Ok".equalsIgnoreCase(valida)) {
+            msg = new FacesMessage("", "actualización de Documentos Rol correcto");
             actualizarDocumentoRolLista(objetoDocumentoRol);
-        }else{
-            msg=new FacesMessage("", "actualización de Documentos Rol incorrecto");
+        } else {
+            msg = new FacesMessage("", "actualización de Documentos Rol incorrecto");
         }
         nuevoDocumentoRolObjeto();
         RequestContext.getCurrentInstance().execute("PF('actualizarDocumentoRol').hide()");
     }
+
     /**
      * Método que actualiza visualmente la lista de Documentos Rol
-     * @param objetoDocumentoRol 
+     *
+     * @param objetoDocumentoRol
      */
     private void actualizarDocumentoRolLista(DocumentoRolEntity objetoDocumentoRol) {
         try {
-            ArrayList<DocumentoRolEntity>listaaux=new ArrayList<>();
-            if(lista!=null){
-                for(DocumentoRolEntity item:lista){
-                    int v1=objetoDocumentoRol.getIdDocumentoRol();
-                    int v2=item.getIdDocumentoRol();
-                    if(v1==v2){
+            ArrayList<DocumentoRolEntity> listaaux = new ArrayList<>();
+            if (lista != null) {
+                for (DocumentoRolEntity item : lista) {
+                    int v1 = objetoDocumentoRol.getIdDocumentoRol();
+                    int v2 = item.getIdDocumentoRol();
+                    if (v1 == v2) {
                         listaaux.add(objetoDocumentoRol);
-                    }else{
+                    } else {
                         listaaux.add(item);
                     }
                 }
             }
-            this.lista=new ArrayList<>();
-            this.lista=listaaux;
+            this.lista = new ArrayList<>();
+            this.lista = listaaux;
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Método que se invoca al seleccionar una fila de la tabla
-     * @param event 
+     *
+     * @param event
      */
-    public void onRowSelect(SelectEvent event){
-        objetoDocumentoRol=(DocumentoRolEntity)event.getObject();
+    public void onRowSelect(SelectEvent event) {
+        objetoDocumentoRol = (DocumentoRolEntity) event.getObject();
     }
+
     /**
-    Método que elimina un Documentos Rol
-    */
-    public void eliminarDocumentoRol(){
-        DocumentoRolLogic metodoRecuperacionLogic=new DocumentoRolLogic();
+     * Método que elimina un Documentos Rol
+     */
+    public void eliminarDocumentoRol() {
+        DocumentoRolLogic metodoRecuperacionLogic = new DocumentoRolLogic();
         //objetoDocumentoRol.setEstadoDocumentoRol("E");
         metodoRecuperacionLogic.actualizarDocumentoRol(objetoDocumentoRol);
         eliminarDocumentoRolLista(objetoDocumentoRol);
         RequestContext.getCurrentInstance().execute("PF('actualizarDocumentoRol').hide()");
         nuevoDocumentoRolObjeto();
     }
+
     /**
      * Método que elimina visualmente un objeto de la lista
-     * @param objetoDocumentoRol 
+     *
+     * @param objetoDocumentoRol
      */
     private void eliminarDocumentoRolLista(DocumentoRolEntity objetoDocumentoRol) {
-        Iterator itr=lista.iterator();
-        while(itr.hasNext()){
-            DocumentoRolEntity metodoRecuperacionEntity=(DocumentoRolEntity) itr.next();
-            if(metodoRecuperacionEntity.getIdDocumentoRol()==objetoDocumentoRol.getIdDocumentoRol()){
+        Iterator itr = lista.iterator();
+        while (itr.hasNext()) {
+            DocumentoRolEntity metodoRecuperacionEntity = (DocumentoRolEntity) itr.next();
+            if (metodoRecuperacionEntity.getIdDocumentoRol() == objetoDocumentoRol.getIdDocumentoRol()) {
                 itr.remove();
             }
         }
     }
+
     /**
      * Método que reinicia el objeto Documentos Rol
      */
     public void nuevoDocumentoRolObjeto() {
-        RolesEntity rolesEntity=new RolesEntity();
+        RolesEntity rolesEntity = new RolesEntity();
         rolesEntity.setIdRol(-1);
-        objetoDocumentoRol=new DocumentoRolEntity();
-        objetoDocumentoRolInsercion=new DocumentoRolEntity();
+        objetoDocumentoRol = new DocumentoRolEntity();
+        objetoDocumentoRolInsercion = new DocumentoRolEntity();
         objetoDocumentoRol.setRolesentityDocumentoRol(rolesEntity);
         objetoDocumentoRolInsercion.setRolesentityDocumentoRol(rolesEntity);
-        
+
     }
-/**
+
+    /**
      * Método que evalua los accesos al formulario
      */
     public void permisos() {
@@ -260,4 +280,4 @@ public class DocumentoRolBean implements Serializable{
             }
         }
     }
-    }
+}

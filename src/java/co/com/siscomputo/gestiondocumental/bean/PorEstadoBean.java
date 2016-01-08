@@ -14,6 +14,7 @@ import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.gestiondocumental.entities.PorEstadoEntity;
 import co.com.siscomputo.gestiondocumental.logic.DocumentoLogic;
 import co.com.siscomputo.utilidades.ComparadorAccion;
+import co.com.siscomputo.utilidades.ComparadorAccion2;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -168,7 +169,6 @@ public class PorEstadoBean implements Serializable {
     @PostConstruct
     public void init() {
         permisos();
-
         cargaAcciones();
         //objetoDocumento = new DocumentoEntity();        
         idAccion = null;
@@ -186,7 +186,7 @@ public class PorEstadoBean implements Serializable {
     }
 
     public PorEstadoBean() {
-
+        botonSiguiente=true;
         nuevo();
     }
 
@@ -202,21 +202,22 @@ public class PorEstadoBean implements Serializable {
             if (ultimaAccion(objetoAccion)) {
                 botonSiguiente=false;
             }else{
-                //Collections.sort(listaAcciones, new ComparadorAccion2());
+                Collections.sort(listaAcciones, new ComparadorAccion2());
                 //Collections.reverse(listaAcciones);
                 Iterator itr=listaAcciones.iterator();
                 accionSiguiente=new AccionEntity();
                 while (itr.hasNext()) {
-                    AccionEntity accionEntity=(AccionEntity) itr.next();
-                    
+                    AccionEntity accionEntity=(AccionEntity) itr.next();                    
+                    System.out.println("ACCION: "+accionEntity.getNombreAccion());
                     if(accionEntity.getOrdenAccion() == null ? objetoAccion.getOrdenAccion() == null : accionEntity.getOrdenAccion().equals(objetoAccion.getOrdenAccion())){
                         accionSiguiente=(AccionEntity) itr.next();
-                        System.out.println("Accion: "+accionSiguiente.getOrdenAccion());
+                        System.out.println("AccionS: "+accionSiguiente.getOrdenAccion());
                     }
                 }
                 nombreSiguiente=accionSiguiente.getNombreAccion();
                 botonSiguiente=true;
             }
+            //System.out.println("BOTÖN: "+botonSiguiente+" - "+accionSiguiente.getNombreAccion());
             DocumentoLogic documentoLogic = new DocumentoLogic();
             lista = documentoLogic.documetosPorAccion(objetoAccion);
         }
@@ -242,8 +243,7 @@ public class PorEstadoBean implements Serializable {
      * Método que carga la lista de acciones disponibles
      */
     public void cargaAcciones() {
-        AccionLogic accionLogic = new AccionLogic();
-        
+        AccionLogic accionLogic = new AccionLogic();        
         int idUsuario=(int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idUsuario");
         listaAcciones = accionLogic.accionPorUsuario(idUsuario);
         System.out.println("ID Usuario: "+idUsuario);
@@ -264,7 +264,11 @@ public class PorEstadoBean implements Serializable {
         objetoDocumento = new DocumentoEntity();
         objetoDocumento = (DocumentoEntity) event.getObject();
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Documento", objetoDocumento);
-        System.out.println("Selección: " + objetoDocumento.getTituloDocumento());
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idDocumento", objetoDocumento.getIdDocumento());
+        System.out.println("Envía: " + objetoDocumento.getIdDocumento());
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.update(":MoverDocumento:nom");
+        
     }
 
     /*

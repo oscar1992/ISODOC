@@ -26,7 +26,6 @@ import co.com.siscomputo.endpoint.SubprocesoEntity;
 import co.com.siscomputo.endpoint.TiposDocumentalesEntity;
 import co.com.siscomputo.gestiondocumental.entities.GrupoUsuarioAccionProcesoEntity;
 import co.com.siscomputo.gestiondocumental.logic.GrupoDocumentoLogic;
-import co.com.siscomputo.utilidades.ComparadorNivel;
 import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -66,6 +65,7 @@ public class DocumentoBean implements Serializable {
     private TreeNode raiz;
     private Integer tope;
     private Integer idProceso;
+    private String consecutivo;
     private HashMap<String, GrupoUsuariosEntity>mapaGrupos;
     private ArrayList<GrupoUsuarioAccionProcesoEntity> usuarioAccionProcesoEntity;
     private boolean ingresar;
@@ -159,6 +159,14 @@ public class DocumentoBean implements Serializable {
         this.usuarioAccionProcesoEntity = usuarioAccionProcesoEntity;
     }
 
+    public String getConsecutivo() {
+        return consecutivo;
+    }
+
+    public void setConsecutivo(String consecutivo) {
+        this.consecutivo = consecutivo;
+    }
+    
     public Integer getIdProceso() {
         return idProceso;
     }
@@ -279,6 +287,7 @@ public class DocumentoBean implements Serializable {
      */
     public void instertarDocumento() {
         try {
+            objetoDocumentoInsercion.setProcesoDocumento((ProcesoEntity) arbolaux.getData());
             DocumentoLogic documentoLogic = new DocumentoLogic();
             DocumentoEntity documentoEntity = documentoLogic.insertarDocumento(objetoDocumentoInsercion);
             GrupoDocumentoLogic grupoDocumentoLogic=new GrupoDocumentoLogic();
@@ -520,7 +529,18 @@ public class DocumentoBean implements Serializable {
         }
     
     }
-    
+    /**
+     * Método que trae el consecutivo correspondiente al tip documental elegido
+     */
+    public void traeConsecutivo(){
+        
+        int idTipos=objetoDocumentoInsercion.getTipoDocumentalDocumento().getIdTipoDocumental();
+        TiposDocumentalesLogic tiposDocumentalesLogic=new TiposDocumentalesLogic();
+        TiposDocumentalesEntity tiposDocumentalesEntity=new TiposDocumentalesEntity();
+        tiposDocumentalesEntity=tiposDocumentalesLogic.TipoDocumentalPorId(idTipos);
+        System.out.println("TIPO: "+tiposDocumentalesEntity.getInicialesTipoDocuemntal());
+        consecutivo=tiposDocumentalesEntity.getInicialesTipoDocuemntal();
+    }
     
     public void evalua(TreeNode proceso) {
         ProcesoEntity procesoEntity=new ProcesoEntity();
