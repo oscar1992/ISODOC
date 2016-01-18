@@ -18,34 +18,40 @@
                     <p:dataTable var="tipoDocumental" value="#{TiposDocuemntales.lista}" reflow="true" widgetVar="TablatipoDocumentales" id="tablatipoDocumentales" selectionMode="single"
                                  selection="#{TiposDocuemntales.tiposDobjeto}" rowKey="#{tipoDocumental.idTipoDocumental}" class="TABLA" paginator="true" rows="7">
                         <p:ajax event="rowSelect" listener="#{TiposDocuemntales.onRowSelect}" update=":tipoDocumentalesForm:msgs,:ActualizarModal:actualizartipoDocumentalModal" oncomplete="PF('actualizarTipoDocumental').show()"/>
-                            <f:facet name="header">
-                                <h:outputText value="CONSULTA DE TIPOS DOCUMENTALES" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
-                                <p:inputText id="globalFilter" onkeyup="PF('TablatipoDocumentales').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
-                                <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                        <f:facet name="header">
+                            <h:outputText value="CONSULTA DE TIPOS DOCUMENTALES" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                            <p:inputText id="globalFilter" onkeyup="PF('TablatipoDocumentales').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                            <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                        </f:facet>
+
+                        <p:column headerText="Nobre del Tipo Documental" filterBy="#{tipoDocumental.nombreTipoDocumental}">
+                            <h:outputText value="#{tipoDocumental.nombreTipoDocumental}"/>
+                        </p:column>                            
+                        <p:column headerText="Generación del Tipo Documental" filterBy="#{tipoDocumental.genracionTipoDocumental}">
+                            <h:outputText value="#{tipoDocumental.genracionTipoDocumental}"/>
+                        </p:column>
+                        <p:column headerText="Iniciales del Tipo Documental" filterBy="#{tipoDocumental.genracionTipoDocumental}">
+                            <h:outputText value="#{tipoDocumental.inicialesTipoDocuemntal}"/>
+                        </p:column>
+                        <p:column headerText="Consecutivo del Tipo Documental" filterBy="#{tipoDocumental.genracionTipoDocumental}">
+                            <h:outputText value="#{tipoDocumental.consecutivoTipoDocuemntal}"/>
+                        </p:column>
+
+                        <p:column headerText="Estado del Tipo Documental" filterBy="#{tipoDocumental.estadoTipoDocuemtal}">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('TablatipoDocumentales').filter()" >
+                                    <f:selectItem itemLabel="Selecione Estado" itemValue="#{null}" noSelectionOption="false"/>
+                                    <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                                </p:selectOneMenu>
                             </f:facet>
-                            
-                            <p:column headerText="Nobre del Tipo Documental" filterBy="#{tipoDocumental.nombreTipoDocumental}">
-                                <h:outputText value="#{tipoDocumental.nombreTipoDocumental}"/>
-                            </p:column>                            
-                            <p:column headerText="Generación del Tipo Documental" filterBy="#{tipoDocumental.genracionTipoDocumental}">
-                                <h:outputText value="#{tipoDocumental.genracionTipoDocumental}"/>
-                            </p:column>
-                            <p:column headerText="Iniciales del Tipo Documental" filterBy="#{tipoDocumental.genracionTipoDocumental}">
-                                <h:outputText value="#{tipoDocumental.inicialesTipoDocuemntal}"/>
-                            </p:column>
-                            <p:column headerText="Consecutivo del Tipo Documental" filterBy="#{tipoDocumental.genracionTipoDocumental}">
-                                <h:outputText value="#{tipoDocumental.consecutivoTipoDocuemntal}"/>
-                            </p:column>
-                            
-                            <p:column headerText="Estado del Tipo Documental" filterBy="#{tipoDocumental.estadoTipoDocuemtal}">
-                                <h:outputText value="Activo" rendered="#{tipoDocumental.estadoTipoDocuemtal == 'A'}"/>
-                                <h:outputText value="Inctivo" rendered="#{tipoDocumental.estadoTipoDocuemtal == 'I'}"/> 
-                            </p:column>
-                            
-                        </p:dataTable>
-                        <br/>
-                        <p:commandButton value="Insertar" type="button" onclick="PF('insertarTipoDocumental').show();" update=":tipoDocumentalForm:msgs" class="botonNormal" rendered="#{TiposDocuemntales.ingresar}"></p:commandButton>
-                    
+                            <h:outputText value="Activo" rendered="#{tipoDocumental.estadoTipoDocuemtal == 'A'}"/>
+                            <h:outputText value="Inctivo" rendered="#{tipoDocumental.estadoTipoDocuemtal == 'I'}"/> 
+                        </p:column>
+
+                    </p:dataTable>
+                    <br/>
+                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarTipoDocumental').show();" update=":tipoDocumentalForm:msgs" class="botonNormal" rendered="#{TiposDocuemntales.ingresar}"></p:commandButton>
+
                 </h:form>
                 <h:form id="IngresarModal">
                     #{tipoDocumentales.nuevotipoDocumental()};
@@ -58,7 +64,7 @@
                             <p:inputText required="true" label="iniciales del tipoDocumental" value="#{TiposDocuemntales.tiposDobjetoInsercion.inicialesTipoDocuemntal}"/>
                             <h:outputText value="Consecutivo del Tipo Documental"></h:outputText>
                             <p:inputText required="true" label="consecutivo del tipoDocumental" value="#{TiposDocuemntales.tiposDobjetoInsercion.consecutivoTipoDocuemntal}"/>
-                            
+
                             <h:outputText value="generación de la secuenacia del Tipo Documental"></h:outputText>
                             <p:selectOneMenu id="desplegableIngresarGeneracion" value="#{TiposDocuemntales.tiposDobjetoInsercion.genracionTipoDocumental}" style="width: 150px;">
                                 <f:selectItem itemLabel="Selecione Consecutivo" itemValue="" noSelectionOption="true"/>

@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition template="/plantillas/PlantillaGestionDocumental.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form id="DocumentoForm">
+                    <div class="prueba" style="color: white; ">
+                        <p:growl id="msgs" showDetail="true" life="3000" />
+                    </div>
+                    <p:dataTable var="documento" value="#{Documento.lista}" reflow="true" widgetVar="TablaDocumento" id="tablaDocumento" selectionMode="single"
+                                 selection="#{Documento.objetoDocumento}" rowKey="#{documento.idDocumento}" class="TABLA" paginator="true" rows="7">
+                        <p:ajax event="rowSelect" listener="#{Documento.onRowSelect}" update=":DocumentoForm:msgs,:ActualizarModal:actualizarDocumentoModal" oncomplete="PF('actualizarDocumento').show()"/>
+                        <f:facet name="header">
+                            <h:outputText value="CONSULTA DE DOCUMENTO" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                            <p:inputText id="globalFilter" onkeyup="PF('TablaDocumento').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                            <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                        </f:facet>
+
+                        <p:column headerText="titulo del Documento" filterBy="#{documento.tituloDocumento}">
+                            <h:outputText value="#{documento.tituloDocumento}"/>
+                        </p:column>
+                        <p:column headerText="Tipo Documental" filterBy="#{documento.tipoDocumentalDocumento.nombreTipoDocumental}">
+                            <h:outputText value="#{documento.tipoDocumentalDocumento.nombreTipoDocumental}"/>
+                        </p:column>
+                        <p:column headerText="plantilla del Documento" filterBy="#{documento.plantilla.nombrePlantilla}">
+                            <h:outputText value="#{documento.plantilla.nombrePlantilla}"/>
+                        </p:column>
+                        <p:column headerText="version del Documento" filterBy="#{documento.versionDocumento}">
+                            <h:outputText value="#{documento.versionDocumento}"/>
+                        </p:column>
+                        <p:column headerText="estado del Documento" filterBy="#{documento.estadoDocumento}">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('TablaDocumento').filter()" >
+                                    <f:selectItem itemLabel="Selecione Estado" itemValue="#{null}" noSelectionOption="false"/>
+                                    <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                                </p:selectOneMenu>
+                            </f:facet>  
+                            <h:outputText value="Activo" rendered="#{documento.estadoDocumento == 'A'}"/>
+                            <h:outputText value="Inactivo" rendered="#{documento.estadoDocumento == 'I'}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                    <br/>
+                    <!--<p:commandButton value="Insertar" type="button" onclick="PF('insertarDocumento').show();" update=":DocumentoForm:msgs" class="botonNormal" rendered="#{Documento.ingresar}"></p:commandButton>-->
+
+                </h:form>
+                <h:form id="ActualizarModal">
+                    <p:dialog header="Actualizar Documento" widgetVar="actualizarDocumento" modal="true" id="actualizarDocumentoModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+
+
+                            <h:outputText value="titulo del Documento"></h:outputText>
+                            <p:inputText required="true" label="titulo del Documento" value="#{Documento.objetoDocumento.tituloDocumento}"/>
+                            <h:outputText value="tipoDocumental del Documento"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarTipoD" value="#{Documento.objetoDocumento.tipoDocumentalDocumento.idTipoDocumental}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Tipo Documento" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaTipoDocumento}"/>
+                            </p:selectOneMenu>
+
+                            <h:outputText value="plantilla del Documento"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarPlantilla" value="#{Documento.objetoDocumento.plantilla.idPlantilla}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione la Plantilla del Documento" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaPlantillas}"/>
+                            </p:selectOneMenu>
+                            <h:outputText value="version del Documento"></h:outputText>
+                            <p:inputText required="true" label="version del Documento" value="#{Documento.objetoDocumento.versionDocumento}"/>
+
+
+                            <h:outputText value="Estado del Documento"></h:outputText>
+                            <p:selectOneMenu id="desplegableActualizarEstado" value="#{Documento.objetoDocumento.estadoDocumento}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Documento" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+
+                            <h:outputText value="MacroProceso del Documento"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarMacro" value="#{Documento.objetoDocumento.macroProcesoDocumento.idMacroproceso}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Macro Proceso" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaMacroProcesos}"/>
+                            </p:selectOneMenu>
+
+                            <h:outputText value="Proceso del Documento"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarProceso" value="#{Documento.objetoDocumento.procesoProcesoDocumento.idProcesos}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Proceso" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaProcesos}"/>
+                            </p:selectOneMenu>
+
+                            <h:outputText value="SubProceso del Documento"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarSubproceso" value="#{Documento.objetoDocumento.subProcesoProcesoDocumento.idSubproceso}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione un SubProceso" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaSubProcesos}"/>
+                            </p:selectOneMenu>
+                            <h:inputHidden value="#{Documento.objetoDocumento.idDocumento}"></h:inputHidden>
+                        </p:panelGrid>
+                        <p:commandButton  value="Actualizar" update=":DocumentoForm:tablaDocumento,:ActualizarModal:actualizarDocumentoModal,DocumentoForm:msgs" actionListener="#{Documento.actualizarDocumento()}" validateClient="true" class="botonNormal" rendered="#{Documento.actualizar}"/>
+                        <p:commandButton value="Eliminar" update=":DocumentoForm:tablaDocumento,:ActualizarModal:actualizarDocumentoModal,DocumentoForm:msgs" actionListener="#{Documento.eliminarDocumento()}" validateClient="true" class="botonNormal" rendered="#{Documento.eliminar}"/>
+                    </p:dialog>
+
+                </h:form>
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>
+

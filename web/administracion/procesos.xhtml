@@ -18,31 +18,37 @@
                     <p:dataTable var="proceso" value="#{Procesos.listaProcesos}" reflow="true" widgetVar="TablaProcesos" id="tablaProcesos" selectionMode="single"
                                  selection="#{Procesos.procesosObjeto}" rowKey="#{proceso.idProcesos}" class="TABLA" paginator="true" rows="7">
                         <p:ajax event="rowSelect" listener="#{Procesos.onRowSelect}" update=":ProcesosForm:msgs,:ActualizarModal:actualizarProcesosModal" oncomplete="PF('actualizarProcesos').show()"/>
-                            <f:facet name="header">
-                                <h:outputText value="CONSULTA DE PROCESOS" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
-                                <p:inputText id="globalFilter" onkeyup="PF('TablaProcesos').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
-                                <h:outputText value="Buscar" style="color: #FFF; float: right"/>
-                            </f:facet>
-                            
+                        <f:facet name="header">
+                            <h:outputText value="CONSULTA DE PROCESOS" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                            <p:inputText id="globalFilter" onkeyup="PF('TablaProcesos').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                            <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                        </f:facet>
+
                         <p:column headerText="Nobre del Proceso" filterBy="#{proceso.nombrePreoceso}">
                             <h:outputText value="#{proceso.nombrePreoceso}"/>
-                            </p:column>
+                        </p:column>
                         <p:column headerText="Macroproceso del Proceso" filterBy="#{proceso.idMacroProceso.nombreMacroproceso}">
                             <h:outputText value="#{proceso.idMacroProceso.nombreMacroproceso}"/>
-                            </p:column>
-                            
+                        </p:column>
+
                         <p:column headerText="Estado del Proceso" filterBy="#{proceso.estadoProceso}">
-                                <h:outputText value="Activo" rendered="#{proceso.estadoProceso == 'A'}"/>
-                                <h:outputText value="Inactivo" rendered="#{proceso.estadoProceso== 'I'}"/> 
-                            </p:column>
-                            
-                        </p:dataTable>
-                        <br/>
-                        <p:commandButton value="Insertar" type="button" onclick="PF('insertarProcesos').show();" update=":ProcesosForm:msgs" class="botonNormal" rendered="#{Procesos.ingresar}"></p:commandButton>
-                    
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('TablaProcesos').filter()" >
+                                    <f:selectItem itemLabel="Selecione Estado" itemValue="#{null}" noSelectionOption="false"/>
+                                    <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                                </p:selectOneMenu>
+                            </f:facet>
+                            <h:outputText value="Activo" rendered="#{proceso.estadoProceso == 'A'}"/>
+                            <h:outputText value="Inactivo" rendered="#{proceso.estadoProceso== 'I'}"/> 
+                        </p:column>
+
+                    </p:dataTable>
+                    <br/>
+                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarProcesos').show();" update=":ProcesosForm:msgs" class="botonNormal" rendered="#{Procesos.ingresar}"></p:commandButton>
+
                 </h:form>
                 <h:form id="IngresarModal">
-                    
+
                     <p:dialog header="Insertar Procesos" widgetVar="insertarProcesos" modal="true" id="insertarProcesosModal" responsive="true">
                         #{Procesos.nuevoProceso()};
                         <p:messages autoUpdate="true"/>
@@ -91,10 +97,10 @@
                             <p:outputLabel value="#{Procesos.procesosObjeto.nombrePreoceso}"/>
                         </p:panelGrid>
                         <p:commandButton value="Eliminar" update=":ProcesosForm:tablaProcesos,:EliminarModal:eliminarProcesosModal,ProcesosForm:msgs" actionListener="#{Procesos.eliminarProceso()}" validateClient="true" class="botonNormal" />
-                        
+
                         <h:inputHidden value="#{Procesos.procesosObjeto.estadoProceso}"></h:inputHidden>
                         <h:inputHidden value="#{Procesos.procesosObjeto.idProcesos}"></h:inputHidden>
-                        
+
                     </p:dialog>
                 </h:form>
             </h:body>

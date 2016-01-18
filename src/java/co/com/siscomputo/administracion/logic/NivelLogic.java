@@ -86,4 +86,19 @@ public class NivelLogic {
         }
         return rta;
     }
+    /**
+     * Método que que trae un nivel por su ID     *
+     * @param idNivel
+     * @return
+     */
+    public NivelEntity nivelPorId(int idNivel) {
+        webService();
+        NivelEntity dispoRta = null;
+        try {
+            dispoRta = port.nivelPorId(idNivel);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dispoRta;
+    }
 }

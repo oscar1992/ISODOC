@@ -37,8 +37,15 @@
                             <h:outputText value="#{usuario.nombreUsuario}"/>
                         </p:column>
                         <p:column headerText="Estado de la Empresa" filterBy="#{usuario.estado}">
+                            <f:facet name="filter">
+                            <p:selectOneMenu onchange="PF('TablaUsuarios').filter()" >
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="#{null}" noSelectionOption="false"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+                            </f:facet>                            
+                            <!--<h:outputText value="#{usuario.estado}"/>-->
                             <h:outputText value="Activo" rendered="#{usuario.estado == 'A'}"/>
-                            <h:outputText value="Inactivo" rendered="#{usuario.estado == 'I'}"/>                            
+                            <h:outputText value="Inactivo" rendered="#{usuario.estado == 'I'}"/>                          
                         </p:column>
                         <p:column headerText="Email" filterBy="#{usuario.email}">
                             <h:outputText value="#{usuario.email}"/>

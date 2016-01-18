@@ -28,6 +28,12 @@
                             <h:outputText value="#{elaborador.usuarioElaborador.nombreUsuario}"/>
                         </p:column>
                         <p:column headerText="Estado Aprobador Elaborador" filterBy="#{elaborador.estadoElaborador}">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('TablaElaborador').filter()" >
+                                    <f:selectItem itemLabel="Selecione Estado" itemValue="#{null}" noSelectionOption="false"/>
+                                    <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                                </p:selectOneMenu>
+                            </f:facet> 
                             <h:outputText value="Activo" rendered="#{elaborador.estadoElaborador == 'A'}"/>
                             <h:outputText value="Inctivo" rendered="#{elaborador.estadoElaborador == 'I'}"/> </p:column>
 
@@ -41,14 +47,14 @@
                         #{Elaborador.nuevoElaboradorObjeto()}                        
                         <p:messages autoUpdate="true"/>                        
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
-                            
+
                             <h:outputText value="Estado del Aprobador Elaborador"></h:outputText>
                             <p:selectOneMenu id="desplegableIngresarEstado" value="#{Elaborador.objetoElaboradorInsercion.estadoElaborador}" style="width: 150px;">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
                             <h:outputText value="Usuario Aprobador Elaborador"></h:outputText>
-                            
+
                             <p:dataTable var="usuario" value="#{Usuario.list}" filteredValue="#{Usuario.listfiltro}" editable="true" 
                                          reflow="true" widgetVar="TablaUsuarios" id="tablaUsuarios" 
                                          selectionMode="single" selection="#{Usuario.usuarioObjeto}" rowKey="#{usuario.idUsuario}"
@@ -71,7 +77,7 @@
                                     <h:outputText value="#{usuario.nombreUsuario}"/>
                                 </p:column>                                
                             </p:dataTable>
-                            
+
 
                         </p:panelGrid>                        
                         <p:commandButton value="Ingresar" update=":ElaboradorForm:tablaElaborador,:IngresarModal:insertarElaboradorModal" actionListener="#{Elaborador.instertarElaborador()}" validateClient="true" class="botonNormal" />
@@ -112,7 +118,7 @@
                                 </p:column>                                
                             </p:dataTable>
 
-                            
+
                             <h:inputHidden value="#{Elaborador.objetoElaborador.idElaborador}"></h:inputHidden>
                         </p:panelGrid>
                         <p:commandButton  value="Actualizar" update=":ElaboradorForm:tablaElaborador,:ActualizarModal:actualizarElaboradorModal,ElaboradorForm:msgs" actionListener="#{Elaborador.actualizarElaborador()}" validateClient="true" class="botonNormal" rendered="#{Elaborador.actualizar}"/>

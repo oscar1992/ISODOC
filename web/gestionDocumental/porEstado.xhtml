@@ -48,8 +48,14 @@
                             <h:outputText value="#{doc.versionDocumento}"/>
                         </p:column>
                         <p:column headerText="estado del Documento" filterBy="#{doc.estadoDocumento}">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('TablaDocumento').filter()" >
+                                    <f:selectItem itemLabel="Selecione Estado" itemValue="#{null}" noSelectionOption="false"/>
+                                    <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                                </p:selectOneMenu>
+                            </f:facet> 
                             <h:outputText value="Activo" rendered="#{doc.estadoDocumento == 'A'}"/>
-                            <h:outputText value="Inctivo" rendered="#{doc.estadoDocumento == 'I'}"/>
+                            <h:outputText value="Inactivo" rendered="#{doc.estadoDocumento == 'I'}"/>
                         </p:column>
 
                     </p:dataTable>
@@ -90,7 +96,7 @@
                         <p:commandButton value="Enviar a #{PorEstado.nombreSiguiente}" actionListener="#{PorEstado.siguienteAccion()}"  rendered="#{PorEstado.botonSiguiente}" class="botonNormal"  ajax="true"></p:commandButton>
                         <p:commandButton value="Lista de Distribución" update=":AsociarDocumento:ListaDistribucion"   class="botonNormal" rendered="#{PorEstado.botonSiguiente}" ajax="true" oncomplete="PF('listaDistribucion').show()"></p:commandButton>
                         <h:inputHidden value="#{PorEstado.objetoDocumento.idDocumento}"></h:inputHidden>
-                        </p:dialog>
+                    </p:dialog>
                 </h:form>
                 <h:form id="AsociarDocumento">
                     <p:dialog header="Lista DistribuciónWWW" widgetVar="listaDistribucion" modal="true" id="ListaDistribucion" responsive="true">
@@ -137,14 +143,14 @@
                                         </p:selectOneMenu></p:column>
                                 </p:row>
                             </p:panelGrid>
-                            
+
                         </p:panelGrid>
-                        
+
                         <p:commandButton value="Agregar" update=":AsociarDocumento:ListaDistribucion" actionListener="#{DocumentoRol.instertarDocumentoRol()}"  class="botonNormal"  ajax="true"></p:commandButton>
                     </p:dialog>
-                    
+
                 </h:form>
-                
+
 
 
             </h:body>

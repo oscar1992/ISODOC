@@ -15,30 +15,36 @@
                     <div class="prueba" style="color: white; ">
                         <p:growl id="msgs" showDetail="true" life="3000"/>
                     </div>
-                        <p:dataTable var="pais" value="#{Paises.lista}" reflow="true" widgetVar="TablaPaises" id="tablaPaises" selectionMode="single"
-                                     selection="#{Paises.paisObjeto}" rowKey="#{pais.idPais}" class="TABLA" paginator="true" rows="7">
-                            <p:ajax event="rowSelect" listener="#{Paises.onRowSelect}" update=":PaisesForm:msgs,:ActualizarModal:actualizarPaisModal" oncomplete="PF('actualizarPais').show()"/>
-                            <f:facet name="header">
-                                <h:outputText value="CONSULTA DE PAISES" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
-                                <p:inputText id="globalFilter" onkeyup="PF('TablaPaises').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
-                                <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                    <p:dataTable var="pais" value="#{Paises.lista}" reflow="true" widgetVar="TablaPaises" id="tablaPaises" selectionMode="single"
+                                 selection="#{Paises.paisObjeto}" rowKey="#{pais.idPais}" class="TABLA" paginator="true" rows="7">
+                        <p:ajax event="rowSelect" listener="#{Paises.onRowSelect}" update=":PaisesForm:msgs,:ActualizarModal:actualizarPaisModal" oncomplete="PF('actualizarPais').show()"/>
+                        <f:facet name="header">
+                            <h:outputText value="CONSULTA DE PAISES" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                            <p:inputText id="globalFilter" onkeyup="PF('TablaPaises').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                            <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                        </f:facet>
+
+                        <p:column headerText="Nobre del País" filterBy="#{pais.nombrePais}">
+                            <h:outputText value="#{pais.nombrePais}"/>
+                        </p:column>
+                        <p:column headerText="Código del País" filterBy="#{pais.codPais}">
+                            <h:outputText value="#{pais.codPais}"/>
+                        </p:column>
+                        <p:column headerText="Estado del País" filterBy="#{pais.estadoPais}">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('TablaPaises').filter()" >
+                                    <f:selectItem itemLabel="Selecione Estado" itemValue="#{null}" noSelectionOption="false"/>
+                                    <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                                </p:selectOneMenu>
                             </f:facet>
-                            
-                            <p:column headerText="Nobre del País" filterBy="#{pais.nombrePais}">
-                                <h:outputText value="#{pais.nombrePais}"/>
-                            </p:column>
-                            <p:column headerText="Código del País" filterBy="#{pais.codPais}">
-                                <h:outputText value="#{pais.codPais}"/>
-                            </p:column>
-                            <p:column headerText="Estado del País" filterBy="#{pais.estadoPais}">
-                                <h:outputText value="Activo" rendered="#{pais.estadoPais == 'A'}"/>
-                                <h:outputText value="InActivo" rendered="#{pais.estadoPais == 'I'}"/> 
-                            </p:column>
-                            
-                        </p:dataTable>
-                        <br/>
-                        <p:commandButton value="Insertar" type="button" onclick="PF('insertarPais').show();" update=":PaisForm:msgs" class="botonNormal" rendered="#{Paises.ingresar}"></p:commandButton>
-                    
+                            <h:outputText value="Activo" rendered="#{pais.estadoPais == 'A'}"/>
+                            <h:outputText value="InActivo" rendered="#{pais.estadoPais == 'I'}"/> 
+                        </p:column>
+
+                    </p:dataTable>
+                    <br/>
+                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarPais').show();" update=":PaisForm:msgs" class="botonNormal" rendered="#{Paises.ingresar}"></p:commandButton>
+
                 </h:form>
                 <h:form id="IngresarModal">
                     #{Paises.nuevoPais()};

@@ -7,7 +7,10 @@ import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.NivelEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -29,6 +32,7 @@ public class ProcesoBean implements Serializable {
     private ProcesoEntity objetoProceso;
     private ProcesoEntity objetoProcesoInsercion;
     private String nombreAsociado;
+    private String nombreNivel;
     private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
@@ -71,6 +75,14 @@ public class ProcesoBean implements Serializable {
 
     public void setNombreAsociado(String nombreAsociado) {
         this.nombreAsociado = nombreAsociado;
+    }
+
+    public String getNombreNivel() {
+        return nombreNivel;
+    }
+
+    public void setNombreNivel(String nombreNivel) {
+        this.nombreNivel = nombreNivel;
     }
 
     public boolean isIngresar() {
@@ -264,11 +276,21 @@ public class ProcesoBean implements Serializable {
      */
     public String nombreProceso(int idProceso) {
         ProcesoLogic procesoLogic = new ProcesoLogic();
-        System.out.println("pp: " + idProceso);
+        //System.out.println("pp: " + idProceso);
         nombreAsociado = procesoLogic.procesoPorId(idProceso).getNombreProceso();
         return nombreAsociado;
     }
-
+    
+    public void nombreNivel(int idNivel){
+        System.out.println("id Nivel: "+idNivel);
+        ListaAdministracionBean listaAdministracionBean=new ListaAdministracionBean();
+        Map<String, Integer> mapa=(HashMap<String, Integer>) listaAdministracionBean.getListaProcesoAsociado();
+        Map<Integer, String> dev=(Map<Integer, String>) mapa.entrySet().stream().filter(mapa2->mapa2.getValue().equals(idNivel));
+        String valor=dev.get(idNivel);
+        System.out.println("VALOR: "+valor);
+    }
+    
+    
     /**
      * Método que evalua los accesos al formulario
      */

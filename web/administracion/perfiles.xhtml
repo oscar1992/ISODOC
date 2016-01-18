@@ -29,6 +29,12 @@
                             <h:outputText value="#{perfil.nombreRol}"/>
                         </p:column>
                         <p:column headerText="Estado de Rol" filterBy="#{perfil.estadoRol}">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('TablaPerfiles').filter()" >
+                                    <f:selectItem itemLabel="Selecione Estado" itemValue="#{null}" noSelectionOption="false"/>
+                                    <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                                </p:selectOneMenu>
+                            </f:facet>
                             <h:outputText value="Activo" rendered="#{perfil.estadoRol == 'A'}"/>
                             <h:outputText value="Inctivo" rendered="#{perfil.estadoRol == 'I'}"/>                            
                         </p:column>

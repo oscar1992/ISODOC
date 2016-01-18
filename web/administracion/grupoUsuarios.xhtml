@@ -27,6 +27,12 @@
                             <h:outputText value="#{grupoUsuarios.nombreGrupoUsuarios}"/>
                         </p:column>
                         <p:column headerText="estado del Grupo de Usuarios" filterBy="#{grupoUsuarios.estadoGrupoUsuarios}">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('TablaGrupoUsuarios').filter()" >
+                                    <f:selectItem itemLabel="Selecione Estado" itemValue="#{null}" noSelectionOption="false"/>
+                                    <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                                </p:selectOneMenu>
+                            </f:facet> 
                             <h:outputText value="Activo" rendered="#{grupoUsuarios.estadoGrupoUsuarios == 'A'}"/>
                             <h:outputText value="Inctivo" rendered="#{grupoUsuarios.estadoGrupoUsuarios == 'I'}"/> </p:column>
 

@@ -17,39 +17,45 @@
                     </div>
                     <p:dataTable var="departamentos" value="#{Departamentos.lista}" reflow="true" widgetVar="TablaDepartamentos" id="tablaDepartamentos" selectionMode="single"
                                  selection="#{Departamentos.departamentoObjeto}" rowKey="#{departamentos.idDepartamento}" class="TABLA" paginator="true" rows="7">
-                            <p:ajax event="rowSelect" listener="#{Departamentos.onRowSelect}" update=":DepartamentosForm:msgs,:ActualizarModal:actualizarDepartamentoModal" oncomplete="PF('actualizarDepartamento').show()"/>
-                            <f:facet name="header">
-                                <h:outputText value="CONSULTA DE DEPARTAMENTOS" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
-                                <p:inputText id="globalFilter" onkeyup="PF('TablaDepartamentos').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
-                                <h:outputText value="Buscar" style="color: #FFF; float: right"/>
-                            </f:facet>
-                            
-                            <p:column headerText="Nobre del Departamentos" filterBy="#{departamentos.nombreDepartamento}">
-                                <h:outputText value="#{departamentos.nombreDepartamento}"/>
-                            </p:column>
-                            <p:column headerText="Código del Departamentos" filterBy="#{departamentos.codigoDepartamento}">
-                                <h:outputText value="#{departamentos.codigoDepartamento}"/>
-                            </p:column>
-                            <p:column headerText="Estado del Departamentos" filterBy="#{departamentos.estadoDepartamento}">
-                                <h:outputText value="Activo" rendered="#{departamentos.estadoDepartamento == 'A'}"/>
-                                <h:outputText value="Inctivo" rendered="#{departamentos.estadoDepartamento == 'I'}"/> 
-                            </p:column>
-                            <p:column headerText="País del Departamentos" filterBy="#{departamentos.idPais.nombrePais}">
-                                <h:outputText value="#{departamentos.idPais.nombrePais}"/>
-                            </p:column>
-                            
-                        </p:dataTable>
-                        <br/>
-                        <p:commandButton value="Insertar" type="button" onclick="PF('insertarDepartamento').show();" update=":DepartamentoForm:msgs" class="botonNormal" rendered="#{Departamentos.ingresar}" ></p:commandButton>
-                    
+                        <p:ajax event="rowSelect" listener="#{Departamentos.onRowSelect}" update=":DepartamentosForm:msgs,:ActualizarModal:actualizarDepartamentoModal" oncomplete="PF('actualizarDepartamento').show()"/>
+                        <f:facet name="header">
+                            <h:outputText value="CONSULTA DE DEPARTAMENTOS" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                            <p:inputText id="globalFilter" onkeyup="PF('TablaDepartamentos').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                            <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                        </f:facet>
+
+                        <p:column headerText="Nobre del Departamentos" filterBy="#{departamentos.nombreDepartamento}">
+                            <h:outputText value="#{departamentos.nombreDepartamento}"/>
+                        </p:column>
+                        <p:column headerText="Código del Departamentos" filterBy="#{departamentos.codigoDepartamento}">
+                            <h:outputText value="#{departamentos.codigoDepartamento}"/>
+                        </p:column>
+                        <p:column headerText="Estado del Departamentos" filterBy="#{departamentos.estadoDepartamento}">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('TablaDepartamentos').filter()" >
+                                    <f:selectItem itemLabel="Selecione Estado" itemValue="#{null}" noSelectionOption="false"/>
+                                    <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                                </p:selectOneMenu>
+                            </f:facet> 
+                            <h:outputText value="Activo" rendered="#{departamentos.estadoDepartamento == 'A'}"/>
+                            <h:outputText value="Inctivo" rendered="#{departamentos.estadoDepartamento == 'I'}"/> 
+                        </p:column>
+                        <p:column headerText="País del Departamentos" filterBy="#{departamentos.idPais.nombrePais}">
+                            <h:outputText value="#{departamentos.idPais.nombrePais}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                    <br/>
+                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarDepartamento').show();" update=":DepartamentoForm:msgs" class="botonNormal" rendered="#{Departamentos.ingresar}" ></p:commandButton>
+
                 </h:form>
                 <h:form id="IngresarModal">
                     <p:dialog header="Insertar Departamento" widgetVar="insertarDepartamento" modal="true" id="insertarDepartamentoModal" responsive="true">
                         #{Departamentos.nuevoDepartamentoObjeto()}
-                        
+
                         <p:messages autoUpdate="true"/>                        
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
-                            
+
                             <h:outputText value="Nombre del Departamento"></h:outputText>
                             <p:inputText required="true" label="nombre del Departamento" value="#{Departamentos.departamentoObjetoInsercion.nombreDepartamento}"/>
                             <h:outputText value="Código del Departamento"></h:outputText>

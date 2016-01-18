@@ -17,41 +17,47 @@
                     </div>
                     <p:dataTable var="disposiciones" value="#{Disposiciones.lista}" reflow="true" widgetVar="TablaDisposiciones" id="tablaDisposiciones" selectionMode="single"
                                  selection="#{Disposiciones.disposiscionObjeto}" rowKey="#{disposiciones.idDisposirciones}" class="TABLA" paginator="true" rows="7">
-                            <p:ajax event="rowSelect" listener="#{Disposiciones.onRowSelect}" update=":DisposicionesForm:msgs,:ActualizarModal:actualizarDisposicionModal" oncomplete="PF('actualizarDisposicion').show()"/>
-                            <f:facet name="header">
-                                <h:outputText value="CONSULTA DE DISPOSICIONES" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
-                                <p:inputText id="globalFilter" onkeyup="PF('TablaDisposiciones').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
-                                <h:outputText value="Buscar" style="color: #FFF; float: right"/>
-                            </f:facet>
-                            
-                            <p:column headerText="Nobre de la Disposicione" filterBy="#{disposiciones.nombreDisposiciones}">
-                                <h:outputText value="#{disposiciones.nombreDisposiciones}"/>
-                            </p:column>                            
-                            <p:column headerText="Estado del Disposiciones" filterBy="#{disposiciones.estadoDisposiciones}">
-                                <h:outputText value="Activo" rendered="#{disposiciones.estadoDisposiciones == 'A'}"/>
-                                <h:outputText value="Inctivo" rendered="#{disposiciones.estadoDisposiciones == 'I'}"/> 
-                            </p:column>                            
-                        </p:dataTable>
-                        <br/>
-                        <p:commandButton value="Insertar" type="button" onclick="PF('insertarDisposicion').show();" update=":DisposicionForm:msgs" class="botonNormal" rendered="#{Disposiciones.ingresar}"></p:commandButton>
-                    
+                        <p:ajax event="rowSelect" listener="#{Disposiciones.onRowSelect}" update=":DisposicionesForm:msgs,:ActualizarModal:actualizarDisposicionModal" oncomplete="PF('actualizarDisposicion').show()"/>
+                        <f:facet name="header">
+                            <h:outputText value="CONSULTA DE DISPOSICIONES" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                            <p:inputText id="globalFilter" onkeyup="PF('TablaDisposiciones').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                            <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                        </f:facet>
+
+                        <p:column headerText="Nobre de la Disposicione" filterBy="#{disposiciones.nombreDisposiciones}">
+                            <h:outputText value="#{disposiciones.nombreDisposiciones}"/>
+                        </p:column>                            
+                        <p:column headerText="Estado del Disposiciones" filterBy="#{disposiciones.estadoDisposiciones}">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('TablaDisposiciones').filter()" >
+                                    <f:selectItem itemLabel="Selecione Estado" itemValue="#{null}" noSelectionOption="false"/>
+                                    <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                                </p:selectOneMenu>
+                            </f:facet> 
+                            <h:outputText value="Activo" rendered="#{disposiciones.estadoDisposiciones == 'A'}"/>
+                            <h:outputText value="Inctivo" rendered="#{disposiciones.estadoDisposiciones == 'I'}"/> 
+                        </p:column>                            
+                    </p:dataTable>
+                    <br/>
+                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarDisposicion').show();" update=":DisposicionForm:msgs" class="botonNormal" rendered="#{Disposiciones.ingresar}"></p:commandButton>
+
                 </h:form>
                 <h:form id="IngresarModal">
                     <p:dialog header="Insertar Disposicion" widgetVar="insertarDisposicion" modal="true" id="insertarDisposicionModal" responsive="true">
                         #{Disposiciones.nuevoDisposicionObjeto()}
-                        
+
                         <p:messages autoUpdate="true"/>                        
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
-                            
+
                             <h:outputText value="Nombre del Disposicion"></h:outputText>
                             <p:inputText required="true" label="nombre del Disposicion" value="#{Disposiciones.disposiscionObjetoInsercion.nombreDisposiciones}"/>
-                            
+
                             <h:outputText value="Estado del Disposicion"></h:outputText>
                             <p:selectOneMenu id="desplegableIngresarSede" value="#{Disposiciones.disposiscionObjetoInsercion.estadoDisposiciones}" style="width: 150px;">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
-                            
+
                         </p:panelGrid>                        
                         <p:commandButton value="Ingresar" update=":DisposicionesForm:tablaDisposiciones,:IngresarModal:insertarDisposicionModal" actionListener="#{Disposiciones.insertarDisposicion()}" validateClient="true" class="botonNormal" />
                     </p:dialog>
@@ -62,7 +68,7 @@
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
                             <h:outputText value="Nombre del Disposicion"></h:outputText>
                             <p:inputText required="true" label="nombre del Disposicion" value="#{Disposiciones.disposiscionObjeto.nombreDisposiciones}"/>
-                            
+
                             <h:outputText value="Estado del Disposicion"></h:outputText>
                             <p:selectOneMenu id="desplegableIngresarSede" value="#{Disposiciones.disposiscionObjeto.estadoDisposiciones}" style="width: 150px;">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
@@ -74,7 +80,7 @@
                         <p:commandButton value="Eliminar" update=":DisposicionesForm:tablaDisposiciones,:IngresarModal:insertarDisposicionModal,DisposicionesForm:msgs" actionListener="#{Disposiciones.eliminarDisposicion()}" validateClient="true" class="botonNormal" rendered="#{Disposiciones.eliminar}"/>
                     </p:dialog>
                 </h:form>
-                
+
             </h:body>
         </ui:define>
     </ui:composition>

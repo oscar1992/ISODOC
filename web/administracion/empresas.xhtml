@@ -29,6 +29,12 @@
                             <h:outputText value="#{empresa.codigoEmpresa}"/>
                         </p:column>
                         <p:column headerText="Estado de la Empresa" filterBy="#{empresa.estadoEmpresa}">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('TablaEmpresas').filter()" >
+                                    <f:selectItem itemLabel="Selecione Estado" itemValue="#{null}" noSelectionOption="false"/>
+                                    <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                                </p:selectOneMenu>
+                            </f:facet> 
                             <h:outputText value="Activo" rendered="#{empresa.estadoEmpresa == 'A'}"/>
                             <h:outputText value="Inactivo" rendered="#{empresa.estadoEmpresa == 'I'}"/>                            
                         </p:column>

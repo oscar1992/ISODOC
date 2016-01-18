@@ -29,6 +29,12 @@
                             </p:column>
                             
                             <p:column headerText="Estado del MacroProceso" filterBy="#{macro.estadoMacroproceso}">
+                                <f:facet name="filter">
+                                    <p:selectOneMenu onchange="PF('TablaMacros').filter()" >
+                                        <f:selectItem itemLabel="Selecione Estado" itemValue="#{null}" noSelectionOption="false"/>
+                                        <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                                    </p:selectOneMenu>
+                                </f:facet> 
                                 <h:outputText value="Activo" rendered="#{macro.estadoMacroproceso == 'A'}"/>
                                 <h:outputText value="Inactivo" rendered="#{macro.estadoMacroproceso == 'I'}"/> 
                             </p:column>

@@ -34,10 +34,9 @@ import javax.xml.bind.annotation.XmlType;
 })
 @XmlSeeAlso({
     UsuarioEntity.class,
-    ProcesosEntity.class,
     MacroprocesosEntity.class,
-    RolesEntity.class,
     SubprocesoEntity.class,
+    ProcesosEntity.class,
     ObjetoRetornaEntity.class
 })
 public class ObjetoTraza {

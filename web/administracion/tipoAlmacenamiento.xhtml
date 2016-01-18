@@ -28,6 +28,12 @@
                             <h:outputText value="#{tipoAlmacenamiento.nombreTipoAlmacenamiento}"/>
                         </p:column>
                         <p:column headerText="estado del Tipo de Almacenamiento" filterBy="#{tipoAlmacenamiento.estadoTipoAlmacenamiento}">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('TablaTipoAlmacenamiento').filter()" >
+                                    <f:selectItem itemLabel="Selecione Estado" itemValue="#{null}" noSelectionOption="false"/>
+                                    <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                                </p:selectOneMenu>
+                            </f:facet>
                             <h:outputText value="Activo" rendered="#{tipoAlmacenamiento.estadoTipoAlmacenamiento == 'A'}"/>
                             <h:outputText value="Inctivo" rendered="#{tipoAlmacenamiento.estadoTipoAlmacenamiento == 'I'}"/> </p:column>
 
@@ -42,7 +48,7 @@
                         <p:messages autoUpdate="true"/>                        
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
 
-                            
+
                             <h:outputText value="nombre del Tipo de Almacenamiento"></h:outputText>
 
                             <p:inputText required="true" label="nombre del Tipo de Almacenamiento" value="#{TipoAlmacenamiento.objetoTipoAlmacenamientoInsercion.nombreTipoAlmacenamiento}"/>
@@ -61,7 +67,7 @@
                     <p:dialog header="Actualizar Tipo de Almacenamiento" widgetVar="actualizarTipoAlmacenamiento" modal="true" id="actualizarTipoAlmacenamientoModal" responsive="true">
                         <p:messages autoUpdate="true"/>
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
-                            
+
                             <h:outputText value="nombre del Tipo de Almacenamiento"></h:outputText>
                             <p:inputText required="true" label="nombre del Tipo de Almacenamiento" value="#{TipoAlmacenamiento.objetoTipoAlmacenamiento.nombreTipoAlmacenamiento}"/>
 

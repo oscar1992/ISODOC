@@ -32,6 +32,12 @@
                             <h:outputText value="#{Proceso.nombreProceso(proceso.asociadoProceso)}"/>
                         </p:column>
                         <p:column headerText="estado del Proceso" filterBy="#{proceso.estadoProceso}">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('TablaProceso').filter()" >
+                                    <f:selectItem itemLabel="Selecione Estado" itemValue="#{null}" noSelectionOption="false"/>
+                                    <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                                </p:selectOneMenu>
+                            </f:facet>
                             <h:outputText value="Activo" rendered="#{proceso.estadoProceso == 'A'}"/>
                             <h:outputText value="Inctivo" rendered="#{proceso.estadoProceso == 'I'}"/> </p:column>
 
@@ -41,7 +47,7 @@
 
                 </h:form>
                 <h:form id="IngresarModal">
-                    <p:dialog header="Insertar Proceso" widgetVar="insertarProceso" modal="true" id="insertarProcesoModal" responsive="true">
+                    <p:dialog header="Insertar Nuevo " widgetVar="insertarProceso" modal="true" id="insertarProcesoModal" responsive="true">
                         #{Proceso.nuevoProcesoObjeto()}                        
                         <p:messages autoUpdate="true"/>                        
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
@@ -49,6 +55,8 @@
                             <p:inputText required="true" label="nombre del Proceso" value="#{Proceso.objetoProcesoInsercion.nombreProceso}"/>
                             <h:outputText value="nivel del Proceso"></h:outputText>
                             <p:selectOneMenu id="desplegableNivelProceso" value="#{Proceso.objetoProcesoInsercion.nivelProceso.idNivel}" style="width: 150px;">
+                                <p:ajax listener="#{ListaAdministracionBean.cambiarIdNvel(Proceso.objetoProcesoInsercion.nivelProceso.idNivel)}" update="desplegableIngresarAsociado"/>
+                                <p:ajax listener="#{Proceso.nombreNivel(Proceso.objetoProcesoInsercion.nivelProceso.idNivel)}" update="desplegableIngresarAsociado"/>
                                 <f:selectItem itemLabel="Selecione el nivel del Proceso" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaNivelProceso}"/>
                             </p:selectOneMenu>
@@ -76,6 +84,8 @@
                             <p:inputText required="true" label="nombre del Proceso" value="#{Proceso.objetoProceso.nombreProceso}"/>
                             <h:outputText value="nivel del Proceso"></h:outputText>
                             <p:selectOneMenu id="desplegableNivelProceso" value="#{Proceso.objetoProceso.nivelProceso.idNivel}" style="width: 150px;">
+                                <p:ajax listener="#{ListaAdministracionBean.cambiarIdNvel(Proceso.objetoProceso.nivelProceso.idNivel)}" update="desplegableIngresarAsociado"/>
+                                
                                 <f:selectItem itemLabel="Selecione Proceso" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaNivelProceso}"/>
                             </p:selectOneMenu>

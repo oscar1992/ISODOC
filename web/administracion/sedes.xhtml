@@ -17,7 +17,7 @@
                     </div>
                     <p:dataTable var="sede" value="#{Sedes.lista}" filteredValue="#{Sedes.listaFiltro}" reflow="true" widgetVar="TablaSedes" id="tablaSedes" selectionMode="single"
                                  selection="#{Sedes.sedeObjeto}" rowKey="#{sede.idSede}" class="TABLA" paginator="true" rows="7">
-                        
+
                         <f:facet name="header"><p:ajax event="rowSelect" listener="#{Sedes.onRowSelect(event)}" update=":SedesForm:msgs,:ActualizarModal:actualizarSedeModal" oncomplete="PF('actualizarSede').show()"/>
                             <h:outputText value="CONSULTA DE SEDES" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
                             <p:inputText id="globalFilter" onkeyup="PF('TablaSedes').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
@@ -31,10 +31,16 @@
                             <h:outputText value="#{sede.codigoSede}"/>
                         </p:column>
                         <p:column headerText="Estado de Rol" filterBy="#{sede.estadoSede}">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('TablaSedes').filter()" >
+                                    <f:selectItem itemLabel="Selecione Estado" itemValue="#{null}" noSelectionOption="false"/>
+                                    <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                                </p:selectOneMenu>
+                            </f:facet>
                             <h:outputText value="Activo" rendered="#{sede.estadoSede == 'A'}"/>
                             <h:outputText value="Inctivo" rendered="#{sede.estadoSede == 'I'}"/>                            
                         </p:column>
-                        
+
                     </p:dataTable>
                     <br/>
                     <p:commandButton value="Insertar" type="button" onclick="PF('insertarSede').show();" update=":SedesForm:msgs" class="botonNormal" rendered="#{Sedes.ingresar}"></p:commandButton>

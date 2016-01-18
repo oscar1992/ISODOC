@@ -33,6 +33,12 @@
                             <h:outputText value="#{plantilla.rutaPlantilla}"/>
                         </p:column>
                         <p:column headerText="estado de la Plantilla de Gestión Documental" filterBy="#{plantilla.estadoPlantilla}">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('TablaPlantilla').filter()" >
+                                    <f:selectItem itemLabel="Selecione Estado" itemValue="#{null}" noSelectionOption="false"/>
+                                    <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                                </p:selectOneMenu>
+                            </f:facet>
                             <h:outputText value="Activo" rendered="#{plantilla.estadoPlantilla == 'A'}"/>
                             <h:outputText value="Inctivo" rendered="#{plantilla.estadoPlantilla == 'I'}"/> </p:column>
 

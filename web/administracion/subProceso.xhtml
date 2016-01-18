@@ -32,10 +32,16 @@
                         </p:column>
 
                         <p:column headerText="Estado del Subproceso" filterBy="#{subproceso.estadoSubproceso}">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('TablaSubprocesos').filter()" >
+                                    <f:selectItem itemLabel="Selecione Estado" itemValue="#{null}" noSelectionOption="false"/>
+                                    <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                                </p:selectOneMenu>
+                            </f:facet>
                             <h:outputText value="Activo" rendered="#{subproceso.estadoSubproceso == 'A'}"/>
                             <h:outputText value="Inactivo" rendered="#{subproceso.estadoSubproceso== 'I'}"/> 
                         </p:column>
-                        
+
                     </p:dataTable>
                     <br/>
                     <p:commandButton value="Insertar" type="button" onclick="PF('insertarSubprocesos').show();" update=":SubprocesosForm:msgs" class="botonNormal"></p:commandButton>
@@ -95,7 +101,7 @@
 
                         <h:inputHidden value="#{Subprocesos.subProcesoObjeto.estadoSubproceso}"></h:inputHidden>
                         <h:inputHidden value="#{Subprocesos.subProcesoObjeto.idSubproceso}"></h:inputHidden>
-                         
+
                     </p:dialog>
                 </h:form>
             </h:body>

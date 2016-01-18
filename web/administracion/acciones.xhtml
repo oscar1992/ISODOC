@@ -31,6 +31,12 @@
                             <h:outputText value="#{accion.descripcionAccion}"/>
                         </p:column>
                         <p:column headerText="estado de la Acción" filterBy="#{accion.estadoAccion}">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('TablaAccion').filter()" >
+                                    <f:selectItem itemLabel="Selecione Estado" itemValue="#{null}" noSelectionOption="false"/>
+                                    <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                                </p:selectOneMenu>
+                            </f:facet>   
                             <h:outputText value="Activo" rendered="#{accion.estadoAccion == 'A'}"/>
                             <h:outputText value="Inctivo" rendered="#{accion.estadoAccion == 'I'}"/> 
                         </p:column>
@@ -80,7 +86,7 @@
                             </p:selectOneMenu>
                             <h:outputText value="Órden de la Acción"></h:outputText>
                             <p:inputText id="ordena" required="true" label="Órden de la Acción" value="#{Accion.objetoAccion.ordenAccion}"><p:ajax event="blur" update="ordena" listener="#{Accion.validaSecuencia(Accion.objetoAccion.ordenAccion)}"/></p:inputText>
-                            
+
                             <h:inputHidden value="#{Accion.objetoAccion.idAccion}"></h:inputHidden>
                         </p:panelGrid>
                         <p:commandButton  value="Actualizar" update=":AccionForm:tablaAccion,:ActualizarModal:actualizarAccionModal,AccionForm:msgs" actionListener="#{Accion.actualizarAccion()}" validateClient="true" class="botonNormal" rendered="#{Accion.actualizar}"/>

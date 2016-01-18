@@ -28,6 +28,12 @@
                             <h:outputText value="#{tipoControlDistribucion.nombreTipoControlDistribucion}"/>
                         </p:column>
                         <p:column headerText="estado del Tipo de Control de distribución" filterBy="#{tipoControlDistribucion.estadoTipoControlDistribucion}">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('TablaTipoControlDistribucion').filter()" >
+                                    <f:selectItem itemLabel="Selecione Estado" itemValue="#{null}" noSelectionOption="false"/>
+                                    <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                                </p:selectOneMenu>
+                            </f:facet>
                             <h:outputText value="Activo" rendered="#{tipoControlDistribucion.estadoTipoControlDistribucion == 'A'}"/>
                             <h:outputText value="Inctivo" rendered="#{tipoControlDistribucion.estadoTipoControlDistribucion == 'I'}"/> </p:column>
 
