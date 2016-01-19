@@ -281,13 +281,16 @@ public class ProcesoBean implements Serializable {
         return nombreAsociado;
     }
     
-    public void nombreNivel(int idNivel){
-        System.out.println("id Nivel: "+idNivel);
+    public void upadteNombreNivel(int idNivel){
+        
         ListaAdministracionBean listaAdministracionBean=new ListaAdministracionBean();
-        Map<String, Integer> mapa=(HashMap<String, Integer>) listaAdministracionBean.getListaProcesoAsociado();
-        Map<Integer, String> dev=(Map<Integer, String>) mapa.entrySet().stream().filter(mapa2->mapa2.getValue().equals(idNivel));
-        String valor=dev.get(idNivel);
-        System.out.println("VALOR: "+valor);
+        Map<String, Integer> mapa=(HashMap<String, Integer>) listaAdministracionBean.getListaNivelProceso();        
+        for(Map.Entry<String, Integer> valor:mapa.entrySet()){
+            if(valor.getValue()==idNivel){
+                nombreNivel=valor.getKey();
+            }
+        }
+        System.out.println("id Nivel: "+nombreNivel);
     }
     
     

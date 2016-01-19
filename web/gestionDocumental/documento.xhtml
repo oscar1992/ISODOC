@@ -11,11 +11,11 @@
     <ui:composition template="/plantillas/PlantillaGestionDocumental.xhtml">
         <ui:define name="content">
             <h:body>
-                
+
                 <h:form id="IngresarModal">
 
                     #{Documento.nuevoDocumentoObjeto()}                        
-                                       
+
                     <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="4" id="datos">
 
 
@@ -36,7 +36,7 @@
                         </p:selectOneMenu>
 
                         <h:outputText value="Version del Documento"></h:outputText>
-                        <p:inputMask required="true" id="version" label="nombre del Documento" value="#{Documento.objetoDocumentoInsercion.versionDocumento}" mask="#{Documento.consecutivo}-9?999" maxlength="4"/>
+                        <p:inputMask required="true" id="version" label="nombre del Documento" value="#{Documento.objetoDocumentoInsercion.versionDocumento}" mask="#{Documento.consecutivo}-0000" maxlength="4"/>
 
 
                         <h:outputText value="Estado del Documento"></h:outputText>
@@ -44,6 +44,25 @@
                             <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                             <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                         </p:selectOneMenu>
+
+                        <h:outputText value="Empresa"></h:outputText>
+                        <p:selectOneMenu id="desplegableIngresarEmpresa" value="#{Documento.objetoDocumentoInsercion.empresaDocumento.idEmpresa}" style="width: 150px;">
+                            <f:selectItem itemLabel="Selecione una Empresa" itemValue="#{-1}" noSelectionOption="true"/>
+                            <f:selectItems value="#{ListaAdministracionBean.listaEmpresas}"/>
+                        </p:selectOneMenu> 
+
+                        <ui:repeat var="nivel" value="#{Nivel.lista}">     
+                            <p:spacer width="50"/>
+                            <p:row>
+                                <h:outputText value="#{nivel.nombreNivel}"/><br/>
+                                <p:selectOneMenu id="desplegable#{nivel.nombreNivel}" value="#{Documento.objetoDocumentoInsercion.macroProcesoDocumento.idMacroproceso}" style="width: 150px;">
+                                    <p:ajax listener="#{ListaAdministracionBean.idMacrio(Documento.objetoDocumentoInsercion.macroProcesoDocumento.idMacroproceso)}" update=":IngresarModal:desplegableIngresarProceso"/>
+                                    <f:selectItem itemLabel="Selecione Macro Proceso" itemValue="" noSelectionOption="true"/>
+                                    <f:selectItems value="#{ListaAdministracionBean.listaMacroProcesos}"/>
+                                </p:selectOneMenu>
+                            </p:row>
+              
+                        </ui:repeat>
 
                         <h:outputText value="MacroProceso del Documento"></h:outputText>
                         <p:selectOneMenu id="desplegableIngresarMacro" value="#{Documento.objetoDocumentoInsercion.macroProcesoDocumento.idMacroproceso}" style="width: 150px;">
@@ -65,11 +84,7 @@
                             <f:selectItems value="#{ListaAdministracionBean.listaSubProcesos}"/>
                         </p:selectOneMenu>   
 
-                        <h:outputText value="Empresa"></h:outputText>
-                        <p:selectOneMenu id="desplegableIngresarEmpresa" value="#{Documento.objetoDocumentoInsercion.empresaDocumento.idEmpresa}" style="width: 150px;">
-                            <f:selectItem itemLabel="Selecione una Empresa" itemValue="#{-1}" noSelectionOption="true"/>
-                            <f:selectItems value="#{ListaAdministracionBean.listaEmpresas}"/>
-                        </p:selectOneMenu>   
+
                     </p:panelGrid>    
                     <h:outputText value="Selecione un Proceso"/>
                     <p:tree value="#{Documento.raiz}" var="nodo" selection="#{Documento.arbolaux}" selectionMode="single" required="true" id="Proceso">
@@ -103,15 +118,36 @@
                                     </p:pickList>                                    
                                 </p:column>
                                 <p:column>
-                                    <!--<p:calendar label="Fecha Límite" id="multi" value="#{acciones2.fechaLimite}" pages="3" pattern="dd.MM.yyyy"></p:calendar>-->
-                                        <p:inputMask id="fecha" value="#{acciones2.fechaLimite}" mask="99/99/9999"><p:ajax event="blur" update="fecha"/></p:inputMask>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class='col-sm-6'>
+                                                <div class="form-group">
+                                                    <div class='input-group date' id='datetimepicker#{acciones2.accion.idAccion}'>
+                                                        <p:inputText class="form-control" value="#{acciones2.fechaLimite}"/>                                                        
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <script type="text/javascript">
+                                                $(function () {
+                                                    $('#datetimepicker#{acciones2.accion.idAccion}').datetimepicker({
+                                                        locale: 'es'
+                                                    });
+                                                });
+                                            </script>
+                                        </div>
+                                    </div>
+                                                                                                                        <!--<p:calendar label="Fecha Límite" id="multi" value="#{acciones2.fechaLimite}" pages="3" pattern="dd.MM.yyyy"></p:calendar>-->
+
                                 </p:column>
                             </p:row>
                         </ui:repeat>
                     </p:panelGrid>
 
                     <p:commandButton id="Ingresar" value="Ingresar" update=":DocumentoForm:tablaDocumento,:IngresarModal:asignados" actionListener="#{Documento.instertarDocumento()}" validateClient="true" class="botonNormal" ajax="false"/>
-                    
+
                 </h:form>             
             </h:body>
         </ui:define>

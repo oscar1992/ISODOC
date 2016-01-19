@@ -51,11 +51,9 @@
                 </h:form>
                 <h:form id="IngresarModal">
                     <p:dialog header="Insertar Acción" widgetVar="insertarAccion" modal="true" id="insertarAccionModal" responsive="true">
-                        #{Accion.nuevoAccionObjeto()}                        
+                        #{Accion.inicializarNuevaAccion()}
                         <p:messages autoUpdate="true"/>                        
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
-
-
                             <h:outputText value="nombre de la Acción"></h:outputText>
                             <p:inputText required="true" label="nombre de la Acción" value="#{Accion.objetoAccionInsercion.nombreAccion}"/>
                             <h:outputText value="descripcion de la Acción"></h:outputText>
@@ -66,7 +64,7 @@
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>                            
                             <h:outputText value="Órden de la Acción"></h:outputText>
-                            <p:inputText id="orden" required="true" label="Órden de la Acción" value="#{Accion.objetoAccionInsercion.ordenAccion}"><p:ajax event="blur" update="orden" listener="#{Accion.validaSecuencia(Accion.objetoAccionInsercion.ordenAccion)}"/></p:inputText>
+                            <p:inputText disabled="true" id="orden" required="true" label="Órden de la Acción" value="#{Accion.objetoAccionInsercion.ordenAccion}"><p:ajax event="blur" update="orden" listener="#{Accion.validaSecuencia(Accion.objetoAccionInsercion.ordenAccion)}"/></p:inputText>
                         </p:panelGrid>                        
                         <p:commandButton value="Ingresar" update=":AccionForm:tablaAccion,:IngresarModal:insertarAccionModal" actionListener="#{Accion.instertarAccion()}" validateClient="true" class="botonNormal" />
                     </p:dialog>
@@ -85,7 +83,7 @@
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
                             <h:outputText value="Órden de la Acción"></h:outputText>
-                            <p:inputText id="ordena" required="true" label="Órden de la Acción" value="#{Accion.objetoAccion.ordenAccion}"><p:ajax event="blur" update="ordena" listener="#{Accion.validaSecuencia(Accion.objetoAccion.ordenAccion)}"/></p:inputText>
+                            <p:inputText disabled="true" id="ordena" required="true" label="Órden de la Acción" value="#{Accion.objetoAccion.ordenAccion}"><p:ajax event="blur" update="ordena" listener="#{Accion.validaSecuencia(Accion.objetoAccion.ordenAccion)}"/></p:inputText>
 
                             <h:inputHidden value="#{Accion.objetoAccion.idAccion}"></h:inputHidden>
                         </p:panelGrid>

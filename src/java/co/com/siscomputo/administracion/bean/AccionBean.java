@@ -3,8 +3,10 @@ package co.com.siscomputo.administracion.bean;
 import co.com.siscomputo.administracion.logic.AccionLogic;
 import co.com.siscomputo.endpoint.AccionEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
+import co.com.siscomputo.utilidades.ComparadorAccion2;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -20,7 +22,8 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "Accion")
 @ViewScoped
-public class AccionBean implements Serializable{
+public class AccionBean implements Serializable {
+
     private ArrayList<AccionEntity> lista;
     private ArrayList<AccionEntity> listaFiltro;
     private AccionEntity objetoAccion;
@@ -84,140 +87,190 @@ public class AccionBean implements Serializable{
     public void setEliminar(boolean eliminar) {
         this.eliminar = eliminar;
     }
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         consultarAccion();
+        inicializarNuevaAccion();
         permisos();
     }
+
     public AccionBean() {
-        objetoAccion=new AccionEntity();
-        objetoAccionInsercion=new AccionEntity();
+        objetoAccion = new AccionEntity();
+        objetoAccionInsercion = new AccionEntity();
     }
+
     /**
      * Método que trae una lista de Acción
      */
-    public void consultarAccion(){
+    public void consultarAccion() {
         try {
-            AccionLogic accionLogic=new AccionLogic();
-            lista=accionLogic.listaAccion();
+            AccionLogic accionLogic = new AccionLogic();
+            lista = accionLogic.listaAccion();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Método que permite insertar un Acción nuevo
      */
-    public void instertarAccion(){
+    public void instertarAccion() {
         try {
-            AccionLogic accionLogic=new AccionLogic();
-            AccionEntity accionEntity=accionLogic.insertarAccion(objetoAccionInsercion);
-            FacesMessage msg=null;
-            if(accionEntity!=null){
-                msg=new FacesMessage("", "inserción de Acción correcto");
+            AccionLogic accionLogic = new AccionLogic();
+            AccionEntity accionEntity = accionLogic.insertarAccion(objetoAccionInsercion);
+            FacesMessage msg = null;
+            if (accionEntity != null) {
+                msg = new FacesMessage("", "inserción de Acción correcto");
                 adicionarMetodoPtoteccionLista(accionEntity);
-            }else{
-                msg=new FacesMessage("", "inserción de Acción incorrecto");
+            } else {
+                msg = new FacesMessage("", "inserción de Acción incorrecto");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Método que añade un Acción visualmente
-     * @param objetoAccion 
+     *
+     * @param objetoAccion
      */
     private void adicionarMetodoPtoteccionLista(AccionEntity objetoAccion) {
         lista.add(objetoAccion);
     }
-/**
+
+    /**
      * Método que permite actualizar un Acción
      */
-    public void actualizarAccion(){
-        AccionLogic metodoRecuperacionLogic=new AccionLogic();
-        String valida=metodoRecuperacionLogic.actualizarAccion(objetoAccion);
-        FacesMessage msg=null;
-        if("Ok".equalsIgnoreCase(valida)){
-            msg=new FacesMessage("", "actualización de Acción correcto");
+    public void actualizarAccion() {
+        AccionLogic metodoRecuperacionLogic = new AccionLogic();
+        String valida = metodoRecuperacionLogic.actualizarAccion(objetoAccion);
+        FacesMessage msg = null;
+        if ("Ok".equalsIgnoreCase(valida)) {
+            msg = new FacesMessage("", "actualización de Acción correcto");
             actualizarAccionLista(objetoAccion);
-        }else{
-            msg=new FacesMessage("", "actualización de Acción incorrecto");
+        } else {
+            msg = new FacesMessage("", "actualización de Acción incorrecto");
         }
         nuevoAccionObjeto();
         RequestContext.getCurrentInstance().execute("PF('actualizarAccion').hide()");
     }
+
     /**
      * Método que actualiza visualmente la lista de Acción
-     * @param objetoAccion 
+     *
+     * @param objetoAccion
      */
     private void actualizarAccionLista(AccionEntity objetoAccion) {
         try {
-            ArrayList<AccionEntity>listaaux=new ArrayList<>();
-            if(lista!=null){
-                for(AccionEntity item:lista){
-                    int v1=objetoAccion.getIdAccion();
-                    int v2=item.getIdAccion();
-                    if(v1==v2){
+            ArrayList<AccionEntity> listaaux = new ArrayList<>();
+            if (lista != null) {
+                for (AccionEntity item : lista) {
+                    int v1 = objetoAccion.getIdAccion();
+                    int v2 = item.getIdAccion();
+                    if (v1 == v2) {
                         listaaux.add(objetoAccion);
-                    }else{
+                    } else {
                         listaaux.add(item);
                     }
                 }
             }
-            this.lista=new ArrayList<>();
-            this.lista=listaaux;
+            this.lista = new ArrayList<>();
+            this.lista = listaaux;
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Método que se invoca al seleccionar una fila de la tabla
-     * @param event 
+     *
+     * @param event
      */
-    public void onRowSelect(SelectEvent event){
-        objetoAccion=(AccionEntity)event.getObject();
+    public void onRowSelect(SelectEvent event) {
+        objetoAccion = (AccionEntity) event.getObject();
     }
+
     /**
-    Método que elimina un Acción
-    */
-    public void eliminarAccion(){
-        AccionLogic metodoRecuperacionLogic=new AccionLogic();
+     * Método que elimina un Acción
+     */
+    public void eliminarAccion() {
+        Collections.sort(lista, new ComparadorAccion2());
+        AccionLogic metodoRecuperacionLogic = new AccionLogic();
+        for (AccionEntity accion : lista) {
+            if (Integer.parseInt(accion.getOrdenAccion()) > Integer.parseInt(objetoAccion.getOrdenAccion())) {
+                String orden = String.valueOf(Integer.parseInt(accion.getOrdenAccion()) - 1);
+                accion.setOrdenAccion(orden);
+                String valida = metodoRecuperacionLogic.actualizarAccion(accion);
+                if ("Ok".equalsIgnoreCase(valida)) {
+                    System.out.println("Cambio de orden OK");
+                } else {
+                    System.out.println("Cambio de orden Fallido");
+                }
+            }
+        }
+        objetoAccion.setOrdenAccion("0");
         objetoAccion.setEstadoAccion("E");
         metodoRecuperacionLogic.actualizarAccion(objetoAccion);
         eliminarAccionLista(objetoAccion);
+        siguienteOrden();
+        RequestContext conte=RequestContext.getCurrentInstance();
+        conte.update("IngresarModal:insertarAccionModal");
         RequestContext.getCurrentInstance().execute("PF('actualizarAccion').hide()");
-        nuevoAccionObjeto();
+        
     }
+
     /**
      * Método que elimina visualmente un objeto de la lista
-     * @param objetoAccion 
+     *
+     * @param objetoAccion
      */
     private void eliminarAccionLista(AccionEntity objetoAccion) {
-        Iterator itr=lista.iterator();
-        while(itr.hasNext()){
-            AccionEntity metodoRecuperacionEntity=(AccionEntity) itr.next();
-            if(metodoRecuperacionEntity.getIdAccion()==objetoAccion.getIdAccion()){
+        Iterator itr = lista.iterator();
+        while (itr.hasNext()) {
+            AccionEntity metodoRecuperacionEntity = (AccionEntity) itr.next();
+            if (metodoRecuperacionEntity.getIdAccion() == objetoAccion.getIdAccion()) {
                 itr.remove();
             }
         }
     }
+
     /**
      * Método que reinicia el objeto Acción
      */
     public void nuevoAccionObjeto() {
-        objetoAccion=new AccionEntity();
-        objetoAccionInsercion=new AccionEntity();
+        objetoAccion = new AccionEntity();
+        objetoAccionInsercion = new AccionEntity();
     }
-    public void validaSecuencia(Integer secu){
-        for(AccionEntity accion:lista){
-            if(Integer.parseInt(accion.getOrdenAccion())==secu){
+
+    public void validaSecuencia(Integer secu) {
+        for (AccionEntity accion : lista) {
+            if (Integer.parseInt(accion.getOrdenAccion()) == secu) {
                 objetoAccionInsercion.setOrdenAccion("Orden ya seleccionado");
                 objetoAccion.setOrdenAccion("Orden ya seleccionado");
             }
         }
     }
+    /**
+     * Método que trael el siguiente número de orden de la acción
+     */
+    public void siguienteOrden(){
+        try {
+            System.out.println("Siguiente");
+            AccionEntity accionEntity = Collections.max(lista, new ComparadorAccion2());
+            objetoAccionInsercion.setOrdenAccion(""+(Integer.parseInt(accionEntity.getOrdenAccion())+1));
+        } catch (Exception e) {
+            objetoAccionInsercion.setOrdenAccion("0");
+        }
+    }
     
-/**
+    public void inicializarNuevaAccion(){
+
+        nuevoAccionObjeto();
+        siguienteOrden();
+    }
+    /**
      * Método que evalua los accesos al formulario
      */
     public void permisos() {
@@ -247,4 +300,4 @@ public class AccionBean implements Serializable{
             }
         }
     }
-    }
+}
