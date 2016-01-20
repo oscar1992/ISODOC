@@ -342,10 +342,12 @@
 }
 
 .ui-selectonemenu{
+    width: 100%;
     border-radius: 5px;
     background-color: #cccccc;
     border: solid #999999;
     border-width: 2px;
+    
 }
 
 .ui-selectonemenu .ui-selectonemenu-label{

@@ -1,5 +1,6 @@
 package co.com.siscomputo.gestiondocumental.bean;
 
+import co.com.siscomputo.administracion.bean.ListaAdministracionBean;
 import co.com.siscomputo.administracion.logic.AccionLogic;
 import co.com.siscomputo.administracion.logic.GrupoProcesoLogic;
 import co.com.siscomputo.administracion.logic.MacroProcesosLogic;
@@ -60,6 +61,7 @@ public class DocumentoBean implements Serializable {
     private DocumentoEntity objetoDocumento;
     private DocumentoEntity objetoDocumentoInsercion;
     private ArrayList<ArrayList<ProcesoEntity>> listaProcesos;
+    private ArrayList<HashMap<String, Integer>>desplegablesProcesos;
     private ArrayList<NivelEntity> listaNivel;
     private TreeNode arbolaux;    
     private TreeNode raiz;
@@ -68,6 +70,7 @@ public class DocumentoBean implements Serializable {
     private String consecutivo;
     private HashMap<String, GrupoUsuariosEntity>mapaGrupos;
     private ArrayList<GrupoUsuarioAccionProcesoEntity> usuarioAccionProcesoEntity;
+    private ArrayList<ProcesoEntity> listaSeleccion;
     private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
@@ -173,6 +176,22 @@ public class DocumentoBean implements Serializable {
 
     public void setIdProceso(Integer idProceso) {
         this.idProceso = idProceso;
+    }
+
+    public ArrayList<HashMap<String, Integer>> getDesplegablesProcesos() {
+        return desplegablesProcesos;
+    }
+
+    public void setDesplegablesProcesos(ArrayList<HashMap<String, Integer>> desplegablesProcesos) {
+        this.desplegablesProcesos = desplegablesProcesos;
+    }
+
+    public ArrayList<ProcesoEntity> getListaSeleccion() {
+        return listaSeleccion;
+    }
+
+    public void setListaSeleccion(ArrayList<ProcesoEntity> listaSeleccion) {
+        this.listaSeleccion = listaSeleccion;
     }
 
     public boolean isIngresar() {
@@ -487,6 +506,8 @@ public class DocumentoBean implements Serializable {
         objetoDocumentoInsercion.setTipoDocumentalDocumento(tiposDocumentalesEntity);
         objetoDocumento.setEmpresaDocumento(empresaEntity);
         objetoDocumentoInsercion.setEmpresaDocumento(empresaEntity);
+        NivelLogic nivelLogic=new NivelLogic();
+        listaNivel=nivelLogic.listaNivel();
     }
     /**
      * Método que inicial las listas duales de selección de grupos de usuarios
@@ -548,6 +569,14 @@ public class DocumentoBean implements Serializable {
         //System.out.println("INGRESA: "+procesoEntity.getNombreProceso());
         idProceso=procesoEntity.getIdProceso();
         iniciaAcciones();
+    }
+    
+    public HashMap<String, Integer> ProcesosPorNivelAsociado(int nivel, Integer asociado){
+        HashMap<String, Integer>retorna=new HashMap<>();
+        ListaAdministracionBean listaAdministracionBean=new ListaAdministracionBean();
+        listaAdministracionBean.cambiarIdNvel(nivel);
+        retorna=(HashMap<String, Integer>) listaAdministracionBean.getListaProcesoAsociado();
+        return retorna;
     }
     /**
      * Método que evalua los accesos al formulario
