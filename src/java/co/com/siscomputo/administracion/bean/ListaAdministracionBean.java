@@ -222,7 +222,7 @@ public class ListaAdministracionBean implements Serializable {
      */
 
     public void idMacrio(int idMacro) {
-        System.out.println("MM: " + idMacro);
+        //System.out.println("MM: " + idMacro);
         idMacroProceso = idMacro;
         iniciarProcesos();
     }
@@ -415,12 +415,20 @@ public class ListaAdministracionBean implements Serializable {
     public void iniciarListaProcesoAsociado() {
         listaProcesoAsociado = new HashMap<String, Integer>();
         ProcesoLogic procesoLogic = new ProcesoLogic();
-        ArrayList<ProcesoEntity> listaProcesoWS = procesoLogic.listaProceso();
+        ArrayList<ProcesoEntity> listaProcesoWS = procesoLogic.listaProceso();        
+        NivelEntity nivelEntity = null;
+        if (idNivel == null) {
+        } else {
+            NivelLogic nivelLogic = new NivelLogic();
+            nivelEntity = nivelLogic.anterioNivel(idNivel);
+        }
         for (ProcesoEntity proceso : listaProcesoWS) {
+            System.out.println("NIVEL: "+idNivel+" NIVELT: "+proceso.getNivelProceso().getIdNivel());
             if (idNivel == null) {
                 listaProcesoAsociado.put(proceso.getNombreProceso(), proceso.getIdProceso());
             } else {
-                if((proceso.getNivelProceso().getSecuenciaNivel()+1)==idNivel){
+                if((proceso.getNivelProceso().getSecuenciaNivel())==nivelEntity.getSecuenciaNivel()){  
+                    
                     listaProcesoAsociado.put(proceso.getNombreProceso(), proceso.getIdProceso());
                 }
             }

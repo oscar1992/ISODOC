@@ -8,6 +8,7 @@ package co.com.siscomputo.administracion.bean;
 import co.com.siscomputo.administracion.logic.RolesLogic;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.RolesEntity;
+import co.com.siscomputo.utilidades.MensajesJSF;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -130,18 +131,19 @@ public class RolesBean implements Serializable{
         try{
             RolesLogic rolesLogic=new RolesLogic();
             RolesEntity rolEnttity=rolesLogic.ingresarRol(rolesObjetoInsercion);
-            FacesMessage msg=null;
+           
             if(rolEnttity!=null){
-                msg=new FacesMessage("", "Rol Ingresado Correctamente: "+rolesObjeto.getNombreRol());
+                MensajesJSF.muestraMensajes("Rol Ingresado Correctamente: "+rolesObjetoInsercion.getNombreRol(), "Mensaje");
+                
                 adicionaRolLista(rolEnttity);
             }else{
-                msg=new FacesMessage("", "Error al Ingresar Usuario: "+rolesObjeto.getNombreRol());
+                MensajesJSF.muestraMensajes("Error al Ingresar Usuario: "+rolesObjetoInsercion.getNombreRol(), "Error");
             }
-            RequestContext.getCurrentInstance().execute("PF('insertarPerfil').hide()");
+            
         }catch(Error e){
             e.printStackTrace();
         }
-        
+        RequestContext.getCurrentInstance().execute("PF('insertarPerfil').hide()");
     }
     /**
      * Método que envia un rol para ser actualizado
@@ -218,6 +220,11 @@ public class RolesBean implements Serializable{
     public void nuevoObjetoPerfil(){
         rolesObjeto=new RolesEntity();
         rolesObjetoInsercion=new RolesEntity();
+    }
+    
+    public void save(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Successful",  "Your message: " ) );
     }
     /**
      * Método que evalua los accesos al formulario

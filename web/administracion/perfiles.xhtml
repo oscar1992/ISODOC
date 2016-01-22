@@ -12,9 +12,9 @@
         <ui:define name="content">
             <h:body>
                 <h:form id="PerfilesForm">
-                    <div class="prueba" style="color: white; ">
-                        <p:growl id="msgs" showDetail="true" life="3000" autoUpdate="true"/>
-                    </div>
+                    <p:growl id="growl" showDetail="true" sticky="true" />  
+                    <p:growl id="msgs" showDetail="true" life="3000" autoUpdate="true"/>
+
                     <p:dataTable var="perfil" value="#{Perfiles.lista}" filteredValue="#{Perfiles.listaFiltro}" reflow="true"
                                  widgetVar="TablaPerfiles" id="tablaPerfiles" selectionMode="single" selection="#{Perfiles.rolesObjeto}"
                                  rowKey="#{perfil.idRol}" class="TABLA" paginator="true" rows="7">
@@ -24,7 +24,7 @@
                             <h:outputText value="Buscar" style="color: #FFF; float: right"/>
                         </f:facet>
                         <p:ajax event="rowSelect" listener="#{Perfiles.onRowSelect}" update=":PerfilesForm:msgs,:ActualizarModal:actualizarPerfilModal" oncomplete="PF('actualizarPerfil').show()"/>
-                        
+
                         <p:column headerText="Nombre de Perfil" filterBy="#{perfil.nombreRol}">
                             <h:outputText value="#{perfil.nombreRol}"/>
                         </p:column>
@@ -36,14 +36,14 @@
                                 </p:selectOneMenu>
                             </f:facet>
                             <h:outputText value="Activo" rendered="#{perfil.estadoRol == 'A'}"/>
-                            <h:outputText value="Inctivo" rendered="#{perfil.estadoRol == 'I'}"/>                            
+                            <h:outputText value="Inactivo" rendered="#{perfil.estadoRol == 'I'}"/>                            
                         </p:column>
-                        
+
                     </p:dataTable>
-                <br/>
-                <p:commandButton value="Insertar" type="button" onclick="PF('insertarPerfil').show();" update=":PerfilesForm:msgs" class="botonNormal" rendered="#{Perfiles.ingresar}"></p:commandButton>
+                    <br/>
+                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarPerfil').show();" update=":PerfilesForm:msgs" class="botonNormal" rendered="#{Perfiles.ingresar}"></p:commandButton>
                 </h:form>
-                <h:form id="IngresarModal">                    
+                <h:form id="IngresarModal"> 
                     <p:dialog header="Insertar Perfil" widgetVar="insertarPerfil" modal="true" id="insertarPerfilModal" responsive="true">
                         #{Perfiles.nuevoObjetoPerfil()}
                         <p:messages autoUpdate="true"/>
@@ -55,6 +55,7 @@
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
+                            <p:commandButton value="Save" actionListener="#{Perfiles.save()}" update=":PerfilesForm:msgs" />
                             <p:commandButton value="Ingresar" update=":PerfilesForm:tablaPerfiles,:IngresarModal:insertarPerfilModal,PerfilesForm:msgs" actionListener="#{Perfiles.ingresarRol()}" validateClient="true" class="botonNormal" />
                         </p:panelGrid>
                     </p:dialog>
@@ -68,11 +69,11 @@
                         <p:inputText required="true" label="Nombre del Rol" value="#{Perfiles.rolesObjeto.nombreRol}"/>
                         <h:outputText value="Estado"></h:outputText>
                         <p:selectOneMenu id="desplegableIngresarPerfil" value="#{Perfiles.rolesObjeto.estadoRol}" style="width: 150px;">
-                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
-                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                            <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                         </p:selectOneMenu>
-                        <p:commandButton  value="Actualizar" update=":PerfilesForm:tablaPerfiles,:ActualizarModal:actualizarPerfilModal,PerfilesForm:msgs" actionListener="#{Perfiles.actualizarRol()}" validateClient="true" class="botonNormal" rendered="#{Perfiles.actualizar}"/>
-                        <p:commandButton value="Eliminar" update=":PerfilesForm:tablaPerfiles,:ActualizarModal:actualizarPerfilModal,PerfilesForm:msgs" actionListener="#{Perfiles.eliminarRol()}" validateClient="true" class="botonNormal" rendered="#{Perfiles.eliminar}"/>
+                        <p:commandButton  value="Actualizar" update=":PerfilesForm:tablaPerfiles,:ActualizarModal:actualizarPerfilModal,:PerfilesForm:msgs" actionListener="#{Perfiles.actualizarRol()}" validateClient="true" class="botonNormal" rendered="#{Perfiles.actualizar}"/>
+                        <p:commandButton value="Eliminar" update=":PerfilesForm:tablaPerfiles,:ActualizarModal:actualizarPerfilModal,:PerfilesForm:msgs" actionListener="#{Perfiles.eliminarRol()}" validateClient="true" class="botonNormal" rendered="#{Perfiles.eliminar}"/>
                     </p:panelGrid>
                 </p:dialog>
             </h:form>

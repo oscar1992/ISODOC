@@ -56,7 +56,7 @@
                             <p:inputText required="true" label="nombre del Proceso" value="#{Proceso.objetoProcesoInsercion.nombreProceso}"/>
                             <h:outputText value="nivel del Proceso"></h:outputText>
                             <p:selectOneMenu id="desplegableNivelProceso" value="#{Proceso.objetoProcesoInsercion.nivelProceso.idNivel}" style="width: 150px;">
-                                <p:ajax listener="#{ListaAdministracionBean.cambiarIdNvel(Proceso.objetoProcesoInsercion.nivelProceso.idNivel)}" update="desplegableIngresarAsociado,insertarProcesoModal"/>
+                                <p:ajax listener="#{ListaAdministracionBean.cambiarIdNvel(Proceso.objetoProcesoInsercion.nivelProceso.idNivel)}" update="desplegableIngresarAsociado"/>
                                 <p:ajax listener="#{Proceso.upadteNombreNivel(Proceso.objetoProcesoInsercion.nivelProceso.idNivel)}" update="titulo"/>
                                 <f:selectItem itemLabel="Selecione el nivel del Proceso" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaNivelProceso}"/>

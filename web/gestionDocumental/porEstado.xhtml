@@ -18,9 +18,9 @@
 
                     <h:panelGrid columns="2">
                         <h:outputText value="Seleccione Estado:  "/>
-                        <p:selectOneRadio value="#{PorEstado.idAccion}">                        
-                            <f:selectItems value="#{PorEstado.listaAcciones}" var="accion" itemLabel="  #{accion.nombreAccion}" itemValue="#{accion.idAccion}"/>
-                        </p:selectOneRadio>
+                        <p:selectOneMenu value="#{PorEstado.idAccion}">                        
+                            <f:selectItems value="#{PorEstado.listaAccionesUsuario}" var="accion" itemLabel="  #{accion.nombreAccion}" itemValue="#{accion.idAccion}"/>
+                        </p:selectOneMenu>
                         <p:commandButton value="Mostrar" actionListener="#{PorEstado.objeto()}"  update=":DocumentoAccion:tablaDocumento,:MoverDocumento" class="botonNormal"></p:commandButton>
                     </h:panelGrid>
 
@@ -93,7 +93,7 @@
                             <h:outputText value="SubProceso del Documento"></h:outputText>
                             <h:outputText value="#{PorEstado.objetoDocumento.subProcesoProcesoDocumento.idProcesos.nombrePreoceso}"></h:outputText>
                         </p:panelGrid>
-                        <p:commandButton value="Enviar a #{PorEstado.nombreSiguiente}" actionListener="#{PorEstado.siguienteAccion()}"  rendered="#{PorEstado.botonSiguiente}" class="botonNormal"  ajax="true"></p:commandButton>
+                        <p:commandButton value="Enviar a #{PorEstado.nombreSiguiente}" actionListener="#{PorEstado.siguienteAccion()}"  rendered="#{PorEstado.botonSiguiente}" class="botonNormal"  ajax="false" update=":DocumentoAccion:tablaDocumento"></p:commandButton>
                         <p:commandButton value="Lista de Distribución" update=":AsociarDocumento:ListaDistribucion"   class="botonNormal" rendered="#{PorEstado.botonSiguiente}" ajax="true" oncomplete="PF('listaDistribucion').show()"></p:commandButton>
                         <h:inputHidden value="#{PorEstado.objetoDocumento.idDocumento}"></h:inputHidden>
                     </p:dialog>

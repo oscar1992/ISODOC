@@ -92,7 +92,7 @@ public class AccesoBean {
                         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", objetoUsuario);
                         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idModulo", -1);
                     } else {
-                        MensajesJSF.muestraMensajes("Error de credenciales", "Error");
+                        MensajesJSF.muestraMensajes("Usuario/Clave incorrecto", "Error");
                         url = "index";
                     }
                 }

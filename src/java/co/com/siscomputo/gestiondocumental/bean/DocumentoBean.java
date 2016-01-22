@@ -71,6 +71,9 @@ public class DocumentoBean implements Serializable {
     private HashMap<String, GrupoUsuariosEntity>mapaGrupos;
     private ArrayList<GrupoUsuarioAccionProcesoEntity> usuarioAccionProcesoEntity;
     private ArrayList<ProcesoEntity> listaSeleccion;
+    private TiposDocumentalesEntity Filtro1;
+    private PlantillaEntity Filtro2;
+    private AccionEntity Filtro3;
     private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
@@ -194,6 +197,30 @@ public class DocumentoBean implements Serializable {
         this.listaSeleccion = listaSeleccion;
     }
 
+    public TiposDocumentalesEntity getFiltro1() {
+        return Filtro1;
+    }
+
+    public void setFiltro1(TiposDocumentalesEntity Filtro1) {
+        this.Filtro1 = Filtro1;
+    }
+
+    public PlantillaEntity getFiltro2() {
+        return Filtro2;
+    }
+
+    public void setFiltro2(PlantillaEntity Filtro2) {
+        this.Filtro2 = Filtro2;
+    }
+
+    public AccionEntity getFiltro3() {
+        return Filtro3;
+    }
+
+    public void setFiltro3(AccionEntity Filtro3) {
+        this.Filtro3 = Filtro3;
+    }
+
     public boolean isIngresar() {
         return ingresar;
     }
@@ -227,6 +254,9 @@ public class DocumentoBean implements Serializable {
     public DocumentoBean() {
         objetoDocumento = new DocumentoEntity();
         objetoDocumentoInsercion = new DocumentoEntity();
+        Filtro1=new TiposDocumentalesEntity();
+        Filtro2=new PlantillaEntity();
+        Filtro3=new AccionEntity();
         nuevoDocumentoObjeto();
     }
 
@@ -577,6 +607,12 @@ public class DocumentoBean implements Serializable {
         listaAdministracionBean.cambiarIdNvel(nivel);
         retorna=(HashMap<String, Integer>) listaAdministracionBean.getListaProcesoAsociado();
         return retorna;
+    }
+    
+    public void Filtrar(){
+        System.out.println("F1: "+Filtro1.getIdTipoDocumental());
+        System.out.println("F2: "+Filtro2.getIdPlantilla());
+        System.out.println("F3: "+Filtro3.getIdAccion());
     }
     /**
      * Método que evalua los accesos al formulario

@@ -101,4 +101,19 @@ public class NivelLogic {
         }
         return dispoRta;
     }
+    /**
+     * Método que permite traer el nivel anterior al que se recibe de parametro por orden de Secuencia
+     * @param idNivel
+     * @return
+     */
+    public NivelEntity anterioNivel(int idNivel) {
+        webService();
+        NivelEntity dispoRta = null;
+        try {
+            dispoRta = port.anteriorNivel(idNivel);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dispoRta;
+    }
 }

@@ -4,55 +4,41 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
-    
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=yes" />
+        <link href="/ISODOC/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link href="/ISODOC/estilos/estilosInicio/estilosInicio.css" rel="stylesheet" type="text/css"/>
+    </h:head>
     <body>
-        
-        <ui:composition template="plantillas/plantillaIndex.xhtml"> 
-            
-            <ui:define name="top">
-            </ui:define>
-            <ui:define name="content">
-                
-                <div id="Contenedor">
-                    <div id="Cabezote">
-                        
-                        <div id="FranjaAzul">
-                            <div id="Logo"></div>
-                            <div class="h1" id="TextoLogo">
-                                Administración de 
-                                sistemas integrados de 
-                                gestión y calidad.
-                            </div>
-                            <div id="FranjaBlanca"></div>
-                            <div id="FranjaAzulObscuro"></div>
-                        </div>
-                    </div>
+        <h:form>
+            <p:growl id="growl" life="20000" autoUpdate="true"/>
+            <p:spacer height="150"/>
+            <div class="row">
+                <div class="col-md-4 col-sm0 col-xs0"></div>
+                <div class="col-md-4 col-sm12 col-xs12  ">
                     
-                    <div id="Acceso">
-                            <h:form >
-                                <p:growl id="growl" life="2000" autoUpdate="true"/>
-                                <div id="TituloAcceso"><h:outputText value="Iniciar Sesión" /></div>
-                                <h:outputText value=""/>
-                                <div style="color:#AC1212; text-align: center; font-size: 10px;"><h:message for='id_usuario' /></div>
-                                <div style="color:#AC1212; text-align: center; font-size: 10px;"><h:message for='pass_usuario' /></div>
-                                <div id="CuerpoAcceso">
-                                    
-                                    <h:outputText value="Usuario:" />  
-                                    <h:inputText id='id_usuario' label="Usuario" required="true" value="#{Acceso.nombreUsuario}" size="10" style="width: 80px"/>
-                                    <h:outputText value="Contraseña:" />  
-                                    <h:inputSecret id='pass_usuario' label="Contrasena" required="true" value="#{Acceso.clave}" size="12" style="width: 80px"/>
-                                </div>
-                                <div>
-                                    <!--<center><h:commandButton id="ingresar" value="Ingresar" action="#{Acceso.ingresoUsuario()}" style="font-size: 11px; border: solid 1px #AAA; padding: 3px 15px; background-color: #EFEFEF; cursor: pointer; color: #333;"  /></center>-->
-                                    <center><p:commandButton id="ingresar" value="Ingresar" action="#{Acceso.ingresoUsuario()}" style="font-size: 11px; border: solid 1px #AAA; padding: 3px 15px; background-color: #EFEFEF; cursor: pointer; color: #333;" ajax="true"/></center>
-                                </div>
-                            </h:form>
+                    <center> 
+
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">Login</div>
+                            <div class="panel-body">
+                                <p:panelGrid columns="2">
+                                    <h:outputText value="Nombre"/>
+                                    <p:inputText required="true" label="Nombre de Usuario" requiredMessage="El Usuario es Obligatorio" value="#{Acceso.nombreUsuario}"/>
+                                    <h:outputText value="Clave"/>
+                                    <p:password required="true" label="Clave" requiredMessage="Clave incorrecta" value="#{Acceso.clave}"/>
+                                </p:panelGrid>
+                                <br/>
+                                <p:commandButton id="ingresar" value="Ingresar" action="#{Acceso.ingresoUsuario()}" class="btn btn-primary" ajax="true"/>
+                            </div>
                         </div>
+
+                    </center>
                 </div>
-            </ui:define>
-            <ui:define name="bottom">
-            </ui:define>
-        </ui:composition>
+                <div class="col-md-4 col-sm0 col-xs0"></div>
+            </div>
+        </h:form>
     </body>
 </html>                                                                              
 

@@ -71,8 +71,7 @@ public class crearDocumentoBean implements Serializable {
     private ArrayList<ArrayList<ProcesoEntity>> listaProcesos;
     private ArrayList<HashMap<String, Integer>> desplegablesProcesos;
     private ArrayList<NivelEntity> listaNivel;
-    private TreeNode arbolaux;
-    private TreeNode raiz;
+
     private Integer tope;
     private Integer idProceso;
     private String consecutivo;
@@ -163,21 +162,7 @@ public class crearDocumentoBean implements Serializable {
         this.listaNivel = listaNivel;
     }
 
-    public TreeNode getArbolaux() {
-        return arbolaux;
-    }
 
-    public void setArbolaux(TreeNode arbolaux) {
-        this.arbolaux = arbolaux;
-    }
-
-    public TreeNode getRaiz() {
-        return raiz;
-    }
-
-    public void setRaiz(TreeNode raiz) {
-        this.raiz = raiz;
-    }
 
     public Integer getTope() {
         return tope;
@@ -290,19 +275,18 @@ public class crearDocumentoBean implements Serializable {
                 }
             }
         }
-        
-        
+
         if (nivel <= listaProcesosSeleccion.length) {
-            
+
             listaMapas[(nivel - 1)] = mapaux;
             for (int i = nivel; i <= listaMapas.length; i++) {
-                
+
                 //System.out.println("NIVEL: "+i);
-                update = "IngresarModal:tabla:" + (i-1) + ":Desp";
+                update = "IngresarModal:tabla:" + (i - 1) + ":Desp";
                 System.out.println("Update: " + update);
-                if(i<listaMapas.length){
-                listaMapas[i]= new HashMap<String, Integer>();
-                listaProcesosSeleccion[i]=null;
+                if (i < listaMapas.length) {
+                    listaMapas[i] = new HashMap<String, Integer>();
+                    listaProcesosSeleccion[i] = null;
                 }
                 RequestContext context = RequestContext.getCurrentInstance();
                 context.update(update);
@@ -325,7 +309,62 @@ public class crearDocumentoBean implements Serializable {
      * Método que permite insertar un Documento nuevo
      */
     public void instertarDocumento() {
+        
+        try {
+            ProcesoEntity procesoSeleccion=new ProcesoEntity();
+            for(ProcesoEntity proceso:lista){
+                if(proceso.getIdProceso()==idProceso){
+                    procesoSeleccion=proceso;
+                }
+            }            
+            objetoDocumentoInsercion.setProcesoDocumento(procesoSeleccion);
+            DocumentoLogic documentoLogic = new DocumentoLogic();
+            DocumentoEntity documentoEntity = documentoLogic.insertarDocumento(objetoDocumentoInsercion);
+            GrupoDocumentoLogic grupoDocumentoLogic = new GrupoDocumentoLogic();
+            GrupoDocumentoEntity grupoDocumentoEntity = new GrupoDocumentoEntity();
+            for (GrupoUsuarioAccionProcesoEntity listaUAPE : usuarioAccionProcesoEntity) {
+                grupoDocumentoEntity = new GrupoDocumentoEntity();
+                grupoDocumentoEntity.setAccionGrupoDocumento(listaUAPE.getAccion());
+                grupoDocumentoEntity.setDocumentoGrupoDocumento(documentoEntity);
+                //System.out.println("GrupoDocumento: "+documentoEntity);
+                if (Integer.parseInt(listaUAPE.getAccion().getOrdenAccion()) == 1) {
+                    documentoEntity.setAccionDocumento(listaUAPE.getAccion());
+                    documentoLogic.actualizarDocumento(documentoEntity);
+                }
+                XMLGregorianCalendar calendar = new XMLGregorianCalendarImpl();
+                calendar.setYear(Integer.parseInt(listaUAPE.getFechaLimite().substring(6, 10)));
+                calendar.setMonth(Integer.parseInt(listaUAPE.getFechaLimite().substring(3, 5)));
+                calendar.setDay(Integer.parseInt(listaUAPE.getFechaLimite().substring(0, 2)));
 
+                //grupoDocumentoEntity.setFecha(calendar);  
+                grupoDocumentoEntity.setFecha(listaUAPE.getFechaLimite());
+                //System.out.println("CALENDAR: "+grupoDocumentoEntity.getFecha().toString());
+                //System.out.println("Lista: "+listaUAPE.getAccion().getNombreAccion());
+                //System.out.println("TTT: "+listaUAPE.getFechaLimite());
+                for (Object nomb : listaUAPE.getSeleccionDual().getTarget()) {
+                    //System.out.println("NOMB: "+nomb);
+                    GrupoUsuariosEntity grupoUsuariosEntity = new GrupoUsuariosEntity();
+                    grupoUsuariosEntity = mapaGrupos.get(nomb);
+                    grupoDocumentoEntity.setGrupousuariosGrupoDocumento(grupoUsuariosEntity);
+                    grupoDocumentoLogic.insertarGrupoDocumento(grupoDocumentoEntity);
+                }
+            }
+
+            //System.out.println("OBJ: "+objetoDocumentoInsercion.getTipoDocumentalDocumento().getNombreTipoDocumental());
+            FacesMessage msg = null;
+            if (documentoEntity != null) {
+                msg = new FacesMessage("", "inserción de Documento correcto");
+
+            } else {
+                msg = new FacesMessage("", "inserción de Documento incorrecto");
+            }
+            usuarioAccionProcesoEntity = new ArrayList<>();
+            RequestContext context = RequestContext.getCurrentInstance();
+            context.update(":IngresarModal:asignados");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -427,9 +466,9 @@ public class crearDocumentoBean implements Serializable {
         while (bandera) {
             if (listaProcesosSeleccion[i] == null) {
                 System.out.println("Selección: " + listaProcesosSeleccion[i - 1]);
-                idProceso=listaProcesosSeleccion[i - 1];
+                idProceso = listaProcesosSeleccion[i - 1];
                 bandera = false;
-                
+
             } else {
                 i++;
                 if (i > listaProcesosSeleccion.length) {
@@ -451,26 +490,6 @@ public class crearDocumentoBean implements Serializable {
         listaAdministracionBean.cambiarIdNvel(nivel);
         retorna = (HashMap<String, Integer>) listaAdministracionBean.getListaProcesoAsociado();
         return retorna;
-    }
-
-    public void sel2() {
-        System.out.println("HGH");
-    }
-
-    public void sel() {
-        System.out.println("ent");
-        try {
-            System.out.println("obje selccionado: " + objetoProceso.getNombreProceso());
-            System.out.println("tama: " + listaProcesosSeleccion.length);
-            for (Integer sele : listaProcesosSeleccion) {
-                System.out.println("sell: " + sele);
-            }
-
-        } catch (Exception e) {
-            System.out.println("NULOOOOO" + e.getMessage());
-            e.printStackTrace();
-        }
-
     }
 
     public void inicializa() {

@@ -39,7 +39,8 @@ public class PorEstadoBean implements Serializable {
     private ArrayList<DocumentoEntity> listaFiltro;
     private ArrayList<PorEstadoEntity> documentosAccion;
     private DocumentoEntity objetoDocumento;
-    private ArrayList<AccionEntity> listaAcciones;
+    private ArrayList<AccionEntity> listaAccionesSistema;
+    private ArrayList<AccionEntity> listaAccionesUsuario;
     private AccionEntity objetoAccion;
     private AccionEntity accionSiguiente;
     private Integer idAccion;
@@ -82,12 +83,20 @@ public class PorEstadoBean implements Serializable {
         this.objetoDocumento = objetoDocumento;
     }
 
-    public ArrayList<AccionEntity> getListaAcciones() {
-        return listaAcciones;
+    public ArrayList<AccionEntity> getListaAccionesSistema() {
+        return listaAccionesSistema;
     }
 
-    public void setListaAcciones(ArrayList<AccionEntity> listaAcciones) {
-        this.listaAcciones = listaAcciones;
+    public void setListaAccionesSistema(ArrayList<AccionEntity> listaAccionesSistema) {
+        this.listaAccionesSistema = listaAccionesSistema;
+    }
+
+    public ArrayList<AccionEntity> getListaAccionesUsuario() {
+        return listaAccionesUsuario;
+    }
+
+    public void setListaAccionesUsuario(ArrayList<AccionEntity> listaAccionesUsuario) {
+        this.listaAccionesUsuario = listaAccionesUsuario;
     }
 
     public AccionEntity getObjetoAccion() {
@@ -138,10 +147,6 @@ public class PorEstadoBean implements Serializable {
         this.accionSiguiente = accionSiguiente;
     }
 
-
-    
-    
-    
     public boolean isIngresar() {
         return ingresar;
     }
@@ -182,11 +187,11 @@ public class PorEstadoBean implements Serializable {
         System.out.println("OBJETOA: " + idAccion);
         cargaPorAccion();
         mostrarTabla = true;
-        
+
     }
 
     public PorEstadoBean() {
-        botonSiguiente=true;
+        botonSiguiente = true;
         nuevo();
     }
 
@@ -200,61 +205,66 @@ public class PorEstadoBean implements Serializable {
             AccionLogic accionLogic = new AccionLogic();
             objetoAccion = accionLogic.accionPorId(idAccion);
             if (ultimaAccion(objetoAccion)) {
-                botonSiguiente=false;
-            }else{
-                Collections.sort(listaAcciones, new ComparadorAccion2());
+                botonSiguiente = false;
+            } else {
+                Collections.sort(listaAccionesSistema, new ComparadorAccion2());
                 //Collections.reverse(listaAcciones);
-                Iterator itr=listaAcciones.iterator();
-                accionSiguiente=new AccionEntity();
+                Iterator itr = listaAccionesSistema.iterator();
+                accionSiguiente = new AccionEntity();
                 while (itr.hasNext()) {
-                    AccionEntity accionEntity=(AccionEntity) itr.next();                    
-                    System.out.println("ACCION: "+accionEntity.getNombreAccion());
-                    if(accionEntity.getOrdenAccion() == null ? objetoAccion.getOrdenAccion() == null : accionEntity.getOrdenAccion().equals(objetoAccion.getOrdenAccion())){
-                        accionSiguiente=(AccionEntity) itr.next();
-                        System.out.println("AccionS: "+accionSiguiente.getOrdenAccion());
+                    AccionEntity accionEntity = (AccionEntity) itr.next();
+                    if (accionEntity.getOrdenAccion().equals(objetoAccion.getOrdenAccion())) {
+                        if (itr.hasNext()) {
+                            accionSiguiente = (AccionEntity) itr.next();
+                        }
                     }
                 }
-                nombreSiguiente=accionSiguiente.getNombreAccion();
-                botonSiguiente=true;
+                nombreSiguiente = accionSiguiente.getNombreAccion();
+                botonSiguiente = true;
             }
             //System.out.println("BOTÖN: "+botonSiguiente+" - "+accionSiguiente.getNombreAccion());
             DocumentoLogic documentoLogic = new DocumentoLogic();
             lista = documentoLogic.documetosPorAccion(objetoAccion);
         }
     }
-    
-    public void siguienteAccion(){
+
+    public void siguienteAccion() {
         objetoDocumento.setAccionDocumento(accionSiguiente);
-        DocumentoLogic documentoLogic=new DocumentoLogic();
+        int id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idDocumento");
+        objetoDocumento.setIdDocumento(id);
+        System.out.println("idDOCUE: ");
+        DocumentoLogic documentoLogic = new DocumentoLogic();
         String valida = documentoLogic.actualizarDocumento(objetoDocumento);
         FacesMessage msg = null;
         if ("Ok".equalsIgnoreCase(valida)) {
             msg = new FacesMessage("", "actualización de Documento correcto");
-            
         } else {
             msg = new FacesMessage("", "actualización de Documento incorrecto");
-        }
-        //RequestContext context = RequestContext.getCurrentInstance();
-        //context.update(":DocumentoAccion:tablaDocumento");
-        //RequestContext.getCurrentInstance().execute("PF('actualizarDocumento').hide()");
-        
+        }        
+        lista = documentoLogic.documetosPorAccion(objetoAccion);
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.update(":DocumentoAccion:tablaDocumento");
+        RequestContext.getCurrentInstance().execute("PF('actualizarDocumento').hide()");
+
     }
+
     /**
      * Método que carga la lista de acciones disponibles
      */
     public void cargaAcciones() {
-        AccionLogic accionLogic = new AccionLogic();        
-        int idUsuario=(int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idUsuario");
-        listaAcciones = accionLogic.accionPorUsuario(idUsuario);
-        System.out.println("ID Usuario: "+idUsuario);
-        ArrayList<GrupoUsuariosEntity> listaGrupos=new ArrayList<>();
-        GrupoUsuariosLogic grupoUsuariosLogic=new GrupoUsuariosLogic();
-        listaGrupos=grupoUsuariosLogic.grupoPorUsuario(idUsuario);
-        for(GrupoUsuariosEntity grupo:listaGrupos){
-            System.out.println("GRUPO: "+grupo.getNombreGrupoUsuarios());
+        AccionLogic accionLogic = new AccionLogic();
+        int idUsuario = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idUsuario");
+        listaAccionesUsuario = accionLogic.accionPorUsuario(idUsuario);
+        listaAccionesSistema = accionLogic.listaAccion();
+        System.out.println("ID Usuario: " + idUsuario);
+        ArrayList<GrupoUsuariosEntity> listaGrupos = new ArrayList<>();
+        GrupoUsuariosLogic grupoUsuariosLogic = new GrupoUsuariosLogic();
+        listaGrupos = grupoUsuariosLogic.grupoPorUsuario(idUsuario);
+        for (GrupoUsuariosEntity grupo : listaGrupos) {
+            System.out.println("GRUPO: " + grupo.getNombreGrupoUsuarios());
         }
     }
-    
+
     /**
      * Método que se invoca al seleccionar una fila de la tabla
      *
@@ -268,7 +278,7 @@ public class PorEstadoBean implements Serializable {
         System.out.println("Envía: " + objetoDocumento.getIdDocumento());
         RequestContext context = RequestContext.getCurrentInstance();
         context.update(":MoverDocumento:nom");
-        
+
     }
 
     /*

@@ -15,6 +15,27 @@
                     <div class="prueba" style="color: white; ">
                         <p:growl id="msgs" showDetail="true" life="3000" />
                     </div>
+                    <p:panel header="Filtros">
+                        <h:panelGrid columns="3">
+                            <h:outputText value="Tipo de Documento"/>
+                            <h:outputText value="Tipo de Plantilla"/>
+                            <h:outputText value="Estado de Documento"/>
+                            <p:selectOneMenu value="#{Documento.filtro1.idTipoDocumental}">
+                                <f:selectItem itemLabel="Selecione Tipo Documento" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaTipoDocumento}"/>
+                            </p:selectOneMenu>
+                            <p:selectOneMenu value="#{Documento.filtro2.idPlantilla}">
+                                <f:selectItem itemLabel="Selecione la Plantilla del Documento" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaPlantillas}"/>
+                            </p:selectOneMenu>
+                            <p:selectOneMenu value="#{Documento.filtro3.idAccion}">
+                                <f:selectItem itemLabel="Selecione el Estado del Documento" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaAcciones}"/>
+                            </p:selectOneMenu>
+                            
+                        </h:panelGrid>
+                        <p:commandButton  value="Filtar" actionListener="#{Documento.Filtrar()}" validateClient="true" class="botonNormal" rendered="#{Documento.actualizar}"/>
+                    </p:panel>
                     <p:dataTable var="documento" value="#{Documento.lista}" reflow="true" widgetVar="TablaDocumento" id="tablaDocumento" selectionMode="single"
                                  selection="#{Documento.objetoDocumento}" rowKey="#{documento.idDocumento}" class="TABLA" paginator="true" rows="7">
                         <p:ajax event="rowSelect" listener="#{Documento.onRowSelect}" update=":DocumentoForm:msgs,:ActualizarModal:actualizarDocumentoModal" oncomplete="PF('actualizarDocumento').show()"/>

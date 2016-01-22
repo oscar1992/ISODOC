@@ -122,9 +122,7 @@
                     <p:commandButton id="Ingresar" value="Ingresar" update=":DocumentoForm:tablaDocumento,:IngresarModal:asignados" actionListener="#{CrearDocumento.instertarDocumento()}" validateClient="true" class="botonNormal" ajax="false"/>
 
                     <br/>
-                    <p:commandButton id="Ingresar2" value="Ingresar" update="sel" action="#{CrearDocumento.sel()}" class="botonNormal"/>
-                    <p:commandButton id="Ingresar3" value="Ingresar2" update="sel" action="#{CrearDocumento.sel2()}" class="botonNormal" ajax="false"/>
-                    <p:outputLabel value="OBJ: #{CrearDocumento.objetoProceso.nombreProceso}" id="sel"/>
+                    
                 </h:form>
             </h:body>
         </ui:define>

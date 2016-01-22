@@ -1,0 +1,30 @@
+.ui-growl{
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 301px;
+    background-color: #2e6da4; 
+    color: white;
+}
+
+.ui-growl ui-widget{
+    background-color: #ffffff;
+}
+.ui-shadow{
+    box-shadow: 3px 3px 8px #204d74;
+}
+.ui-growl-message {
+    margin-top: 5px;
+}
+
+.ui-growl-title{
+    vertical-align: middle;
+}
+
+.ui-growl-item {
+    padding: 7px 15px;
+}
+
+.ui-growl-item-container{
+    margin: 0px;
+}

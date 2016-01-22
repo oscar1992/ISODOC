@@ -64,6 +64,7 @@ public class ObjectFactory {
     private final static QName _ListaGrupoDocumentoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaGrupoDocumentoResponse");
     private final static QName _AccionPorUsuarioResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "accionPorUsuarioResponse");
     private final static QName _GrupoUsuariosPorId_QNAME = new QName("http://endpoint.siscomputo.com.co/", "grupoUsuariosPorId");
+    private final static QName _AnteriorNivelResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "anteriorNivelResponse");
     private final static QName _ListaNivel_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaNivel");
     private final static QName _PlantillaPorIdlantillaResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "plantillaPorIdlantillaResponse");
     private final static QName _ActualizarMetodoProteccionResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarMetodoProteccionResponse");
@@ -89,6 +90,7 @@ public class ObjectFactory {
     private final static QName _PlantillaPorIdlantilla_QNAME = new QName("http://endpoint.siscomputo.com.co/", "plantillaPorIdlantilla");
     private final static QName _ListaModificadorResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaModificadorResponse");
     private final static QName _ActualizarTipoControlDistribucion_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarTipoControlDistribucion");
+    private final static QName _AnteriorNivel_QNAME = new QName("http://endpoint.siscomputo.com.co/", "anteriorNivel");
     private final static QName _ListaProcesosResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaProcesosResponse");
     private final static QName _ListaTiposAccesoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaTiposAccesoResponse");
     private final static QName _LimpiaUsuarioGrupoProcesoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "limpiaUsuarioGrupoProcesoResponse");
@@ -615,6 +617,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link AnteriorNivel }
+     * 
+     */
+    public AnteriorNivel createAnteriorNivel() {
+        return new AnteriorNivel();
+    }
+
+    /**
      * Create an instance of {@link ListaProcesosResponse }
      * 
      */
@@ -860,6 +870,14 @@ public class ObjectFactory {
      */
     public GrupoUsuariosPorId createGrupoUsuariosPorId() {
         return new GrupoUsuariosPorId();
+    }
+
+    /**
+     * Create an instance of {@link AnteriorNivelResponse }
+     * 
+     */
+    public AnteriorNivelResponse createAnteriorNivelResponse() {
+        return new AnteriorNivelResponse();
     }
 
     /**
@@ -1711,6 +1729,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AnteriorNivelResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "anteriorNivelResponse")
+    public JAXBElement<AnteriorNivelResponse> createAnteriorNivelResponse(AnteriorNivelResponse value) {
+        return new JAXBElement<AnteriorNivelResponse>(_AnteriorNivelResponse_QNAME, AnteriorNivelResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ListaNivel }{@code >}}
      * 
      */
@@ -1933,6 +1960,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarTipoControlDistribucion")
     public JAXBElement<ActualizarTipoControlDistribucion> createActualizarTipoControlDistribucion(ActualizarTipoControlDistribucion value) {
         return new JAXBElement<ActualizarTipoControlDistribucion>(_ActualizarTipoControlDistribucion_QNAME, ActualizarTipoControlDistribucion.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AnteriorNivel }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "anteriorNivel")
+    public JAXBElement<AnteriorNivel> createAnteriorNivel(AnteriorNivel value) {
+        return new JAXBElement<AnteriorNivel>(_AnteriorNivel_QNAME, AnteriorNivel.class, null, value);
     }
 
     /**

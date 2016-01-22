@@ -290,7 +290,7 @@ public class ProcesoBean implements Serializable {
                 nombreNivel=valor.getKey();
             }
         }
-        System.out.println("id Nivel: "+nombreNivel);
+        //System.out.println("id Nivel: "+nombreNivel);
     }
     
     
