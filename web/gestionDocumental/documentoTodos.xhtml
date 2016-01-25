@@ -34,7 +34,7 @@
                             </p:selectOneMenu>
                             
                         </h:panelGrid>
-                        <p:commandButton  value="Filtar" actionListener="#{Documento.Filtrar()}" validateClient="true" class="botonNormal" rendered="#{Documento.actualizar}"/>
+                        <p:commandButton  value="Filtar" actionListener="#{Documento.Filtrar()}" validateClient="true" class="botonNormal" rendered="#{Documento.actualizar}" update="tablaDocumento"/>
                     </p:panel>
                     <p:dataTable var="documento" value="#{Documento.lista}" reflow="true" widgetVar="TablaDocumento" id="tablaDocumento" selectionMode="single"
                                  selection="#{Documento.objetoDocumento}" rowKey="#{documento.idDocumento}" class="TABLA" paginator="true" rows="7">

@@ -3,6 +3,7 @@ package co.com.siscomputo.administracion.bean;
 import co.com.siscomputo.administracion.logic.TipoControlDistribucionLogic;
 import co.com.siscomputo.endpoint.TipoControlDistribucionEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
+import co.com.siscomputo.utilidades.MensajesJSF;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -20,7 +21,8 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "TipoControlDistribucion")
 @ViewScoped
-public class TipoControlDistribucionBean implements Serializable{
+public class TipoControlDistribucionBean implements Serializable {
+
     private ArrayList<TipoControlDistribucionEntity> lista;
     private ArrayList<TipoControlDistribucionEntity> listaFiltro;
     private TipoControlDistribucionEntity objetoTipoControlDistribucion;
@@ -84,133 +86,150 @@ public class TipoControlDistribucionBean implements Serializable{
     public void setEliminar(boolean eliminar) {
         this.eliminar = eliminar;
     }
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         consultarTipoControlDistribucion();
         permisos();
-    }    
-    public TipoControlDistribucionBean() {
-        objetoTipoControlDistribucion=new TipoControlDistribucionEntity();
-        objetoTipoControlDistribucionInsercion=new TipoControlDistribucionEntity();
     }
+
+    public TipoControlDistribucionBean() {
+        objetoTipoControlDistribucion = new TipoControlDistribucionEntity();
+        objetoTipoControlDistribucionInsercion = new TipoControlDistribucionEntity();
+    }
+
     /**
      * Método que tra una lista de Tipo de Control de distribución
      */
-    public void consultarTipoControlDistribucion(){
+    public void consultarTipoControlDistribucion() {
         try {
-            TipoControlDistribucionLogic tipoControlDistribucionLogic=new TipoControlDistribucionLogic();
-            lista=tipoControlDistribucionLogic.listaTipoControlDistribucion();
+            TipoControlDistribucionLogic tipoControlDistribucionLogic = new TipoControlDistribucionLogic();
+            lista = tipoControlDistribucionLogic.listaTipoControlDistribucion();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Método que permite insertar un Tipo de Control de distribución nuevo
      */
-    public void instertarTipoControlDistribucion(){
+    public void instertarTipoControlDistribucion() {
         try {
-            TipoControlDistribucionLogic tipoControlDistribucionLogic=new TipoControlDistribucionLogic();
-            TipoControlDistribucionEntity tipoControlDistribucionEntity=tipoControlDistribucionLogic.insertarTipoControlDistribucion(objetoTipoControlDistribucionInsercion);
-            FacesMessage msg=null;
-            if(tipoControlDistribucionEntity!=null){
-                msg=new FacesMessage("", "inserción de Tipo de Control de distribución correcto");
+            TipoControlDistribucionLogic tipoControlDistribucionLogic = new TipoControlDistribucionLogic();
+            TipoControlDistribucionEntity tipoControlDistribucionEntity = tipoControlDistribucionLogic.insertarTipoControlDistribucion(objetoTipoControlDistribucionInsercion);
+            FacesMessage msg = null;
+            if (tipoControlDistribucionEntity != null) {
+                MensajesJSF.muestraMensajes( "inserción de Tipo de Control de distribución correcto", "Mensaje");
                 adicionarMetodoPtoteccionLista(tipoControlDistribucionEntity);
-            }else{
-                msg=new FacesMessage("", "inserción de Tipo de Control de distribución incorrecto");
+            } else {
+                MensajesJSF.muestraMensajes( "inserción de Tipo de Control de distribución incorrecto", "Error");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Método que añade un Tipo de Control de distribución visualmente
-     * @param objetoTipoControlDistribucion 
+     *
+     * @param objetoTipoControlDistribucion
      */
     private void adicionarMetodoPtoteccionLista(TipoControlDistribucionEntity objetoTipoControlDistribucion) {
         lista.add(objetoTipoControlDistribucion);
     }
-/**
+
+    /**
      * Método que permite actualizar un Tipo de Control de distribución
      */
-    public void actualizarTipoControlDistribucion(){
-        TipoControlDistribucionLogic metodoRecuperacionLogic=new TipoControlDistribucionLogic();
-        String valida=metodoRecuperacionLogic.actualizarTipoControlDistribucion(objetoTipoControlDistribucion);
-        FacesMessage msg=null;
-        if("Ok".equalsIgnoreCase(valida)){
-            msg=new FacesMessage("", "actualización de Tipo de Control de distribución correcto");
+    public void actualizarTipoControlDistribucion() {
+        TipoControlDistribucionLogic metodoRecuperacionLogic = new TipoControlDistribucionLogic();
+        String valida = metodoRecuperacionLogic.actualizarTipoControlDistribucion(objetoTipoControlDistribucion);
+        FacesMessage msg = null;
+        if ("Ok".equalsIgnoreCase(valida)) {
+            MensajesJSF.muestraMensajes( "actualización de Tipo de Control de distribución correcto", "Mensaje");
             actualizarTipoControlDistribucionLista(objetoTipoControlDistribucion);
-        }else{
-            msg=new FacesMessage("", "actualización de Tipo de Control de distribución incorrecto");
+        } else {
+            MensajesJSF.muestraMensajes( "actualización de Tipo de Control de distribución incorrecto", "Error");
         }
         nuevoTipoControlDistribucionObjeto();
         RequestContext.getCurrentInstance().execute("PF('actualizarTipoControlDistribucion').hide()");
     }
+
     /**
-     * Método que actualiza visualmente la lista de Tipo de Control de distribución
-     * @param objetoTipoControlDistribucion 
+     * Método que actualiza visualmente la lista de Tipo de Control de
+     * distribución
+     *
+     * @param objetoTipoControlDistribucion
      */
     private void actualizarTipoControlDistribucionLista(TipoControlDistribucionEntity objetoTipoControlDistribucion) {
         try {
-            ArrayList<TipoControlDistribucionEntity>listaaux=new ArrayList<>();
-            if(lista!=null){
-                for(TipoControlDistribucionEntity item:lista){
-                    System.out.println("V1: "+objetoTipoControlDistribucion.getIdTipoControlDistribucion());
-                    System.out.println("V2: "+item.getIdTipoControlDistribucion());
-                    int v1=objetoTipoControlDistribucion.getIdTipoControlDistribucion();
-                    int v2=item.getIdTipoControlDistribucion();
-                    if(v1==v2){
+            ArrayList<TipoControlDistribucionEntity> listaaux = new ArrayList<>();
+            if (lista != null) {
+                for (TipoControlDistribucionEntity item : lista) {
+                    System.out.println("V1: " + objetoTipoControlDistribucion.getIdTipoControlDistribucion());
+                    System.out.println("V2: " + item.getIdTipoControlDistribucion());
+                    int v1 = objetoTipoControlDistribucion.getIdTipoControlDistribucion();
+                    int v2 = item.getIdTipoControlDistribucion();
+                    if (v1 == v2) {
                         listaaux.add(objetoTipoControlDistribucion);
-                    }else{
+                    } else {
                         listaaux.add(item);
                     }
                 }
             }
-            this.lista=new ArrayList<>();
-            this.lista=listaaux;
+            this.lista = new ArrayList<>();
+            this.lista = listaaux;
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Método que se invoca al seleccionar una fila de la tabla
-     * @param event 
+     *
+     * @param event
      */
-    public void onRowSelect(SelectEvent event){
-        objetoTipoControlDistribucion=(TipoControlDistribucionEntity)event.getObject();
+    public void onRowSelect(SelectEvent event) {
+        objetoTipoControlDistribucion = (TipoControlDistribucionEntity) event.getObject();
     }
+
     /**
-    Método que elimina un Tipo de Control de distribución
-    */
-    public void eliminarTipoControlDistribucion(){
-        TipoControlDistribucionLogic metodoRecuperacionLogic=new TipoControlDistribucionLogic();
+     * Método que elimina un Tipo de Control de distribución
+     */
+    public void eliminarTipoControlDistribucion() {
+        TipoControlDistribucionLogic metodoRecuperacionLogic = new TipoControlDistribucionLogic();
         objetoTipoControlDistribucion.setEstadoTipoControlDistribucion("E");
         metodoRecuperacionLogic.actualizarTipoControlDistribucion(objetoTipoControlDistribucion);
         eliminarTipoControlDistribucionLista(objetoTipoControlDistribucion);
         RequestContext.getCurrentInstance().execute("PF('actualizarTipoControlDistribucion').hide()");
         nuevoTipoControlDistribucionObjeto();
+        MensajesJSF.muestraMensajes( "actualización de Tipo de Control de distribución correcto", "Mensaje");
     }
+
     /**
      * Método que elimina visualmente un objeto de la lista
-     * @param objetoTipoControlDistribucion 
+     *
+     * @param objetoTipoControlDistribucion
      */
     private void eliminarTipoControlDistribucionLista(TipoControlDistribucionEntity objetoTipoControlDistribucion) {
-        Iterator itr=lista.iterator();
-        while(itr.hasNext()){
-            TipoControlDistribucionEntity metodoRecuperacionEntity=(TipoControlDistribucionEntity) itr.next();
-            if(metodoRecuperacionEntity.getIdTipoControlDistribucion()==objetoTipoControlDistribucion.getIdTipoControlDistribucion()){
+        Iterator itr = lista.iterator();
+        while (itr.hasNext()) {
+            TipoControlDistribucionEntity metodoRecuperacionEntity = (TipoControlDistribucionEntity) itr.next();
+            if (metodoRecuperacionEntity.getIdTipoControlDistribucion() == objetoTipoControlDistribucion.getIdTipoControlDistribucion()) {
                 itr.remove();
             }
         }
     }
+
     /**
      * Método que reinicia el objeto Tipo de Control de distribución
      */
     public void nuevoTipoControlDistribucionObjeto() {
-        objetoTipoControlDistribucion=new TipoControlDistribucionEntity();
-        objetoTipoControlDistribucionInsercion=new TipoControlDistribucionEntity();
+        objetoTipoControlDistribucion = new TipoControlDistribucionEntity();
+        objetoTipoControlDistribucionInsercion = new TipoControlDistribucionEntity();
     }
-/**
+
+    /**
      * Método que evalua los accesos al formulario
      */
     public void permisos() {
@@ -240,4 +259,4 @@ public class TipoControlDistribucionBean implements Serializable{
             }
         }
     }
-    }
+}

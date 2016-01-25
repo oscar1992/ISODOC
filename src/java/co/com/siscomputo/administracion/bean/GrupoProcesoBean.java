@@ -9,6 +9,7 @@ import co.com.siscomputo.endpoint.GrupoUsuariosEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.ObjetoRetornaEntity;
 import co.com.siscomputo.endpoint.ProcesoEntity;
+import co.com.siscomputo.utilidades.MensajesJSF;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -267,10 +268,10 @@ public class GrupoProcesoBean implements Serializable {
 
                 FacesMessage msg = null;
                 if (grupoProcesoEntity.getRetorna() != null) {
-                    msg = new FacesMessage("", "inserción de Grupo de Usuarios y Procesos correcto");
+                    MensajesJSF.muestraMensajes( "inserción de Grupo de Usuarios y Procesos correcto", "Mensaje");
 
                 } else {
-                    msg = new FacesMessage("", "inserción de Grupo de Usuarios y Procesos incorrecto");
+                    MensajesJSF.muestraMensajes( "inserción de Grupo de Usuarios y Procesos incorrecto", "Error");
 
                 }
             }
@@ -288,10 +289,10 @@ public class GrupoProcesoBean implements Serializable {
         String valida = metodoRecuperacionLogic.actualizarGrupoProceso(objetoGrupoProceso);
         FacesMessage msg = null;
         if ("Ok".equalsIgnoreCase(valida)) {
-            msg = new FacesMessage("", "actualización de Grupo de Usuarios y Procesos correcto");
+            MensajesJSF.muestraMensajes( "actualización de Grupo de Usuarios y Procesos correcto", "Mensaje");
             actualizarGrupoProcesoLista(objetoGrupoProceso);
         } else {
-            msg = new FacesMessage("", "actualización de Grupo de Usuarios y Procesos incorrecto");
+            MensajesJSF.muestraMensajes( "actualización de Grupo de Usuarios y Procesos incorrecto", "Error");
         }
         nuevoGrupoProcesoObjeto();
         RequestContext.getCurrentInstance().execute("PF('actualizarGrupoProceso').hide()");
@@ -391,6 +392,7 @@ public class GrupoProcesoBean implements Serializable {
         
         RequestContext.getCurrentInstance().execute("PF('actualizarGrupoProceso').hide()");
         nuevoGrupoProcesoObjeto();
+        MensajesJSF.muestraMensajes( "inserción de Grupo de Usuarios y Procesos correcto", "Mensaje");
     }
 
     /**

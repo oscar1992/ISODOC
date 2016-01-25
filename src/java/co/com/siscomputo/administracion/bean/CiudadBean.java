@@ -10,6 +10,7 @@ import co.com.siscomputo.administracion.logic.DepartamentoLogic;
 import co.com.siscomputo.endpoint.CiudadEntity;
 import co.com.siscomputo.endpoint.DepartamentoEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
+import co.com.siscomputo.utilidades.MensajesJSF;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.annotation.PostConstruct;
@@ -119,10 +120,10 @@ public class CiudadBean {
             CiudadEntity ciudadEntity = ciudadLogic.ingresaCiudad(ciudadObjetoInsercion);
             FacesMessage msg = null;
             if (ciudadEntity != null) {
-                msg = new FacesMessage("", "Ciudad ingresada Correctamente: " + ciudadEntity.getNombreCiudad());
+                MensajesJSF.muestraMensajes("Ciudad ingresada Correctamente: " + ciudadEntity.getNombreCiudad(), "Mensaje");
                 adicionarCiudadLista(ciudadEntity);
             } else {
-                msg = new FacesMessage("", "Ciudad ingresada Incorrectamente: " + ciudadEntity.getNombreCiudad());
+                MensajesJSF.muestraMensajes("Ciudad ingresada Incorrectamente: " + ciudadEntity.getNombreCiudad(), "Error");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -149,8 +150,9 @@ public class CiudadBean {
         FacesMessage msg = null;
         if ("Ok".equalsIgnoreCase(valida)) {
             actualizarListaCiudad(ciudadObjeto);
+            MensajesJSF.muestraMensajes("Ciudad actualizada Correctamente: " + ciudadObjeto.getNombreCiudad(), "Mensaje");
         } else if ("Error".equalsIgnoreCase(valida)) {
-
+            MensajesJSF.muestraMensajes("Ciudad actualizada Incorrectamente: " + ciudadObjeto.getNombreCiudad(), "Error");
         }
         nuevaCiuidadObjeto();
         RequestContext.getCurrentInstance().execute("PF('actualizarCiudad').hide()");
@@ -208,6 +210,7 @@ public class CiudadBean {
         ciudadObjeto = new CiudadEntity();
         RequestContext.getCurrentInstance().execute("PF('eliminarCiudad').hide()");
         nuevaCiuidadObjeto();
+        MensajesJSF.muestraMensajes("Ciudad eliminada Correctamente: " + ciudadObjeto.getNombreCiudad(), "Mensaje");
     }
 
     /**

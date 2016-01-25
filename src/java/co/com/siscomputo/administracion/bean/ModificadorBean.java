@@ -5,6 +5,7 @@ import co.com.siscomputo.administracion.logic.UsuarioLogic;
 import co.com.siscomputo.endpoint.ModificadorEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.UsuarioEntity;
+import co.com.siscomputo.utilidades.MensajesJSF;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -111,10 +112,10 @@ public class ModificadorBean implements Serializable {
             ModificadorEntity modificadorEntity = modificadorLogic.insertarModificador(objetoModificador);
             FacesMessage msg = null;
             if (modificadorEntity != null) {
-                msg = new FacesMessage("", "inserción de Aprobador Modificador correcto");
+                MensajesJSF.muestraMensajes( "inserción de Aprobador Modificador correcto", "Mensaje");
                 adicionarMetodoPtoteccionLista(objetoModificador);
             } else {
-                msg = new FacesMessage("", "inserción de Aprobador Modificador incorrecto");
+                MensajesJSF.muestraMensajes( "inserción de Aprobador Modificador incorrecto", "Error");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -127,8 +128,8 @@ public class ModificadorBean implements Serializable {
      * @param objetoModificador
      */
     private void adicionarMetodoPtoteccionLista(ModificadorEntity objetoModificador) {
-        
-        UsuarioLogic usuarioLogic=new UsuarioLogic();
+
+        UsuarioLogic usuarioLogic = new UsuarioLogic();
         UsuarioEntity modificadorEntity = usuarioLogic.usuarioPorID(objetoModificador.getUsuarioModificador().getIdUsuario());
         objetoModificador.setUsuarioModificador(modificadorEntity);
         lista.add(objetoModificador);
@@ -142,10 +143,10 @@ public class ModificadorBean implements Serializable {
         String valida = metodoRecuperacionLogic.actualizarModificador(objetoModificador);
         FacesMessage msg = null;
         if ("Ok".equalsIgnoreCase(valida)) {
-            msg = new FacesMessage("", "actualización de Aprobador Modificador correcto");
+            MensajesJSF.muestraMensajes( "actualización de Aprobador Modificador correcto", "Mensaje");
             actualizarModificadorLista(objetoModificador);
         } else {
-            msg = new FacesMessage("", "actualización de Aprobador Modificador incorrecto");
+            MensajesJSF.muestraMensajes( "actualización de Aprobador Modificador incorrecto", "Error");
         }
         nuevoModificadorObjeto();
         RequestContext.getCurrentInstance().execute("PF('actualizarModificador').hide()");
@@ -187,7 +188,7 @@ public class ModificadorBean implements Serializable {
      */
     public void onRowSelect(SelectEvent event) {
         objetoModificador = (ModificadorEntity) event.getObject();
-        if (objetoModificador.getUsuarioModificador()== null) {
+        if (objetoModificador.getUsuarioModificador() == null) {
             UsuarioEntity pais = new UsuarioEntity();
             pais.setIdUsuario(-1);
             objetoModificador.setUsuarioModificador(pais);
@@ -204,6 +205,7 @@ public class ModificadorBean implements Serializable {
         eliminarModificadorLista(objetoModificador);
         RequestContext.getCurrentInstance().execute("PF('actualizarModificador').hide()");
         nuevoModificadorObjeto();
+        MensajesJSF.muestraMensajes( "Eliminación de Aprobador Modificador correcto", "Mensaje");
     }
 
     /**

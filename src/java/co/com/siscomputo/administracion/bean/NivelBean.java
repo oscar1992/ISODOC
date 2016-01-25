@@ -4,6 +4,7 @@ import co.com.siscomputo.administracion.logic.NivelLogic;
 import co.com.siscomputo.endpoint.NivelEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.utilidades.ComparadorNivel;
+import co.com.siscomputo.utilidades.MensajesJSF;
 import java.util.ArrayList;
 import java.io.Serializable;
 import java.util.Collections;
@@ -121,10 +122,10 @@ public class NivelBean implements Serializable {
             NivelEntity nivelEntity = nivelLogic.insertarNivel(objetoNivelInsercion);
             FacesMessage msg = null;
             if (nivelEntity != null) {
-                msg = new FacesMessage("", "inserción de Nivel de Proceso correcto");
+                MensajesJSF.muestraMensajes( "inserción de Nivel de Proceso correcto", "Mensaje");
                 adicionarMetodoPtoteccionLista(nivelEntity);
             } else {
-                msg = new FacesMessage("", "inserción de Nivel de Proceso incorrecto");
+                MensajesJSF.muestraMensajes( "inserción de Nivel de Proceso incorrecto", "Error");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -148,10 +149,10 @@ public class NivelBean implements Serializable {
         String valida = metodoRecuperacionLogic.actualizarNivel(objetoNivel);
         FacesMessage msg = null;
         if ("Ok".equalsIgnoreCase(valida)) {
-            msg = new FacesMessage("", "actualización de Nivel de Proceso correcto");
+            MensajesJSF.muestraMensajes( "actualización de Nivel de Proceso correcto", "Mensaje");
             actualizarNivelLista(objetoNivel);
         } else {
-            msg = new FacesMessage("", "actualización de Nivel de Proceso incorrecto");
+            MensajesJSF.muestraMensajes( "actualización de Nivel de Proceso incorrecto", "Error");
         }
         nuevoNivelObjeto();
         RequestContext.getCurrentInstance().execute("PF('actualizarNivel').hide()");
@@ -219,6 +220,7 @@ public class NivelBean implements Serializable {
         siguienteSecuencia();
         RequestContext conte=RequestContext.getCurrentInstance();
         conte.update("IngresarModal:insertarNivelModal");
+        MensajesJSF.muestraMensajes( "actualización de Nivel de Proceso correcto", "Mensaje");
     }
 
     /**

@@ -10,6 +10,7 @@ import co.com.siscomputo.administracion.logic.PaisesLogic;
 import co.com.siscomputo.endpoint.DepartamentoEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.PaisEntity;
+import co.com.siscomputo.utilidades.MensajesJSF;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.annotation.PostConstruct;
@@ -133,10 +134,10 @@ public class DepartamentoBean {
             departamentoEntity.setIdDepartamento(departamentoEntity.getIdDepartamento());
             FacesMessage msg = null;
             if (departamentoEntity != null) {
-                msg = new FacesMessage("", "Departamento Ingresado Correctamente: " + departamentoEntity.getNombreDepartamento());
+                MensajesJSF.muestraMensajes("Departamento Ingresado Correctamente: " + departamentoEntity.getNombreDepartamento(), "Mensaje");
                 adicionarDepartamentoLista(departamentoEntity);
             } else {
-                msg = new FacesMessage("", "Departamento Ingresado Incorrectamente: " + departamentoEntity.getNombreDepartamento());
+                MensajesJSF.muestraMensajes("Departamento Ingresado Incorrectamente: " + departamentoEntity.getNombreDepartamento(), "Error");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -168,8 +169,9 @@ public class DepartamentoBean {
         FacesMessage msg = null;
         if ("Ok".equalsIgnoreCase(valida)) {
             actualizarListaDepartamento(departamentoObjeto);
+            MensajesJSF.muestraMensajes("Departamento Actualizado Correctamente: " + departamentoObjeto.getNombreDepartamento(), "Mensaje");
         } else if ("Error".equalsIgnoreCase(valida)) {
-
+            MensajesJSF.muestraMensajes("Departamento Actualizado Incorrectamente: " + departamentoObjeto.getNombreDepartamento(), "Error");
         }
         nuevoDepartamentoObjeto();
         RequestContext.getCurrentInstance().execute("PF('actualizarDepartamento').hide()");
@@ -228,6 +230,7 @@ public class DepartamentoBean {
         departamentoObjeto = new DepartamentoEntity();
         RequestContext.getCurrentInstance().execute("PF('actualizarDepartamento').hide()");
         nuevoDepartamentoObjeto();
+        MensajesJSF.muestraMensajes("Departamento Eliminado Correctamente: " + departamentoObjeto.getNombreDepartamento(), "Mensaje");
     }
 
     /**

@@ -3,6 +3,7 @@ package co.com.siscomputo.administracion.bean;
 import co.com.siscomputo.administracion.logic.MetodoProteccionLogic;
 import co.com.siscomputo.endpoint.MetodoProteccionEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
+import co.com.siscomputo.utilidades.MensajesJSF;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -20,7 +21,8 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "MetodoProteccion")
 @ViewScoped
-public class MetodoProteccionBean implements Serializable{
+public class MetodoProteccionBean implements Serializable {
+
     private ArrayList<MetodoProteccionEntity> lista;
     private ArrayList<MetodoProteccionEntity> listaFiltro;
     private MetodoProteccionEntity objetoMetodoProteccion;
@@ -84,135 +86,150 @@ public class MetodoProteccionBean implements Serializable{
     public void setEliminar(boolean eliminar) {
         this.eliminar = eliminar;
     }
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         consultarMetodoProteccion();
         permisos();
-    }   
-    
-    public MetodoProteccionBean() {
-        objetoMetodoProteccion=new MetodoProteccionEntity();
-        objetoMetodoProteccionInsercion=new MetodoProteccionEntity();
     }
+
+    public MetodoProteccionBean() {
+        objetoMetodoProteccion = new MetodoProteccionEntity();
+        objetoMetodoProteccionInsercion = new MetodoProteccionEntity();
+    }
+
     /**
      * Método que tra una lista de Métodos de Protección
      */
-    public void consultarMetodoProteccion(){
+    public void consultarMetodoProteccion() {
         try {
-            MetodoProteccionLogic metodoProteccionLogic=new MetodoProteccionLogic();
-            lista=metodoProteccionLogic.listaMetodoProteccion();
+            MetodoProteccionLogic metodoProteccionLogic = new MetodoProteccionLogic();
+            lista = metodoProteccionLogic.listaMetodoProteccion();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Método que permite insertar un Métodos de Protección nuevo
      */
-    public void instertarMetodoProteccion(){
+    public void instertarMetodoProteccion() {
         try {
-            MetodoProteccionLogic metodoProteccionLogic=new MetodoProteccionLogic();
-            MetodoProteccionEntity metodoProteccionEntity=metodoProteccionLogic.insertarMetodoProteccion(objetoMetodoProteccionInsercion);
-            FacesMessage msg=null;
-            if(metodoProteccionEntity!=null){
-                msg=new FacesMessage("", "inserción de Métodos de Protección correcto");
+            MetodoProteccionLogic metodoProteccionLogic = new MetodoProteccionLogic();
+            MetodoProteccionEntity metodoProteccionEntity = metodoProteccionLogic.insertarMetodoProteccion(objetoMetodoProteccionInsercion);
+            FacesMessage msg = null;
+            if (metodoProteccionEntity != null) {
+                MensajesJSF.muestraMensajes( "inserción de Métodos de Protección correcto", "Mensaje");
                 adicionarMetodoPtoteccionLista(metodoProteccionEntity);
-            }else{
-                msg=new FacesMessage("", "inserción de Métodos de Protección incorrecto");
+            } else {
+                MensajesJSF.muestraMensajes( "inserción de Métodos de Protección incorrecto", "Error");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Método que añade un Métodos de Protección visualmente
-     * @param objetoMetodoProteccion 
+     *
+     * @param objetoMetodoProteccion
      */
     private void adicionarMetodoPtoteccionLista(MetodoProteccionEntity objetoMetodoProteccion) {
         lista.add(objetoMetodoProteccion);
     }
-/**
+
+    /**
      * Método que permite actualizar un Métodos de Protección
      */
-    public void actualizarMetodoProteccion(){
-        MetodoProteccionLogic metodoRecuperacionLogic=new MetodoProteccionLogic();
-        String valida=metodoRecuperacionLogic.actualizarMetodoProteccion(objetoMetodoProteccion);
-        FacesMessage msg=null;
-        if("Ok".equalsIgnoreCase(valida)){
-            msg=new FacesMessage("", "actualización de Métodos de Protección correcto");
+    public void actualizarMetodoProteccion() {
+        MetodoProteccionLogic metodoRecuperacionLogic = new MetodoProteccionLogic();
+        String valida = metodoRecuperacionLogic.actualizarMetodoProteccion(objetoMetodoProteccion);
+        FacesMessage msg = null;
+        if ("Ok".equalsIgnoreCase(valida)) {
+            MensajesJSF.muestraMensajes( "actualización de Métodos de Protección correcto", "Mensaje");
             actualizarMetodoProteccionLista(objetoMetodoProteccion);
-        }else{
-            msg=new FacesMessage("", "actualización de Métodos de Protección incorrecto");
+        } else {
+            MensajesJSF.muestraMensajes( "actualización de Métodos de Protección incorrecto", "Error");
         }
         nuevoMetodoProteccionObjeto();
         RequestContext.getCurrentInstance().execute("PF('actualizarMetodoProteccion').hide()");
     }
+
     /**
      * Método que actualiza visualmente la lista de Métodos de Protección
-     * @param objetoMetodoProteccion 
+     *
+     * @param objetoMetodoProteccion
      */
     private void actualizarMetodoProteccionLista(MetodoProteccionEntity objetoMetodoProteccion) {
         try {
-            ArrayList<MetodoProteccionEntity>listaaux=new ArrayList<>();
-            if(lista!=null){
-                for(MetodoProteccionEntity item:lista){
-                    System.out.println("V1: "+objetoMetodoProteccion.getIdMetodoProteccion());
-                    System.out.println("V2: "+item.getIdMetodoProteccion());
-                    int v1=objetoMetodoProteccion.getIdMetodoProteccion();
-                    int v2=item.getIdMetodoProteccion();
-                    if(v1==v2){
+            ArrayList<MetodoProteccionEntity> listaaux = new ArrayList<>();
+            if (lista != null) {
+                for (MetodoProteccionEntity item : lista) {
+                    System.out.println("V1: " + objetoMetodoProteccion.getIdMetodoProteccion());
+                    System.out.println("V2: " + item.getIdMetodoProteccion());
+                    int v1 = objetoMetodoProteccion.getIdMetodoProteccion();
+                    int v2 = item.getIdMetodoProteccion();
+                    if (v1 == v2) {
                         listaaux.add(objetoMetodoProteccion);
-                    }else{
+                    } else {
                         listaaux.add(item);
                     }
                 }
             }
-            this.lista=new ArrayList<>();
-            this.lista=listaaux;
+            this.lista = new ArrayList<>();
+            this.lista = listaaux;
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Método que se invoca al seleccionar una fila de la tabla
-     * @param event 
+     *
+     * @param event
      */
-    public void onRowSelect(SelectEvent event){
-        objetoMetodoProteccion=(MetodoProteccionEntity)event.getObject();
-        System.out.println("QQ: "+objetoMetodoProteccion.getIdMetodoProteccion());
+    public void onRowSelect(SelectEvent event) {
+        objetoMetodoProteccion = (MetodoProteccionEntity) event.getObject();
+        System.out.println("QQ: " + objetoMetodoProteccion.getIdMetodoProteccion());
     }
+
     /**
-    Método que elimina un Métodos de Protección
-    */
-    public void eliminarMetodoProteccion(){
-        MetodoProteccionLogic metodoRecuperacionLogic=new MetodoProteccionLogic();
+     * Método que elimina un Métodos de Protección
+     */
+    public void eliminarMetodoProteccion() {
+        MetodoProteccionLogic metodoRecuperacionLogic = new MetodoProteccionLogic();
         objetoMetodoProteccion.setEstadoMetodoProteccion("E");
         metodoRecuperacionLogic.actualizarMetodoProteccion(objetoMetodoProteccion);
         eliminarMetodoProteccionLista(objetoMetodoProteccion);
         RequestContext.getCurrentInstance().execute("PF('actualizarMetodoProteccion').hide()");
         nuevoMetodoProteccionObjeto();
+        MensajesJSF.muestraMensajes( "Eliminación de Métodos de Protección correcto", "Mensaje");
     }
+
     /**
      * Método que elimina visualmente un objeto de la lista
-     * @param objetoMetodoProteccion 
+     *
+     * @param objetoMetodoProteccion
      */
     private void eliminarMetodoProteccionLista(MetodoProteccionEntity objetoMetodoProteccion) {
-        Iterator itr=lista.iterator();
-        while(itr.hasNext()){
-            MetodoProteccionEntity metodoRecuperacionEntity=(MetodoProteccionEntity) itr.next();
-            if(metodoRecuperacionEntity.getIdMetodoProteccion()==objetoMetodoProteccion.getIdMetodoProteccion()){
+        Iterator itr = lista.iterator();
+        while (itr.hasNext()) {
+            MetodoProteccionEntity metodoRecuperacionEntity = (MetodoProteccionEntity) itr.next();
+            if (metodoRecuperacionEntity.getIdMetodoProteccion() == objetoMetodoProteccion.getIdMetodoProteccion()) {
                 itr.remove();
             }
         }
     }
+
     /**
      * Método que reinicia el objeto Métodos de Protección
      */
     public void nuevoMetodoProteccionObjeto() {
-        objetoMetodoProteccion=new MetodoProteccionEntity();
-        objetoMetodoProteccionInsercion=new MetodoProteccionEntity();
+        objetoMetodoProteccion = new MetodoProteccionEntity();
+        objetoMetodoProteccionInsercion = new MetodoProteccionEntity();
     }
-/**
+
+    /**
      * Método que evalua los accesos al formulario
      */
     public void permisos() {
@@ -242,4 +259,4 @@ public class MetodoProteccionBean implements Serializable{
             }
         }
     }
-    }
+}

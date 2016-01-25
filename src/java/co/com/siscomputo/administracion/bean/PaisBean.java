@@ -3,6 +3,7 @@ package co.com.siscomputo.administracion.bean;
 import co.com.siscomputo.administracion.logic.PaisesLogic;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.PaisEntity;
+import co.com.siscomputo.utilidades.MensajesJSF;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -118,10 +119,10 @@ public class PaisBean implements Serializable {
             PaisEntity paisEntity = paisesLogic.ingresaPais(paisObjetoInsercion);
             FacesMessage msg = null;
             if (paisEntity != null) {
-                msg = new FacesMessage("", "País Ingresado Correctamente: " + paisEntity.getNombrePais());
+                MensajesJSF.muestraMensajes( "País Ingresado Correctamente: " + paisEntity.getNombrePais(), "Mensaje");
                 adicionarPaisLista(paisEntity);
             } else {
-                msg = new FacesMessage("", "País Ingresado Incorrectamente: " + paisEntity.getNombrePais());
+                MensajesJSF.muestraMensajes( "País Ingresado Incorrectamente: " + paisEntity.getNombrePais(), "Error");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -148,8 +149,9 @@ public class PaisBean implements Serializable {
         FacesMessage msg = null;
         if ("Ok".equalsIgnoreCase(valida)) {
             actualizarListaPais(paisObjeto);
+            MensajesJSF.muestraMensajes( "País Actulizado Correctamente: " + paisObjeto.getNombrePais(), "Mensaje");
         } else if ("Error".equalsIgnoreCase(valida)) {
-
+            MensajesJSF.muestraMensajes( "País Actulizado Incorrectamente: " + paisObjeto.getNombrePais(), "Error");
         }
         nuevoPais();
         RequestContext.getCurrentInstance().execute("PF('actualizarPais').hide()");
@@ -198,6 +200,7 @@ public class PaisBean implements Serializable {
         eliminarPaisLista(paisObjeto);
         paisObjeto = new PaisEntity();
         RequestContext.getCurrentInstance().execute("PF('eliminarPais').hide()");
+        MensajesJSF.muestraMensajes( "País Actulizado Correctamente: " + paisObjeto.getNombrePais(), "Mensaje");
     }
 
     /**

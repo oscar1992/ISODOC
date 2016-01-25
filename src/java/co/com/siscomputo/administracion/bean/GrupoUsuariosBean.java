@@ -3,6 +3,7 @@ package co.com.siscomputo.administracion.bean;
 import co.com.siscomputo.administracion.logic.GrupoUsuariosLogic;
 import co.com.siscomputo.endpoint.GrupoUsuariosEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
+import co.com.siscomputo.utilidades.MensajesJSF;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -20,7 +21,8 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "GrupoUsuarios")
 @ViewScoped
-public class GrupoUsuariosBean implements Serializable{
+public class GrupoUsuariosBean implements Serializable {
+
     private ArrayList<GrupoUsuariosEntity> lista;
     private ArrayList<GrupoUsuariosEntity> listaFiltro;
     private GrupoUsuariosEntity objetoGrupoUsuarios;
@@ -84,131 +86,147 @@ public class GrupoUsuariosBean implements Serializable{
     public void setEliminar(boolean eliminar) {
         this.eliminar = eliminar;
     }
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         consultarGrupoUsuarios();
         permisos();
     }
+
     public GrupoUsuariosBean() {
-        objetoGrupoUsuarios=new GrupoUsuariosEntity();
-        objetoGrupoUsuariosInsercion=new GrupoUsuariosEntity();
+        objetoGrupoUsuarios = new GrupoUsuariosEntity();
+        objetoGrupoUsuariosInsercion = new GrupoUsuariosEntity();
     }
+
     /**
      * Método que trae una lista de Grupo de Usuarios
      */
-    public void consultarGrupoUsuarios(){
+    public void consultarGrupoUsuarios() {
         try {
-            GrupoUsuariosLogic grupoUsuariosLogic=new GrupoUsuariosLogic();
-            lista=grupoUsuariosLogic.listaGrupoUsuarios();
+            GrupoUsuariosLogic grupoUsuariosLogic = new GrupoUsuariosLogic();
+            lista = grupoUsuariosLogic.listaGrupoUsuarios();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Método que permite insertar un Grupo de Usuarios nuevo
      */
-    public void instertarGrupoUsuarios(){
+    public void instertarGrupoUsuarios() {
         try {
-            GrupoUsuariosLogic grupoUsuariosLogic=new GrupoUsuariosLogic();
-            GrupoUsuariosEntity grupoUsuariosEntity=grupoUsuariosLogic.insertarGrupoUsuarios(objetoGrupoUsuariosInsercion);
-            FacesMessage msg=null;
-            if(grupoUsuariosEntity!=null){
-                msg=new FacesMessage("", "inserción de Grupo de Usuarios correcto");
+            GrupoUsuariosLogic grupoUsuariosLogic = new GrupoUsuariosLogic();
+            GrupoUsuariosEntity grupoUsuariosEntity = grupoUsuariosLogic.insertarGrupoUsuarios(objetoGrupoUsuariosInsercion);
+            FacesMessage msg = null;
+            if (grupoUsuariosEntity != null) {
+                MensajesJSF.muestraMensajes( "inserción de Grupo de Usuarios correcto", "Mensaje");
                 adicionarMetodoPtoteccionLista(grupoUsuariosEntity);
-            }else{
-                msg=new FacesMessage("", "inserción de Grupo de Usuarios incorrecto");
+            } else {
+                MensajesJSF.muestraMensajes( "inserción de Grupo de Usuarios incorrecto", "Error");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Método que añade un Grupo de Usuarios visualmente
-     * @param objetoGrupoUsuarios 
+     *
+     * @param objetoGrupoUsuarios
      */
     private void adicionarMetodoPtoteccionLista(GrupoUsuariosEntity objetoGrupoUsuarios) {
         lista.add(objetoGrupoUsuarios);
     }
-/**
+
+    /**
      * Método que permite actualizar un Grupo de Usuarios
      */
-    public void actualizarGrupoUsuarios(){
-        GrupoUsuariosLogic metodoRecuperacionLogic=new GrupoUsuariosLogic();
-        String valida=metodoRecuperacionLogic.actualizarGrupoUsuarios(objetoGrupoUsuarios);
-        FacesMessage msg=null;
-        if("Ok".equalsIgnoreCase(valida)){
-            msg=new FacesMessage("", "actualización de Grupo de Usuarios correcto");
+    public void actualizarGrupoUsuarios() {
+        GrupoUsuariosLogic metodoRecuperacionLogic = new GrupoUsuariosLogic();
+        String valida = metodoRecuperacionLogic.actualizarGrupoUsuarios(objetoGrupoUsuarios);
+        FacesMessage msg = null;
+        if ("Ok".equalsIgnoreCase(valida)) {
+            MensajesJSF.muestraMensajes( "actualización de Grupo de Usuarios correcto", "Mensaje");
             actualizarGrupoUsuariosLista(objetoGrupoUsuarios);
-        }else{
-            msg=new FacesMessage("", "actualización de Grupo de Usuarios incorrecto");
+        } else {
+            MensajesJSF.muestraMensajes( "actualización de Grupo de Usuarios incorrecto", "Error");
         }
         nuevoGrupoUsuariosObjeto();
         RequestContext.getCurrentInstance().execute("PF('actualizarGrupoUsuarios').hide()");
     }
+
     /**
      * Método que actualiza visualmente la lista de Grupo de Usuarios
-     * @param objetoGrupoUsuarios 
+     *
+     * @param objetoGrupoUsuarios
      */
     private void actualizarGrupoUsuariosLista(GrupoUsuariosEntity objetoGrupoUsuarios) {
         try {
-            ArrayList<GrupoUsuariosEntity>listaaux=new ArrayList<>();
-            if(lista!=null){
-                for(GrupoUsuariosEntity item:lista){
-                    int v1=objetoGrupoUsuarios.getIdGrupoUsuarios();
-                    int v2=item.getIdGrupoUsuarios();
-                    if(v1==v2){
+            ArrayList<GrupoUsuariosEntity> listaaux = new ArrayList<>();
+            if (lista != null) {
+                for (GrupoUsuariosEntity item : lista) {
+                    int v1 = objetoGrupoUsuarios.getIdGrupoUsuarios();
+                    int v2 = item.getIdGrupoUsuarios();
+                    if (v1 == v2) {
                         listaaux.add(objetoGrupoUsuarios);
-                    }else{
+                    } else {
                         listaaux.add(item);
                     }
                 }
             }
-            this.lista=new ArrayList<>();
-            this.lista=listaaux;
+            this.lista = new ArrayList<>();
+            this.lista = listaaux;
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Método que se invoca al seleccionar una fila de la tabla
-     * @param event 
+     *
+     * @param event
      */
-    public void onRowSelect(SelectEvent event){
-        objetoGrupoUsuarios=(GrupoUsuariosEntity)event.getObject();
+    public void onRowSelect(SelectEvent event) {
+        objetoGrupoUsuarios = (GrupoUsuariosEntity) event.getObject();
     }
+
     /**
-    Método que elimina un Grupo de Usuarios
-    */
-    public void eliminarGrupoUsuarios(){
-        GrupoUsuariosLogic metodoRecuperacionLogic=new GrupoUsuariosLogic();
+     * Método que elimina un Grupo de Usuarios
+     */
+    public void eliminarGrupoUsuarios() {
+        GrupoUsuariosLogic metodoRecuperacionLogic = new GrupoUsuariosLogic();
         objetoGrupoUsuarios.setEstadoGrupoUsuarios("E");
         metodoRecuperacionLogic.actualizarGrupoUsuarios(objetoGrupoUsuarios);
         eliminarGrupoUsuariosLista(objetoGrupoUsuarios);
         RequestContext.getCurrentInstance().execute("PF('actualizarGrupoUsuarios').hide()");
         nuevoGrupoUsuariosObjeto();
+        MensajesJSF.muestraMensajes( "Eliminación de Grupo de Usuarios correcto", "Mensaje");
     }
+
     /**
      * Método que elimina visualmente un objeto de la lista
-     * @param objetoGrupoUsuarios 
+     *
+     * @param objetoGrupoUsuarios
      */
     private void eliminarGrupoUsuariosLista(GrupoUsuariosEntity objetoGrupoUsuarios) {
-        Iterator itr=lista.iterator();
-        while(itr.hasNext()){
-            GrupoUsuariosEntity metodoRecuperacionEntity=(GrupoUsuariosEntity) itr.next();
-            if(metodoRecuperacionEntity.getIdGrupoUsuarios()==objetoGrupoUsuarios.getIdGrupoUsuarios()){
+        Iterator itr = lista.iterator();
+        while (itr.hasNext()) {
+            GrupoUsuariosEntity metodoRecuperacionEntity = (GrupoUsuariosEntity) itr.next();
+            if (metodoRecuperacionEntity.getIdGrupoUsuarios() == objetoGrupoUsuarios.getIdGrupoUsuarios()) {
                 itr.remove();
             }
         }
     }
+
     /**
      * Método que reinicia el objeto Grupo de Usuarios
      */
     public void nuevoGrupoUsuariosObjeto() {
-        objetoGrupoUsuarios=new GrupoUsuariosEntity();
-        objetoGrupoUsuariosInsercion=new GrupoUsuariosEntity();
+        objetoGrupoUsuarios = new GrupoUsuariosEntity();
+        objetoGrupoUsuariosInsercion = new GrupoUsuariosEntity();
     }
-/**
+
+    /**
      * Método que evalua los accesos al formulario
      */
     public void permisos() {
@@ -238,4 +256,4 @@ public class GrupoUsuariosBean implements Serializable{
             }
         }
     }
-    }
+}

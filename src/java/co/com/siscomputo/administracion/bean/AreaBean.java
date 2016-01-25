@@ -10,6 +10,7 @@ import co.com.siscomputo.administracion.logic.SedesLogic;
 import co.com.siscomputo.endpoint.AreaEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.SedeEntity;
+import co.com.siscomputo.utilidades.MensajesJSF;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.annotation.PostConstruct;
@@ -124,10 +125,10 @@ public class AreaBean {
             AreaEntity areaEntity = areaLogic.ingresarArea(areaObjetoInsercion);
             FacesMessage msg = null;
             if (areaEntity != null) {
-                msg = new FacesMessage("", "Area Ingresado Correctamente: " + areaEntity.getNombreArea());
+                MensajesJSF.muestraMensajes("Area Ingresado Correctamente: " + areaEntity.getNombreArea(), "Mensaje");
                 adicionaAreaLista(areaEntity);
             } else {
-                msg = new FacesMessage("", "Error al Ingresar Usuario: " + areaEntity.getNombreArea());
+                MensajesJSF.muestraMensajes("Error al Ingresar Usuario: " + areaEntity.getNombreArea(), "Error");
             }
             RequestContext.getCurrentInstance().execute("PF('insertarArea').hide()");
         } catch (Exception e) {
@@ -158,8 +159,9 @@ public class AreaBean {
         FacesMessage msg = null;
         if ("Ok".equalsIgnoreCase(valida)) {
             actualizarListaAres(areaObjeto);
+            MensajesJSF.muestraMensajes("Area Actualizada Correctamente: " + areaObjeto.getNombreArea(), "Mensaje");
         } else if ("Error".equalsIgnoreCase(valida)) {
-
+            MensajesJSF.muestraMensajes("Area Actualizada Incorrectamente: " + areaObjeto.getNombreArea(), "Error");
         }
         RequestContext.getCurrentInstance().execute("PF('actualizarArea').hide()");
         //areaObjeto = new AreaEntity();
@@ -216,6 +218,7 @@ public void onRowSelect(SelectEvent event) {
         eliminarAreaLista(areaObjeto);
         nuevoAreaObjeto();
         RequestContext.getCurrentInstance().execute("PF('eliminarArea').hide()");
+        MensajesJSF.muestraMensajes("Area Eliminada Correctamente: " + areaObjeto.getNombreArea(), "Mensaje");
     }
 
     /**

@@ -8,6 +8,7 @@ import co.com.siscomputo.endpoint.UsuarioMacroprocesoEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.ObjetoRetornaEntity;
 import co.com.siscomputo.endpoint.UsuarioEntity;
+import co.com.siscomputo.utilidades.MensajesJSF;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -216,10 +217,10 @@ public class UsuarioMacroprocesoBean implements Serializable {
                 ObjetoRetornaEntity retorna = usuarioMacroprocesoLogic.insertarUsuarioMacroproceso((ArrayList<String>) macros.getTarget(), usuarioEntity, idAccion);
                 FacesMessage msg = null;
                 if (retorna != null) {
-                    msg = new FacesMessage("", "inserción de Usuario y su MacroProceso correcto");
+                    MensajesJSF.muestraMensajes( "inserción de Usuario y su MacroProceso correcto", "Mensaje");
 
                 } else {
-                    msg = new FacesMessage("", "inserción de Usuario y su MacroProceso incorrecto");
+                    MensajesJSF.muestraMensajes( "inserción de Usuario y su MacroProceso incorrecto", "Error");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -239,10 +240,10 @@ public class UsuarioMacroprocesoBean implements Serializable {
         String valida = metodoRecuperacionLogic.actualizarUsuarioMacroproceso(objetoUsuarioMacroproceso);
         FacesMessage msg = null;
         if ("Ok".equalsIgnoreCase(valida)) {
-            msg = new FacesMessage("", "actualización de Usuario y su MacroProceso correcto");
+            MensajesJSF.muestraMensajes( "actualización de Usuario y su MacroProceso correcto", "Mensaje");
             actualizarUsuarioMacroprocesoLista(objetoUsuarioMacroproceso);
         } else {
-            msg = new FacesMessage("", "actualización de Usuario y su MacroProceso incorrecto");
+            MensajesJSF.muestraMensajes( "actualización de Usuario y su MacroProceso incorrecto", "Error");
         }
         nuevoUsuarioMacroprocesoObjeto();
         RequestContext.getCurrentInstance().execute("PF('actualizarUsuarioMacroproceso').hide()");

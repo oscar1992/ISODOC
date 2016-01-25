@@ -8,6 +8,7 @@ import co.com.siscomputo.endpoint.UsuarioProcesoEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.ObjetoRetornaEntity;
 import co.com.siscomputo.endpoint.UsuarioEntity;
+import co.com.siscomputo.utilidades.MensajesJSF;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -216,10 +217,10 @@ public class UsuarioProcesoBean implements Serializable {
                 ObjetoRetornaEntity retorna = usuarioProcesoLogic.insertarUsuarioProceso((ArrayList<String>) procesos.getTarget(), usuarioEntity, idAccion);
                 FacesMessage msg = null;
                 if (retorna != null) {
-                    msg = new FacesMessage("", "inserción de Usuario y su Proceso correcto");
+                    MensajesJSF.muestraMensajes( "inserción de Usuario y su Proceso correcto", "Mensaje");
 
                 } else {
-                    msg = new FacesMessage("", "inserción de Usuario y su Proceso incorrecto");
+                    MensajesJSF.muestraMensajes( "inserción de Usuario y su Proceso incorrecto", "Error");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -239,10 +240,10 @@ public class UsuarioProcesoBean implements Serializable {
         String valida = metodoRecuperacionLogic.actualizarUsuarioProceso(objetoUsuarioProceso);
         FacesMessage msg = null;
         if ("Ok".equalsIgnoreCase(valida)) {
-            msg = new FacesMessage("", "actualización de Usuario y su Proceso correcto");
+            MensajesJSF.muestraMensajes( "actualización de Usuario y su Proceso correcto", "Mensaje");
             actualizarUsuarioProcesoLista(objetoUsuarioProceso);
         } else {
-            msg = new FacesMessage("", "actualización de Usuario y su Proceso incorrecto");
+            MensajesJSF.muestraMensajes( "actualización de Usuario y su Proceso incorrecto", "Error");
         }
         nuevoUsuarioProcesoObjeto();
         RequestContext.getCurrentInstance().execute("PF('actualizarUsuarioProceso').hide()");

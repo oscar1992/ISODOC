@@ -5,6 +5,7 @@ import co.com.siscomputo.administracion.logic.ProcesoLogic;
 import co.com.siscomputo.endpoint.ProcesoEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.NivelEntity;
+import co.com.siscomputo.utilidades.MensajesJSF;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -141,10 +142,10 @@ public class ProcesoBean implements Serializable {
             System.out.println("-" + objetoProcesoInsercion.getNivelProceso());
             FacesMessage msg = null;
             if (procesoEntity != null) {
-                msg = new FacesMessage("", "inserción de Procesos correcto");
+                MensajesJSF.muestraMensajes( "inserción de Procesos correcto", "Mensaje");
                 adicionarMetodoPtoteccionLista(procesoEntity);
             } else {
-                msg = new FacesMessage("", "inserción de Procesos incorrecto");
+                MensajesJSF.muestraMensajes( "inserción de Procesos incorrecto", "Error");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -177,10 +178,10 @@ public class ProcesoBean implements Serializable {
         String valida = metodoRecuperacionLogic.actualizarProceso(objetoProceso);
         FacesMessage msg = null;
         if ("Ok".equalsIgnoreCase(valida)) {
-            msg = new FacesMessage("", "actualización de Procesos correcto");
+            MensajesJSF.muestraMensajes( "actualización de Procesos correcto", "Mensaje");
             actualizarProcesoLista(objetoProceso);
         } else {
-            msg = new FacesMessage("", "actualización de Procesos incorrecto");
+            MensajesJSF.muestraMensajes( "actualización de Procesos incorrecto", "Error");
         }
         nuevoProcesoObjeto();
         RequestContext.getCurrentInstance().execute("PF('actualizarProceso').hide()");
@@ -240,6 +241,7 @@ public class ProcesoBean implements Serializable {
         eliminarProcesoLista(objetoProceso);
         RequestContext.getCurrentInstance().execute("PF('actualizarProceso').hide()");
         nuevoProcesoObjeto();
+        MensajesJSF.muestraMensajes( "Eliminación de Procesos correcto", "Mensaje");
     }
 
     /**
@@ -280,20 +282,19 @@ public class ProcesoBean implements Serializable {
         nombreAsociado = procesoLogic.procesoPorId(idProceso).getNombreProceso();
         return nombreAsociado;
     }
-    
-    public void upadteNombreNivel(int idNivel){
-        
-        ListaAdministracionBean listaAdministracionBean=new ListaAdministracionBean();
-        Map<String, Integer> mapa=(HashMap<String, Integer>) listaAdministracionBean.getListaNivelProceso();        
-        for(Map.Entry<String, Integer> valor:mapa.entrySet()){
-            if(valor.getValue()==idNivel){
-                nombreNivel=valor.getKey();
+
+    public void upadteNombreNivel(int idNivel) {
+
+        ListaAdministracionBean listaAdministracionBean = new ListaAdministracionBean();
+        Map<String, Integer> mapa = (HashMap<String, Integer>) listaAdministracionBean.getListaNivelProceso();
+        for (Map.Entry<String, Integer> valor : mapa.entrySet()) {
+            if (valor.getValue() == idNivel) {
+                nombreNivel = valor.getKey();
             }
         }
         //System.out.println("id Nivel: "+nombreNivel);
     }
-    
-    
+
     /**
      * Método que evalua los accesos al formulario
      */

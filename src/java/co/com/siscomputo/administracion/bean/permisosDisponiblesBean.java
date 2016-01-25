@@ -31,7 +31,7 @@ public class permisosDisponiblesBean implements Serializable {
     private ArrayList<RolPermisoEntity> listaSeleccion;
     private ArrayList<String> listaSeleccionados;
     private Integer idRol;
-    private boolean ingresar ;
+    private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
 
@@ -58,7 +58,6 @@ public class permisosDisponiblesBean implements Serializable {
     public void setListaSeleccionados(ArrayList<String> listaSeleccionados) {
         this.listaSeleccionados = listaSeleccionados;
     }
-
 
     public Integer getIdRol() {
         return idRol;
@@ -91,12 +90,11 @@ public class permisosDisponiblesBean implements Serializable {
     public void setEliminar(boolean eliminar) {
         this.eliminar = eliminar;
     }
-    
 
     @PostConstruct
     public void init() {
         listaSeleccion = new ArrayList<>();
-        System.out.println("ROL: "+idRol);
+        System.out.println("ROL: " + idRol);
         cargaAcordeon();
         permisos();
     }
@@ -108,6 +106,7 @@ public class permisosDisponiblesBean implements Serializable {
         PermisosDisponiblesLogic permisosDisponiblesLogic = new PermisosDisponiblesLogic();
         listaPermisos = permisosDisponiblesLogic.listaPermisosDisponibles();
     }
+
     /**
      * Método que carga los chulos de acuerdo al rol
      */
@@ -116,33 +115,35 @@ public class permisosDisponiblesBean implements Serializable {
         PermisosDisponiblesLogic permisosDisponiblesLogic = new PermisosDisponiblesLogic();
         if (idRol != null) {
             ArrayList<RolPermisoEntity> listaRpe = permisosDisponiblesLogic.listaRolPermiso(idRol);
-            listaSeleccionados=new ArrayList<>();
-            for(RolPermisoEntity rpe:listaRpe){
+            listaSeleccionados = new ArrayList<>();
+            for (RolPermisoEntity rpe : listaRpe) {
                 //System.out.println("PER: "+rpe.getIdPermiso().getNombrePermiso());
-                listaSeleccionados.add(""+rpe.getIdPermiso().getIdPermiso());
+                listaSeleccionados.add("" + rpe.getIdPermiso().getIdPermiso());
             }
         }
-        
+
     }
+
     /**
      * Método que permite actualizar un permiso
      */
-    public void actualizarRolPermiso(){
-        System.out.println("ROL: "+idRol);
-        System.out.println("TAMA: "+listaSeleccionados.size());
-        for(String permiso:listaSeleccionados){
-            System.out.println("PP: "+permiso);
+    public void actualizarRolPermiso() {
+        System.out.println("ROL: " + idRol);
+        System.out.println("TAMA: " + listaSeleccionados.size());
+        for (String permiso : listaSeleccionados) {
+            System.out.println("PP: " + permiso);
         }
     }
+
     /**
      * Método que se llama al detectar un cambio en las selecciones
      */
-    public void itemSelect(){
-       for(String per:listaSeleccionados){
-           System.out.println("ID: "+per);
-       }
+    public void itemSelect() {
+        for (String per : listaSeleccionados) {
+            System.out.println("ID: " + per);
+        }
     }
-    
+
     /**
      * Método que evalua los accesos al formulario
      */

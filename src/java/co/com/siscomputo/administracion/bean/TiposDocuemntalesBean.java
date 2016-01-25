@@ -8,6 +8,7 @@ package co.com.siscomputo.administracion.bean;
 import co.com.siscomputo.administracion.logic.TiposDocumentalesLogic;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.TiposDocumentalesEntity;
+import co.com.siscomputo.utilidades.MensajesJSF;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -25,7 +26,7 @@ import org.primefaces.event.SelectEvent;
  */
 @ManagedBean(name = "TiposDocuemntales")
 @ViewScoped
-public class TiposDocuemntalesBean implements Serializable{
+public class TiposDocuemntalesBean implements Serializable {
 
     private ArrayList<TiposDocumentalesEntity> lista;
     private ArrayList<TiposDocumentalesEntity> listaFiltro;
@@ -66,7 +67,7 @@ public class TiposDocuemntalesBean implements Serializable{
     public void setTiposDobjetoInsercion(TiposDocumentalesEntity tiposDobjetoInsercion) {
         this.tiposDobjetoInsercion = tiposDobjetoInsercion;
     }
-    
+
     public boolean isIngresar() {
         return ingresar;
     }
@@ -99,9 +100,9 @@ public class TiposDocuemntalesBean implements Serializable{
     }
 
     public TiposDocuemntalesBean() {
-        tiposDobjeto=new TiposDocumentalesEntity();
-        tiposDobjetoInsercion=new TiposDocumentalesEntity();
-       
+        tiposDobjeto = new TiposDocumentalesEntity();
+        tiposDobjetoInsercion = new TiposDocumentalesEntity();
+
     }
 
     /**
@@ -114,31 +115,31 @@ public class TiposDocuemntalesBean implements Serializable{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }
 
     /**
      * Método que permite insertar un nuevo tipo documental
      */
     public void ingresarTiposDocumentales() {
-        
+
         try {
             TiposDocumentalesLogic tiposDocumentalesLogic = new TiposDocumentalesLogic();
             TiposDocumentalesEntity tiposDocumentalesEntity = tiposDocumentalesLogic.ingresaTipoDocumental(tiposDobjetoInsercion);
             FacesMessage msg = null;
             if (tiposDocumentalesEntity != null) {
-                msg = new FacesMessage("", "Tipo Documental Ingresado Correctamente" + tiposDocumentalesEntity.getNombreTipoDocumental());
+                MensajesJSF.muestraMensajes( "Tipo Documental Ingresado Correctamente" + tiposDocumentalesEntity.getNombreTipoDocumental(), "Mensaje");
                 adicionarTipoDocuemtalLista(tiposDocumentalesEntity);
             } else {
-                msg = new FacesMessage("", "Tipo Documental Ingresado Inorrectamente" + tiposDocumentalesEntity.getNombreTipoDocumental());
+                MensajesJSF.muestraMensajes( "Tipo Documental Ingresado Inorrectamente" + tiposDocumentalesEntity.getNombreTipoDocumental(), "Error");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         RequestContext.getCurrentInstance().execute("PF('insertarTipoDocumental').hide()");
         nuevoTipoDocumental();
-        
+
     }
 
     /**
@@ -168,11 +169,12 @@ public class TiposDocuemntalesBean implements Serializable{
         FacesMessage msg = null;
         if ("Ok".equalsIgnoreCase(valida)) {
             actualizarListaTiposDocumentales(tiposDobjeto);
+            MensajesJSF.muestraMensajes( "Tipo Documental Actualizado Correctamente" + tiposDobjeto.getNombreTipoDocumental(), "Mensaje");
         } else if ("Error".equalsIgnoreCase(valida)) {
-
+            MensajesJSF.muestraMensajes( "Tipo Documental Actualizado Inorrectamente" + tiposDobjeto.getNombreTipoDocumental(), "Error");
         }
         tiposDobjeto = new TiposDocumentalesEntity();
-        
+
     }
 
     /**
@@ -206,7 +208,7 @@ public class TiposDocuemntalesBean implements Serializable{
      */
     public void onRowSelect(SelectEvent event) {
         tiposDobjeto = (TiposDocumentalesEntity) event.getObject();
-        
+
     }
 
     /**
@@ -219,11 +221,12 @@ public class TiposDocuemntalesBean implements Serializable{
         eliminarListaTiposDocumentales(tiposDobjeto);
         tiposDobjeto = new TiposDocumentalesEntity();
         RequestContext.getCurrentInstance().execute("PF('actualizarTipoDocumental').hide()");
-     
+        MensajesJSF.muestraMensajes( "Tipo Documental Eliminado Correctamente" + tiposDobjeto.getNombreTipoDocumental(), "Mensaje");
     }
 
     /**
      * Método que elimina el objeto visualmente
+     *
      * @param tiposDobjeto
      */
     private void eliminarListaTiposDocumentales(TiposDocumentalesEntity tiposDobjeto) {

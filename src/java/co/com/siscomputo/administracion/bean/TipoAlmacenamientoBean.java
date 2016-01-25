@@ -3,6 +3,7 @@ package co.com.siscomputo.administracion.bean;
 import co.com.siscomputo.administracion.logic.TipoAlmacenamientoLogic;
 import co.com.siscomputo.endpoint.TipoAlmacenamientoEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
+import co.com.siscomputo.utilidades.MensajesJSF;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -20,7 +21,8 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "TipoAlmacenamiento")
 @ViewScoped
-public class TipoAlmacenamientoBean implements Serializable{
+public class TipoAlmacenamientoBean implements Serializable {
+
     private ArrayList<TipoAlmacenamientoEntity> lista;
     private ArrayList<TipoAlmacenamientoEntity> listaFiltro;
     private TipoAlmacenamientoEntity objetoTipoAlmacenamiento;
@@ -84,133 +86,149 @@ public class TipoAlmacenamientoBean implements Serializable{
     public void setEliminar(boolean eliminar) {
         this.eliminar = eliminar;
     }
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         consultarTipoAlmacenamiento();
         permisos();
-    }   
-    public TipoAlmacenamientoBean() {
-        objetoTipoAlmacenamiento=new TipoAlmacenamientoEntity();
-        objetoTipoAlmacenamientoInsercion=new TipoAlmacenamientoEntity();
     }
+
+    public TipoAlmacenamientoBean() {
+        objetoTipoAlmacenamiento = new TipoAlmacenamientoEntity();
+        objetoTipoAlmacenamientoInsercion = new TipoAlmacenamientoEntity();
+    }
+
     /**
      * Método que tra una lista de Tipo de Almacenamiento
      */
-    public void consultarTipoAlmacenamiento(){
+    public void consultarTipoAlmacenamiento() {
         try {
-            TipoAlmacenamientoLogic tipoAlmacenamientoLogic=new TipoAlmacenamientoLogic();
-            lista=tipoAlmacenamientoLogic.listaTipoAlmacenamiento();
+            TipoAlmacenamientoLogic tipoAlmacenamientoLogic = new TipoAlmacenamientoLogic();
+            lista = tipoAlmacenamientoLogic.listaTipoAlmacenamiento();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Método que permite insertar un Tipo de Almacenamiento nuevo
      */
-    public void instertarTipoAlmacenamiento(){
+    public void instertarTipoAlmacenamiento() {
         try {
-            TipoAlmacenamientoLogic tipoAlmacenamientoLogic=new TipoAlmacenamientoLogic();
-            TipoAlmacenamientoEntity tipoAlmacenamientoEntity=tipoAlmacenamientoLogic.insertarTipoAlmacenamiento(objetoTipoAlmacenamientoInsercion);
-            FacesMessage msg=null;
-            if(tipoAlmacenamientoEntity!=null){
-                msg=new FacesMessage("", "inserción de Tipo de Almacenamiento correcto");
+            TipoAlmacenamientoLogic tipoAlmacenamientoLogic = new TipoAlmacenamientoLogic();
+            TipoAlmacenamientoEntity tipoAlmacenamientoEntity = tipoAlmacenamientoLogic.insertarTipoAlmacenamiento(objetoTipoAlmacenamientoInsercion);
+            FacesMessage msg = null;
+            if (tipoAlmacenamientoEntity != null) {
+                MensajesJSF.muestraMensajes( "inserción de Tipo de Almacenamiento correcto", "Mensaje");
                 adicionarMetodoPtoteccionLista(tipoAlmacenamientoEntity);
-            }else{
-                msg=new FacesMessage("", "inserción de Tipo de Almacenamiento incorrecto");
+            } else {
+                MensajesJSF.muestraMensajes( "inserción de Tipo de Almacenamiento incorrecto", "Error");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Método que añade un Tipo de Almacenamiento visualmente
-     * @param objetoTipoAlmacenamiento 
+     *
+     * @param objetoTipoAlmacenamiento
      */
     private void adicionarMetodoPtoteccionLista(TipoAlmacenamientoEntity objetoTipoAlmacenamiento) {
         lista.add(objetoTipoAlmacenamiento);
     }
-/**
+
+    /**
      * Método que permite actualizar un Tipo de Almacenamiento
      */
-    public void actualizarTipoAlmacenamiento(){
-        TipoAlmacenamientoLogic metodoRecuperacionLogic=new TipoAlmacenamientoLogic();
-        String valida=metodoRecuperacionLogic.actualizarTipoAlmacenamiento(objetoTipoAlmacenamiento);
-        FacesMessage msg=null;
-        if("Ok".equalsIgnoreCase(valida)){
-            msg=new FacesMessage("", "actualización de Tipo de Almacenamiento correcto");
+    public void actualizarTipoAlmacenamiento() {
+        TipoAlmacenamientoLogic metodoRecuperacionLogic = new TipoAlmacenamientoLogic();
+        String valida = metodoRecuperacionLogic.actualizarTipoAlmacenamiento(objetoTipoAlmacenamiento);
+        FacesMessage msg = null;
+        if ("Ok".equalsIgnoreCase(valida)) {
+            MensajesJSF.muestraMensajes( "actualización de Tipo de Almacenamiento correcto", "Mensaje");
             actualizarTipoAlmacenamientoLista(objetoTipoAlmacenamiento);
-        }else{
-            msg=new FacesMessage("", "actualización de Tipo de Almacenamiento incorrecto");
+        } else {
+            MensajesJSF.muestraMensajes( "actualización de Tipo de Almacenamiento incorrecto", "Error");
         }
         nuevoTipoAlmacenamientoObjeto();
         RequestContext.getCurrentInstance().execute("PF('actualizarTipoAlmacenamiento').hide()");
     }
+
     /**
      * Método que actualiza visualmente la lista de Tipo de Almacenamiento
-     * @param objetoTipoAlmacenamiento 
+     *
+     * @param objetoTipoAlmacenamiento
      */
     private void actualizarTipoAlmacenamientoLista(TipoAlmacenamientoEntity objetoTipoAlmacenamiento) {
         try {
-            ArrayList<TipoAlmacenamientoEntity>listaaux=new ArrayList<>();
-            if(lista!=null){
-                for(TipoAlmacenamientoEntity item:lista){
-                    System.out.println("V1: "+objetoTipoAlmacenamiento.getIdTipoAlmacenamiento());
-                    System.out.println("V2: "+item.getIdTipoAlmacenamiento());
-                    int v1=objetoTipoAlmacenamiento.getIdTipoAlmacenamiento();
-                    int v2=item.getIdTipoAlmacenamiento();
-                    if(v1==v2){
+            ArrayList<TipoAlmacenamientoEntity> listaaux = new ArrayList<>();
+            if (lista != null) {
+                for (TipoAlmacenamientoEntity item : lista) {
+                    System.out.println("V1: " + objetoTipoAlmacenamiento.getIdTipoAlmacenamiento());
+                    System.out.println("V2: " + item.getIdTipoAlmacenamiento());
+                    int v1 = objetoTipoAlmacenamiento.getIdTipoAlmacenamiento();
+                    int v2 = item.getIdTipoAlmacenamiento();
+                    if (v1 == v2) {
                         listaaux.add(objetoTipoAlmacenamiento);
-                    }else{
+                    } else {
                         listaaux.add(item);
                     }
                 }
             }
-            this.lista=new ArrayList<>();
-            this.lista=listaaux;
+            this.lista = new ArrayList<>();
+            this.lista = listaaux;
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Método que se invoca al seleccionar una fila de la tabla
-     * @param event 
+     *
+     * @param event
      */
-    public void onRowSelect(SelectEvent event){
-        objetoTipoAlmacenamiento=(TipoAlmacenamientoEntity)event.getObject();
+    public void onRowSelect(SelectEvent event) {
+        objetoTipoAlmacenamiento = (TipoAlmacenamientoEntity) event.getObject();
     }
+
     /**
-    Método que elimina un Tipo de Almacenamiento
-    */
-    public void eliminarTipoAlmacenamiento(){
-        TipoAlmacenamientoLogic metodoRecuperacionLogic=new TipoAlmacenamientoLogic();
+     * Método que elimina un Tipo de Almacenamiento
+     */
+    public void eliminarTipoAlmacenamiento() {
+        TipoAlmacenamientoLogic metodoRecuperacionLogic = new TipoAlmacenamientoLogic();
         objetoTipoAlmacenamiento.setEstadoTipoAlmacenamiento("E");
         metodoRecuperacionLogic.actualizarTipoAlmacenamiento(objetoTipoAlmacenamiento);
         eliminarTipoAlmacenamientoLista(objetoTipoAlmacenamiento);
         RequestContext.getCurrentInstance().execute("PF('actualizarTipoAlmacenamiento').hide()");
         nuevoTipoAlmacenamientoObjeto();
+        MensajesJSF.muestraMensajes( "Eliminación de Tipo de Almacenamiento correcto", "Mensaje");
     }
+
     /**
      * Método que elimina visualmente un objeto de la lista
-     * @param objetoTipoAlmacenamiento 
+     *
+     * @param objetoTipoAlmacenamiento
      */
     private void eliminarTipoAlmacenamientoLista(TipoAlmacenamientoEntity objetoTipoAlmacenamiento) {
-        Iterator itr=lista.iterator();
-        while(itr.hasNext()){
-            TipoAlmacenamientoEntity metodoRecuperacionEntity=(TipoAlmacenamientoEntity) itr.next();
-            if(metodoRecuperacionEntity.getIdTipoAlmacenamiento()==objetoTipoAlmacenamiento.getIdTipoAlmacenamiento()){
+        Iterator itr = lista.iterator();
+        while (itr.hasNext()) {
+            TipoAlmacenamientoEntity metodoRecuperacionEntity = (TipoAlmacenamientoEntity) itr.next();
+            if (metodoRecuperacionEntity.getIdTipoAlmacenamiento() == objetoTipoAlmacenamiento.getIdTipoAlmacenamiento()) {
                 itr.remove();
             }
         }
     }
+
     /**
      * Método que reinicia el objeto Tipo de Almacenamiento
      */
     public void nuevoTipoAlmacenamientoObjeto() {
-        objetoTipoAlmacenamiento=new TipoAlmacenamientoEntity();
-        objetoTipoAlmacenamientoInsercion=new TipoAlmacenamientoEntity();
+        objetoTipoAlmacenamiento = new TipoAlmacenamientoEntity();
+        objetoTipoAlmacenamientoInsercion = new TipoAlmacenamientoEntity();
     }
-/**
+
+    /**
      * Método que evalua los accesos al formulario
      */
     public void permisos() {
@@ -240,4 +258,4 @@ public class TipoAlmacenamientoBean implements Serializable{
             }
         }
     }
-    }
+}

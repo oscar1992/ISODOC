@@ -12,20 +12,24 @@
         <ui:define name="content">
             <h:body>
                 <h:form id="IngresarModal">
-                    #{CrearDocumento.nuevoDocumentoObjeto()}         
+                    <div class="prueba" style="color: white; ">
+                        <p:growl id="msgs"  life="300000" autoUpdate="true"/>
+                    </div>
+                    #{CrearDocumento.nuevoDocumentoObjeto()}  
+                    
                     <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="4" id="datosDocumento">
                         <h:outputText value="Título del Documento"></h:outputText>
-                        <p:inputText id="nombre" required="true" label="nombre del Documento" value="#{CrearDocumento.objetoDocumentoInsercion.tituloDocumento}"/>
+                        <p:inputText id="nombre" label="Nombre" required="true" requiredMessage="Se necesita un nombre del Documento" value="#{CrearDocumento.objetoDocumentoInsercion.tituloDocumento}"/>
 
                         <h:outputText value="Tipo Documental del Documento"></h:outputText>                            
-                        <p:selectOneMenu id="desplegableIngresarTipoD" value="#{CrearDocumento.objetoDocumentoInsercion.tipoDocumentalDocumento.idTipoDocumental}" style="width: 150px;">
+                        <p:selectOneMenu required="true" id="desplegableIngresarTipoD" requiredMessage="Debe seleccionar Un Tipo Documental" value="#{CrearDocumento.objetoDocumentoInsercion.tipoDocumentalDocumento.idTipoDocumental}" style="width: 150px;">
                             <p:ajax listener="#{CrearDocumento.traeConsecutivo()}" update="version"/>
                             <f:selectItem itemLabel="Selecione Tipo Documento" itemValue="" noSelectionOption="true"/>
                             <f:selectItems value="#{ListaAdministracionBean.listaTipoDocumento}"/>
                         </p:selectOneMenu>
 
                         <h:outputText value="Plantilla del Documento"></h:outputText>
-                        <p:selectOneMenu label="Plantilla" required="true" id="desplegableIngresarPlantilla" value="#{CrearDocumento.objetoDocumentoInsercion.plantilla.idPlantilla}" style="width: 150px;">
+                        <p:selectOneMenu required="true" id="desplegableIngresarPlantilla" requiredMessage="Debe seleccionar una Plantilla" value="#{CrearDocumento.objetoDocumentoInsercion.plantilla.idPlantilla}" style="width: 150px;">
                             <f:selectItem itemLabel="Selecione la Plantilla del Documento" itemValue="" noSelectionOption="true"/>
                             <f:selectItems value="#{ListaAdministracionBean.listaPlantillas}"/>
                         </p:selectOneMenu>
@@ -35,17 +39,18 @@
 
 
                         <h:outputText value="Estado del Documento"></h:outputText>
-                        <p:selectOneMenu id="desplegableIngresarEstado" value="#{CrearDocumento.objetoDocumentoInsercion.estadoDocumento}" style="width: 150px;">                            
+                        <p:selectOneMenu     required="true" requiredMessage="Se necesita un estado" id="desplegableIngresarEstado" value="#{CrearDocumento.objetoDocumentoInsercion.estadoDocumento}" style="width: 150px;">                            
                             <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                             <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                         </p:selectOneMenu>
 
                         <h:outputText value="Empresa"></h:outputText>
-                        <p:selectOneMenu id="desplegableIngresarEmpresa" value="#{CrearDocumento.objetoDocumentoInsercion.empresaDocumento.idEmpresa}" style="width: 150px;">
-                            <f:selectItem itemLabel="Selecione una Empresa" itemValue="#{-1}" noSelectionOption="true"/>
+                        <p:selectOneMenu required="true" requiredMessage="Debe seleccionar una Empresa" id="desplegableIngresarEmpresa"  value="#{CrearDocumento.objetoDocumentoInsercion.empresaDocumento.idEmpresa}" style="width: 150px;">
+                            <f:selectItem itemLabel="Selecione una Empresa" itemValue="" noSelectionOption="true"/>
                             <f:selectItems value="#{ListaAdministracionBean.listaEmpresas}"/>
                         </p:selectOneMenu> 
                     </p:panelGrid>
+
                     <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="4" id="datos">
                         <p:dataTable var="nivel" value="#{Nivel.lista}" id="tabla">
                             <p:column id="col">
@@ -65,7 +70,8 @@
                             </p:columnGroup>
                         </p:dataTable>
                     </p:panelGrid>   
-                    <p:commandButton value="Asignar Usuarios" update=":IngresarModal:asignados" process="@this,nombre,desplegableIngresarPlantilla,version" actionListener="#{CrearDocumento.evalua()}" class="botonNormal" validateClient="true"/>
+                    
+                    <p:commandButton value="Asignar Usuarios" update=":IngresarModal:asignados" process="@this,nombre,desplegableIngresarPlantilla,version,desplegableIngresarEstado,desplegableIngresarEmpresa,desplegableIngresarTipoD" actionListener="#{CrearDocumento.evalua()}" class="botonNormal" validateClient="true"/>
 
                     <p:panelGrid class="TABLA" id="asignados">
                         <f:facet name="header">
@@ -122,7 +128,7 @@
                     <p:commandButton id="Ingresar" value="Ingresar" update=":DocumentoForm:tablaDocumento,:IngresarModal:asignados" actionListener="#{CrearDocumento.instertarDocumento()}" validateClient="true" class="botonNormal" ajax="false"/>
 
                     <br/>
-                    
+
                 </h:form>
             </h:body>
         </ui:define>

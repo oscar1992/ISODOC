@@ -42,6 +42,7 @@ public class ObjectFactory {
     private final static QName _InsertarTipoAlmacenamiento_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarTipoAlmacenamiento");
     private final static QName _ActualizarGrupoDocumento_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarGrupoDocumento");
     private final static QName _InsertarElaborador_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarElaborador");
+    private final static QName _AccionesPorUsuario_QNAME = new QName("http://endpoint.siscomputo.com.co/", "accionesPorUsuario");
     private final static QName _ListaTipoAlmacenamientoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaTipoAlmacenamientoResponse");
     private final static QName _NivelPorId_QNAME = new QName("http://endpoint.siscomputo.com.co/", "nivelPorId");
     private final static QName _ActualizarElaborador_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarElaborador");
@@ -111,6 +112,7 @@ public class ObjectFactory {
     private final static QName _InsertarGrupoUsuariosResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarGrupoUsuariosResponse");
     private final static QName _ModificadorPorId_QNAME = new QName("http://endpoint.siscomputo.com.co/", "ModificadorPorId");
     private final static QName _ActualizarTiposAcceso_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarTiposAcceso");
+    private final static QName _AccionesPorUsuarioResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "accionesPorUsuarioResponse");
     private final static QName _ActualizarTipoControlDistribucionResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarTipoControlDistribucionResponse");
     private final static QName _InsertarAccion_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarAccion");
     private final static QName _ListaElaboradorResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaElaboradorResponse");
@@ -510,6 +512,14 @@ public class ObjectFactory {
      */
     public ActualizarTiposAcceso createActualizarTiposAcceso() {
         return new ActualizarTiposAcceso();
+    }
+
+    /**
+     * Create an instance of {@link AccionesPorUsuarioResponse }
+     * 
+     */
+    public AccionesPorUsuarioResponse createAccionesPorUsuarioResponse() {
+        return new AccionesPorUsuarioResponse();
     }
 
     /**
@@ -950,6 +960,14 @@ public class ObjectFactory {
      */
     public InsertarElaborador createInsertarElaborador() {
         return new InsertarElaborador();
+    }
+
+    /**
+     * Create an instance of {@link AccionesPorUsuario }
+     * 
+     */
+    public AccionesPorUsuario createAccionesPorUsuario() {
+        return new AccionesPorUsuario();
     }
 
     /**
@@ -1528,6 +1546,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarElaborador")
     public JAXBElement<InsertarElaborador> createInsertarElaborador(InsertarElaborador value) {
         return new JAXBElement<InsertarElaborador>(_InsertarElaborador_QNAME, InsertarElaborador.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AccionesPorUsuario }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "accionesPorUsuario")
+    public JAXBElement<AccionesPorUsuario> createAccionesPorUsuario(AccionesPorUsuario value) {
+        return new JAXBElement<AccionesPorUsuario>(_AccionesPorUsuario_QNAME, AccionesPorUsuario.class, null, value);
     }
 
     /**
@@ -2149,6 +2176,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarTiposAcceso")
     public JAXBElement<ActualizarTiposAcceso> createActualizarTiposAcceso(ActualizarTiposAcceso value) {
         return new JAXBElement<ActualizarTiposAcceso>(_ActualizarTiposAcceso_QNAME, ActualizarTiposAcceso.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AccionesPorUsuarioResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "accionesPorUsuarioResponse")
+    public JAXBElement<AccionesPorUsuarioResponse> createAccionesPorUsuarioResponse(AccionesPorUsuarioResponse value) {
+        return new JAXBElement<AccionesPorUsuarioResponse>(_AccionesPorUsuarioResponse_QNAME, AccionesPorUsuarioResponse.class, null, value);
     }
 
     /**

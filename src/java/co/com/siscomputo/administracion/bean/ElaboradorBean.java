@@ -5,6 +5,7 @@ import co.com.siscomputo.administracion.logic.UsuarioLogic;
 import co.com.siscomputo.endpoint.ElaboradorEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.UsuarioEntity;
+import co.com.siscomputo.utilidades.MensajesJSF;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -123,10 +124,10 @@ public class ElaboradorBean implements Serializable {
             ElaboradorEntity elaboradorEntity = elaboradorLogic.insertarElaborador(objetoElaboradorInsercion);
             FacesMessage msg = null;
             if (elaboradorEntity != null) {
-                msg = new FacesMessage("", "inserción de Aprobador Elaborador correcto");
+                MensajesJSF.muestraMensajes( "inserción de Aprobador Elaborador correcto", "Mensaje");
                 adicionarMetodoPtoteccionLista(elaboradorEntity);
             } else {
-                msg = new FacesMessage("", "inserción de Aprobador Elaborador incorrecto");
+                MensajesJSF.muestraMensajes( "inserción de Aprobador Elaborador incorrecto", "Error");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -154,10 +155,10 @@ public class ElaboradorBean implements Serializable {
         String valida = metodoRecuperacionLogic.actualizarElaborador(objetoElaborador);
         FacesMessage msg = null;
         if ("Ok".equalsIgnoreCase(valida)) {
-            msg = new FacesMessage("", "actualización de Aprobador Elaborador correcto");
+            MensajesJSF.muestraMensajes( "actualización de Aprobador Elaborador correcto", "Mensaje");
             actualizarElaboradorLista(objetoElaborador);
         } else {
-            msg = new FacesMessage("", "actualización de Aprobador Elaborador incorrecto");
+            MensajesJSF.muestraMensajes( "actualización de Aprobador Elaborador incorrecto", "Error");
         }
         nuevoElaboradorObjeto();
         RequestContext.getCurrentInstance().execute("PF('actualizarElaborador').hide()");
@@ -220,6 +221,7 @@ public class ElaboradorBean implements Serializable {
         eliminarElaboradorLista(objetoElaborador);
         RequestContext.getCurrentInstance().execute("PF('actualizarElaborador').hide()");
         nuevoElaboradorObjeto();
+        MensajesJSF.muestraMensajes( "Eliminación de Aprobador Elaborador correcto", "Mensaje");
     }
 
     /**

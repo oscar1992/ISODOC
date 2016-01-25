@@ -4,6 +4,7 @@ import co.com.siscomputo.administracion.logic.AccionLogic;
 import co.com.siscomputo.endpoint.AccionEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.utilidades.ComparadorAccion2;
+import co.com.siscomputo.utilidades.MensajesJSF;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -121,10 +122,10 @@ public class AccionBean implements Serializable {
             AccionEntity accionEntity = accionLogic.insertarAccion(objetoAccionInsercion);
             FacesMessage msg = null;
             if (accionEntity != null) {
-                msg = new FacesMessage("", "inserción de Acción correcto");
+                MensajesJSF.muestraMensajes("inserción de Acción correcto", "Mensaje");
                 adicionarMetodoPtoteccionLista(accionEntity);
             } else {
-                msg = new FacesMessage("", "inserción de Acción incorrecto");
+                MensajesJSF.muestraMensajes("inserción de Acción incorrecto", "Error");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -148,10 +149,10 @@ public class AccionBean implements Serializable {
         String valida = metodoRecuperacionLogic.actualizarAccion(objetoAccion);
         FacesMessage msg = null;
         if ("Ok".equalsIgnoreCase(valida)) {
-            msg = new FacesMessage("", "actualización de Acción correcto");
+            MensajesJSF.muestraMensajes("actualización de Acción correcto", "Mensaje");
             actualizarAccionLista(objetoAccion);
         } else {
-            msg = new FacesMessage("", "actualización de Acción incorrecto");
+            MensajesJSF.muestraMensajes("actualización de Acción incorrecto", "Error");
         }
         nuevoAccionObjeto();
         RequestContext.getCurrentInstance().execute("PF('actualizarAccion').hide()");
@@ -218,7 +219,7 @@ public class AccionBean implements Serializable {
         RequestContext conte=RequestContext.getCurrentInstance();
         conte.update("IngresarModal:insertarAccionModal");
         RequestContext.getCurrentInstance().execute("PF('actualizarAccion').hide()");
-        
+        MensajesJSF.muestraMensajes("Eliminación de Acción correcto", "Mensaje");
     }
 
     /**

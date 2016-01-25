@@ -7,6 +7,7 @@ import co.com.siscomputo.endpoint.UsuarioGrupoUsuarioEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.ObjetoRetornaEntity;
 import co.com.siscomputo.endpoint.UsuarioEntity;
+import co.com.siscomputo.utilidades.MensajesJSF;
 import java.io.Serializable; 
 import java.util.ArrayList;
 import javax.annotation.PostConstruct;
@@ -189,9 +190,9 @@ public class UsuarioGrupoUsuarioBean implements Serializable {
             ObjetoRetornaEntity insertRespuesta = usuarioGrupoUsuarioLogic.insertarUsuarioGrupoUsuario((ArrayList<String>) listad.getTarget(), idGrupo);
             FacesMessage msg = null;
             if (insertRespuesta != null) {
-                msg = new FacesMessage("", "inserción de relacion entre Usuarios y Grupos de Usuarios correcto");                
+                MensajesJSF.muestraMensajes( "inserción de relacion entre Usuarios y Grupos de Usuarios correcto", "Mensaje");                
             } else {
-                msg = new FacesMessage("", "inserción de relacion entre Usuarios y Grupos de Usuarios incorrecto");
+                MensajesJSF.muestraMensajes( "inserción de relacion entre Usuarios y Grupos de Usuarios incorrecto", "Error");
             }
         } catch (Exception e) {
             e.printStackTrace();

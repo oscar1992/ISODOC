@@ -3,6 +3,7 @@ package co.com.siscomputo.administracion.bean;
 import co.com.siscomputo.administracion.logic.PlantillaLogic;
 import co.com.siscomputo.endpoint.PlantillaEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
+import co.com.siscomputo.utilidades.MensajesJSF;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -147,10 +148,10 @@ public class PlantillaBean implements Serializable {
             PlantillaEntity plantillaEntity = plantillaLogic.insertarPlantilla(objetoPlantillaInsercion);
             FacesMessage msg = null;
             if (plantillaEntity != null) {
-                msg = new FacesMessage("", "inserción de Plantilla de Gestión Documental correcto");
+                MensajesJSF.muestraMensajes( "inserción de Plantilla de Gestión Documental correcto", "Mensaje");
                 adicionarMetodoPtoteccionLista(plantillaEntity);
             } else {
-                msg = new FacesMessage("", "inserción de Plantilla de Gestión Documental incorrecto");
+                MensajesJSF.muestraMensajes( "inserción de Plantilla de Gestión Documental incorrecto", "Error");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -174,10 +175,10 @@ public class PlantillaBean implements Serializable {
         String valida = metodoRecuperacionLogic.actualizarPlantilla(objetoPlantilla);
         FacesMessage msg = null;
         if ("Ok".equalsIgnoreCase(valida)) {
-            msg = new FacesMessage("", "actualización de Plantilla de Gestión Documental correcto");
+            MensajesJSF.muestraMensajes( "actualización de Plantilla de Gestión Documental correcto", "Mensaje");
             actualizarPlantillaLista(objetoPlantilla);
         } else {
-            msg = new FacesMessage("", "actualización de Plantilla de Gestión Documental incorrecto");
+            MensajesJSF.muestraMensajes( "actualización de Plantilla de Gestión Documental incorrecto", "Error");
         }
         nuevoPlantillaObjeto();
         RequestContext.getCurrentInstance().execute("PF('actualizarPlantilla').hide()");
@@ -231,6 +232,7 @@ public class PlantillaBean implements Serializable {
         eliminarPlantillaLista(objetoPlantilla);
         RequestContext.getCurrentInstance().execute("PF('actualizarPlantilla').hide()");
         nuevoPlantillaObjeto();
+        MensajesJSF.muestraMensajes( "actualización de Plantilla de Gestión Documental correcto", "Mensaje");
     }
 
     /**

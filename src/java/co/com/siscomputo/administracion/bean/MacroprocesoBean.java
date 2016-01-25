@@ -8,6 +8,7 @@ package co.com.siscomputo.administracion.bean;
 import co.com.siscomputo.administracion.logic.MacroProcesosLogic;
 import co.com.siscomputo.endpoint.MacroprocesosEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
+import co.com.siscomputo.utilidades.MensajesJSF;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -121,10 +122,10 @@ public class MacroprocesoBean implements Serializable{
             MacroprocesosEntity macroprocesosEntity=macroProcesosLogic.ingresaMacroproceso(MacroProcesoObjetoInsercion);
             FacesMessage msg = null;
             if (macroprocesosEntity != null) {
-                msg = new FacesMessage("", "Macroproceso Ingresado Correctamente: " + macroprocesosEntity.getNombreMacroproceso());
+                MensajesJSF.muestraMensajes( "Macroproceso Ingresado Correctamente: " + macroprocesosEntity.getNombreMacroproceso(), "Mensaje");
                 adicionarMacroprocesoLista(macroprocesosEntity);
             } else {
-                msg = new FacesMessage("", "Macroproceso Ingresado Incorrectamente: " + macroprocesosEntity.getNombreMacroproceso());
+                MensajesJSF.muestraMensajes( "Macroproceso Ingresado Incorrectamente: " + macroprocesosEntity.getNombreMacroproceso(), "Error");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -151,8 +152,9 @@ public class MacroprocesoBean implements Serializable{
         FacesMessage msg = null;
         if ("Ok".equalsIgnoreCase(valida)) {
             actualizarListaMacroproceso(MacroProcesoObjeto);
+            MensajesJSF.muestraMensajes( "Macroproceso Actualizado Correctamente: " + MacroProcesoObjeto.getNombreMacroproceso(), "Mensaje");
         } else {
-
+            MensajesJSF.muestraMensajes( "Macroproceso Actualizado Incorrectamente: " + MacroProcesoObjeto.getNombreMacroproceso(), "Error");
         }
         nuevoMacroproceso();
         RequestContext.getCurrentInstance().execute("PF('actualizarMacroProcesos').hide()");
@@ -201,6 +203,7 @@ public class MacroprocesoBean implements Serializable{
         eliminarMacroprocesoLista(MacroProcesoObjeto);
         MacroProcesoObjeto = new MacroprocesosEntity();
         RequestContext.getCurrentInstance().execute("PF('eliminarMacroProcesos').hide()");
+        MensajesJSF.muestraMensajes( "Macroproceso Actualizado Correctamente: " + MacroProcesoObjeto.getNombreMacroproceso(), "Mensaje");
     }
     
     /**

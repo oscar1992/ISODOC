@@ -8,6 +8,7 @@ import co.com.siscomputo.endpoint.UsuarioSubprocesoEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.ObjetoRetornaEntity;
 import co.com.siscomputo.endpoint.UsuarioEntity;
+import co.com.siscomputo.utilidades.MensajesJSF;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -216,10 +217,10 @@ public class UsuarioSubprocesoBean implements Serializable {
                 ObjetoRetornaEntity retorna = usuarioSubprocesoLogic.insertarUsuarioSubproceso((ArrayList<String>) subpro.getTarget(), usuarioEntity, idAccion);
                 FacesMessage msg = null;
                 if (retorna != null) {
-                    msg = new FacesMessage("", "inserción de Usuario y su SubProceso correcto");
+                    MensajesJSF.muestraMensajes( "inserción de Usuario y su SubProceso correcto", "Mensaje");
 
                 } else {
-                    msg = new FacesMessage("", "inserción de Usuario y su SubProceso incorrecto");
+                    MensajesJSF.muestraMensajes( "inserción de Usuario y su SubProceso incorrecto", "Error");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -239,10 +240,10 @@ public class UsuarioSubprocesoBean implements Serializable {
         String valida = metodoRecuperacionLogic.actualizarUsuarioSubproceso(objetoUsuarioSubproceso);
         FacesMessage msg = null;
         if ("Ok".equalsIgnoreCase(valida)) {
-            msg = new FacesMessage("", "actualización de Usuario y su SubProceso correcto");
+            MensajesJSF.muestraMensajes( "actualización de Usuario y su SubProceso correcto", "Mensaje");
             actualizarUsuarioSubprocesoLista(objetoUsuarioSubproceso);
         } else {
-            msg = new FacesMessage("", "actualización de Usuario y su SubProceso incorrecto");
+            MensajesJSF.muestraMensajes( "actualización de Usuario y su SubProceso incorrecto", "Error");
         }
         nuevoUsuarioSubprocesoObjeto();
         RequestContext.getCurrentInstance().execute("PF('actualizarUsuarioSubproceso').hide()");

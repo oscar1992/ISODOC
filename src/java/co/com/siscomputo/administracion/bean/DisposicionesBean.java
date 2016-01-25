@@ -8,6 +8,7 @@ package co.com.siscomputo.administracion.bean;
 import co.com.siscomputo.administracion.logic.DisposicionesLogic;
 import co.com.siscomputo.endpoint.DisposicionesEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
+import co.com.siscomputo.utilidades.MensajesJSF;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -88,18 +89,18 @@ public class DisposicionesBean implements Serializable {
     public void setEliminar(boolean eliminar) {
         this.eliminar = eliminar;
     }
+
     @PostConstruct
-    public void init(){
+    public void init() {
         consultarDisosiciones();
         permisos();
     }
 
     public DisposicionesBean() {
-        disposiscionObjeto=new DisposicionesEntity();
-        disposiscionObjetoInsercion=new DisposicionesEntity();
+        disposiscionObjeto = new DisposicionesEntity();
+        disposiscionObjetoInsercion = new DisposicionesEntity();
     }
-    
-    
+
     /**
      * Método que trae la lista de dsipociciones disponibles
      */
@@ -121,10 +122,10 @@ public class DisposicionesBean implements Serializable {
             DisposicionesEntity disposicionesEntity = disposicionesLogic.ingresaDisposicion(disposiscionObjetoInsercion);
             FacesMessage msg = null;
             if (disposicionesEntity != null) {
-                msg = new FacesMessage("", "Inserción de disposición correcta" + disposicionesEntity.getNombreDisposiciones());
+                MensajesJSF.muestraMensajes("Inserción de disposición correcta" + disposicionesEntity.getNombreDisposiciones(), "Mensaje");
                 adicionarDisposicionLista(disposiscionObjeto);
             } else {
-                msg = new FacesMessage("", "Inserción de disposición incorrecta" + disposicionesEntity.getNombreDisposiciones());
+                MensajesJSF.muestraMensajes("Inserción de disposición incorrecta" + disposicionesEntity.getNombreDisposiciones(), "Error");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -141,86 +142,96 @@ public class DisposicionesBean implements Serializable {
     public void adicionarDisposicionLista(DisposicionesEntity disposiscionObjeto) {
         lista.add(disposiscionObjeto);
     }
+
     /**
      * Método que actializa una Disposición
      */
     public void actualizarDisposicion() {
         DisposicionesLogic disposicionesLogic = new DisposicionesLogic();
         String valida = disposicionesLogic.actualizarDisposicion(disposiscionObjeto);
-        FacesMessage msg=null;
+        FacesMessage msg = null;
         if ("Ok".equalsIgnoreCase(valida)) {
             actualizarDisposicionLista(disposiscionObjeto);
-            msg=new FacesMessage("","Disposiciones actualizado correctamente"+disposiscionObjeto.getNombreDisposiciones());
+            MensajesJSF.muestraMensajes( "Disposiciones actualizado correctamente" + disposiscionObjeto.getNombreDisposiciones(), "Mensaje");
         } else {
-            msg=new FacesMessage("","Disposiciones actualizado incorrectamente"+disposiscionObjeto.getNombreDisposiciones());
-        }       
+            MensajesJSF.muestraMensajes( "Disposiciones actualizado incorrectamente" + disposiscionObjeto.getNombreDisposiciones(), "Error");
+        }
         nuevoDisposicionObjeto();
         RequestContext.getCurrentInstance().execute("PF('actualizarDisposicion').hide()");
     }
+
     /**
-     * Método que reinicia el objeto disposción 
+     * Método que reinicia el objeto disposción
      */
     public void nuevoDisposicionObjeto() {
-        disposiscionObjeto=new DisposicionesEntity();
-        disposiscionObjetoInsercion=new DisposicionesEntity();
+        disposiscionObjeto = new DisposicionesEntity();
+        disposiscionObjetoInsercion = new DisposicionesEntity();
     }
+
     /**
      * Método que actualiza visualmente la lista de siaposiciones
-     * @param disposiscionObjeto 
+     *
+     * @param disposiscionObjeto
      */
     private void actualizarDisposicionLista(DisposicionesEntity disposiscionObjeto) {
         try {
-            ArrayList<DisposicionesEntity> listaaux=new ArrayList<>();
-            if(lista!=null){
-                for(DisposicionesEntity item:lista){
-                    if(disposiscionObjeto.getIdDisposirciones()==item.getIdDisposirciones()){
+            ArrayList<DisposicionesEntity> listaaux = new ArrayList<>();
+            if (lista != null) {
+                for (DisposicionesEntity item : lista) {
+                    if (disposiscionObjeto.getIdDisposirciones() == item.getIdDisposirciones()) {
                         listaaux.add(disposiscionObjeto);
-                    }else{
+                    } else {
                         listaaux.add(item);
                     }
                 }
             }
-            this.lista=new ArrayList<>();
-            this.lista=listaaux;
+            this.lista = new ArrayList<>();
+            this.lista = listaaux;
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
+
     /**
      * Método que se invoca al selecionar una fila de la tabla
-     * @param event 
+     *
+     * @param event
      */
-    public void onRowSelect(SelectEvent event){
-        disposiscionObjeto=(DisposicionesEntity)event.getObject();
+    public void onRowSelect(SelectEvent event) {
+        disposiscionObjeto = (DisposicionesEntity) event.getObject();
         System.out.println("dispo:");
     }
+
     /**
      * Método que elimina una disposición
      */
-    public void eliminarDisposicion(){
-        DisposicionesLogic disposicionesLogic=new DisposicionesLogic();
+    public void eliminarDisposicion() {
+        DisposicionesLogic disposicionesLogic = new DisposicionesLogic();
         disposiscionObjeto.setEstadoDisposiciones("E");;
         disposicionesLogic.actualizarDisposicion(disposiscionObjeto);
         eliminarDisposisionLista(disposiscionObjeto);
         RequestContext.getCurrentInstance().execute("PF('actualizarDisposicion').hide()");
         nuevoDisposicionObjeto();
+        MensajesJSF.muestraMensajes( "Disposiciones eliminados correctamente" + disposiscionObjeto.getNombreDisposiciones(), "Mensaje");
     }
+
     /**
      * Método que elimina visualmente una disposición de la lista
-     * @param disposiscionObjeto 
+     *
+     * @param disposiscionObjeto
      */
     private void eliminarDisposisionLista(DisposicionesEntity disposiscionObjeto) {
-        Iterator itr=lista.iterator();
+        Iterator itr = lista.iterator();
         while (itr.hasNext()) {
-            DisposicionesEntity disposicionesEntity=(DisposicionesEntity) itr.next();
-            if(disposicionesEntity.getIdDisposirciones()==disposiscionObjeto.getIdDisposirciones()){
+            DisposicionesEntity disposicionesEntity = (DisposicionesEntity) itr.next();
+            if (disposicionesEntity.getIdDisposirciones() == disposiscionObjeto.getIdDisposirciones()) {
                 itr.remove();
             }
-            
+
         }
-        
+
     }
+
     /**
      * Método que evalua los accesos al formulario
      */
@@ -233,7 +244,7 @@ public class DisposicionesBean implements Serializable {
             for (MenuPermisosEntity nivel1 : permisoObj.getSubNivel()) {
                 for (MenuPermisosEntity nivel2 : nivel1.getSubNivel()) {
                     int idPer = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idPermiso");
-                    
+
                     if (idPer == nivel2.getAsociadoMenu()) {
                         switch (nivel2.getNombrePermiso()) {
                             case "insert":

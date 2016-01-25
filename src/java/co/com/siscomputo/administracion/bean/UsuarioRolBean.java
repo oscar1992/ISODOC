@@ -13,6 +13,7 @@ import co.com.siscomputo.endpoint.ObjetoRetornaEntity;
 import co.com.siscomputo.endpoint.RolesEntity;
 import co.com.siscomputo.endpoint.UsuarioEntity;
 import co.com.siscomputo.endpoint.UsuarioRolEntity;
+import co.com.siscomputo.utilidades.MensajesJSF;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.annotation.PostConstruct;
@@ -228,10 +229,10 @@ public class UsuarioRolBean implements Serializable {
                 ObjetoRetornaEntity retorna = usuarioRolLogic.ingresaUsuarioRol((ArrayList<String>) roles.getTarget(), usuarioObjeto, idArea);
                 FacesMessage msg = null;
                 if (retorna.getRetorna() != null) {
-                    msg = new FacesMessage("", "UsuarioRol Ingresado Correctamente: " + retorna.getRetorna());
+                    MensajesJSF.muestraMensajes( "UsuarioRol Ingresado Correctamente: " + retorna.getRetorna(), "Mensaje");
                     
                 } else {
-                    msg = new FacesMessage("", "UsuarioRol Ingresado Incorrectamente: " + retorna.getRetorna());
+                    MensajesJSF.muestraMensajes( "UsuarioRol Ingresado Incorrectamente: " + retorna.getRetorna(), "Error");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -251,8 +252,9 @@ public class UsuarioRolBean implements Serializable {
         FacesMessage msg = null;
         if ("Ok".equalsIgnoreCase(valida)) {
             actualizarListaUsuarioRol(usuarioRolObjeto);
+            MensajesJSF.muestraMensajes( "UsuarioRol Ingresado Correctamente: " + usuarioRolObjeto.getUsuario().getNombre(), "Mensaje");
         } else {
-
+            MensajesJSF.muestraMensajes( "UsuarioRol Ingresado Incorrectamente: " + usuarioRolObjeto.getUsuario().getNombre(), "Error");
         }
         RequestContext.getCurrentInstance().execute("PF('actualizarUsuarioRol').hide()");
     }

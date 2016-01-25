@@ -10,6 +10,7 @@ import co.com.siscomputo.administracion.logic.ProcesosLogic;
 import co.com.siscomputo.endpoint.MacroprocesosEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.ProcesosEntity;
+import co.com.siscomputo.utilidades.MensajesJSF;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -123,10 +124,10 @@ public class ProcesosBean implements Serializable{
             ProcesosEntity procesosEntity=procesosLogic.ingresaProceso(procesosObjetoInsercion);
             FacesMessage msg=null;
             if(procesosEntity!=null){
-                msg = new FacesMessage("", "Proceso Ingresado Correctamente: " + procesosEntity.getNombrePreoceso());
+                MensajesJSF.muestraMensajes( "Proceso Ingresado Correctamente: " + procesosEntity.getNombrePreoceso(), "Mensaje");
                 adicionarProcesoLista(procesosEntity);
             }else{
-                msg = new FacesMessage("", "Proceso Ingresado Incorrectamente: " + procesosEntity.getNombrePreoceso());
+                MensajesJSF.muestraMensajes( "Proceso Ingresado Incorrectamente: " + procesosEntity.getNombrePreoceso(), "Error");
             }
         } catch (Exception e) {
             e.printStackTrace();

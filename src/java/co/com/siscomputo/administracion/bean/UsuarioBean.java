@@ -8,6 +8,7 @@ package co.com.siscomputo.administracion.bean;
 import co.com.siscomputo.administracion.logic.UsuarioLogic;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.UsuarioEntity;
+import co.com.siscomputo.utilidades.MensajesJSF;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -34,27 +35,25 @@ public class UsuarioBean implements Serializable {
     private boolean eliminar;
     private ArrayList<UsuarioEntity> list;
     private ArrayList<UsuarioEntity> listfiltro;
-    
-    
+
     @PostConstruct
     public void init() {
-        
+
         consultaUsuarios();
         permisos();
     }
 
     public UsuarioBean() {
-        usuarioObjeto=new UsuarioEntity();
-        usuarioObjetoInsercion=new UsuarioEntity();
+        usuarioObjeto = new UsuarioEntity();
+        usuarioObjetoInsercion = new UsuarioEntity();
     }
-    
-    
+
     /**
      * Método con la cual cargo la lista de usuarios desde el boton
      */
     public void consultaUsuarios() {
         try {
-            UsuarioLogic usuarioLogic=new UsuarioLogic();
+            UsuarioLogic usuarioLogic = new UsuarioLogic();
             list = usuarioLogic.listaUsuarios();
         } catch (Exception e) {
             e.printStackTrace();
@@ -92,7 +91,7 @@ public class UsuarioBean implements Serializable {
     public void setUsuarioObjetoInsercion(UsuarioEntity usuarioObjetoInsercion) {
         this.usuarioObjetoInsercion = usuarioObjetoInsercion;
     }
-     
+
     /**
      * Funcion con la cual inserto un usuario en el sistema
      */
@@ -103,10 +102,10 @@ public class UsuarioBean implements Serializable {
             UsuarioEntity usuarioInserto = logicaUsuario.ingresarUsuario(usuarioObjetoInsercion);
             FacesMessage msg = null;
             if (usuarioInserto != null) {
-                msg = new FacesMessage("", "Usuario insertado correctamente: " + (usuarioObjeto.getNombre()));
+                MensajesJSF.muestraMensajes( "Usuario insertado correctamente: " + (usuarioObjeto.getNombre()), "Mensaje");
                 adicionaUsuarioLista(usuarioInserto);
             } else {
-                msg = new FacesMessage("", "Error al insertar el usuario: " + (usuarioObjeto.getNombre()));
+                MensajesJSF.muestraMensajes( "Error al insertar el usuario: " + (usuarioObjeto.getNombre()), "Error");
             }
             RequestContext.getCurrentInstance().execute("PF('insertarUsuario').hide()");
 
@@ -130,7 +129,7 @@ public class UsuarioBean implements Serializable {
         } else {
 
         }
-        usuarioObjeto=new UsuarioEntity();
+        usuarioObjeto = new UsuarioEntity();
         RequestContext.getCurrentInstance().execute("PF('actualizarUsuario').hide()");
     }
 
@@ -168,9 +167,11 @@ public class UsuarioBean implements Serializable {
     public void adicionaUsuarioLista(UsuarioEntity objEntity) {
         list.add(objEntity);
     }
+
     /**
      * Método que elimina visualmemte un usuario de la lista
-     * @param objEntity 
+     *
+     * @param objEntity
      */
     public void eliminarUsuarioLista(UsuarioEntity objEntity) {
         Iterator itr = list.iterator();
@@ -190,8 +191,9 @@ public class UsuarioBean implements Serializable {
         usuarioObjeto.setEstado("E");
         logicaUsusario.actualizarUsuario(usuarioObjeto);
         eliminarUsuarioLista(usuarioObjeto);
-        usuarioObjeto=new UsuarioEntity();
+        usuarioObjeto = new UsuarioEntity();
         RequestContext.getCurrentInstance().execute("PF('actualizarUsuario').hide()");
+        MensajesJSF.muestraMensajes( "Usuario eliminado correctamente: " + (usuarioObjeto.getNombre()), "Mensaje");
     }
 
     /**
@@ -225,17 +227,17 @@ public class UsuarioBean implements Serializable {
     public void setEliminar(boolean eliminar) {
         this.eliminar = eliminar;
     }
-    
-    
+
     /**
      * Método que recoje el evento de la selecion de la tabla y obtiene el
      * objeto de la selección
      *
      * @param event
      */
-    public void onRowSelect(SelectEvent event) {        
+    public void onRowSelect(SelectEvent event) {
         usuarioObjeto = (UsuarioEntity) event.getObject();
     }
+
     /**
      * Método que evalua los accesos al formulario
      */

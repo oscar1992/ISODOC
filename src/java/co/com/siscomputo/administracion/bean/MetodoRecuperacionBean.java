@@ -8,6 +8,7 @@ package co.com.siscomputo.administracion.bean;
 import co.com.siscomputo.administracion.logic.MetodoRecuperacionLogic;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.MetodoRecuperacionEntity;
+import co.com.siscomputo.utilidades.MensajesJSF;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.annotation.PostConstruct;
@@ -25,6 +26,7 @@ import org.primefaces.event.SelectEvent;
 @ManagedBean(name = "MetodoRecuperacion")
 @ViewScoped
 public class MetodoRecuperacionBean {
+
     ArrayList<MetodoRecuperacionEntity> lista;
     ArrayList<MetodoRecuperacionEntity> listaFiltro;
     MetodoRecuperacionEntity metodoRecuperacionObjeto;
@@ -88,132 +90,148 @@ public class MetodoRecuperacionBean {
     public void setEliminar(boolean eliminar) {
         this.eliminar = eliminar;
     }
+
     @PostConstruct
-    public void init(){
+    public void init() {
         consultarMetodoRecuperacion();
         permisos();
     }
 
     public MetodoRecuperacionBean() {
-        metodoRecuperacionObjeto=new MetodoRecuperacionEntity();
-        metodoRecuperacionObjetoInsercion=new MetodoRecuperacionEntity();
+        metodoRecuperacionObjeto = new MetodoRecuperacionEntity();
+        metodoRecuperacionObjetoInsercion = new MetodoRecuperacionEntity();
     }
+
     /**
      * Método que tra una lista de Métodos Disponibles
      */
-    public void consultarMetodoRecuperacion(){
+    public void consultarMetodoRecuperacion() {
         try {
-            MetodoRecuperacionLogic metodoRecuperacionLogic=new MetodoRecuperacionLogic();
-            lista=metodoRecuperacionLogic.listaMetodosRecuperacion();            
+            MetodoRecuperacionLogic metodoRecuperacionLogic = new MetodoRecuperacionLogic();
+            lista = metodoRecuperacionLogic.listaMetodosRecuperacion();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Método que permite insertar un Método de Recuperación nuevo
      */
-    public void instertarMetodoRecuperacion(){
+    public void instertarMetodoRecuperacion() {
         try {
-            MetodoRecuperacionLogic metodoRecuperacionLogic=new MetodoRecuperacionLogic();
-            MetodoRecuperacionEntity metodoRecuperacionEntity=metodoRecuperacionLogic.inserttarMetodoRecuperaciom(metodoRecuperacionObjetoInsercion);
-            FacesMessage msg=null;
-            if(metodoRecuperacionEntity!=null){
-                msg=new FacesMessage("", "inserción de Método de Recuperación correcto");
+            MetodoRecuperacionLogic metodoRecuperacionLogic = new MetodoRecuperacionLogic();
+            MetodoRecuperacionEntity metodoRecuperacionEntity = metodoRecuperacionLogic.inserttarMetodoRecuperaciom(metodoRecuperacionObjetoInsercion);
+            FacesMessage msg = null;
+            if (metodoRecuperacionEntity != null) {
+                MensajesJSF.muestraMensajes( "inserción de Método de Recuperación correcto", "Mensaje");
                 adicionarMetodocuperacionLista(metodoRecuperacionEntity);
-            }else{
-                msg=new FacesMessage("", "inserción de Método de Recuperación incorrecto");
+            } else {
+                MensajesJSF.muestraMensajes( "inserción de Método de Recuperación incorrecto", "Error");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Método que añade un Método de Recuperación visualmente
-     * @param metodoRecuperacionObjeto 
+     *
+     * @param metodoRecuperacionObjeto
      */
     private void adicionarMetodocuperacionLista(MetodoRecuperacionEntity metodoRecuperacionObjeto) {
         lista.add(metodoRecuperacionObjeto);
     }
+
     /**
      * Método que permite actualizar un Método de Recuperación
      */
-    public void actualizarMetodoRecuperacion(){
-        MetodoRecuperacionLogic metodoRecuperacionLogic=new MetodoRecuperacionLogic();
-        String valida=metodoRecuperacionLogic.actualizarMetodoRecuperacion(metodoRecuperacionObjeto);
-        FacesMessage msg=null;
-        if("Ok".equalsIgnoreCase(valida)){
-            msg=new FacesMessage("", "actualización de Método de Recuperación correcto");
+    public void actualizarMetodoRecuperacion() {
+        MetodoRecuperacionLogic metodoRecuperacionLogic = new MetodoRecuperacionLogic();
+        String valida = metodoRecuperacionLogic.actualizarMetodoRecuperacion(metodoRecuperacionObjeto);
+        FacesMessage msg = null;
+        if ("Ok".equalsIgnoreCase(valida)) {
+            MensajesJSF.muestraMensajes( "actualización de Método de Recuperación correcto", "Mensaje");
             actualizarMetodoRecuperacionLista(metodoRecuperacionObjeto);
-        }else{
-            msg=new FacesMessage("", "actualización de Método de Recuperación incorrecto");
+        } else {
+            MensajesJSF.muestraMensajes( "actualización de Método de Recuperación incorrecto", "Error");
         }
         nuevoMetodoRecuperacionObjeto();
         RequestContext.getCurrentInstance().execute("PF('actualizarMetodoRecuperacion').hide()");
     }
+
     /**
      * Método que actualiza visualmente la lista de Métodos de Recuperación
-     * @param metodoRecuperacionObjeto 
+     *
+     * @param metodoRecuperacionObjeto
      */
     private void actualizarMetodoRecuperacionLista(MetodoRecuperacionEntity metodoRecuperacionObjeto) {
         try {
-            ArrayList<MetodoRecuperacionEntity>listaaux=new ArrayList<>();
-            if(lista!=null){
-                for(MetodoRecuperacionEntity item:lista){
-                    System.out.println("V1: "+metodoRecuperacionObjeto.getIdMetodoRecuperacion());
-                    System.out.println("V2: "+item.getIdMetodoRecuperacion());
-                    int v1=metodoRecuperacionObjeto.getIdMetodoRecuperacion();
-                    int v2=item.getIdMetodoRecuperacion();
-                    if(v1==v2){
+            ArrayList<MetodoRecuperacionEntity> listaaux = new ArrayList<>();
+            if (lista != null) {
+                for (MetodoRecuperacionEntity item : lista) {
+                    System.out.println("V1: " + metodoRecuperacionObjeto.getIdMetodoRecuperacion());
+                    System.out.println("V2: " + item.getIdMetodoRecuperacion());
+                    int v1 = metodoRecuperacionObjeto.getIdMetodoRecuperacion();
+                    int v2 = item.getIdMetodoRecuperacion();
+                    if (v1 == v2) {
                         listaaux.add(metodoRecuperacionObjeto);
-                    }else{
+                    } else {
                         listaaux.add(item);
                     }
                 }
             }
-            this.lista=new ArrayList<>();
-            this.lista=listaaux;
+            this.lista = new ArrayList<>();
+            this.lista = listaaux;
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Método que se invoca al seleccionar una fila de la tabla
-     * @param event 
+     *
+     * @param event
      */
-    public void onRowSelect(SelectEvent event){
-        metodoRecuperacionObjeto=(MetodoRecuperacionEntity)event.getObject();
+    public void onRowSelect(SelectEvent event) {
+        metodoRecuperacionObjeto = (MetodoRecuperacionEntity) event.getObject();
     }
+
     /**
-    Método que elimina un Método de Recuperación
-    */
-    public void eliminarMetodoRecuperacion(){
-        MetodoRecuperacionLogic metodoRecuperacionLogic=new MetodoRecuperacionLogic();
+     * Método que elimina un Método de Recuperación
+     */
+    public void eliminarMetodoRecuperacion() {
+        MetodoRecuperacionLogic metodoRecuperacionLogic = new MetodoRecuperacionLogic();
         metodoRecuperacionObjeto.setEstadoMetodoRecuperacion("E");
         metodoRecuperacionLogic.actualizarMetodoRecuperacion(metodoRecuperacionObjeto);
         eliminarMetodoRecuperacionLista(metodoRecuperacionObjeto);
         RequestContext.getCurrentInstance().execute("PF('actualizarMetodoRecuperacion').hide()");
         nuevoMetodoRecuperacionObjeto();
+        MensajesJSF.muestraMensajes( "Eliminación de Método de Recuperación correcto", "Mensaje");
     }
+
     /**
      * Método que elimina visualmente un objeto de la lista
-     * @param metodoRecuperacionObjeto 
+     *
+     * @param metodoRecuperacionObjeto
      */
     private void eliminarMetodoRecuperacionLista(MetodoRecuperacionEntity metodoRecuperacionObjeto) {
-        Iterator itr=lista.iterator();
-        while(itr.hasNext()){
-            MetodoRecuperacionEntity metodoRecuperacionEntity=(MetodoRecuperacionEntity) itr.next();
-            if(metodoRecuperacionEntity.getIdMetodoRecuperacion()==metodoRecuperacionObjeto.getIdMetodoRecuperacion()){
+        Iterator itr = lista.iterator();
+        while (itr.hasNext()) {
+            MetodoRecuperacionEntity metodoRecuperacionEntity = (MetodoRecuperacionEntity) itr.next();
+            if (metodoRecuperacionEntity.getIdMetodoRecuperacion() == metodoRecuperacionObjeto.getIdMetodoRecuperacion()) {
                 itr.remove();
             }
         }
     }
+
     /**
      * Método que reinicia el objeto Método de recuperación
      */
     public void nuevoMetodoRecuperacionObjeto() {
-        metodoRecuperacionObjeto=new MetodoRecuperacionEntity();
-        metodoRecuperacionObjetoInsercion=new MetodoRecuperacionEntity();
+        metodoRecuperacionObjeto = new MetodoRecuperacionEntity();
+        metodoRecuperacionObjetoInsercion = new MetodoRecuperacionEntity();
     }
+
     /**
      * Método que evalua los accesos al formulario
      */
