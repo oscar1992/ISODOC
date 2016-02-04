@@ -9,6 +9,8 @@ import co.com.siscomputo.endpoint.Administacion;
 import co.com.siscomputo.endpoint.Administacion_Service;
 import co.com.siscomputo.endpoint.GestionDocumental;
 import co.com.siscomputo.endpoint.GestionDocumental_Service;
+import co.com.siscomputo.endpoint.Proveedores;
+import co.com.siscomputo.endpoint.Proveedores_Service;
 import co.com.siscomputo.endpoint.Usuario;
 import co.com.siscomputo.endpoint.Usuario_Service;
 import java.net.URL;
@@ -59,6 +61,19 @@ public interface IurlWebService {
             String url=singl.getGestion();
             GestionDocumental_Service webService=new GestionDocumental_Service(new URL(url));
             port=webService.getGestionDocumentalPort();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return port;
+    }
+    
+    default Proveedores portProveedores(){
+        Proveedores port=null;
+        try {
+            SingletonDirecciones singl= SingletonDirecciones.getDirecciones();
+            String url=singl.getGestion();
+            Proveedores_Service webService=new Proveedores_Service(new URL(url));
+            port=webService.getProveedoresPort();
         } catch (Exception e) {
             e.printStackTrace();
         }

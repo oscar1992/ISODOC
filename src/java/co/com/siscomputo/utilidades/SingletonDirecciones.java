@@ -17,6 +17,7 @@ public class SingletonDirecciones {
     private String usuario;
     private String gestion;
     private String administracion;
+    private String proveedrores;
     private static SingletonDirecciones direcciones;
     
     public static SingletonDirecciones getDirecciones(){
@@ -32,9 +33,11 @@ public class SingletonDirecciones {
             usuario = (String) initCtx.lookup("java:comp/env/usuario");
             gestion = (String) initCtx.lookup("java:comp/env/gestion");
             administracion = (String) initCtx.lookup("java:comp/env/administracion");
+            proveedrores = (String) initCtx.lookup("java:comp/env/proveedores");            
             System.out.println("usu: "+usuario);
             System.out.println("usu: "+gestion);
             System.out.println("usu: "+administracion);
+            System.out.println("usu: "+proveedrores);
         } catch (NamingException namingException) {
             System.out.println("ERROR leyendo la url del endpoint");
             namingException.printStackTrace();
