@@ -8,13 +8,10 @@ package co.com.siscomputo.gestiondocumental.bean;
 import co.com.siscomputo.administracion.bean.ListaAdministracionBean;
 import co.com.siscomputo.administracion.logic.AccionLogic;
 import co.com.siscomputo.administracion.logic.GrupoProcesoLogic;
-import co.com.siscomputo.administracion.logic.MacroProcesosLogic;
 import co.com.siscomputo.administracion.logic.NivelLogic;
-import co.com.siscomputo.administracion.logic.PlantillaLogic;
 import co.com.siscomputo.administracion.logic.ProcesoLogic;
-import co.com.siscomputo.administracion.logic.ProcesosLogic;
-import co.com.siscomputo.administracion.logic.SubProcesosLogic;
 import co.com.siscomputo.administracion.logic.TiposDocumentalesLogic;
+import co.com.siscomputo.administracion.logic.UsuarioLogic;
 import co.com.siscomputo.endpoint.AccionEntity;
 import co.com.siscomputo.endpoint.DocumentoEntity;
 import co.com.siscomputo.endpoint.EmpresaEntity;
@@ -29,17 +26,19 @@ import co.com.siscomputo.endpoint.ProcesoEntity;
 import co.com.siscomputo.endpoint.ProcesosEntity;
 import co.com.siscomputo.endpoint.SubprocesoEntity;
 import co.com.siscomputo.endpoint.TiposDocumentalesEntity;
+import co.com.siscomputo.endpoint.UsuarioDocumentoEntity;
+import co.com.siscomputo.endpoint.UsuarioEntity;
 import co.com.siscomputo.gestiondocumental.entities.GrupoUsuarioAccionProcesoEntity;
 import co.com.siscomputo.gestiondocumental.logic.DocumentoLogic;
 import co.com.siscomputo.gestiondocumental.logic.GrupoDocumentoLogic;
+import co.com.siscomputo.gestiondocumental.logic.UsuarioDocumentoLogic;
 import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -48,10 +47,8 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.xml.datatype.XMLGregorianCalendar;
 import org.primefaces.context.RequestContext;
-import org.primefaces.event.SelectEvent;
-import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.event.TransferEvent;
 import org.primefaces.model.DualListModel;
-import org.primefaces.model.TreeNode;
 
 /**
  *
@@ -71,13 +68,16 @@ public class crearDocumentoBean implements Serializable {
     private ArrayList<ArrayList<ProcesoEntity>> listaProcesos;
     private ArrayList<HashMap<String, Integer>> desplegablesProcesos;
     private ArrayList<NivelEntity> listaNivel;
-
     private Integer tope;
     private Integer idProceso;
     private String consecutivo;
+    private ArrayList<String> aux;
+    private boolean flag;
     private HashMap<String, GrupoUsuariosEntity> mapaGrupos;
     private ArrayList<GrupoUsuarioAccionProcesoEntity> usuarioAccionProcesoEntity;
     private ArrayList<ProcesoEntity> listaSeleccion;
+    private HashMap<String, Integer> listaIdsUsuarios;
+
     private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
@@ -162,8 +162,6 @@ public class crearDocumentoBean implements Serializable {
         this.listaNivel = listaNivel;
     }
 
-
-
     public Integer getTope() {
         return tope;
     }
@@ -202,6 +200,14 @@ public class crearDocumentoBean implements Serializable {
 
     public void setListaSeleccion(ArrayList<ProcesoEntity> listaSeleccion) {
         this.listaSeleccion = listaSeleccion;
+    }
+
+    public HashMap<String, Integer> getListaIdsUsuarios() {
+        return listaIdsUsuarios;
+    }
+
+    public void setListaIdsUsuarios(HashMap<String, Integer> listaIdsUsuarios) {
+        this.listaIdsUsuarios = listaIdsUsuarios;
     }
 
     public boolean isIngresar() {
@@ -309,14 +315,21 @@ public class crearDocumentoBean implements Serializable {
      * Método que permite insertar un Documento nuevo
      */
     public void instertarDocumento() {
-        
+
         try {
-            ProcesoEntity procesoSeleccion=new ProcesoEntity();
-            for(ProcesoEntity proceso:lista){
-                if(proceso.getIdProceso()==idProceso){
-                    procesoSeleccion=proceso;
+            System.out.println("TAMA: " + listaIdsUsuarios.size());
+            for (Map.Entry<String, Integer> entrySet : listaIdsUsuarios.entrySet()) {
+                String nom = entrySet.getKey();
+                Integer id = entrySet.getValue();
+                System.out.println("NOMBRE: " + nom + " || " + id);
+            }
+
+            ProcesoEntity procesoSeleccion = new ProcesoEntity();
+            for (ProcesoEntity proceso : lista) {
+                if (proceso.getIdProceso() == idProceso) {
+                    procesoSeleccion = proceso;
                 }
-            }            
+            }
             objetoDocumentoInsercion.setProcesoDocumento(procesoSeleccion);
             DocumentoLogic documentoLogic = new DocumentoLogic();
             DocumentoEntity documentoEntity = documentoLogic.insertarDocumento(objetoDocumentoInsercion);
@@ -339,10 +352,20 @@ public class crearDocumentoBean implements Serializable {
                 //grupoDocumentoEntity.setFecha(calendar);  
                 grupoDocumentoEntity.setFecha(listaUAPE.getFechaLimite());
                 //System.out.println("CALENDAR: "+grupoDocumentoEntity.getFecha().toString());
-                //System.out.println("Lista: "+listaUAPE.getAccion().getNombreAccion());
-                //System.out.println("TTT: "+listaUAPE.getFechaLimite());
+                System.out.println("Lista: " + listaUAPE.getAccion().getNombreAccion());
+                //System.out.println("TTT: "+listaUAPE.getFechaLimite());}
+                System.out.println("listaU: " + listaUAPE.getSeleccionDual().getTarget().size());
                 for (Object nomb : listaUAPE.getSeleccionDual().getTarget()) {
-                    //System.out.println("NOMB: "+nomb);
+                    System.out.println("NOMB: " + nomb);
+                    int ids = listaIdsUsuarios.get(nomb);
+                    UsuarioLogic usuarioLogic = new UsuarioLogic();
+                    UsuarioEntity usuarioEntity = usuarioLogic.usuarioPorID(ids);
+                    UsuarioDocumentoLogic usuarioDocumentoLogic = new UsuarioDocumentoLogic();
+                    UsuarioDocumentoEntity usuarioDocumentoEntity = new UsuarioDocumentoEntity();
+                    usuarioDocumentoEntity.setDocumentoUsuarioDocumento(documentoEntity);
+                    usuarioDocumentoEntity.setUsuarioUsuarioDocumento(usuarioEntity);
+                    usuarioDocumentoLogic.insertarUsuarioDocumento(usuarioDocumentoEntity);
+                    System.out.println("IDS: " + ids);
                     GrupoUsuariosEntity grupoUsuariosEntity = new GrupoUsuariosEntity();
                     grupoUsuariosEntity = mapaGrupos.get(nomb);
                     grupoDocumentoEntity.setGrupousuariosGrupoDocumento(grupoUsuariosEntity);
@@ -417,6 +440,7 @@ public class crearDocumentoBean implements Serializable {
         GrupoUsuarioAccionProcesoEntity usuaccipro = new GrupoUsuarioAccionProcesoEntity();
         usuarioAccionProcesoEntity = new ArrayList<>();
         mapaGrupos = new HashMap<String, GrupoUsuariosEntity>();
+
         for (AccionEntity accion : listaAccion) {
             usuaccipro = new GrupoUsuarioAccionProcesoEntity();
             nombres = new ArrayList<>();
@@ -429,14 +453,13 @@ public class crearDocumentoBean implements Serializable {
                 nombres.add(grupoproceso.getGrupoUsuarioProceso().getNombreGrupoUsuarios());
                 mapaGrupos.put(grupoproceso.getGrupoUsuarioProceso().getNombreGrupoUsuarios(), grupoproceso.getGrupoUsuarioProceso());
             }
-            usuaccipro.setNombres(nombres);
-            usuaccipro.setSelecion(selecion);
-            lista = new DualListModel(nombres, selecion);
+            //usuaccipro.setNombres(nombres);
+            //usuaccipro.setSelecion(selecion);
+            usuaccipro.setListaGrupos(nombres);
+            lista = new DualListModel(new ArrayList<String>(), selecion);
             usuaccipro.setSeleccionDual(lista);
             Date fecha = new Date(System.currentTimeMillis());
-
             SimpleDateFormat forma = new SimpleDateFormat("dd/MM/yyyy");
-
             usuaccipro.setFechaLimite("" + forma.format(fecha));
             usuarioAccionProcesoEntity.add(usuaccipro);
         }
@@ -457,6 +480,7 @@ public class crearDocumentoBean implements Serializable {
     }
 
     public void evalua() {
+        listaIdsUsuarios = new HashMap<>();
         System.out.println("tama: " + listaProcesosSeleccion.length);
         boolean bandera = true;
         int i = 0;
@@ -484,6 +508,13 @@ public class crearDocumentoBean implements Serializable {
         iniciaAcciones();
     }
 
+    /**
+     * Método que trae un proceso por nivel y por asociado
+     *
+     * @param nivel
+     * @param asociado
+     * @return
+     */
     public HashMap<String, Integer> ProcesosPorNivelAsociado(int nivel, Integer asociado) {
         HashMap<String, Integer> retorna = new HashMap<>();
         ListaAdministracionBean listaAdministracionBean = new ListaAdministracionBean();
@@ -492,8 +523,164 @@ public class crearDocumentoBean implements Serializable {
         return retorna;
     }
 
+    public void buscaUsuarios() {
+        for (GrupoUsuarioAccionProcesoEntity nombre : usuarioAccionProcesoEntity) {
+            if (nombre.getGrupo() == null) {
+                ArrayList<String> source = new ArrayList<>();
+                source.add("");
+                DualListModel listad = new DualListModel(new ArrayList<String>(), new ArrayList<String>());
+                nombre.setSeleccionDual(listad);
+            } else {
+                System.out.println("Usuarios: " + nombre.getGrupo().toString());
+                GrupoUsuariosEntity gue = mapaGrupos.get(nombre.getGrupo().toString());
+                UsuarioLogic usuarioLogic = new UsuarioLogic();
+                ArrayList<String> nombreUsuario = new ArrayList<>();
+                ArrayList<UsuarioEntity> usuarios = usuarioLogic.usuariosPorGrupo(gue.getIdGrupoUsuarios());
+                for (UsuarioEntity usuario : usuarios) {
+                    nombreUsuario.add(usuario.getNombre());
+
+                    if (listaIdsUsuarios == null) {
+
+                    } else {
+                        listaIdsUsuarios.put(usuario.getNombre(), usuario.getIdUsuario());
+                    }
+                    System.out.println("USU: " + usuario.getNombre());
+                }
+                ArrayList<String> auxnombres = nombreUsuario;
+                nombre.setListaUsuarios(auxnombres);
+                DualListModel listad = new DualListModel(nombreUsuario, nombre.getSeleccionDual().getTarget());
+                nombre.setSeleccionDual(listad);
+            }
+        }
+    }
+
+    /**
+     * Método que limita a un solo usuario los picklists
+     *
+     *
+     * @param event
+     */
+    public void limita(TransferEvent event) throws InterruptedException {
+
+        //flag = true;
+        if (event == null) {
+            System.out.println("nuloo");
+        } else {
+            if (event.isAdd()) {
+                for (GrupoUsuarioAccionProcesoEntity nombre : usuarioAccionProcesoEntity) {
+                    if (nombre.getAccion().getIdAccion()!=1) {
+                    }else{
+                        ArrayList<String> listaAaux = new ArrayList<String>();
+                        int suma = 0;
+                        ArrayList<String> listaC = new ArrayList<String>();
+
+                        nombre.getSeleccionDual().setTarget(listaC);
+                        System.out.println(flag);
+                        if (flag == true) {
+                            nombre.setListaUsuarios((ArrayList<String>) nombre.getSeleccionDual().getSource());
+                            //System.out.println("TAMA: " + nombre.getListaUsuarios().size());
+                            suma = 1;
+                        } else {
+                            suma = 0;
+                        }
+                        String[] listaB = null;
+                        if (nombre.getListaUsuarios() == null) {
+                        } else {
+
+                            listaAaux = nombre.getListaUsuarios();
+                            listaB = new String[(listaAaux.size()) + suma];
+                            //System.out.println("TAMA2: " + nombre.getListaUsuarios().size());
+
+                            listaC = (ArrayList<String>) event.getItems();
+                            
+
+                            if (flag) {
+                                listaAaux.addAll((Collection<? extends String>) event.getItems());
+                                flag = false;
+                            }
+                            nombre.setListaUsuarios(listaAaux);
+                            for (Object trae : nombre.getListaUsuarios()) {
+                                //System.out.println("Lista Aantes: " + trae.toString());
+                            }
+                            if (listaC.size() > 1) {
+                                //listaC.addAll(nombre.getSeleccionDual().getTarget());
+                                //System.out.println("Se pasó: "+listaC.size());
+                                listaB =new String[listaAaux.size()];
+                                for (int i = 0; i < listaAaux.size(); i++) {                                    
+                                        listaB[i] = listaAaux.get(i);
+                                                                           
+                                }
+                                listaC = new ArrayList<>();
+                            } else {
+                                for (int i = 0; i < listaAaux.size(); i++) {
+                                    //System.out.println("A: " + listaAaux.get(i));
+                                    listaB[i] = listaAaux.get(i);
+                                }
+                            }
+                            for (String nombb : listaC) {
+                                //System.out.println("LISTA C:" + nombb);
+                            }
+                            //System.out.println("LISTAC: " + listaC.size());
+                            int id = -1;
+                            for (int i = 0; i < listaB.length; i++) {
+                                for (int j = 0; j < listaC.size(); j++) {
+                                    //System.out.println("COMPARA: " + listaB[i] + " - " + listaC.get(j));
+                                    if (listaB[i].equalsIgnoreCase(listaC.get(j))) {
+                                        id = i;
+                                        //System.out.println("ID: " + id);
+                                    }
+                                }
+                            }
+                            try {
+
+                                listaB[id] = null;
+                                String[] listaborra2 = new String[listaB.length - 1];
+                                int j = 0;
+                                for (int i = 0; i < listaB.length; i++) {
+                                    //System.out.println("QUIEN: " + listaB[i]);
+                                    if (listaB[i] == null || listaB[i].equalsIgnoreCase("null")) {
+                                        //System.out.println("Nulo: " + listaB[i]);
+                                    } else {
+                                        listaborra2[j] = listaB[i];
+                                        //System.out.println("listaborra[" + j + "]: " + listaborra2[j]);
+                                        j++;
+                                    }
+                                }
+                                listaB = new String[listaborra2.length];
+                                listaB = listaborra2;
+
+                            } catch (Exception e) {
+                                System.out.println("Exception: " + e);
+                            }
+
+                            for (String nombb : listaB) {
+                                System.out.println("Lista B: " + nombb);
+                            }
+
+                            nombre.getListaUsuarios().stream().forEach((trae) -> {
+                                System.out.println("Lista A: " + trae);
+                            });
+                        }
+                        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx");
+                        if (nombre.getListaUsuarios() == null) {
+
+                        } else {
+                            ArrayList listaBaux = new ArrayList();
+                            for (int i = 0; i < listaB.length; i++) {
+                                listaBaux.add(listaB[i]);
+                            }
+                            nombre.getSeleccionDual().setSource(listaBaux);
+                            nombre.getSeleccionDual().setTarget(listaC);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     public void inicializa() {
         objetoProceso = new ProcesoEntity();
+        flag = true;
     }
 
     /**

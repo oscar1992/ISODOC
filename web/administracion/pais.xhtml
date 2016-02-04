@@ -56,7 +56,7 @@
                             <h:outputText value="Código del Pais"></h:outputText>
                             <p:inputText required="true" label="codigo del Pais" value="#{Paises.paisObjetoInsercion.codPais}"/>
                             <h:outputText value="Estado del Pais"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarSede" value="#{Paises.paisObjetoInsercion.estadoPais}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableIngresarSede" value="#{Paises.paisObjetoInsercion.estadoPais}" style="width: 150px;" required="true">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
@@ -73,7 +73,7 @@
                             <h:outputText value="Código del Pais"></h:outputText>
                             <p:inputText required="true" label="codigo del Pais" value="#{Paises.paisObjeto.codPais}"/>
                             <h:outputText value="Estado del Pais"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarSede" value="#{Paises.paisObjeto.estadoPais}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableIngresarSede" value="#{Paises.paisObjeto.estadoPais}" style="width: 150px;" required="true">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>

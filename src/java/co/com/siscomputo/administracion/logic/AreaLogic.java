@@ -6,9 +6,7 @@
 package co.com.siscomputo.administracion.logic;
 
 import co.com.siscomputo.endpoint.AreaEntity;
-import co.com.siscomputo.endpoint.Usuario;
-import co.com.siscomputo.endpoint.Usuario_Service;
-import java.net.URL;
+import co.com.siscomputo.utilidades.IurlWebService;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,26 +14,19 @@ import java.util.List;
  *
  * @author LENOVO
  */
-public class AreaLogic {
-    private Usuario_Service webService;
-    private Usuario port;
+public class AreaLogic implements IurlWebService{
+
     private List areas;
     
-    /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
-     */
-    public void webService() {
-        webService = new Usuario_Service();
-        port = webService.getUsuarioPort();
-    }
+
 
     public AreaLogic() {
         init();
     }
     
     public void init(){
-        webService();
-        areas=(List)port.listaAreas().getRetorna();
+        
+        areas=(List)portUsuario().listaAreas().getRetorna();
     }
 
     public List getAreas() {
@@ -52,8 +43,8 @@ public class AreaLogic {
     public ArrayList<AreaEntity> listaAreas(){
         ArrayList<AreaEntity> lista=new ArrayList<>();
         ArrayList<Object> listaObjeto;
-        webService();
-        listaObjeto=(ArrayList<Object>)port.listaAreas().getRetorna();
+        
+        listaObjeto=(ArrayList<Object>)portUsuario().listaAreas().getRetorna();
         for(Object item:listaObjeto){
             AreaEntity area=(AreaEntity)item;
             lista.add(area);
@@ -66,10 +57,10 @@ public class AreaLogic {
      * @return 
      */
     public AreaEntity ingresarArea(AreaEntity area){
-        webService();
+        
         AreaEntity areaRta=null;
         try {
-            areaRta=port.insertarArea(area);
+            areaRta=portUsuario().insertarArea(area);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -81,10 +72,10 @@ public class AreaLogic {
      * @return 
      */
     public String actualizarArea(AreaEntity area){
-        webService();
+        
         String rta="";
         try {
-            if(port.actualizarArea(area)!=null){
+            if(portUsuario().actualizarArea(area)!=null){
                 rta="Ok";
             }else{
                 rta="Error";

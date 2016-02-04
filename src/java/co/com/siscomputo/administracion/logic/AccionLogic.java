@@ -1,8 +1,7 @@
 package co.com.siscomputo.administracion.logic;
 
-import co.com.siscomputo.endpoint.Administacion;
-import co.com.siscomputo.endpoint.Administacion_Service;
 import co.com.siscomputo.endpoint.AccionEntity;
+import co.com.siscomputo.utilidades.IurlWebService;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,17 +9,9 @@ import java.util.List;
  *
  * @author LENOVO
  */
-public class AccionLogic {private Administacion_Service webService;
-    private Administacion port;
+public class AccionLogic implements IurlWebService{
+
     private List accion;
-    
-    /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
-     */
-    public void webService() {
-        webService = new Administacion_Service();
-        port = webService.getAdministacionPort();
-    }
 
     public List getAccion() {
         return accion;
@@ -35,9 +26,9 @@ public class AccionLogic {private Administacion_Service webService;
      * @return 
      */
     public ArrayList<AccionEntity> listaAccion(){
-        webService();
+        
         ArrayList<AccionEntity> listaaux=new ArrayList<>();
-        ArrayList<Object> listaObjeto =(ArrayList<Object>) port.listaAccion().getRetorna();
+        ArrayList<Object> listaObjeto =(ArrayList<Object>) portAdministracion().listaAccion().getRetorna();
         for(Object obj:listaObjeto){
             AccionEntity objectaccion=(AccionEntity) obj;
             listaaux.add(objectaccion);
@@ -50,10 +41,10 @@ public class AccionLogic {private Administacion_Service webService;
      * @return 
      */
     public AccionEntity insertarAccion(AccionEntity objeto){
-        webService();
+        
         AccionEntity dispoRta=null;        
         try {
-            dispoRta = port.insertarAccion(objeto);
+            dispoRta = portAdministracion().insertarAccion(objeto);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -64,10 +55,10 @@ public class AccionLogic {private Administacion_Service webService;
      * @return 
      */
     public String actualizarAccion(AccionEntity objeto){
-        webService();
+        
         String rta="";
         try {            
-            if (port.actualizarAccion(objeto) != null) {
+            if (portAdministracion().actualizarAccion(objeto) != null) {
                 rta = "Ok";
             } else {
                 rta = "Error";
@@ -84,10 +75,10 @@ public class AccionLogic {private Administacion_Service webService;
      * @return 
      */
     public AccionEntity accionPorId(Integer idAccion){
-        webService();
+        
         AccionEntity accionEntity=new AccionEntity();
         try {
-            accionEntity=port.accionPorId(idAccion);
+            accionEntity=portAdministracion().accionPorId(idAccion);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -99,11 +90,11 @@ public class AccionLogic {private Administacion_Service webService;
      * @return 
      */
     public ArrayList<AccionEntity> accionPorUsuario(Integer idUsuario){
-        webService();
+        
         ArrayList<AccionEntity> accionEntity=new ArrayList<>();
         ArrayList<Object> listaObjeto=new ArrayList<>();
         try {
-            listaObjeto=(ArrayList<Object>) port.accionPorUsuario(idUsuario).getRetorna();
+            listaObjeto=(ArrayList<Object>) portAdministracion().accionPorUsuario(idUsuario).getRetorna();
             for(Object obj:listaObjeto){
                 AccionEntity accionEntity1=(AccionEntity) obj;
                 accionEntity.add(accionEntity1);

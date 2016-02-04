@@ -49,6 +49,7 @@ import javax.xml.bind.annotation.XmlType;
     EmpresaEntity.class,
     MetodoRecuperacionEntity.class,
     TiposDocumentalesEntity.class,
+    ExtensionesEntity.class,
     ProcesoEntity.class,
     PlantillaEntity.class,
     DocumentoEntity.class,

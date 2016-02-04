@@ -102,10 +102,10 @@ public class UsuarioBean implements Serializable {
             UsuarioEntity usuarioInserto = logicaUsuario.ingresarUsuario(usuarioObjetoInsercion);
             FacesMessage msg = null;
             if (usuarioInserto != null) {
-                MensajesJSF.muestraMensajes( "Usuario insertado correctamente: " + (usuarioObjeto.getNombre()), "Mensaje");
+                MensajesJSF.muestraMensajes( "Usuario insertado correctamente: " + (usuarioObjetoInsercion.getNombre()), "Mensaje");
                 adicionaUsuarioLista(usuarioInserto);
             } else {
-                MensajesJSF.muestraMensajes( "Error al insertar el usuario: " + (usuarioObjeto.getNombre()), "Error");
+                MensajesJSF.muestraMensajes( "Error al insertar el usuario: " + (usuarioObjetoInsercion.getNombre()), "Error");
             }
             RequestContext.getCurrentInstance().execute("PF('insertarUsuario').hide()");
 
@@ -235,6 +235,7 @@ public class UsuarioBean implements Serializable {
      * @param event
      */
     public void onRowSelect(SelectEvent event) {
+        System.out.println("SEL: "+usuarioObjeto);
         usuarioObjeto = (UsuarioEntity) event.getObject();
     }
 

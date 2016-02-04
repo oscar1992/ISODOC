@@ -6,8 +6,7 @@
 package co.com.siscomputo.administracion.logic;
 
 import co.com.siscomputo.endpoint.TiposDocumentalesEntity;
-import co.com.siscomputo.endpoint.Usuario;
-import co.com.siscomputo.endpoint.Usuario_Service;
+import co.com.siscomputo.utilidades.IurlWebService;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,18 +14,11 @@ import java.util.List;
  *
  * @author LENOVO
  */
-public class TiposDocumentalesLogic {
-    private Usuario_Service webService;
-    private Usuario port;
+public class TiposDocumentalesLogic implements IurlWebService{
+
     private List TiposDocuemtales;
     
-    /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
-     */
-    public void webService() {
-        webService = new Usuario_Service();
-        port = webService.getUsuarioPort();
-    }
+  
 
     public List getTiposDocuemtales() {
         return TiposDocuemtales;
@@ -42,8 +34,8 @@ public class TiposDocumentalesLogic {
     public ArrayList<TiposDocumentalesEntity> listaTiposDocumentales(){
         ArrayList<TiposDocumentalesEntity>lista=new ArrayList<>();
         ArrayList<Object> listaObjeto;
-        webService();
-        listaObjeto=(ArrayList<Object>) port.listaTipoDocuemtal().getRetorna();
+        
+        listaObjeto=(ArrayList<Object>) portUsuario().listaTipoDocuemtal().getRetorna();
         for(Object obj:listaObjeto){
             TiposDocumentalesEntity tiposd=(TiposDocumentalesEntity) obj;
             lista.add(tiposd);
@@ -56,10 +48,10 @@ public class TiposDocumentalesLogic {
      * @return 
      */
     public TiposDocumentalesEntity ingresaTipoDocumental(TiposDocumentalesEntity tiposD){
-        webService();
+        
         TiposDocumentalesEntity tiposDrta=null;
         try {
-            tiposDrta=port.insertarTiposDocumetales(tiposD);
+            tiposDrta=portUsuario().insertarTiposDocumetales(tiposD);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -71,10 +63,10 @@ public class TiposDocumentalesLogic {
      * @return 
      */
     public String actualizarTiposDocumental(TiposDocumentalesEntity tiposD){
-        webService();
+        
         String rta="";
         try {
-            if(port.actualizarTipoDocumental(tiposD)!=null){
+            if(portUsuario().actualizarTipoDocumental(tiposD)!=null){
                 rta="Ok";
             }else{
                 rta="Error";
@@ -91,7 +83,7 @@ public class TiposDocumentalesLogic {
      * @return  
      */
     public TiposDocumentalesEntity TipoDocumentalPorId(int idTipos){
-        webService();
-        return port.tiposDocumetalesPorID(idTipos);
+        
+        return portUsuario().tiposDocumetalesPorID(idTipos);
     }
 }

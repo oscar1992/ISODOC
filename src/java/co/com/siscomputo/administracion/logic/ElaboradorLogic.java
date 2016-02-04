@@ -1,8 +1,7 @@
 package co.com.siscomputo.administracion.logic;
 
-import co.com.siscomputo.endpoint.Administacion;
-import co.com.siscomputo.endpoint.Administacion_Service;
 import co.com.siscomputo.endpoint.ElaboradorEntity;
+import co.com.siscomputo.utilidades.IurlWebService;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,17 +9,10 @@ import java.util.List;
  *
  * @author LENOVO
  */
-public class ElaboradorLogic {private Administacion_Service webService;
-    private Administacion port;
+public class ElaboradorLogic implements IurlWebService{
+
     private List elaborador;
     
-    /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
-     */
-    public void webService() {
-        webService = new Administacion_Service();
-        port = webService.getAdministacionPort();
-    }
 
     public List getElaborador() {
         return elaborador;
@@ -35,9 +27,9 @@ public class ElaboradorLogic {private Administacion_Service webService;
      * @return 
      */
     public ArrayList<ElaboradorEntity> listaElaborador(){
-        webService();
+        
         ArrayList<ElaboradorEntity> listaaux=new ArrayList<>();
-        ArrayList<Object> listaObjeto =(ArrayList<Object>) port.listaElaborador().getRetorna();
+        ArrayList<Object> listaObjeto =(ArrayList<Object>) portAdministracion().listaElaborador().getRetorna();
         for(Object obj:listaObjeto){
             ElaboradorEntity objectelaborador=(ElaboradorEntity) obj;
             listaaux.add(objectelaborador);
@@ -50,10 +42,10 @@ public class ElaboradorLogic {private Administacion_Service webService;
      * @return 
      */
     public ElaboradorEntity insertarElaborador(ElaboradorEntity objeto){
-        webService();
+        
         ElaboradorEntity dispoRta=null;        
         try {
-            dispoRta = port.insertarElaborador(objeto);
+            dispoRta = portAdministracion().insertarElaborador(objeto);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -65,10 +57,10 @@ public class ElaboradorLogic {private Administacion_Service webService;
      * @return 
      */
     public String actualizarElaborador(ElaboradorEntity objeto){
-        webService();
+        
         String rta="";
         try {            
-            if (port.actualizarElaborador(objeto) != null) {
+            if (portAdministracion().actualizarElaborador(objeto) != null) {
                 rta = "Ok";
             } else {
                 rta = "Error";
@@ -85,7 +77,7 @@ public class ElaboradorLogic {private Administacion_Service webService;
      * @return 
      */
     public ElaboradorEntity elaboradorPorID(int elaborador){
-        webService();
-        return port.elaboradorPorId(elaborador);
+        
+        return portAdministracion().elaboradorPorId(elaborador);
     }
 }

@@ -6,17 +6,14 @@
 package co.com.siscomputo.administracion.logic;
 
 import co.com.siscomputo.endpoint.ObjetoLogin;
-import co.com.siscomputo.endpoint.Usuario;
 import co.com.siscomputo.endpoint.UsuarioEntity;
-import co.com.siscomputo.endpoint.Usuario_Service;
+import co.com.siscomputo.utilidades.IurlWebService;
 
 /**
  *
  * @author LENOVO
  */
-public class LoginLogic {
-    private Usuario_Service webService;
-    private Usuario port;
+public class LoginLogic implements IurlWebService{
     private ObjetoLogin objetoLogin;
     private UsuarioEntity usuarioObject;
 
@@ -38,13 +35,8 @@ public class LoginLogic {
         this.objetoLogin = objetoLogin;
     }
     
-    /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
-     */
-    public void webService() {
-        webService = new Usuario_Service();
-        port = webService.getUsuarioPort();
-    }
+
+
     
     /**
      * Método que realiza el llamado al Webservice del Login
@@ -55,8 +47,8 @@ public class LoginLogic {
     public String ingresar(String usuarioNombre, String clave){
         String rta="";
         try {
-            webService();
-            objetoLogin=port.login(usuarioNombre, clave);
+            
+            objetoLogin=portUsuario().login(usuarioNombre, clave);
             rta="Ok";
         } catch (Exception e) {
             e.printStackTrace();
@@ -72,8 +64,7 @@ public class LoginLogic {
     public String datosUsuario(int idUsuario){
         String rta="";
         try {
-            webService();
-            usuarioObject=port.usuarioPorId(idUsuario);
+            usuarioObject=portUsuario().usuarioPorId(idUsuario);
             rta="Ok";
         } catch (Exception e) {
             rta="Error "+e;

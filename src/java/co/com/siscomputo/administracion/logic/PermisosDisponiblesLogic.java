@@ -7,8 +7,7 @@ package co.com.siscomputo.administracion.logic;
 
 import co.com.siscomputo.endpoint.ListaAsignaPermisosModulo;
 import co.com.siscomputo.endpoint.RolPermisoEntity;
-import co.com.siscomputo.endpoint.Usuario;
-import co.com.siscomputo.endpoint.Usuario_Service;
+import co.com.siscomputo.utilidades.IurlWebService;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,19 +15,10 @@ import java.util.List;
  *
  * @author LENOVO
  */
-public class PermisosDisponiblesLogic {
-    private Usuario_Service webService;
-    private Usuario port;
+public class PermisosDisponiblesLogic implements IurlWebService{
+
     private List permisosDisponibles;
-    
-    
-    /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
-     */
-    public void webService() {
-        webService = new Usuario_Service();
-        port = webService.getUsuarioPort();
-    }
+
 
     public PermisosDisponiblesLogic() {
         listaPermisosDisponibles();
@@ -43,16 +33,16 @@ public class PermisosDisponiblesLogic {
     }
     
     public void cargaListaPermisosDisponible(){
-        permisosDisponibles=port.listaPermisosDisponibles();
+        permisosDisponibles=portUsuario().listaPermisosDisponibles();
     }
     /**
      * Método que retorna los permisos dsiponibles en el sistema
      * @return 
      */
     public ArrayList<ListaAsignaPermisosModulo>listaPermisosDisponibles(){
-        webService();
+        
         ArrayList<ListaAsignaPermisosModulo> lista=new ArrayList<>();
-        lista=(ArrayList<ListaAsignaPermisosModulo>)port.listaPermisosDisponibles();
+        lista=(ArrayList<ListaAsignaPermisosModulo>)portUsuario().listaPermisosDisponibles();
         return lista;
     }
     /**
@@ -62,9 +52,9 @@ public class PermisosDisponiblesLogic {
      */
     public ArrayList<RolPermisoEntity> listaRolPermiso(int idRol){
         
-        webService();
+        
         ArrayList<RolPermisoEntity> lista=new ArrayList<>();
-        ArrayList<Object> listaObjeto=(ArrayList<Object>) port.listaRolPermiso(idRol).getRetorna();
+        ArrayList<Object> listaObjeto=(ArrayList<Object>) portUsuario().listaRolPermiso(idRol).getRetorna();
         for(Object obj:listaObjeto){
             RolPermisoEntity rolPermisosEntity=(RolPermisoEntity) obj;
             System.out.println("PER: "+rolPermisosEntity.getIdPermiso().getNombrePermiso());

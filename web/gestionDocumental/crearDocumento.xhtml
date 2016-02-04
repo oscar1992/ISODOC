@@ -10,57 +10,63 @@
 
     <ui:composition template="/plantillas/PlantillaGestionDocumental.xhtml">
         <ui:define name="content">
+            <h:head>
+                <script src="/ISODOC/js/es.js" type="text/javascript"></script>
+            </h:head>
             <h:body>
                 <h:form id="IngresarModal">
                     <div class="prueba" style="color: white; ">
                         <p:growl id="msgs"  life="300000" autoUpdate="true"/>
                     </div>
                     #{CrearDocumento.nuevoDocumentoObjeto()}  
-                    
-                    <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="4" id="datosDocumento">
-                        <h:outputText value="Título del Documento"></h:outputText>
-                        <p:inputText id="nombre" label="Nombre" required="true" requiredMessage="Se necesita un nombre del Documento" value="#{CrearDocumento.objetoDocumentoInsercion.tituloDocumento}"/>
-
-                        <h:outputText value="Tipo Documental del Documento"></h:outputText>                            
-                        <p:selectOneMenu required="true" id="desplegableIngresarTipoD" requiredMessage="Debe seleccionar Un Tipo Documental" value="#{CrearDocumento.objetoDocumentoInsercion.tipoDocumentalDocumento.idTipoDocumental}" style="width: 150px;">
-                            <p:ajax listener="#{CrearDocumento.traeConsecutivo()}" update="version"/>
-                            <f:selectItem itemLabel="Selecione Tipo Documento" itemValue="" noSelectionOption="true"/>
-                            <f:selectItems value="#{ListaAdministracionBean.listaTipoDocumento}"/>
-                        </p:selectOneMenu>
-
-                        <h:outputText value="Plantilla del Documento"></h:outputText>
-                        <p:selectOneMenu required="true" id="desplegableIngresarPlantilla" requiredMessage="Debe seleccionar una Plantilla" value="#{CrearDocumento.objetoDocumentoInsercion.plantilla.idPlantilla}" style="width: 150px;">
-                            <f:selectItem itemLabel="Selecione la Plantilla del Documento" itemValue="" noSelectionOption="true"/>
-                            <f:selectItems value="#{ListaAdministracionBean.listaPlantillas}"/>
-                        </p:selectOneMenu>
-
-                        <h:outputText value="Version del Documento"></h:outputText>
-                        <p:inputMask required="true" id="version" label="nombre del Documento" value="#{CrearDocumento.objetoDocumentoInsercion.versionDocumento}" mask="#{CrearDocumento.consecutivo}-0000" maxlength="4"/>
-
-
-                        <h:outputText value="Estado del Documento"></h:outputText>
-                        <p:selectOneMenu     required="true" requiredMessage="Se necesita un estado" id="desplegableIngresarEstado" value="#{CrearDocumento.objetoDocumentoInsercion.estadoDocumento}" style="width: 150px;">                            
-                            <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
-                            <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
-                        </p:selectOneMenu>
-
-                        <h:outputText value="Empresa"></h:outputText>
-                        <p:selectOneMenu required="true" requiredMessage="Debe seleccionar una Empresa" id="desplegableIngresarEmpresa"  value="#{CrearDocumento.objetoDocumentoInsercion.empresaDocumento.idEmpresa}" style="width: 150px;">
-                            <f:selectItem itemLabel="Selecione una Empresa" itemValue="" noSelectionOption="true"/>
-                            <f:selectItems value="#{ListaAdministracionBean.listaEmpresas}"/>
-                        </p:selectOneMenu> 
-                    </p:panelGrid>
-
-                    <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="4" id="datos">
-                        <p:dataTable var="nivel" value="#{Nivel.lista}" id="tabla">
-                            <p:column id="col">
-                                <p:selectOneMenu id="Desp" value="#{CrearDocumento.listaProcesos[nivel.secuenciaNivel-1]}" style="width: 150px;">                                    
-                                    <p:ajax listener="#{CrearDocumento.cambiaCombo(nivel.secuenciaNivel+1, CrearDocumento.listaProcesos[nivel.secuenciaNivel-1])}" />
-                                    <f:selectItem itemLabel="Selecione #{nivel.nombreNivel}" itemValue="" noSelectionOption="true"/>
-                                    <f:selectItems value="#{CrearDocumento.listaMapas[nivel.secuenciaNivel-1]}"/>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-12">
+                            <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="4" id="datosDocumento">
+                                <h:outputText value="Título del Documento" ></h:outputText>
+                                <p:inputText id="nombre" label="Nombre" required="true" requiredMessage="Se necesita un nombre del Documento" value="#{CrearDocumento.objetoDocumentoInsercion.tituloDocumento}"/>
+                                <h:outputText value="Tipo Documental del Documento"></h:outputText>                            
+                                <p:selectOneMenu required="true" id="desplegableIngresarTipoD" requiredMessage="Debe seleccionar Un Tipo Documental" value="#{CrearDocumento.objetoDocumentoInsercion.tipoDocumentalDocumento.idTipoDocumental}" style="width: 150px;">
+                                    <p:ajax listener="#{CrearDocumento.traeConsecutivo()}" update="version"/>
+                                    <f:selectItem itemLabel="Selecione Tipo Documento" itemValue="" noSelectionOption="true"/>
+                                    <f:selectItems value="#{ListaAdministracionBean.listaTipoDocumento}"/>
                                 </p:selectOneMenu>
+                                <h:outputText value="Plantilla del Documento"></h:outputText>
+                                <p:selectOneMenu required="true" id="desplegableIngresarPlantilla" requiredMessage="Debe seleccionar una Plantilla" value="#{CrearDocumento.objetoDocumentoInsercion.plantilla.idPlantilla}" style="width: 150px;">
+                                    <f:selectItem itemLabel="Selecione la Plantilla del Documento" itemValue="" noSelectionOption="true"/>
+                                    <f:selectItems value="#{ListaAdministracionBean.listaPlantillas}"/>
+                                </p:selectOneMenu>
+                                <h:outputText value="Version del Documento"></h:outputText>
+                                <p:inputMask required="true" id="version" label="nombre del Documento" value="#{CrearDocumento.objetoDocumentoInsercion.versionDocumento}" mask="#{CrearDocumento.consecutivo}-0000" maxlength="4"/>
+                                <h:outputText value="Estado del Documento"></h:outputText>
+                                <p:selectOneMenu     required="true" requiredMessage="Se necesita un estado" id="desplegableIngresarEstado" value="#{CrearDocumento.objetoDocumentoInsercion.estadoDocumento}" style="width: 150px;">                            
+                                    <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                    <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                                </p:selectOneMenu>
+                                <h:outputText value="Empresa"></h:outputText>
+                                <p:selectOneMenu required="true" requiredMessage="Debe seleccionar una Empresa" id="desplegableIngresarEmpresa"  value="#{CrearDocumento.objetoDocumentoInsercion.empresaDocumento.idEmpresa}" style="width: 150px;">
+                                    <f:selectItem itemLabel="Selecione una Empresa" itemValue="" noSelectionOption="true"/>
+                                    <f:selectItems value="#{ListaAdministracionBean.listaEmpresas}"/>
+                                </p:selectOneMenu> 
+                            </p:panelGrid>
+                        </div>
+                    </div>
+                    <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="4" id="datos">
+
+                        <p:dataTable var="nivel" value="#{Nivel.lista}" id="tabla">
+
+                            <p:column id="col">
+                                <div class="ui-grid-row">
+                                    <div class="ui-grid-col-4">
+                                        <p:selectOneMenu id="Desp" value="#{CrearDocumento.listaProcesos[nivel.secuenciaNivel-1]}" style="width: 300%;" >                                    
+                                            <p:ajax listener="#{CrearDocumento.cambiaCombo(nivel.secuenciaNivel+1, CrearDocumento.listaProcesos[nivel.secuenciaNivel-1])}" />
+                                            <f:selectItem itemLabel="Selecione #{nivel.nombreNivel}" itemValue="" noSelectionOption="true"/>
+                                            <f:selectItems value="#{CrearDocumento.listaMapas[nivel.secuenciaNivel-1]}"/>
+                                        </p:selectOneMenu>
+                                    </div>
+                                </div>
                             </p:column>
-                            <p:column>
+
+                            <p:column>  
                                 <h:outputText value="#{nivel.nombreNivel}"/>
                             </p:column>
                             <p:columnGroup type="header">
@@ -69,9 +75,10 @@
                                 </p:row>
                             </p:columnGroup>
                         </p:dataTable>
+
                     </p:panelGrid>   
-                    
-                    <p:commandButton value="Asignar Usuarios" update=":IngresarModal:asignados" process="@this,nombre,desplegableIngresarPlantilla,version,desplegableIngresarEstado,desplegableIngresarEmpresa,desplegableIngresarTipoD" actionListener="#{CrearDocumento.evalua()}" class="botonNormal" validateClient="true"/>
+
+                    <p:commandButton value="Asignar Usuarios" update=":IngresarModal:asignados" process="@this,nombre,desplegableIngresarPlantilla,version,desplegableIngresarEstado,desplegableIngresarEmpresa,desplegableIngresarTipoD" actionListener="#{CrearDocumento.evalua()}" class="botonNormal" validateClient="true" />
 
                     <p:panelGrid class="TABLA" id="asignados">
                         <f:facet name="header">
@@ -91,35 +98,34 @@
                                     <h:outputText value="#{acciones2.accion.nombreAccion}"/>
                                 </p:column>      
                                 <p:column>
-                                    <p:pickList label="Grupos de Usuarios" id="listausuarioProceso" value="#{acciones2.seleccionDual}" var="usupro" itemLabel="#{usupro}" itemValue="#{usupro}" required="true">
+                                    <p:selectOneMenu value="#{acciones2.grupo}" id="listica">
+                                        <p:ajax listener="#{CrearDocumento.buscaUsuarios()}" update="listausuarioProceso"/>
+                                        <f:selectItem itemLabel="Seleccione un Grupo" itemValue="#{null}" noSelectionOption="true"/>
+                                        <f:selectItems value="#{acciones2.listaGrupos}"/>
+                                    </p:selectOneMenu>
+                                    <p:pickList label="Grupos de Usuarios" id="listausuarioProceso" value="#{acciones2.seleccionDual}" var="usupro" itemLabel="#{usupro}" itemValue="#{usupro}" required="true" effect="bounce" >
+                                        <p:ajax event="transfer" listener="#{CrearDocumento.limita}" update="listausuarioProceso" />
                                         <f:facet name="sourceCaption">Usuarios disponibles</f:facet>
                                         <f:facet name="targetCaption">Usuarios de la Acción</f:facet>
                                     </p:pickList>                                    
                                 </p:column>
                                 <p:column>
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class='col-sm-6'>
-                                                <div class="form-group">
-                                                    <div class='input-group date' id='datetimepicker#{acciones2.accion.idAccion}'>
-                                                        <p:inputText class="form-control" value="#{acciones2.fechaLimite}"/>                                                        
-                                                        <span class="input-group-addon">
-                                                            <span class="glyphicon glyphicon-calendar"></span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <script type="text/javascript">
-                                                $(function () {
-                                                    $('#datetimepicker#{acciones2.accion.idAccion}').datetimepicker({
-                                                        locale: 'es'
-                                                    });
-                                                });
-                                            </script>
-                                        </div>
-                                    </div>
-                                                                                                                        <!--<p:calendar label="Fecha Límite" id="multi" value="#{acciones2.fechaLimite}" pages="3" pattern="dd.MM.yyyy"></p:calendar>-->
 
+                                    <div class='input-group date' id='datetimepicker#{acciones2.accion.idAccion}' >
+                                        <p:inputText class="form-control" value="#{acciones2.fechaLimite}"/>                                                        
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                        <script type="text/javascript">
+                                            // debugger;
+
+                                            $('#datetimepicker#{acciones2.accion.idAccion}').datetimepicker({
+                                                isRTL: false,
+                                                format: 'dd/mm/yyyy',
+                                                autoclose: true
+                                            });
+                                        </script>
+                                    </div>
                                 </p:column>
                             </p:row>
                         </ui:repeat>

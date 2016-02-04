@@ -51,11 +51,11 @@
                             <h:outputText value="Nombre del Perfil"></h:outputText>
                             <p:inputText required="true" label="Nombre de Perfil" value="#{Perfiles.rolesObjetoInsercion.nombreRol}"/>
                             <h:outputText value="Estado del Perfil"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarPerfil" value="#{Perfiles.rolesObjetoInsercion.estadoRol}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableIngresarPerfil" value="#{Perfiles.rolesObjetoInsercion.estadoRol}" style="width: 150px;" required="true">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
-                            <p:commandButton value="Save" actionListener="#{Perfiles.save()}" update=":PerfilesForm:msgs" />
+                            
                             <p:commandButton value="Ingresar" update=":PerfilesForm:tablaPerfiles,:IngresarModal:insertarPerfilModal,PerfilesForm:msgs" actionListener="#{Perfiles.ingresarRol()}" validateClient="true" class="botonNormal" />
                         </p:panelGrid>
                     </p:dialog>
@@ -68,7 +68,7 @@
                         <h:outputText value="Nombre del Rol"></h:outputText>
                         <p:inputText required="true" label="Nombre del Rol" value="#{Perfiles.rolesObjeto.nombreRol}"/>
                         <h:outputText value="Estado"></h:outputText>
-                        <p:selectOneMenu id="desplegableIngresarPerfil" value="#{Perfiles.rolesObjeto.estadoRol}" style="width: 150px;">
+                        <p:selectOneMenu id="desplegableIngresarPerfil" value="#{Perfiles.rolesObjeto.estadoRol}" style="width: 150px;" required="true">
                             <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                             <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                         </p:selectOneMenu>

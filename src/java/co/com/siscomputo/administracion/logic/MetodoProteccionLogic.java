@@ -1,8 +1,7 @@
 package co.com.siscomputo.administracion.logic;
 
-import co.com.siscomputo.endpoint.Administacion;
-import co.com.siscomputo.endpoint.Administacion_Service;
 import co.com.siscomputo.endpoint.MetodoProteccionEntity;
+import co.com.siscomputo.utilidades.IurlWebService;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,18 +9,10 @@ import java.util.List;
  *
  * @author LENOVO
  */
-public class MetodoProteccionLogic {
-    private Administacion_Service webService;
-    private Administacion port;
+public class MetodoProteccionLogic implements IurlWebService{
+
     private List metodoProteccion;
-    
-    /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
-     */
-    public void webService() {
-        webService = new Administacion_Service();
-        port = webService.getAdministacionPort();
-    }
+
 
     public List getMetodoProteccion() {
         return metodoProteccion;
@@ -36,9 +27,9 @@ public class MetodoProteccionLogic {
      * @return 
      */
     public ArrayList<MetodoProteccionEntity> listaMetodoProteccion(){
-        webService();
+        
         ArrayList<MetodoProteccionEntity> listaaux=new ArrayList<>();
-        ArrayList<Object> listaObjeto =(ArrayList<Object>) port.listaMetodoProteccion().getRetorna();
+        ArrayList<Object> listaObjeto =(ArrayList<Object>) portAdministracion().listaMetodoProteccion().getRetorna();
         for(Object obj:listaObjeto){
             MetodoProteccionEntity objectmetodoProteccion=(MetodoProteccionEntity) obj;
             listaaux.add(objectmetodoProteccion);
@@ -51,10 +42,10 @@ public class MetodoProteccionLogic {
      * @return 
      */
     public MetodoProteccionEntity insertarMetodoProteccion(MetodoProteccionEntity objeto){
-        webService();
+        
         MetodoProteccionEntity dispoRta=null;        
         try {
-            dispoRta = port.insertarMetodoProteccion(objeto);
+            dispoRta = portAdministracion().insertarMetodoProteccion(objeto);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -66,10 +57,10 @@ public class MetodoProteccionLogic {
      * @return 
      */
     public String actualizarMetodoProteccion(MetodoProteccionEntity objeto){
-        webService();
+        
         String rta="";
         try {            
-            if (port.actualizarMetodoProteccion(objeto) != null) {
+            if (portAdministracion().actualizarMetodoProteccion(objeto) != null) {
                 rta = "Ok";
             } else {
                 rta = "Error";

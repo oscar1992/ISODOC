@@ -1,8 +1,7 @@
 package co.com.siscomputo.administracion.logic;
 
-import co.com.siscomputo.endpoint.Administacion;
-import co.com.siscomputo.endpoint.Administacion_Service;
 import co.com.siscomputo.endpoint.TipoControlDistribucionEntity;
+import co.com.siscomputo.utilidades.IurlWebService;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,18 +9,11 @@ import java.util.List;
  *
  * @author LENOVO
  */
-public class TipoControlDistribucionLogic {
-    private Administacion_Service webService;
-    private Administacion port;
+public class TipoControlDistribucionLogic implements IurlWebService{
+
     private List tipoControlDistribucion;
     
-    /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
-     */
-    public void webService() {
-        webService = new Administacion_Service();
-        port = webService.getAdministacionPort();
-    }
+ 
 
     public List getTipoControlDistribucion() {
         return tipoControlDistribucion;
@@ -36,9 +28,9 @@ public class TipoControlDistribucionLogic {
      * @return 
      */
     public ArrayList<TipoControlDistribucionEntity> listaTipoControlDistribucion(){
-        webService();
+        
         ArrayList<TipoControlDistribucionEntity> listaaux=new ArrayList<>();
-        ArrayList<Object> listaObjeto =(ArrayList<Object>) port.listaTipoControlDistribucion().getRetorna();
+        ArrayList<Object> listaObjeto =(ArrayList<Object>) portAdministracion().listaTipoControlDistribucion().getRetorna();
         for(Object obj:listaObjeto){
             TipoControlDistribucionEntity objecttipoControlDistribucion=(TipoControlDistribucionEntity) obj;
             listaaux.add(objecttipoControlDistribucion);
@@ -51,10 +43,10 @@ public class TipoControlDistribucionLogic {
      * @return 
      */
     public TipoControlDistribucionEntity insertarTipoControlDistribucion(TipoControlDistribucionEntity objeto){
-        webService();
+        
         TipoControlDistribucionEntity dispoRta=null;        
         try {
-            dispoRta = port.insertarTipoControlDistribucion(objeto);
+            dispoRta = portAdministracion().insertarTipoControlDistribucion(objeto);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -66,10 +58,10 @@ public class TipoControlDistribucionLogic {
      * @return 
      */
     public String actualizarTipoControlDistribucion(TipoControlDistribucionEntity objeto){
-        webService();
+        
         String rta="";
         try {            
-            if (port.actualizarTipoControlDistribucion(objeto) != null) {
+            if (portAdministracion().actualizarTipoControlDistribucion(objeto) != null) {
                 rta = "Ok";
             } else {
                 rta = "Error";

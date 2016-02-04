@@ -20,7 +20,13 @@ public class GrupoUsuarioAccionProcesoEntity {
     private ArrayList<String> nombres;
     private ArrayList<String> selecion;
     private String fechaLimite;
+    private Object grupo;
+    private ArrayList<String> listaGrupos;
+    private ArrayList<String> listaUsuarios;
 
+
+    
+    
     public AccionEntity getAccion() {
         return accion;
     }
@@ -83,5 +89,31 @@ public class GrupoUsuarioAccionProcesoEntity {
         this.fechaLimite = fechaLimite;
     }
 
+    public Object getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(Object grupo) {
+        this.grupo = grupo;
+    }
+
+    public ArrayList<String> getListaGrupos() {
+        return listaGrupos;
+    }
+
+    public void setListaGrupos(ArrayList<String> listaGrupos) {
+        this.listaGrupos = listaGrupos;
+    }
+
+    public ArrayList<String> getListaUsuarios() {
+        return listaUsuarios;
+    }
+
+    public void setListaUsuarios(ArrayList<String> listaUsuarios) {
+        this.listaUsuarios = listaUsuarios;
+    }
+
+
+    
     
 }

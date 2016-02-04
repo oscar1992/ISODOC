@@ -5,25 +5,21 @@ import co.com.siscomputo.endpoint.Administacion_Service;
 import co.com.siscomputo.endpoint.DocumentoProcesoEntity;
 import co.com.siscomputo.endpoint.GestionDocumental;
 import co.com.siscomputo.endpoint.GestionDocumental_Service;
+import co.com.siscomputo.utilidades.IurlWebService;
+import co.com.siscomputo.utilidades.SingletonDirecciones;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.ws.BindingProvider;
 
 /**
  *
  * @author LENOVO
  */
-public class DocumentoProcesoLogic {
-    private GestionDocumental_Service webService;
-    private GestionDocumental port;
-    private List documentoProceso;
+public class DocumentoProcesoLogic implements IurlWebService{
+
     
-    /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
-     */
-    public void webService() {
-        webService = new GestionDocumental_Service();
-        port = webService.getGestionDocumentalPort();
-    }
+    private List documentoProceso;
+
 
     public List getDocumentoProceso() {
         return documentoProceso;
@@ -38,9 +34,9 @@ public class DocumentoProcesoLogic {
      * @return 
      */
     public ArrayList<DocumentoProcesoEntity> listaDocumentoProceso(){
-        webService();
+        
         ArrayList<DocumentoProcesoEntity> listaaux=new ArrayList<>();
-        ArrayList<Object> listaObjeto =(ArrayList<Object>) port.listaDocumentoProceso().getRetorna();
+        ArrayList<Object> listaObjeto =(ArrayList<Object>) portGestion().listaDocumentoProceso().getRetorna();
         for(Object obj:listaObjeto){
             DocumentoProcesoEntity objectdocumentoProceso=(DocumentoProcesoEntity) obj;
             listaaux.add(objectdocumentoProceso);
@@ -53,10 +49,10 @@ public class DocumentoProcesoLogic {
      * @return 
      */
     public DocumentoProcesoEntity insertarDocumentoProceso(DocumentoProcesoEntity objeto){
-        webService();
+        
         DocumentoProcesoEntity dispoRta=null;        
         try {
-            dispoRta = port.insertarDocumentoProceso(objeto);
+            dispoRta = portGestion().insertarDocumentoProceso(objeto);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -68,10 +64,10 @@ public class DocumentoProcesoLogic {
      * @return 
      */
     public String actualizarDocumentoProceso(DocumentoProcesoEntity objeto){
-        webService();
+        
         String rta="";
         try {            
-            if (port.actualizarDocumentoProceso(objeto) != null) {
+            if (portGestion().actualizarDocumentoProceso(objeto) != null) {
                 rta = "Ok";
             } else {
                 rta = "Error";

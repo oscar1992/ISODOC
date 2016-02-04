@@ -1,8 +1,7 @@
 package co.com.siscomputo.administracion.logic;
 
-import co.com.siscomputo.endpoint.Administacion;
-import co.com.siscomputo.endpoint.Administacion_Service;
 import co.com.siscomputo.endpoint.ModificadorEntity;
+import co.com.siscomputo.utilidades.IurlWebService;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,17 +9,10 @@ import java.util.List;
  *
  * @author LENOVO
  */
-public class ModificadorLogic {private Administacion_Service webService;
-    private Administacion port;
+public class ModificadorLogic implements IurlWebService{
+
     private List modificador;
-    
-    /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
-     */
-    public void webService() {
-        webService = new Administacion_Service();
-        port = webService.getAdministacionPort();
-    }
+
 
     public List getModificador() {
         return modificador;
@@ -35,9 +27,9 @@ public class ModificadorLogic {private Administacion_Service webService;
      * @return 
      */
     public ArrayList<ModificadorEntity> listaModificador(){
-        webService();
+        
         ArrayList<ModificadorEntity> listaaux=new ArrayList<>();
-        ArrayList<Object> listaObjeto =(ArrayList<Object>) port.listaModificador().getRetorna();
+        ArrayList<Object> listaObjeto =(ArrayList<Object>) portAdministracion().listaModificador().getRetorna();
         for(Object obj:listaObjeto){
             ModificadorEntity objectmodificador=(ModificadorEntity) obj;
             listaaux.add(objectmodificador);
@@ -50,10 +42,10 @@ public class ModificadorLogic {private Administacion_Service webService;
      * @return 
      */
     public ModificadorEntity insertarModificador(ModificadorEntity objeto){
-        webService();
+        
         ModificadorEntity dispoRta=null;        
         try {
-            dispoRta = port.insertarModificador(objeto);
+            dispoRta = portAdministracion().insertarModificador(objeto);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -65,10 +57,10 @@ public class ModificadorLogic {private Administacion_Service webService;
      * @return 
      */
     public String actualizarModificador(ModificadorEntity objeto){
-        webService();
+        
         String rta="";
         try {            
-            if (port.actualizarModificador(objeto) != null) {
+            if (portAdministracion().actualizarModificador(objeto) != null) {
                 rta = "Ok";
             } else {
                 rta = "Error";
@@ -85,7 +77,7 @@ public class ModificadorLogic {private Administacion_Service webService;
      * @return 
      */
     public ModificadorEntity modificadorPorID(int modificador){
-        webService();
-        return port.modificadorPorId(modificador);
+        
+        return portAdministracion().modificadorPorId(modificador);
     }
 }

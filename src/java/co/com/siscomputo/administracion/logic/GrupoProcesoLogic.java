@@ -1,12 +1,11 @@
 package co.com.siscomputo.administracion.logic;
 
 import co.com.siscomputo.endpoint.AccionEntity;
-import co.com.siscomputo.endpoint.Administacion;
-import co.com.siscomputo.endpoint.Administacion_Service;
 import co.com.siscomputo.endpoint.GrupoProcesoEntity;
 import co.com.siscomputo.endpoint.GrupoUsuariosEntity;
 import co.com.siscomputo.endpoint.ObjetoRetornaEntity;
 import co.com.siscomputo.endpoint.ProcesoEntity;
+import co.com.siscomputo.utilidades.IurlWebService;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,19 +13,12 @@ import java.util.List;
  *
  * @author LENOVO
  */
-public class GrupoProcesoLogic {
+public class GrupoProcesoLogic implements IurlWebService{
 
-    private Administacion_Service webService;
-    private Administacion port;
+
     private List grupoProceso;
 
-    /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
-     */
-    public void webService() {
-        webService = new Administacion_Service();
-        port = webService.getAdministacionPort();
-    }
+ 
 
     public List getGrupoProceso() {
         return grupoProceso;
@@ -42,9 +34,9 @@ public class GrupoProcesoLogic {
      * @return
      */
     public ArrayList<ProcesoEntity> listaGrupoProceso(int idGrupo) {
-        webService();
+        
         ArrayList<ProcesoEntity> listaaux = new ArrayList<>();
-        ArrayList<Object> listaObjeto = (ArrayList<Object>) port.listaGrupoProceso(idGrupo).getRetorna();
+        ArrayList<Object> listaObjeto = (ArrayList<Object>) portAdministracion().listaGrupoProceso(idGrupo).getRetorna();
         for (Object obj : listaObjeto) {
             ProcesoEntity objectProceso = (ProcesoEntity) obj;
             listaaux.add(objectProceso);
@@ -57,9 +49,9 @@ public class GrupoProcesoLogic {
      * @return
      */
     public ArrayList<GrupoProcesoEntity> listaGrupoProcesoAccion(int idGrupo, int idProceso) {
-        webService();
+        
         ArrayList<GrupoProcesoEntity> listaaux = new ArrayList<>();
-        ArrayList<Object> listaObjeto = (ArrayList<Object>) port.listaGrupoProcesoAccion(idGrupo, idProceso).getRetorna();
+        ArrayList<Object> listaObjeto = (ArrayList<Object>) portAdministracion().listaGrupoProcesoAccion(idGrupo, idProceso).getRetorna();
         for (Object obj : listaObjeto) {
             GrupoProcesoEntity objectProceso = (GrupoProcesoEntity) obj;
             listaaux.add(objectProceso);
@@ -74,7 +66,7 @@ public class GrupoProcesoLogic {
      * @return
      */
     public ObjetoRetornaEntity insertarGrupoProceso(GrupoUsuariosEntity grupoUsuarios, String procesoEntity, ArrayList<String> listaAcciones) {
-        webService();
+        
         ObjetoRetornaEntity dispoRta = null;
         ProcesoLogic procesoLogic=new ProcesoLogic();
         ArrayList<ProcesoEntity> listaProceso=procesoLogic.listaProceso();
@@ -110,8 +102,8 @@ public class GrupoProcesoLogic {
             System.out.println("ACCI: "+grupoP.getAccionGrupoProceso().getNombreAccion());
         }
         try {
-            port.limpiaUsuarioGrupoProceso(grupoUsuarios.getIdGrupoUsuarios(), procesoEntitySelecionado.getIdProceso());
-            dispoRta = port.insertarGrupoProceso(listaGuarda);
+            portAdministracion().limpiaUsuarioGrupoProceso(grupoUsuarios.getIdGrupoUsuarios(), procesoEntitySelecionado.getIdProceso());
+            dispoRta = portAdministracion().insertarGrupoProceso(listaGuarda);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -125,10 +117,10 @@ public class GrupoProcesoLogic {
      * @return
      */
     public String actualizarGrupoProceso(GrupoProcesoEntity objeto) {
-        webService();
+        
         String rta = "";
         try {
-            if (port.actualizarGrupoProceso(objeto) != null) {
+            if (portAdministracion().actualizarGrupoProceso(objeto) != null) {
                 rta = "Ok";
             } else {
                 rta = "Error";
@@ -141,9 +133,9 @@ public class GrupoProcesoLogic {
     }
     
     public ArrayList<GrupoProcesoEntity> listaGruposProcesosPorAccion(int idAccion, int idProceso){
-        webService();
+        
         ArrayList<GrupoProcesoEntity> listaaux = new ArrayList<>();
-        ArrayList<Object> listaObjeto = (ArrayList<Object>) port.listaGrupoProcesoPorAccion(idAccion, idProceso).getRetorna();
+        ArrayList<Object> listaObjeto = (ArrayList<Object>) portAdministracion().listaGrupoProcesoPorAccion(idAccion, idProceso).getRetorna();
         for (Object obj : listaObjeto) {
             GrupoProcesoEntity objectProceso = (GrupoProcesoEntity) obj;
             

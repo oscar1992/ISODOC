@@ -6,8 +6,7 @@
 package co.com.siscomputo.administracion.logic;
 
 import co.com.siscomputo.endpoint.MacroprocesosEntity;
-import co.com.siscomputo.endpoint.Usuario;
-import co.com.siscomputo.endpoint.Usuario_Service;
+import co.com.siscomputo.utilidades.IurlWebService;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,19 +14,11 @@ import java.util.List;
  *
  * @author LENOVO
  */
-public class MacroProcesosLogic {
+public class MacroProcesosLogic implements IurlWebService{
 
-    private Usuario_Service webService;
-    private Usuario port;
     private List MacroProcesos;
 
-    /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
-     */
-    public void webService() {
-        webService = new Usuario_Service();
-        port = webService.getUsuarioPort();
-    }
+
 
     public List getMacroProcesos() {
         return MacroProcesos;
@@ -49,8 +40,8 @@ public class MacroProcesosLogic {
     public ArrayList<MacroprocesosEntity> listaMacroprocesos() {
         ArrayList<MacroprocesosEntity> listaMacro = new ArrayList<>();
         ArrayList<Object> listaObjeto;
-        webService();
-        listaObjeto = (ArrayList<Object>) port.listaMacroProcesos().getRetorna();
+        
+        listaObjeto = (ArrayList<Object>) portUsuario().listaMacroProcesos().getRetorna();
         for (Object obj : listaObjeto) {
             MacroprocesosEntity macros = (MacroprocesosEntity) obj;
             listaMacro.add(macros);
@@ -65,10 +56,10 @@ public class MacroProcesosLogic {
      * @return
      */
     public MacroprocesosEntity ingresaMacroproceso(MacroprocesosEntity macro) {
-        webService();
+        
         MacroprocesosEntity macroRta = null;
         try {
-            macroRta = port.ingresaMacroProceso(macro);
+            macroRta = portUsuario().ingresaMacroProceso(macro);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -80,10 +71,10 @@ public class MacroProcesosLogic {
      * @return 
      */
     public String actualizarMacroProceso(MacroprocesosEntity macro) {
-        webService();
+        
         String rta = "";
         try {
-            if (port.actualizaMacroProceso(macro) != null) {
+            if (portUsuario().actualizaMacroProceso(macro) != null) {
                 rta = "Ok";
             } else {
                 rta = "Error";
@@ -100,7 +91,7 @@ public class MacroProcesosLogic {
      * @return 
      */
     public MacroprocesosEntity macroProcesoPorId(int idMacrop){
-        webService();
-        return port.macroPorId(idMacrop);
+        
+        return portUsuario().macroPorId(idMacrop);
     }
 }

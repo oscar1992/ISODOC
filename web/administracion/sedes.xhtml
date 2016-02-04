@@ -55,7 +55,7 @@
                             <h:outputText value="Código de la sede"></h:outputText>
                             <p:inputText required="true" label="Nombre de la Sede" value="#{Sedes.sedeObjetoInsercion.codigoSede}"/>
                             <h:outputText value="Estado de la sede"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarSede" value="#{Sedes.sedeObjetoInsercion.estadoSede}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableIngresarSede" value="#{Sedes.sedeObjetoInsercion.estadoSede}" style="width: 150px;" required="true">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
@@ -72,7 +72,7 @@
                             <h:outputText value="Código de la sede"></h:outputText>
                             <p:inputText required="true" label="Nombre de la Sede" value="#{Sedes.sedeObjeto.codigoSede}"/>
                             <h:outputText value="Estado de la sede"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarPerfil" value="#{Sedes.sedeObjeto.estadoSede}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableIngresarPerfil" value="#{Sedes.sedeObjeto.estadoSede}" style="width: 150px;" required="true">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>

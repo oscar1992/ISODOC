@@ -60,12 +60,12 @@
                             <h:outputText value="Código de Área"></h:outputText>
                             <p:inputText required="true" label="Cóodigo de Área" value="#{Areas.areaObjetoInsercion.codigoArea}"/>                            
                             <h:outputText value="Selecione el estado"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarArea" value="#{Areas.areaObjetoInsercion.estadoArea}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableIngresarArea" value="#{Areas.areaObjetoInsercion.estadoArea}" style="width: 150px;" required="true">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="1" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
                             <h:outputText value="Selecione la Sede "></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarAreaSede" value="#{Areas.areaObjetoInsercion.idSede.idSede}" style="width: 150px;" >
+                            <p:selectOneMenu id="desplegableIngresarAreaSede" value="#{Areas.areaObjetoInsercion.idSede.idSede}" style="width: 150px;" required="true">
                                 <f:selectItem itemLabel="Selecione Sede" itemValue="1" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaSedes}"/>
                             </p:selectOneMenu>
@@ -83,16 +83,16 @@
                             <h:outputText value="Código de Área"></h:outputText>
                             <p:inputText required="true" label="Cóodigo de Área" value="#{Areas.areaObjeto.codigoArea}"/>                            
                             <h:outputText value="Selecione el estado"></h:outputText>
-                            <p:selectOneMenu id="desplegableActualizarArea" value="#{Areas.areaObjeto.estadoArea}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableActualizarArea" value="#{Areas.areaObjeto.estadoArea}" style="width: 150px;" required="true">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="1" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
                             <h:outputText value="Selecione la sede #{Areas.areaObjeto.idSede.nombreSede}"></h:outputText>
-                            <p:selectOneMenu id="desplegableActualizarAreaSede" value="#{Areas.areaObjeto.idSede.idSede}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableActualizarAreaSede" value="#{Areas.areaObjeto.idSede.idSede}" style="width: 150px;" required="true">
                                 <f:selectItem itemLabel="Selecione Sede" itemValue="1" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaSedes}"/>
                             </p:selectOneMenu>
-                            <p:commandButton  value="Actualizar" update=":AreasForm:tablaAreas,:ActualizarModal:actualizarAreaModal,AreasForm:msgs" actionListener="#{Areas.actualizarArea()}" validateClient="true" class="botonNormal" rendered="#{Areas.actualizar}"/>
+                            <p:commandButton  value="Actualizar" update=":AreasForm:tablaAreas,:AreasForm:msgs" actionListener="#{Areas.actualizarArea()}" validateClient="true" class="botonNormal" rendered="#{Areas.actualizar}"/>
                             <p:commandButton value="Eliminar" update=":AreasForm:tablaAreas,:ActualizarModal:actualizarAreaModal,AreasForm:msgs" actionListener="#{Areas.eliminarArea()}" validateClient="true" class="botonNormal" rendered="#{Areas.eliminar}"/>
                         </p:panelGrid>
                     </p:dialog>

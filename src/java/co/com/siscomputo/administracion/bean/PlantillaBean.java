@@ -1,6 +1,9 @@
 package co.com.siscomputo.administracion.bean;
 
+import co.com.siscomputo.administracion.logic.ExtensionesLogic;
 import co.com.siscomputo.administracion.logic.PlantillaLogic;
+import co.com.siscomputo.administracion.logic.RutasLogic;
+import co.com.siscomputo.endpoint.ExtensionesEntity;
 import co.com.siscomputo.endpoint.PlantillaEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.utilidades.MensajesJSF;
@@ -22,7 +25,6 @@ import org.primefaces.event.SelectEvent;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
-import org.primefaces.model.UploadedFileWrapper;
 
 /**
  *
@@ -37,6 +39,7 @@ public class PlantillaBean implements Serializable {
     private PlantillaEntity objetoPlantilla;
     private PlantillaEntity objetoPlantillaInsercion;
     private UploadedFile file;
+    private String extensiones;
     private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
@@ -81,6 +84,14 @@ public class PlantillaBean implements Serializable {
         this.file = file;
     }
 
+    public String getExtensiones() {
+        return extensiones;
+    }
+
+    public void setExtensiones(String extensiones) {
+        this.extensiones = extensiones;
+    }
+        
     public boolean isIngresar() {
         return ingresar;
     }
@@ -260,10 +271,14 @@ public class PlantillaBean implements Serializable {
 
     /**
      * Método que permite almacenar un archivo
+     * @param nombre
+     * @param in
+     * @throws java.io.FileNotFoundException
      */
     public void alamcenarArchivo(String nombre, InputStream in) throws FileNotFoundException, IOException {
         try {
-            String ruta = "D:\\";
+            RutasLogic rutasLogic=new RutasLogic();
+            String ruta = rutasLogic.rutasPorTipo("PRUEBA").getCarpetaRutas();
             ruta += nombre;
             System.out.println("RUTA: " + ruta);
             OutputStream out = new FileOutputStream(new File(ruta));
@@ -281,7 +296,17 @@ public class PlantillaBean implements Serializable {
             iOException.printStackTrace();
         }
     }
-
+    
+    public void limitaExtensiones(){
+        extensiones="";
+        ExtensionesLogic extensionesLogic=new ExtensionesLogic();
+        ArrayList<ExtensionesEntity> listaExte=extensionesLogic.listaExtensiones();
+        for(ExtensionesEntity exte:listaExte){
+            extensiones+="|"+exte.getTipoExtensiones();
+        }
+        System.out.println("Extensiones: "+extensiones);
+    }
+    
     /**
      * Método que evalua los accesos al formulario
      */

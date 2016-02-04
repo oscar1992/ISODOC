@@ -8,26 +8,25 @@ package co.com.siscomputo.administracion.logic;
 import co.com.siscomputo.endpoint.CiudadEntity;
 import co.com.siscomputo.endpoint.Usuario;
 import co.com.siscomputo.endpoint.Usuario_Service;
+import co.com.siscomputo.utilidades.IurlWebService;
+import co.com.siscomputo.utilidades.SingletonDirecciones;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.ws.BindingProvider;
 
 /**
  *
  * @author LENOVO
  */
-public class CiudadLogic {
-    private Usuario_Service webService;
-    private Usuario port;
+public class CiudadLogic implements IurlWebService{
+
     private List ciudades;
     
     
     /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
+     * Funcion con la cual inicializo el service y el portUsuario() de los WebServices
      */
-    public void webService() {
-        webService = new Usuario_Service();
-        port = webService.getUsuarioPort();
-    }
+
 
     public List getCiudades() {
         return ciudades;
@@ -43,8 +42,8 @@ public class CiudadLogic {
     public ArrayList<CiudadEntity>listaCiudades(){
         ArrayList<CiudadEntity> lista=new ArrayList<>();
         ArrayList<Object> listaObjeto;
-        webService();
-        listaObjeto=(ArrayList<Object>) port.listaCiudades().getRetorna();
+        
+        listaObjeto=(ArrayList<Object>) portUsuario().listaCiudades().getRetorna();
         for(Object item:listaObjeto){
             CiudadEntity ciudad=(CiudadEntity)item;
             lista.add(ciudad);
@@ -57,10 +56,10 @@ public class CiudadLogic {
      * @return 
      */
     public CiudadEntity ingresaCiudad(CiudadEntity ciudad){
-        webService();
+        
         CiudadEntity ciudadRta=null;
         try {
-            ciudadRta=port.insertarCiudad(ciudad);
+            ciudadRta=portUsuario().insertarCiudad(ciudad);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -72,10 +71,10 @@ public class CiudadLogic {
      * @return 
      */
     public String actualizarCiudad(CiudadEntity ciudad){
-        webService();
+        
         String rta="";
         try {
-            if(port.actualizarCiudad(ciudad)!=null){
+            if(portUsuario().actualizarCiudad(ciudad)!=null){
                 rta="Ok";
             }else{
                 rta="Error";

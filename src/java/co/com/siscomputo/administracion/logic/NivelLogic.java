@@ -1,8 +1,7 @@
 package co.com.siscomputo.administracion.logic;
 
-import co.com.siscomputo.endpoint.Administacion;
-import co.com.siscomputo.endpoint.Administacion_Service;
 import co.com.siscomputo.endpoint.NivelEntity;
+import co.com.siscomputo.utilidades.IurlWebService;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,19 +9,11 @@ import java.util.List;
  *
  * @author LENOVO
  */
-public class NivelLogic {
+public class NivelLogic implements IurlWebService{
 
-    private Administacion_Service webService;
-    private Administacion port;
+
     private List nivel;
 
-    /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
-     */
-    public void webService() {
-        webService = new Administacion_Service();
-        port = webService.getAdministacionPort();
-    }
 
     public List getNivel() {
         return nivel;
@@ -38,9 +29,9 @@ public class NivelLogic {
      * @return
      */
     public ArrayList<NivelEntity> listaNivel() {
-        webService();
+        
         ArrayList<NivelEntity> listaaux = new ArrayList<>();
-        ArrayList<Object> listaObjeto = (ArrayList<Object>) port.listaNivel().getRetorna();
+        ArrayList<Object> listaObjeto = (ArrayList<Object>) portAdministracion().listaNivel().getRetorna();
         for (Object obj : listaObjeto) {
             NivelEntity objectnivel = (NivelEntity) obj;
             listaaux.add(objectnivel);
@@ -55,10 +46,10 @@ public class NivelLogic {
      * @return
      */
     public NivelEntity insertarNivel(NivelEntity objeto) {
-        webService();
+        
         NivelEntity dispoRta = null;
         try {
-            dispoRta = port.insertarNivel(objeto);
+            dispoRta = portAdministracion().insertarNivel(objeto);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -72,10 +63,10 @@ public class NivelLogic {
      * @return
      */
     public String actualizarNivel(NivelEntity objeto) {
-        webService();
+        
         String rta = "";
         try {
-            if (port.actualizarNivel(objeto) != null) {
+            if (portAdministracion().actualizarNivel(objeto) != null) {
                 rta = "Ok";
             } else {
                 rta = "Error";
@@ -92,10 +83,10 @@ public class NivelLogic {
      * @return
      */
     public NivelEntity nivelPorId(int idNivel) {
-        webService();
+        
         NivelEntity dispoRta = null;
         try {
-            dispoRta = port.nivelPorId(idNivel);
+            dispoRta = portAdministracion().nivelPorId(idNivel);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -107,10 +98,10 @@ public class NivelLogic {
      * @return
      */
     public NivelEntity anterioNivel(int idNivel) {
-        webService();
+        
         NivelEntity dispoRta = null;
         try {
-            dispoRta = port.anteriorNivel(idNivel);
+            dispoRta = portAdministracion().anteriorNivel(idNivel);
         } catch (Exception e) {
             e.printStackTrace();
         }

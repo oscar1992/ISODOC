@@ -55,12 +55,12 @@
                             <h:outputText value="Código de la Ciudad"></h:outputText>
                             <p:inputText required="true" label="Nombre de la Ciudad" value="#{Ciudades.ciudadObjetoInsercion.codigoCiudad}"/>
                             <h:outputText value="Estado de la Ciudad"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarCiudad" value="#{Ciudades.ciudadObjetoInsercion.estadoCiudad}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableIngresarCiudad" value="#{Ciudades.ciudadObjetoInsercion.estadoCiudad}" style="width: 150px;" required="true">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="false"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
                             <h:outputText value="Departamento de la Ciudad"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarDeptoCiudad" value="#{Ciudades.ciudadObjetoInsercion.ciudadDepartamento.idDepartamento}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableIngresarDeptoCiudad" value="#{Ciudades.ciudadObjetoInsercion.ciudadDepartamento.idDepartamento}" style="width: 150px;" required="true">
                                 <f:selectItem itemLabel="Selecione Departamento" itemValue="" noSelectionOption="false"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaDepartamentos}"/>
                             </p:selectOneMenu>
@@ -78,12 +78,12 @@
                             <h:outputText value="Código de la Ciudad"></h:outputText>
                             <p:inputText required="true" label="Nombre de la Ciudad" value="#{Ciudades.ciudadObjeto.codigoCiudad}"/>
                             <h:outputText value="Estado de la Ciudad"></h:outputText>
-                            <p:selectOneMenu id="desplegableActualizarCiudad" value="#{Ciudades.ciudadObjeto.estadoCiudad}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableActualizarCiudad" value="#{Ciudades.ciudadObjeto.estadoCiudad}" style="width: 150px;" required="true">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
                             <h:outputText value="Departamento de la Ciudad"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarDeptoCiudad" value="#{Ciudades.ciudadObjeto.ciudadDepartamento.idDepartamento}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableIngresarDeptoCiudad" value="#{Ciudades.ciudadObjeto.ciudadDepartamento.idDepartamento}" style="width: 150px;" required="true">
                                 <f:selectItem itemLabel="Selecione Departamento" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaDepartamentos}"/>
                             </p:selectOneMenu>

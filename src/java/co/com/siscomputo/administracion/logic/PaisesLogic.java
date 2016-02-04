@@ -5,10 +5,8 @@
  */
 package co.com.siscomputo.administracion.logic;
 
-import co.com.siscomputo.endpoint.EmpresaEntity;
 import co.com.siscomputo.endpoint.PaisEntity;
-import co.com.siscomputo.endpoint.Usuario;
-import co.com.siscomputo.endpoint.Usuario_Service;
+import co.com.siscomputo.utilidades.IurlWebService;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,18 +14,11 @@ import java.util.List;
  *
  * @author LENOVO
  */
-public class PaisesLogic {
-    private Usuario_Service webService;
-    private Usuario port;
+public class PaisesLogic implements IurlWebService{
+
     private List paises;
     
-    /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
-     */
-    public void webService() {
-        webService = new Usuario_Service();
-        port = webService.getUsuarioPort();
-    }
+
 
     public List getPaises() {
         return paises;
@@ -43,8 +34,8 @@ public class PaisesLogic {
     public ArrayList<PaisEntity> listaPaises(){
         ArrayList<PaisEntity> lista=new ArrayList<>();
         ArrayList<Object> listaobjeto;
-        webService();
-        listaobjeto=(ArrayList<Object>)port.listaPais().getRetorna();
+        
+        listaobjeto=(ArrayList<Object>)portUsuario().listaPais().getRetorna();
         for(Object item:listaobjeto){
             PaisEntity pais=(PaisEntity)item;
             lista.add(pais);
@@ -57,10 +48,10 @@ public class PaisesLogic {
      * @return 
      */
     public PaisEntity ingresaPais(PaisEntity paisEntity){
-        webService();
+        
         PaisEntity paisRta=null;
         try {
-            paisRta=port.insertarPais(paisEntity);
+            paisRta=portUsuario().insertarPais(paisEntity);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -71,10 +62,10 @@ public class PaisesLogic {
      * @return 
      */
     public String actualizarPais(PaisEntity paisEntity){
-        webService();
+        
         String rta="";
         try {
-            if(port.actualizarPais(paisEntity)!=null){
+            if(portUsuario().actualizarPais(paisEntity)!=null){
                 rta="Ok";
             }else{
                 rta="Error";
@@ -91,7 +82,7 @@ public class PaisesLogic {
      * @return 
      */
     public PaisEntity paisPorId(int idPais){
-        webService();
-        return port.paisPorId(idPais);
+        
+        return portUsuario().paisPorId(idPais);
     }
 }

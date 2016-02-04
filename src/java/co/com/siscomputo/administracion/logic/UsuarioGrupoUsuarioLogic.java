@@ -1,11 +1,10 @@
 package co.com.siscomputo.administracion.logic;
 
-import co.com.siscomputo.endpoint.Administacion;
-import co.com.siscomputo.endpoint.Administacion_Service;
 import co.com.siscomputo.endpoint.GrupoUsuariosEntity;
 import co.com.siscomputo.endpoint.ObjetoRetornaEntity;
 import co.com.siscomputo.endpoint.UsuarioEntity;
 import co.com.siscomputo.endpoint.UsuarioGrupoUsuarioEntity;
+import co.com.siscomputo.utilidades.IurlWebService;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,19 +12,9 @@ import java.util.List;
  *
  * @author LENOVO
  */
-public class UsuarioGrupoUsuarioLogic {
+public class UsuarioGrupoUsuarioLogic implements IurlWebService{
 
-    private Administacion_Service webService;
-    private Administacion port;
     private List usuarioGrupoUsuario;
-
-    /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
-     */
-    public void webService() {
-        webService = new Administacion_Service();
-        port = webService.getAdministacionPort();
-    }
 
     public List getUsuarioGrupoUsuario() {
         return usuarioGrupoUsuario;
@@ -41,9 +30,9 @@ public class UsuarioGrupoUsuarioLogic {
      * @return
      */
     public ArrayList<UsuarioGrupoUsuarioEntity> listaUsuarioGrupoUsuario() {
-        webService();
+        
         ArrayList<UsuarioGrupoUsuarioEntity> listaaux = new ArrayList<>();
-        ArrayList<Object> listaObjeto = (ArrayList<Object>) port.listaUsuarioGrupoUsuario().getRetorna();
+        ArrayList<Object> listaObjeto = (ArrayList<Object>) portAdministracion().listaUsuarioGrupoUsuario().getRetorna();
         for (Object obj : listaObjeto) {
             UsuarioGrupoUsuarioEntity objectusuarioGrupoUsuario = (UsuarioGrupoUsuarioEntity) obj;
             listaaux.add(objectusuarioGrupoUsuario);
@@ -60,7 +49,7 @@ public class UsuarioGrupoUsuarioLogic {
      * @return
      */
     public ObjetoRetornaEntity insertarUsuarioGrupoUsuario(ArrayList<String> objeto, int idGrupo) {
-        webService();
+        
         ObjetoRetornaEntity dispoRta = null;
         try {
             UsuarioLogic usuarioLogic=new UsuarioLogic();
@@ -79,8 +68,8 @@ public class UsuarioGrupoUsuarioLogic {
                     }
                 }
             }
-            port.limpiaUsuarioGrupoUsuario(idGrupo);
-            dispoRta = port.insertarUsuarioGrupoUsuario(listaugu);
+            portAdministracion().limpiaUsuarioGrupoUsuario(idGrupo);
+            dispoRta = portAdministracion().insertarUsuarioGrupoUsuario(listaugu);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -95,10 +84,10 @@ public class UsuarioGrupoUsuarioLogic {
      * @return
      */
     public String actualizarUsuarioGrupoUsuario(UsuarioGrupoUsuarioEntity objeto) {
-        webService();
+        
         String rta = "";
         try {
-            if (port.actualizarUsuarioGrupoUsuario(objeto) != null) {
+            if (portAdministracion().actualizarUsuarioGrupoUsuario(objeto) != null) {
                 rta = "Ok";
             } else {
                 rta = "Error";
@@ -116,9 +105,9 @@ public class UsuarioGrupoUsuarioLogic {
      * @return
      */
     public ArrayList<UsuarioEntity> listaUsuarioGrupoUsuarioPorGrupo(int idGrupo) {
-        webService();
+        
         ArrayList<UsuarioEntity> listaaux = new ArrayList<>();
-        ArrayList<Object> listaObjeto = (ArrayList<Object>) port.listaUsuarioGrupoUsuarioPorGrupo(idGrupo).getRetorna();
+        ArrayList<Object> listaObjeto = (ArrayList<Object>) portAdministracion().listaUsuarioGrupoUsuarioPorGrupo(idGrupo).getRetorna();
         for (Object obj : listaObjeto) {
             UsuarioEntity objectusuarioGrupoUsuario = (UsuarioEntity) obj;
             listaaux.add(objectusuarioGrupoUsuario);

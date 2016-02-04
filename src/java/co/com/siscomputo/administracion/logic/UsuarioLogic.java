@@ -5,9 +5,8 @@
  */
 package co.com.siscomputo.administracion.logic;
 
-import co.com.siscomputo.endpoint.Usuario;
 import co.com.siscomputo.endpoint.UsuarioEntity;
-import co.com.siscomputo.endpoint.Usuario_Service;
+import co.com.siscomputo.utilidades.IurlWebService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -18,10 +17,9 @@ import javax.faces.context.FacesContext;
  *
  * @author LENOVO
  */
-public class UsuarioLogic {
+public class UsuarioLogic implements IurlWebService{
 
-    private Usuario_Service webService;
-    private Usuario port;
+
     private List usuarios;
 
     public List getUsuarios() {
@@ -32,13 +30,7 @@ public class UsuarioLogic {
         this.usuarios = usuarios;
     }
 
-    /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
-     */
-    public void webService() {
-        webService = new Usuario_Service();
-        port = webService.getUsuarioPort();
-    }
+   
 
     public UsuarioLogic() {
         init();
@@ -46,8 +38,8 @@ public class UsuarioLogic {
 
     @PostConstruct
     public void init() {
-        webService();
-        usuarios = (List) port.listaUsuarios().getRetorna();
+        
+        usuarios = (List) portUsuario().listaUsuarios().getRetorna();
     }
 
     /**
@@ -56,8 +48,8 @@ public class UsuarioLogic {
      * @param usuario Usuario a actualizar
      */
     public void actualizarUsuario(UsuarioEntity usuario) {
-        webService();
-        if (port.actualizarUsuario(usuario) == null) {
+        
+        if (portUsuario().actualizarUsuario(usuario) == null) {
             FacesMessage msg = new FacesMessage("Eliminación", "Usuario no Eliminado");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } else {
@@ -74,10 +66,10 @@ public class UsuarioLogic {
      * @return
      */
     public UsuarioEntity ingresarUsuario(UsuarioEntity usuario) {
-        webService();
+        
         UsuarioEntity usuarioRta = null;
         try {
-            usuarioRta = port.ingresarUsuario(usuario);
+            usuarioRta = portUsuario().ingresarUsuario(usuario);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -92,8 +84,8 @@ public class UsuarioLogic {
     public ArrayList<UsuarioEntity> listaUsuarios() {
         ArrayList<UsuarioEntity> lista = new ArrayList<>();
         ArrayList<Object> listao;
-        webService();
-        listao = (ArrayList<Object>) port.listaUsuarios().getRetorna();
+        
+        listao = (ArrayList<Object>) portUsuario().listaUsuarios().getRetorna();
         for (Object item : listao) {
             UsuarioEntity usu = (UsuarioEntity) item;
 
@@ -109,10 +101,10 @@ public class UsuarioLogic {
      * @return
      */
     public String logicActualizarUsuario(UsuarioEntity usuario) {
-        webService();
+        
         String rta = "";
         try {
-            if (port.actualizarUsuario(usuario) == null) {
+            if (portUsuario().actualizarUsuario(usuario) == null) {
                 rta = "Ok";
                 FacesMessage msg = new FacesMessage("Actualización", "Usuario no Actualizado  ");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -133,8 +125,8 @@ public class UsuarioLogic {
      * @return 
      */
     public UsuarioEntity usuarioPorID(int idusuario) {
-        webService();
-        return port.usuarioPorId(idusuario);
+        
+        return portUsuario().usuarioPorId(idusuario);
     }
     
     /**
@@ -142,9 +134,9 @@ public class UsuarioLogic {
      * @return 
      */
     public ArrayList<UsuarioEntity> listaUsuarioMacroporcesoPorUsuarioAccion(int idUsuario, int idAccion, int tipo){
-        webService();
+        
         ArrayList<UsuarioEntity> listaaux=new ArrayList<>();
-        ArrayList<Object> listaObjeto =(ArrayList<Object>) port.listaUsuarioSelecionPorUsuarioAccion(idUsuario, idAccion, tipo).getRetorna();
+        ArrayList<Object> listaObjeto =(ArrayList<Object>) portUsuario().listaUsuarioSelecionPorUsuarioAccion(idUsuario, idAccion, tipo).getRetorna();
         for(Object obj:listaObjeto){
             UsuarioEntity objectusuarioMacroproceso=(UsuarioEntity) obj;
             listaaux.add(objectusuarioMacroproceso);
@@ -156,9 +148,24 @@ public class UsuarioLogic {
      * @param idAccion 
      */
     public ArrayList<UsuarioEntity> usuariosPorAccion(int idAccion){
-        webService();
+        
         ArrayList<UsuarioEntity>listaaux=new ArrayList<>();
-        ArrayList<Object>listaObjeto=(ArrayList<Object>) port.listaUsuariosPorAccion(idAccion).getRetorna();
+        ArrayList<Object>listaObjeto=(ArrayList<Object>) portUsuario().listaUsuariosPorAccion(idAccion).getRetorna();
+        for(Object obj:listaObjeto){
+            UsuarioEntity usuarioEntity=(UsuarioEntity)obj;
+            listaaux.add(usuarioEntity);
+        }
+        return listaaux;
+    }
+    /**
+     * Método que retorna una lista de usuarios por id de grupo
+     * @param idGrupo
+     * @return 
+     */
+    public ArrayList<UsuarioEntity> usuariosPorGrupo(int idGrupo){
+        
+        ArrayList<UsuarioEntity>listaaux=new ArrayList<>();
+        ArrayList<Object>listaObjeto=(ArrayList<Object>) portUsuario().usuariosPorGrupo(idGrupo).getRetorna();
         for(Object obj:listaObjeto){
             UsuarioEntity usuarioEntity=(UsuarioEntity)obj;
             listaaux.add(usuarioEntity);

@@ -3,25 +3,24 @@ package co.com.siscomputo.administracion.logic;
 import co.com.siscomputo.endpoint.Administacion;
 import co.com.siscomputo.endpoint.Administacion_Service;
 import co.com.siscomputo.endpoint.TipoAlmacenamientoEntity;
+import co.com.siscomputo.utilidades.IurlWebService;
+import co.com.siscomputo.utilidades.SingletonDirecciones;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.ws.BindingProvider;
 
 /**
  *
  * @author LENOVO
  */
-public class TipoAlmacenamientoLogic {
-    private Administacion_Service webService;
-    private Administacion port;
+public class TipoAlmacenamientoLogic implements IurlWebService{
+
     private List tipoAlmacenamiento;
     
     /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
+     * Funcion con la cual inicializo el service y el portAdministracion() de los WebServices
      */
-    public void webService() {
-        webService = new Administacion_Service();
-        port = webService.getAdministacionPort();
-    }
+
 
     public List getTipoAlmacenamiento() {
         return tipoAlmacenamiento;
@@ -36,9 +35,9 @@ public class TipoAlmacenamientoLogic {
      * @return 
      */
     public ArrayList<TipoAlmacenamientoEntity> listaTipoAlmacenamiento(){
-        webService();
+        
         ArrayList<TipoAlmacenamientoEntity> listaaux=new ArrayList<>();
-        ArrayList<Object> listaObjeto =(ArrayList<Object>) port.listaTipoAlmacenamiento().getRetorna();
+        ArrayList<Object> listaObjeto =(ArrayList<Object>) portAdministracion().listaTipoAlmacenamiento().getRetorna();
         for(Object obj:listaObjeto){
             TipoAlmacenamientoEntity objecttipoAlmacenamiento=(TipoAlmacenamientoEntity) obj;
             listaaux.add(objecttipoAlmacenamiento);
@@ -51,10 +50,10 @@ public class TipoAlmacenamientoLogic {
      * @return 
      */
     public TipoAlmacenamientoEntity insertarTipoAlmacenamiento(TipoAlmacenamientoEntity objeto){
-        webService();
+        
         TipoAlmacenamientoEntity dispoRta=null;        
         try {
-            dispoRta = port.insertarTipoAlmacenamiento(objeto);
+            dispoRta = portAdministracion().insertarTipoAlmacenamiento(objeto);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -66,10 +65,10 @@ public class TipoAlmacenamientoLogic {
      * @return 
      */
     public String actualizarTipoAlmacenamiento(TipoAlmacenamientoEntity objeto){
-        webService();
+        
         String rta="";
         try {            
-            if (port.actualizarTipoAlmacenamiento(objeto) != null) {
+            if (portAdministracion().actualizarTipoAlmacenamiento(objeto) != null) {
                 rta = "Ok";
             } else {
                 rta = "Error";

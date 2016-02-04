@@ -3,25 +3,20 @@ package co.com.siscomputo.administracion.logic;
 import co.com.siscomputo.endpoint.Administacion;
 import co.com.siscomputo.endpoint.Administacion_Service;
 import co.com.siscomputo.endpoint.TiposAccesoEntity;
+import co.com.siscomputo.utilidades.IurlWebService;
+import co.com.siscomputo.utilidades.SingletonDirecciones;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.ws.BindingProvider;
 
 /**
  *
  * @author LENOVO
  */
-public class TiposAccesoLogic {
-    private Administacion_Service webService;
-    private Administacion port;
+public class TiposAccesoLogic implements IurlWebService{
+
     private List tiposAcceso;
     
-    /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
-     */
-    public void webService() {
-        webService = new Administacion_Service();
-        port = webService.getAdministacionPort();
-    }
 
     public List getTiposAcceso() {
         return tiposAcceso;
@@ -36,9 +31,9 @@ public class TiposAccesoLogic {
      * @return 
      */
     public ArrayList<TiposAccesoEntity> listaTiposAcceso(){
-        webService();
+        
         ArrayList<TiposAccesoEntity> listaaux=new ArrayList<>();
-        ArrayList<Object> listaObjeto =(ArrayList<Object>) port.listaTiposAcceso().getRetorna();
+        ArrayList<Object> listaObjeto =(ArrayList<Object>) portAdministracion().listaTiposAcceso().getRetorna();
         for(Object obj:listaObjeto){
             TiposAccesoEntity objecttiposAcceso=(TiposAccesoEntity) obj;
             listaaux.add(objecttiposAcceso);
@@ -51,10 +46,10 @@ public class TiposAccesoLogic {
      * @return 
      */
     public TiposAccesoEntity insertarTiposAcceso(TiposAccesoEntity objeto){
-        webService();
+        
         TiposAccesoEntity dispoRta=null;        
         try {
-            dispoRta = port.insertarTiposAcceso(objeto);
+            dispoRta = portAdministracion().insertarTiposAcceso(objeto);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -66,10 +61,10 @@ public class TiposAccesoLogic {
      * @return 
      */
     public String actualizarTiposAcceso(TiposAccesoEntity objeto){
-        webService();
+        
         String rta="";
         try {            
-            if (port.actualizarTiposAcceso(objeto) != null) {
+            if (portAdministracion().actualizarTiposAcceso(objeto) != null) {
                 rta = "Ok";
             } else {
                 rta = "Error";

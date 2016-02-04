@@ -4,25 +4,21 @@ import co.com.siscomputo.endpoint.AccionEntity;
 import co.com.siscomputo.endpoint.DocumentoEntity;
 import co.com.siscomputo.endpoint.GestionDocumental;
 import co.com.siscomputo.endpoint.GestionDocumental_Service;
+import co.com.siscomputo.utilidades.IurlWebService;
+import co.com.siscomputo.utilidades.SingletonDirecciones;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.ws.BindingProvider;
 
 /**
  *
  * @author LENOVO
  */
-public class DocumentoLogic {
-    private GestionDocumental_Service webService;
-    private GestionDocumental port;
+public class DocumentoLogic implements IurlWebService{
+
     private List documento;
     
-    /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
-     */
-    public void webService() {
-        webService = new GestionDocumental_Service();
-        port = webService.getGestionDocumentalPort();
-    }
+ 
 
     public List getDocumento() {
         return documento;
@@ -37,9 +33,9 @@ public class DocumentoLogic {
      * @return 
      */
     public ArrayList<DocumentoEntity> listaDocumento(){
-        webService();
+        
         ArrayList<DocumentoEntity> listaaux=new ArrayList<>();
-        ArrayList<Object> listaObjeto =(ArrayList<Object>) port.listaDocumento().getRetorna();
+        ArrayList<Object> listaObjeto =(ArrayList<Object>) portGestion().listaDocumento().getRetorna();
         for(Object obj:listaObjeto){
             DocumentoEntity objectdocumento=(DocumentoEntity) obj;
             listaaux.add(objectdocumento);
@@ -52,10 +48,10 @@ public class DocumentoLogic {
      * @return 
      */
     public DocumentoEntity insertarDocumento(DocumentoEntity objeto){
-        webService();
+        
         DocumentoEntity dispoRta=null;        
         try {
-            dispoRta = port.insertarDocumento(objeto);
+            dispoRta = portGestion().insertarDocumento(objeto);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -67,10 +63,10 @@ public class DocumentoLogic {
      * @return 
      */
     public String actualizarDocumento(DocumentoEntity objeto){
-        webService();
+        
         String rta="";
         try {            
-            if (port.actualizarDocumento(objeto) != null) {
+            if (portGestion().actualizarDocumento(objeto) != null) {
                 rta = "Ok";
             } else {
                 rta = "Error";
@@ -83,11 +79,11 @@ public class DocumentoLogic {
     }
     
     public ArrayList<DocumentoEntity> documetosPorAccion(AccionEntity accion){
-        webService();
+        
         ArrayList<DocumentoEntity> listaretorna=new ArrayList<>();
         try {
             ArrayList<Object>listaObjeto=new ArrayList<>();
-            listaObjeto=(ArrayList<Object>) port.listaDocumentoPorAccion(accion).getRetorna();
+            listaObjeto=(ArrayList<Object>) portGestion().listaDocumentoPorAccion(accion).getRetorna();
             for(Object obj:listaObjeto){
                 DocumentoEntity documentoEntity=(DocumentoEntity) obj;
                 listaretorna.add(documentoEntity);

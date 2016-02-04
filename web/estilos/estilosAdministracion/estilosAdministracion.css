@@ -513,14 +513,6 @@
     color: #666666;
 }
 //Estilo Botón Subir Archivo
-.ui-fileupload-buttonbar{
-    font-family: Trebuchet MS;
-    color: #ffffff;
-    font-size: 12px;
-    background: #666666;
-    font-weight: bolder;
-    text-decoration: none;
-    border: solid #1f628d 0px;
-    width: 120px;
-    border-radius: 4px;
-}
+.ui-button{
+    background: #ac2925;
+}   

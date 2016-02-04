@@ -49,7 +49,8 @@
                 </h:form>
                 <h:form id="IngresarModal">
                     <p:dialog header="Insertar Plantilla de Gestión Documental" widgetVar="insertarPlantilla" modal="true" id="insertarPlantillaModal" responsive="true">
-                        #{Plantilla.nuevoPlantillaObjeto()}                        
+                        #{Plantilla.nuevoPlantillaObjeto()}     
+                        #{Plantilla.limitaExtensiones()}
                         <p:messages autoUpdate="true"/>                        
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
 
@@ -57,7 +58,7 @@
                             <h:outputText value="nombre de la Plantilla de Gestión Documental"></h:outputText>
                             <p:inputText required="true" label="nombre del Plantilla de Gestión Documental" value="#{Plantilla.objetoPlantillaInsercion.nombrePlantilla}"/>
                             <h:outputText value="ruta de la Plantilla de Gestión Documental"></h:outputText>
-                            <p:fileUpload mode="advanced" skinSimple="true" dragDropSupport="true" uploadLabel="Subir" cancelLabel="Cancelar" allowTypes="/(\.|\/)(gif|jpe?g|png|xlsx|docx)$/" invalidFileMessage="Archivo Inváulido" multiple="false" fileUploadListener="#{Plantilla.subriArchivo}" label="Subir" style="ui-fileupload-buttonbar"/>
+                            <p:fileUpload mode="advanced" skinSimple="true" dragDropSupport="true" uploadLabel="Subir" cancelLabel="Cancelar" allowTypes="/(\.|\/)(gif#{Plantilla.extensiones})$/" invalidFileMessage="Archivo Inváulido" multiple="false" fileUploadListener="#{Plantilla.subriArchivo}" label="Subir"/>
                             <h:outputText value="Estado de la Plantilla de Gestión Documental"></h:outputText>
                             <p:selectOneMenu id="desplegableIngresarEstado" value="#{Plantilla.objetoPlantillaInsercion.estadoPlantilla}" style="width: 150px;">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>

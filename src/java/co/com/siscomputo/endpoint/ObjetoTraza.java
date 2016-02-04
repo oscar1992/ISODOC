@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlType;
     UsuarioEntity.class,
     MacroprocesosEntity.class,
     SubprocesoEntity.class,
+    RutasEntity.class,
     ProcesosEntity.class,
     ObjetoRetornaEntity.class
 })

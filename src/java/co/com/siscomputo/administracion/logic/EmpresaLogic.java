@@ -8,26 +8,21 @@ package co.com.siscomputo.administracion.logic;
 import co.com.siscomputo.endpoint.EmpresaEntity;
 import co.com.siscomputo.endpoint.Usuario;
 import co.com.siscomputo.endpoint.Usuario_Service;
+import co.com.siscomputo.utilidades.IurlWebService;
+import co.com.siscomputo.utilidades.SingletonDirecciones;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.xml.ws.BindingProvider;
 
 /**
  *
  * @author LENOVO
  */
-public class EmpresaLogic {
-    private Usuario_Service webService;
-    private Usuario port;
+public class EmpresaLogic implements IurlWebService{
+
     private List empresas;
-    
-    /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
-     */
-    public void webService() {
-        webService = new Usuario_Service();
-        port = webService.getUsuarioPort();
-    }
+
 
     public EmpresaLogic() {
         init();
@@ -51,8 +46,8 @@ public class EmpresaLogic {
     public ArrayList<EmpresaEntity> listaEmpresas(){
         ArrayList<EmpresaEntity> lista=new ArrayList<>();
         ArrayList<Object> listaObjeto;
-        webService();
-        listaObjeto=(ArrayList < Object>)port.listaEmpresa().getRetorna();
+        
+        listaObjeto=(ArrayList < Object>)portUsuario().listaEmpresa().getRetorna();
         for(Object item:listaObjeto){
             EmpresaEntity empresa=(EmpresaEntity)item;
             lista.add(empresa);
@@ -65,10 +60,10 @@ public class EmpresaLogic {
      * @return 
      */
     public EmpresaEntity ingresarEmpresa(EmpresaEntity empresa){
-        webService();
+        
         EmpresaEntity emprRta=null;
         try {
-            emprRta=port.ingresarEmpresa(empresa);
+            emprRta=portUsuario().ingresarEmpresa(empresa);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -80,10 +75,10 @@ public class EmpresaLogic {
      * @return 
      */
     public String actualizarEmpresa(EmpresaEntity empresa){
-        webService();
+        
         String rta="";
         try {
-            if(port.actualizarEmpresa(empresa)!=null){
+            if(portUsuario().actualizarEmpresa(empresa)!=null){
                 rta="Ok";
             }else{
                 rta="Error";

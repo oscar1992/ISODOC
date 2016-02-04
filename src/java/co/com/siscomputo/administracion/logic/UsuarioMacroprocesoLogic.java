@@ -3,10 +3,9 @@ package co.com.siscomputo.administracion.logic;
 import co.com.siscomputo.endpoint.AccionEntity;
 import co.com.siscomputo.endpoint.MacroprocesosEntity;
 import co.com.siscomputo.endpoint.ObjetoRetornaEntity;
-import co.com.siscomputo.endpoint.Usuario;
 import co.com.siscomputo.endpoint.UsuarioEntity;
 import co.com.siscomputo.endpoint.UsuarioMacroprocesoEntity;
-import co.com.siscomputo.endpoint.Usuario_Service;
+import co.com.siscomputo.utilidades.IurlWebService;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,18 +13,11 @@ import java.util.List;
  *
  * @author LENOVO
  */
-public class UsuarioMacroprocesoLogic {
-    private Usuario_Service webService;
-    private Usuario port;
+public class UsuarioMacroprocesoLogic implements IurlWebService{
+    
     private List usuarioMacroproceso;
     
-    /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
-     */
-    public void webService() {
-        webService = new Usuario_Service();
-        port = webService.getUsuarioPort();
-    }
+
 
     public List getUsuarioMacroproceso() {
         return usuarioMacroproceso;
@@ -40,9 +32,9 @@ public class UsuarioMacroprocesoLogic {
      * @return 
      */
     public ArrayList<UsuarioMacroprocesoEntity> listaUsuarioMacroproceso(){
-        webService();
+        
         ArrayList<UsuarioMacroprocesoEntity> listaaux=new ArrayList<>();
-        ArrayList<Object> listaObjeto =(ArrayList<Object>) port.listaUsuarioMacroproceso().getRetorna();
+        ArrayList<Object> listaObjeto =(ArrayList<Object>) portUsuario().listaUsuarioMacroproceso().getRetorna();
         for(Object obj:listaObjeto){
             UsuarioMacroprocesoEntity objectusuarioMacroproceso=(UsuarioMacroprocesoEntity) obj;
             listaaux.add(objectusuarioMacroproceso);
@@ -55,7 +47,7 @@ public class UsuarioMacroprocesoLogic {
      * @return 
      */
     public ObjetoRetornaEntity insertarUsuarioMacroproceso(ArrayList<String> macrosNombres,UsuarioEntity objeto, int idAccion){
-        webService();
+        
         ObjetoRetornaEntity dispoRta=null;        
         MacroProcesosLogic macroProcesosLogic=new MacroProcesosLogic();
         ArrayList<MacroprocesosEntity> listMacros=macroProcesosLogic.listaMacroprocesos();
@@ -81,8 +73,8 @@ public class UsuarioMacroprocesoLogic {
             }
         }
         try {
-            port.limpiaUsuarioMacroProceso(objeto.getIdUsuario(), idAccion);
-            dispoRta = port.ingresarUsuarioMacroproceso(listaUsuarioMacroproceso);
+            portUsuario().limpiaUsuarioMacroProceso(objeto.getIdUsuario(), idAccion);
+            dispoRta = portUsuario().ingresarUsuarioMacroproceso(listaUsuarioMacroproceso);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -94,10 +86,10 @@ public class UsuarioMacroprocesoLogic {
      * @return 
      */
     public String actualizarUsuarioMacroproceso(UsuarioMacroprocesoEntity objeto){
-        webService();
+        
         String rta="";
         try {            
-            if (port.actualizarusuarioMacroproceso(objeto) != null) {
+            if (portUsuario().actualizarusuarioMacroproceso(objeto) != null) {
                 rta = "Ok";
             } else {
                 rta = "Error";
@@ -113,9 +105,9 @@ public class UsuarioMacroprocesoLogic {
      * @return 
      */
     public ArrayList<UsuarioMacroprocesoEntity> listaUsuarioMacroporcesoPorUsuario(int idUsuario){
-        webService();
+        
         ArrayList<UsuarioMacroprocesoEntity> listaaux=new ArrayList<>();
-        ArrayList<Object> listaObjeto =(ArrayList<Object>) port.listaUsuarioMacroProcesosPorUsuario(idUsuario).getRetorna();
+        ArrayList<Object> listaObjeto =(ArrayList<Object>) portUsuario().listaUsuarioMacroProcesosPorUsuario(idUsuario).getRetorna();
         for(Object obj:listaObjeto){
             UsuarioMacroprocesoEntity objectusuarioMacroproceso=(UsuarioMacroprocesoEntity) obj;
             listaaux.add(objectusuarioMacroproceso);
@@ -127,9 +119,9 @@ public class UsuarioMacroprocesoLogic {
      * @return 
      */
     public ArrayList<UsuarioMacroprocesoEntity> listaUsuarioMacroporcesoPorUsuarioAccion(int idUsuario, int idAccion){
-        webService();
+        
         ArrayList<UsuarioMacroprocesoEntity> listaaux=new ArrayList<>();
-        ArrayList<Object> listaObjeto =(ArrayList<Object>) port.listaUsuarioMacroProcesosPorUsuarioAccion(idUsuario, idAccion).getRetorna();
+        ArrayList<Object> listaObjeto =(ArrayList<Object>) portUsuario().listaUsuarioMacroProcesosPorUsuarioAccion(idUsuario, idAccion).getRetorna();
         for(Object obj:listaObjeto){
             UsuarioMacroprocesoEntity objectusuarioMacroproceso=(UsuarioMacroprocesoEntity) obj;
             listaaux.add(objectusuarioMacroproceso);

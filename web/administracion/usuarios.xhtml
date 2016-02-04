@@ -38,10 +38,10 @@
                         </p:column>
                         <p:column headerText="Estado de la Empresa" filterBy="#{usuario.estado}">
                             <f:facet name="filter">
-                            <p:selectOneMenu onchange="PF('TablaUsuarios').filter()" >
-                                <f:selectItem itemLabel="Selecione Estado" itemValue="#{null}" noSelectionOption="false"/>
-                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
-                            </p:selectOneMenu>
+                                <p:selectOneMenu onchange="PF('TablaUsuarios').filter()">
+                                    <f:selectItem itemLabel="Selecione Estado" itemValue="#{null}" noSelectionOption="false"/>
+                                    <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                                </p:selectOneMenu>
                             </f:facet>                            
                             <!--<h:outputText value="#{usuario.estado}"/>-->
                             <h:outputText value="Activo" rendered="#{usuario.estado == 'A'}"/>
@@ -50,12 +50,8 @@
                         <p:column headerText="Email" filterBy="#{usuario.email}">
                             <h:outputText value="#{usuario.email}"/>
                         </p:column>
-                        <p:column style="width:90px;text-align: center" rendered="false">
-                            <p:commandButton update=":ActualizarModal:actualizarUsuarioModal" oncomplete="PF('actualizarUsuario').show()" class="iconoBuscar" title="View" value="">
-                                <f:setPropertyActionListener value="#{usuario}" target="#{Usuario.usuarioObjeto}" />
-                            </p:commandButton>
-                        </p:column>
                         
+
                     </p:dataTable>
                     <br/>
                     <p:commandButton value="Insertar" type="button" onclick="PF('insertarUsuario').show();" update=":UsuarioForm:msgs" class="botonNormal2" rendered="#{Usuario.ingresar}" ></p:commandButton>
@@ -64,29 +60,49 @@
                 <h:form id="IngresarModal">      
                     <p:dialog header="Insertar Usuario" widgetVar="insertarUsuario" modal="true" id="insertarUsuarioModal" responsive="true">
                         <p:messages autoUpdate="true"/>
-                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
-
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">                            
                             <h:outputText value="Nombre del Usuario"></h:outputText>
-                            <p:inputText required="true" label="Nombre de usuario" value="#{Usuario.usuarioObjetoInsercion.nombre}"/> 
+                            <p:inputText id="nombre" required="true" label="Nombre de usuario" value="#{Usuario.usuarioObjetoInsercion.nombre}" requiredMessage="Nombre Incorrecto" >
+                                <f:validateRegex pattern="[a-zA-Z]+" />
+                                <p:message for="nombre"/>
+                                <p:ajax event="blur" />                                
+                            </p:inputText> 
+
                             <h:outputText value="Apellido del Usuario "></h:outputText>
-                            <p:inputText required="true" label="Apellido de usuario" value="#{Usuario.usuarioObjetoInsercion.apellido}"/> 
+                            <p:inputText id="apellido" required="true" label="Apellido de usuario" value="#{Usuario.usuarioObjetoInsercion.apellido}" validatorMessage="Apellido Incorrecto">
+                                <f:validateRegex pattern="[a-zA-Z]+" />
+                                <p:message for="apellido"/>
+                                <p:ajax event="blur" /> 
+                            </p:inputText>                            
                             <h:outputText value="Nombre de Acceso "></h:outputText>
                             <p:inputText required="true" label="Nombre de Acceso" value="#{Usuario.usuarioObjetoInsercion.nombreUsuario}"/> 
                             <h:outputText value="Contraseña "></h:outputText>
                             <p:inputText required="true" label="Contraseña de usuario" value="#{Usuario.usuarioObjetoInsercion.clave}"/> 
 
                             <h:outputText value="Correo "></h:outputText>
-                            <p:inputText required="true" label="Correo de usuario" value="#{Usuario.usuarioObjetoInsercion.email}"/>                                 
+                            <p:inputText id="correo" required="true" label="Correo de usuario" value="#{Usuario.usuarioObjetoInsercion.email}" validatorMessage="Correo invalido">
+                                <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                                <p:message for="correo"/>
+                                <p:ajax event="blur" /> 
+                            </p:inputText>
                             <h:outputText value="Número de teléfono "></h:outputText>
-                            <p:inputText required="true" label="Teléfono de usuario" value="#{Usuario.usuarioObjetoInsercion.telefono}"/> 
+                            <p:inputText id="telefono" required="true" label="Teléfono de usuario" value="#{Usuario.usuarioObjetoInsercion.telefono}" validatorMessage="Teléfono no válido">
+                                <f:validateRegex pattern="[0-9]+" />
+                                <p:message for="telefono"/>
+                                <p:ajax event="blur" /> 
+                            </p:inputText> 
                             <h:outputText value="Número de identificación "></h:outputText>
-                            <p:inputText required="true" label="Número de identificación de usuario" value="#{Usuario.usuarioObjetoInsercion.numeroIdentificacion}"/> 
+                            <p:inputText id="identificacion" required="true" label="Número de identificación de usuario" value="#{Usuario.usuarioObjetoInsercion.numeroIdentificacion}" validatorMessage="Identificación no válida">
+                                <f:validateRegex pattern="[0-9]+" />
+                                <p:message for="identificacion"/>
+                                <p:ajax event="blur" /> 
+                            </p:inputText> 
                             <h:outputText value="Estado "></h:outputText>                            
                             <p:selectOneMenu id="desplegableIngresarusuario" value="#{Usuario.usuarioObjetoInsercion.estado}" style="width: 150px;" >
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="false"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
-                            <p:commandButton  value="Ingresar" update=":UsuarioForm:tablaUsuarios,:IngresarModal:insertarUsuarioModal" actionListener="#{Usuario.ingresarUsuario()}" validateClient="true" class="botonNormal"/>
+                            <p:commandButton  value="Ingresar" update=":UsuarioForm:tablaUsuarios" actionListener="#{Usuario.ingresarUsuario()}" validateClient="true" class="botonNormal"/>
 
                         </p:panelGrid>
                     </p:dialog>
@@ -97,20 +113,40 @@
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
 
                             <h:outputText value="Nombre"></h:outputText>
-                            <p:inputText required="true" label="Nombre de usuario" value="#{Usuario.usuarioObjeto.nombre}"/> 
+                            <p:inputText id="nombre" required="true" label="Nombre de usuario" value="#{Usuario.usuarioObjeto.nombre}" validatorMessage="Nombre Incorrecto">
+                                <f:validateRegex pattern="[a-zA-Z]+" />
+                                <p:message for="nombre"/>
+                                <p:ajax event="blur" />   
+                            </p:inputText>
                             <h:outputText value="Apellido"></h:outputText>
-                            <p:inputText required="true" label="Apellido de usuario" value="#{Usuario.usuarioObjeto.apellido}"/> 
+                            <p:inputText id="apellido" required="true" label="Apellido de usuario" value="#{Usuario.usuarioObjeto.apellido}" validatorMessage="Apellido Incorrecto">
+                                <f:validateRegex pattern="[a-zA-Z]+" />
+                                <p:message for="apellido"/>
+                                <p:ajax event="blur" /> 
+                            </p:inputText>
                             <h:outputText value="Nombre Acceso "></h:outputText>
                             <p:inputText required="true" label="Nombre de Acceso" value="#{Usuario.usuarioObjeto.nombreUsuario}"/> 
                             <h:outputText value="Contraseña "></h:outputText>
                             <p:inputText required="true" label="Contraseña de usuario" value="#{Usuario.usuarioObjeto.clave}"/> 
 
                             <h:outputText value="Email "></h:outputText>
-                            <p:inputText required="true" label="Correo de usuario" value="#{Usuario.usuarioObjeto.email}"/>                                 
+                            <p:inputText id="correo" required="true" label="Correo de usuario" value="#{Usuario.usuarioObjeto.email}" validatorMessage="Correo Invalido">
+                                <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                                <p:message for="correo"/>
+                                <p:ajax event="blur" /> 
+                            </p:inputText>                                 
                             <h:outputText value="Teléfono "></h:outputText>
-                            <p:inputText required="true" label="Teléfono de usuario" value="#{Usuario.usuarioObjeto.telefono}"/> 
+                            <p:inputText id="telefono" required="true" label="Teléfono de usuario" value="#{Usuario.usuarioObjeto.telefono}" validatorMessage="Teléfono no válido">
+                                <f:validateRegex pattern="[0-9]+" />
+                                <p:message for="telefono"/>
+                                <p:ajax event="blur" /> 
+                            </p:inputText> 
                             <h:outputText value="Identificación "></h:outputText>
-                            <p:inputText required="true" label="Número de identificación de usuario" value="#{Usuario.usuarioObjeto.numeroIdentificacion}"/> 
+                            <p:inputText id="identificacion" required="true" label="Número de identificación de usuario" value="#{Usuario.usuarioObjeto.numeroIdentificacion}" validatorMessage="Identificación no válida">
+                                <f:validateRegex pattern="[0-9]+" />
+                                <p:message for="identificacion"/>
+                                <p:ajax event="blur" />
+                            </p:inputText>
                             <h:outputText value="Estado"></h:outputText>
                             <p:selectOneMenu id="desplegableIngresarusuario" value="#{Usuario.usuarioObjeto.estado}" style="width: 150px;" >
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="false"/>
@@ -122,7 +158,7 @@
                                 <p:commandButton  value="Actualizar" update=":UsuarioForm:tablaUsuarios,:IngresarModal:insertarUsuarioModal,UsuarioForm:msgs" actionListener="#{Usuario.actualizarUsuario()}" validateClient="true" class="botonNormal" rendered="#{Usuario.actualizar}"/>
                             </div>
                             <div style="float: right">
-                            <p:commandButton value="Eliminar" update=":UsuarioForm:tablaUsuarios,:IngresarModal:insertarUsuarioModal,UsuarioForm:msgs" actionListener="#{Usuario.eliminarUsuario()}" validateClient="true" class="botonNormal" rendered="#{Usuario.eliminar}"/>
+                                <p:commandButton value="Eliminar" update=":UsuarioForm:tablaUsuarios,:IngresarModal:insertarUsuarioModal,UsuarioForm:msgs" actionListener="#{Usuario.eliminarUsuario()}" validateClient="true" class="botonNormal" rendered="#{Usuario.eliminar}"/>
                             </div>
                         </div>
                         <h:inputHidden  value="#{Usuario.usuarioObjeto.idUsuario}"></h:inputHidden>          

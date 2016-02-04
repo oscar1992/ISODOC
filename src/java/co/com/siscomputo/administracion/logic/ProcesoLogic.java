@@ -3,25 +3,24 @@ package co.com.siscomputo.administracion.logic;
 import co.com.siscomputo.endpoint.Administacion;
 import co.com.siscomputo.endpoint.Administacion_Service;
 import co.com.siscomputo.endpoint.ProcesoEntity;
+import co.com.siscomputo.utilidades.IurlWebService;
+import co.com.siscomputo.utilidades.SingletonDirecciones;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.ws.BindingProvider;
 
 /**
  *
  * @author LENOVO
  */
-public class ProcesoLogic {
-    private Administacion_Service webService;
-    private Administacion port;
+public class ProcesoLogic implements IurlWebService{
+
     private List proceso;
     
     /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
+     * Funcion con la cual inicializo el service y el portAdministracion() de los WebServices
      */
-    public void webService() {
-        webService = new Administacion_Service();
-        port = webService.getAdministacionPort();
-    }
+
 
     public List getProceso() {
         return proceso;
@@ -36,9 +35,9 @@ public class ProcesoLogic {
      * @return 
      */
     public ArrayList<ProcesoEntity> listaProceso(){
-        webService();
+        
         ArrayList<ProcesoEntity> listaaux=new ArrayList<>();
-        ArrayList<Object> listaObjeto =(ArrayList<Object>) port.listaProceso().getRetorna();
+        ArrayList<Object> listaObjeto =(ArrayList<Object>) portAdministracion().listaProceso().getRetorna();
         for(Object obj:listaObjeto){
             ProcesoEntity objectproceso=(ProcesoEntity) obj;
             //System.out.println("PROC: "+objectproceso.getNombreProceso());
@@ -52,11 +51,11 @@ public class ProcesoLogic {
      * @return 
      */
     public ProcesoEntity insertarProceso(ProcesoEntity objeto){
-        webService();
+        
         ProcesoEntity dispoRta=null;        
         try {
             //System.out.println("objeto: "+objeto.getNivelProceso());
-            dispoRta = port.insertarProceso(objeto);
+            dispoRta = portAdministracion().insertarProceso(objeto);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -68,11 +67,11 @@ public class ProcesoLogic {
      * @return 
      */
     public String actualizarProceso(ProcesoEntity objeto){
-        webService();
+        
         String rta="";
         try {            
             System.out.println("OBJ: "+objeto.getAsociadoProceso());
-            if (port.actualizarProceso(objeto) != null) {
+            if (portAdministracion().actualizarProceso(objeto) != null) {
                 rta = "Ok";
             } else {
                 rta = "Error";
@@ -89,10 +88,10 @@ public class ProcesoLogic {
      * @return 
      */
     public ProcesoEntity procesoPorId(int idProcesos){
-        webService();
+        
         ProcesoEntity procesoEntity=new ProcesoEntity();
         try {
-            procesoEntity=port.procesoPorId2(idProcesos);
+            procesoEntity=portAdministracion().procesoPorId2(idProcesos);
             
         } catch (Exception e) {
             e.printStackTrace();

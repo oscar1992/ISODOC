@@ -12,26 +12,22 @@ import co.com.siscomputo.endpoint.Usuario;
 import co.com.siscomputo.endpoint.UsuarioEntity;
 import co.com.siscomputo.endpoint.UsuarioRolEntity;
 import co.com.siscomputo.endpoint.Usuario_Service;
+import co.com.siscomputo.utilidades.IurlWebService;
+import co.com.siscomputo.utilidades.SingletonDirecciones;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.ws.BindingProvider;
 
 /**
  *
  * @author LENOVO
  */
-public class UsuarioRolLogic {
+public class UsuarioRolLogic implements IurlWebService{
 
-    private Usuario_Service webService;
-    private Usuario port;
+
     private List listaUsuarioRoll;
 
-    /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
-     */
-    public void webService() {
-        webService = new Usuario_Service();
-        port = webService.getUsuarioPort();
-    }
+
 
     public List getListaUsuarioRoll() {
         return listaUsuarioRoll;
@@ -48,9 +44,9 @@ public class UsuarioRolLogic {
      * @return
      */
     public ArrayList<UsuarioRolEntity> listaUsuarioRol(int IdUsusario) {
-        webService();
+        
         ArrayList<UsuarioRolEntity> lista = new ArrayList<>();
-        ArrayList<Object> listaObjeto = (ArrayList<Object>) port.listaUsuarioRol(IdUsusario).getRetorna();
+        ArrayList<Object> listaObjeto = (ArrayList<Object>) portUsuario().listaUsuarioRol(IdUsusario).getRetorna();
         for (Object obj : listaObjeto) {
             UsuarioRolEntity ure = (UsuarioRolEntity) obj;
             lista.add(ure);
@@ -64,9 +60,9 @@ public class UsuarioRolLogic {
      * @return
      */
     public ArrayList<UsuarioRolEntity> listaUsuarioRolPorAreaUsuario(int idUsuario, int idArea) {
-        webService();
+        
         ArrayList<UsuarioRolEntity> lista = new ArrayList<>();
-        ArrayList<Object> listaObjeto = (ArrayList<Object>) port.listaUsuarioRolporAreaUsuario(idArea, idUsuario).getRetorna();
+        ArrayList<Object> listaObjeto = (ArrayList<Object>) portUsuario().listaUsuarioRolporAreaUsuario(idArea, idUsuario).getRetorna();
         for (Object obj : listaObjeto) {
             UsuarioRolEntity ure = (UsuarioRolEntity) obj;
             lista.add(ure);
@@ -81,10 +77,10 @@ public class UsuarioRolLogic {
      * @return
      */
     public String actualizarUsuarioRol(UsuarioRolEntity usuarioRol) {
-        webService();
+        
         String rta = "";
         try {
-            if (port.actualizarUsuarioRol(usuarioRol) != null) {
+            if (portUsuario().actualizarUsuarioRol(usuarioRol) != null) {
                 rta = "Ok";
             } else {
                 rta = "Error";
@@ -104,7 +100,7 @@ public class UsuarioRolLogic {
      * @return
      */
     public ObjetoRetornaEntity ingresaUsuarioRol(ArrayList<String> rolNombres, UsuarioEntity usuario, int idArea) {
-        webService();
+        
         ObjetoRetornaEntity usuRta = null;
         RolesLogic rolesLogic = new RolesLogic();
         ArrayList<RolesEntity> listaRoles = new ArrayList<>();
@@ -133,8 +129,8 @@ public class UsuarioRolLogic {
         }
         try {
             System.out.println("LISTA: " + listaUsuarioRol.size() + " - " + usuario.getIdUsuario());
-            port.limpiaUsuarioRoles(usuario.getIdUsuario(), idArea);
-            usuRta = port.insertarUsuarioRol(listaUsuarioRol);
+            portUsuario().limpiaUsuarioRoles(usuario.getIdUsuario(), idArea);
+            usuRta = portUsuario().insertarUsuarioRol(listaUsuarioRol);
         } catch (Exception e) {
             e.printStackTrace();
         }

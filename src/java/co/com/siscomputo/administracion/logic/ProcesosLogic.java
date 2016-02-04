@@ -6,8 +6,7 @@
 package co.com.siscomputo.administracion.logic;
 
 import co.com.siscomputo.endpoint.ProcesosEntity;
-import co.com.siscomputo.endpoint.Usuario;
-import co.com.siscomputo.endpoint.Usuario_Service;
+import co.com.siscomputo.utilidades.IurlWebService;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,18 +14,11 @@ import java.util.List;
  *
  * @author LENOVO
  */
-public class ProcesosLogic {
-    private Usuario_Service webService;
-    private Usuario port;
+public class ProcesosLogic implements IurlWebService{
+
     private List procesos;
 
-    /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
-     */
-    public void webService() {
-        webService = new Usuario_Service();
-        port = webService.getUsuarioPort();
-    }
+
 
     public List getProcesos() {
         return procesos;
@@ -42,8 +34,8 @@ public class ProcesosLogic {
      public ArrayList<ProcesosEntity> listaProcesos() {
         ArrayList<ProcesosEntity> listaProc = new ArrayList<>();
         ArrayList<Object> listaObjeto;
-        webService();
-        listaObjeto = (ArrayList<Object>) port.listaProcesos().getRetorna();
+        
+        listaObjeto = (ArrayList<Object>) portUsuario().listaProcesos().getRetorna();
         for (Object obj : listaObjeto) {
             ProcesosEntity macros = (ProcesosEntity) obj;
             listaProc.add(macros);
@@ -56,10 +48,10 @@ public class ProcesosLogic {
      * @return 
      */
     public  ProcesosEntity ingresaProceso(ProcesosEntity proc){
-        webService();
+        
         ProcesosEntity procRta=null;
         try {
-            procRta=port.ingresaProceso(proc);
+            procRta=portUsuario().ingresaProceso(proc);
         } catch (Exception e) {
             procRta=null;
             e.printStackTrace();
@@ -72,10 +64,10 @@ public class ProcesosLogic {
      * @return 
      */
     public String actualozarProceso(ProcesosEntity procesosEntity){
-        webService();
+        
         String rta = "";
         try {
-            if (port.actualizaProceso(procesosEntity) != null) {
+            if (portUsuario().actualizaProceso(procesosEntity) != null) {
                 rta = "Ok";
             } else {
                 rta = "Error";
@@ -92,7 +84,7 @@ public class ProcesosLogic {
      * @return 
      */
     public ProcesosEntity procesoPorId(int idProceso){
-        webService();
-        return port.procesoPorID(idProceso);
+        
+        return portUsuario().procesoPorID(idProceso);
     }
 }

@@ -8,25 +8,20 @@ package co.com.siscomputo.administracion.logic;
 import co.com.siscomputo.endpoint.Administacion;
 import co.com.siscomputo.endpoint.Administacion_Service;
 import co.com.siscomputo.endpoint.DisposicionesEntity;
+import co.com.siscomputo.utilidades.IurlWebService;
+import co.com.siscomputo.utilidades.SingletonDirecciones;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.ws.BindingProvider;
 
 /**
  *
  * @author LENOVO
  */
-public class DisposicionesLogic {
-    private Administacion_Service webService;
-    private Administacion port;
+public class DisposicionesLogic implements IurlWebService{
+
     private List disposiciones;
     
-    /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
-     */
-    public void webService() {
-        webService = new Administacion_Service();
-        port = webService.getAdministacionPort();
-    }
 
     public List getDisposiciones() {
         return disposiciones;
@@ -42,8 +37,8 @@ public class DisposicionesLogic {
     public ArrayList<DisposicionesEntity> listaDisposiciones(){
         ArrayList<DisposicionesEntity> lista=new ArrayList<>();
         ArrayList<Object> listaObjeto=new ArrayList<>();
-        webService();
-        listaObjeto=(ArrayList<Object>) port.listaDisposiciones().getRetorna();
+        
+        listaObjeto=(ArrayList<Object>) portAdministracion().listaDisposiciones().getRetorna();
         for(Object obj:listaObjeto){
             DisposicionesEntity disposicion=(DisposicionesEntity) obj;
             lista.add(disposicion);
@@ -56,10 +51,10 @@ public class DisposicionesLogic {
      * @return 
      */
     public DisposicionesEntity ingresaDisposicion(DisposicionesEntity disposicion){
-        webService();
+        
         DisposicionesEntity dispoRta=null;        
         try {
-            dispoRta = port.insertarDisposicion(disposicion);
+            dispoRta = portAdministracion().insertarDisposicion(disposicion);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -71,10 +66,10 @@ public class DisposicionesLogic {
      * @return 
      */
     public String actualizarDisposicion(DisposicionesEntity disposicion){
-        webService();
+        
         String rta="";
         try {            
-            if (port.actualizarDisposicion(disposicion) != null) {
+            if (portAdministracion().actualizarDisposicion(disposicion) != null) {
                 rta = "Ok";
             } else {
                 rta = "Error";

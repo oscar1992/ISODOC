@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition template="/plantillas/PlantillaAdministracion.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form id="RutasForm">
+                    <div class="prueba" style="color: white; ">
+                        <p:growl id="msgs" showDetail="true" life="3000" autoUpdate="true"/>
+                    </div>
+                    <p:dataTable var="rutas" value="#{Rutas.lista}" reflow="true" widgetVar="TablaRutas" id="tablaRutas" selectionMode="single"
+                                 selection="#{Rutas.objetoRutas}" rowKey="#{rutas.idRutas}" class="TABLA" paginator="true" rows="7">
+                        <p:ajax event="rowSelect" listener="#{Rutas.onRowSelect}" update=":RutasForm:msgs,:ActualizarModal:actualizarRutasModal" oncomplete="PF('actualizarRutas').show()"/>
+                        <f:facet name="header">
+                            <h:outputText value="CONSULTA DE RUTA DE CAPETA" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                            <p:inputText id="globalFilter" onkeyup="PF('TablaRutas').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                            <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                        </f:facet>
+
+                        <p:column headerText="id del Ruta de Capeta" filterBy="#{rutas.idRutas}">
+                            <h:outputText value="#{rutas.idRutas}"/>
+                        </p:column>
+                        <p:column headerText="tipo del Ruta de Capeta" filterBy="#{rutas.tipoRutas}">
+                            <h:outputText value="#{rutas.tipoRutas}"/>
+                        </p:column>
+                        <p:column headerText="carpeta del Ruta de Capeta" filterBy="#{rutas.carpetaRutas}">
+                            <h:outputText value="#{rutas.carpetaRutas}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                    <br/>
+                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarRutas').show();" update=":RutasForm:msgs" class="botonNormal" rendered="#{Rutas.ingresar}"></p:commandButton>
+
+                </h:form>
+                <h:form id="IngresarModal">
+                    <p:dialog header="Insertar Ruta de Capeta" widgetVar="insertarRutas" modal="true" id="insertarRutasModal" responsive="true">
+                        #{Rutas.nuevoRutasObjeto()}                        
+                        <p:messages autoUpdate="true"/>                        
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+
+                            
+                            <h:outputText value="tipo del Ruta de Capeta"></h:outputText>
+                            <p:inputText required="true" label="nombre de la Ruta de Capeta" value="#{Rutas.objetoRutasInsercion.tipoRutas}"/>                            <h:outputText value="carpeta del Ruta de Capeta"></h:outputText>
+
+                            <p:inputText required="true" label="Ruta de Capeta" value="#{Rutas.objetoRutasInsercion.carpetaRutas}"/>
+
+                            
+
+
+                        </p:panelGrid>                        
+                        <p:commandButton value="Ingresar" update=":RutasForm:tablaRutas,:IngresarModal:insertarRutasModal" actionListener="#{Rutas.instertarRutas()}" validateClient="true" class="botonNormal" />
+                    </p:dialog>
+                </h:form>
+                <h:form id="ActualizarModal">
+                    <p:dialog header="Actualizar Ruta de Capeta" widgetVar="actualizarRutas" modal="true" id="actualizarRutasModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            <h:outputText value="id del Ruta de Capeta"></h:outputText>
+                            <p:inputText required="true" label="nombre del Ruta de Capeta" value="#{Rutas.objetoRutas.idRutas}"/>
+                            <h:outputText value="tipo del Ruta de Capeta"></h:outputText>
+                            <p:inputText required="true" label="nombre del Ruta de Capeta" value="#{Rutas.objetoRutas.tipoRutas}"/>
+                            <h:outputText value="carpeta del Ruta de Capeta"></h:outputText>
+                            <p:inputText required="true" label="nombre del Ruta de Capeta" value="#{Rutas.objetoRutas.carpetaRutas}"/>
+                            <h:inputHidden value="#{Rutas.objetoRutas.idRutas}"></h:inputHidden>
+                        </p:panelGrid>
+                        <p:commandButton  value="Actualizar" update=":RutasForm:tablaRutas,:ActualizarModal:actualizarRutasModal,RutasForm:msgs" actionListener="#{Rutas.actualizarRutas()}" validateClient="true" class="botonNormal" rendered="#{Rutas.actualizar}"/>
+                        <p:commandButton value="Eliminar" update=":RutasForm:tablaRutas,:ActualizarModal:actualizarRutasModal,RutasForm:msgs" actionListener="#{Rutas.eliminarRutas()}" validateClient="true" class="botonNormal" rendered="#{Rutas.eliminar}"/>
+                    </p:dialog>
+                </h:form>
+
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>

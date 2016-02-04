@@ -8,10 +8,13 @@ package co.com.siscomputo.administracion.logic;
 import co.com.siscomputo.endpoint.SedeEntity;
 import co.com.siscomputo.endpoint.Usuario;
 import co.com.siscomputo.endpoint.Usuario_Service;
+import co.com.siscomputo.utilidades.IurlWebService;
+import co.com.siscomputo.utilidades.SingletonDirecciones;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.xml.ws.BindingProvider;
 
 /**
  *
@@ -19,27 +22,20 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean(name = "SedesLogic")
 @ViewScoped
-public class SedesLogic {
-    private Usuario_Service webService;
-    private Usuario port;
+public class SedesLogic implements IurlWebService{
+
     private List sedes;
     private SedeEntity sedeObjeto;
     
-    /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
-     */
-    public void webService() {
-        webService = new Usuario_Service();
-        port = webService.getUsuarioPort();
-    }
+
 
     public SedesLogic() {
         init();
     }
     
     public void init(){
-        webService();
-        sedes=(List)port.listaSede().getRetorna();
+        
+        sedes=(List)portUsuario().listaSede().getRetorna();
     }
 
     public List getSedes() {
@@ -63,8 +59,8 @@ public class SedesLogic {
      * @return 
      */
     public SedeEntity sedePorId(int idSede){
-        webService();
-        return port.sedePorId(idSede);
+        
+        return portUsuario().sedePorId(idSede);
     }
     /**
      * Método que trae la lista de Sedes
@@ -73,8 +69,8 @@ public class SedesLogic {
     public ArrayList<SedeEntity> listaSedes(){
         ArrayList<SedeEntity> lista=new ArrayList<>();
         ArrayList<Object> listaObjeto;
-        webService();
-        listaObjeto=(ArrayList<Object>)port.listaSede().getRetorna();
+        
+        listaObjeto=(ArrayList<Object>)portUsuario().listaSede().getRetorna();
         for(Object item:listaObjeto){
             SedeEntity sede=(SedeEntity)item;
             lista.add(sede);
@@ -87,10 +83,10 @@ public class SedesLogic {
      * @return 
      */
     public SedeEntity ingresaSede(SedeEntity sede){
-        webService();
+        
         SedeEntity sedeRta=null;
         try {
-            sedeRta=port.ingresaSede(sede);
+            sedeRta=portUsuario().ingresaSede(sede);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -102,10 +98,10 @@ public class SedesLogic {
      * @return 
      */
     public String actualizarSede(SedeEntity sede){
-        webService();
+        
         String rta="";
         try {
-            if(port.actualizaSede(sede)!=null){
+            if(portUsuario().actualizaSede(sede)!=null){
                 rta="Ok";
             }else{
                 rta="Error";

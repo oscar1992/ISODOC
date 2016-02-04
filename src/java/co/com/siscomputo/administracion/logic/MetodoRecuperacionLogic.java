@@ -5,9 +5,8 @@
  */
 package co.com.siscomputo.administracion.logic;
 
-import co.com.siscomputo.endpoint.Administacion;
-import co.com.siscomputo.endpoint.Administacion_Service;
 import co.com.siscomputo.endpoint.MetodoRecuperacionEntity;
+import co.com.siscomputo.utilidades.IurlWebService;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,18 +14,11 @@ import java.util.List;
  *
  * @author LENOVO
  */
-public class MetodoRecuperacionLogic {
-    private Administacion_Service webService;
-    private Administacion port;
+public class MetodoRecuperacionLogic implements IurlWebService{
+
     private List metodosRecuperacion;
     
-    /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
-     */
-    public void webService() {
-        webService = new Administacion_Service();
-        port = webService.getAdministacionPort();
-    }
+
 
     public List getMetodosRecuperacion() {
         return metodosRecuperacion;
@@ -40,9 +32,9 @@ public class MetodoRecuperacionLogic {
      * @return 
      */
     public ArrayList<MetodoRecuperacionEntity> listaMetodosRecuperacion(){
-        webService();
+       
         ArrayList<MetodoRecuperacionEntity> listaaux=new ArrayList<>();
-        ArrayList<Object> listaObjeto =(ArrayList<Object>) port.listaMetodoRecuperacion().getRetorna();
+        ArrayList<Object> listaObjeto =(ArrayList<Object>) portAdministracion().listaMetodoRecuperacion().getRetorna();
         for(Object obj:listaObjeto){
             MetodoRecuperacionEntity metodoRecuperacionEntity=(MetodoRecuperacionEntity) obj;
             listaaux.add(metodoRecuperacionEntity);
@@ -55,10 +47,10 @@ public class MetodoRecuperacionLogic {
      * @return 
      */
     public MetodoRecuperacionEntity inserttarMetodoRecuperaciom(MetodoRecuperacionEntity metodo){
-        webService();
+       
         MetodoRecuperacionEntity dispoRta=null;        
         try {
-            dispoRta = port.insertarMetodoRecuperacion(metodo);
+            dispoRta = portAdministracion().insertarMetodoRecuperacion(metodo);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -70,10 +62,10 @@ public class MetodoRecuperacionLogic {
      * @return 
      */
     public String actualizarMetodoRecuperacion(MetodoRecuperacionEntity metodo){
-        webService();
+       
         String rta="";
         try {            
-            if (port.actualizarMetodoRecuperacion(metodo) != null) {
+            if (portAdministracion().actualizarMetodoRecuperacion(metodo) != null) {
                 rta = "Ok";
             } else {
                 rta = "Error";

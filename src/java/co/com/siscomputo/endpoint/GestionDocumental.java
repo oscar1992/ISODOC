@@ -31,10 +31,40 @@ public interface GestionDocumental {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "listaDocumentoProceso", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaDocumentoProceso")
-    @ResponseWrapper(localName = "listaDocumentoProcesoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaDocumentoProcesoResponse")
-    @Action(input = "http://endpoint.siscomputo.com.co/GestionDocumental/listaDocumentoProcesoRequest", output = "http://endpoint.siscomputo.com.co/GestionDocumental/listaDocumentoProcesoResponse")
-    public ObjetoRetornaEntity listaDocumentoProceso();
+    @RequestWrapper(localName = "listaUsuarioDocumento", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaUsuarioDocumento")
+    @ResponseWrapper(localName = "listaUsuarioDocumentoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaUsuarioDocumentoResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/GestionDocumental/listaUsuarioDocumentoRequest", output = "http://endpoint.siscomputo.com.co/GestionDocumental/listaUsuarioDocumentoResponse")
+    public ObjetoRetornaEntity listaUsuarioDocumento();
+
+    /**
+     * 
+     * @param objeto
+     * @return
+     *     returns co.com.siscomputo.endpoint.UsuarioDocumentoEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "actualizarUsuarioDocumento", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarUsuarioDocumento")
+    @ResponseWrapper(localName = "actualizarUsuarioDocumentoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarUsuarioDocumentoResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/GestionDocumental/actualizarUsuarioDocumentoRequest", output = "http://endpoint.siscomputo.com.co/GestionDocumental/actualizarUsuarioDocumentoResponse")
+    public UsuarioDocumentoEntity actualizarUsuarioDocumento(
+        @WebParam(name = "objeto", targetNamespace = "")
+        UsuarioDocumentoEntity objeto);
+
+    /**
+     * 
+     * @param objeto
+     * @return
+     *     returns co.com.siscomputo.endpoint.UsuarioDocumentoEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "insertarUsuarioDocumento", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.InsertarUsuarioDocumento")
+    @ResponseWrapper(localName = "insertarUsuarioDocumentoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.InsertarUsuarioDocumentoResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/GestionDocumental/insertarUsuarioDocumentoRequest", output = "http://endpoint.siscomputo.com.co/GestionDocumental/insertarUsuarioDocumentoResponse")
+    public UsuarioDocumentoEntity insertarUsuarioDocumento(
+        @WebParam(name = "objeto", targetNamespace = "")
+        UsuarioDocumentoEntity objeto);
 
     /**
      * 
@@ -53,18 +83,15 @@ public interface GestionDocumental {
 
     /**
      * 
-     * @param objeto
      * @return
-     *     returns co.com.siscomputo.endpoint.DocumentoEntity
+     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "actualizarDocumento", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarDocumento")
-    @ResponseWrapper(localName = "actualizarDocumentoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarDocumentoResponse")
-    @Action(input = "http://endpoint.siscomputo.com.co/GestionDocumental/actualizarDocumentoRequest", output = "http://endpoint.siscomputo.com.co/GestionDocumental/actualizarDocumentoResponse")
-    public DocumentoEntity actualizarDocumento(
-        @WebParam(name = "objeto", targetNamespace = "")
-        DocumentoEntity objeto);
+    @RequestWrapper(localName = "listaDocumentoProceso", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaDocumentoProceso")
+    @ResponseWrapper(localName = "listaDocumentoProcesoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaDocumentoProcesoResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/GestionDocumental/listaDocumentoProcesoRequest", output = "http://endpoint.siscomputo.com.co/GestionDocumental/listaDocumentoProcesoResponse")
+    public ObjetoRetornaEntity listaDocumentoProceso();
 
     /**
      * 
@@ -78,6 +105,21 @@ public interface GestionDocumental {
     @ResponseWrapper(localName = "insertarDocumentoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.InsertarDocumentoResponse")
     @Action(input = "http://endpoint.siscomputo.com.co/GestionDocumental/insertarDocumentoRequest", output = "http://endpoint.siscomputo.com.co/GestionDocumental/insertarDocumentoResponse")
     public DocumentoEntity insertarDocumento(
+        @WebParam(name = "objeto", targetNamespace = "")
+        DocumentoEntity objeto);
+
+    /**
+     * 
+     * @param objeto
+     * @return
+     *     returns co.com.siscomputo.endpoint.DocumentoEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "actualizarDocumento", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarDocumento")
+    @ResponseWrapper(localName = "actualizarDocumentoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarDocumentoResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/GestionDocumental/actualizarDocumentoRequest", output = "http://endpoint.siscomputo.com.co/GestionDocumental/actualizarDocumentoResponse")
+    public DocumentoEntity actualizarDocumento(
         @WebParam(name = "objeto", targetNamespace = "")
         DocumentoEntity objeto);
 

@@ -3,10 +3,9 @@ package co.com.siscomputo.administracion.logic;
 import co.com.siscomputo.endpoint.AccionEntity;
 import co.com.siscomputo.endpoint.ProcesosEntity;
 import co.com.siscomputo.endpoint.ObjetoRetornaEntity;
-import co.com.siscomputo.endpoint.Usuario;
 import co.com.siscomputo.endpoint.UsuarioEntity;
 import co.com.siscomputo.endpoint.UsuarioProcesoEntity;
-import co.com.siscomputo.endpoint.Usuario_Service;
+import co.com.siscomputo.utilidades.IurlWebService;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,18 +13,11 @@ import java.util.List;
  *
  * @author LENOVO
  */
-public class UsuarioProcesoLogic {
-    private Usuario_Service webService;
-    private Usuario port;
+public class UsuarioProcesoLogic implements IurlWebService{
+
     private List usuarioProceso;
     
-    /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
-     */
-    public void webService() {
-        webService = new Usuario_Service();
-        port = webService.getUsuarioPort();
-    }
+
 
     public List getUsuarioProceso() {
         return usuarioProceso;
@@ -40,9 +32,9 @@ public class UsuarioProcesoLogic {
      * @return 
      */
     public ArrayList<UsuarioProcesoEntity> listaUsuarioProceso(){
-        webService();
+        
         ArrayList<UsuarioProcesoEntity> listaaux=new ArrayList<>();
-        ArrayList<Object> listaObjeto =(ArrayList<Object>) port.listausuarioProcesos().getRetorna();
+        ArrayList<Object> listaObjeto =(ArrayList<Object>) portUsuario().listausuarioProcesos().getRetorna();
         for(Object obj:listaObjeto){
             UsuarioProcesoEntity objectusuarioProceso=(UsuarioProcesoEntity) obj;
             listaaux.add(objectusuarioProceso);
@@ -55,7 +47,7 @@ public class UsuarioProcesoLogic {
      * @return 
      */
     public ObjetoRetornaEntity insertarUsuarioProceso(ArrayList<String> procesosNombres,UsuarioEntity objeto, int idAccion){
-        webService();
+        
         ObjetoRetornaEntity dispoRta=null;        
         ProcesosLogic procesosLogic=new ProcesosLogic();
         ArrayList<ProcesosEntity> listprocesos=procesosLogic.listaProcesos();
@@ -81,8 +73,8 @@ public class UsuarioProcesoLogic {
             }
         }
         try {
-            port.limpiaUsuarioMacroProceso(objeto.getIdUsuario(), idAccion);
-            dispoRta = port.ingresarUsuarioProcesos(listaUsuarioProceso);
+            portUsuario().limpiaUsuarioMacroProceso(objeto.getIdUsuario(), idAccion);
+            dispoRta = portUsuario().ingresarUsuarioProcesos(listaUsuarioProceso);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -94,10 +86,10 @@ public class UsuarioProcesoLogic {
      * @return 
      */
     public String actualizarUsuarioProceso(UsuarioProcesoEntity objeto){
-        webService();
+        
         String rta="";
         try {            
-            if (port.actualizarUsuarioProceso(objeto) != null) {
+            if (portUsuario().actualizarUsuarioProceso(objeto) != null) {
                 rta = "Ok";
             } else {
                 rta = "Error";
@@ -113,9 +105,9 @@ public class UsuarioProcesoLogic {
      * @return 
      */
     public ArrayList<UsuarioProcesoEntity> listaUsuarioMacroporcesoPorUsuario(int idUsuario){
-        webService();
+        
         ArrayList<UsuarioProcesoEntity> listaaux=new ArrayList<>();
-        ArrayList<Object> listaObjeto =(ArrayList<Object>) port.listaUsuarioProcesosPorUsuario(idUsuario).getRetorna();
+        ArrayList<Object> listaObjeto =(ArrayList<Object>) portUsuario().listaUsuarioProcesosPorUsuario(idUsuario).getRetorna();
         for(Object obj:listaObjeto){
             UsuarioProcesoEntity objectusuarioProceso=(UsuarioProcesoEntity) obj;
             listaaux.add(objectusuarioProceso);
@@ -127,9 +119,9 @@ public class UsuarioProcesoLogic {
      * @return 
      */
     public ArrayList<UsuarioProcesoEntity> listaUsuarioMacroporcesoPorUsuarioAccion(int idUsuario, int idAccion){
-        webService();
+        
         ArrayList<UsuarioProcesoEntity> listaaux=new ArrayList<>();
-        ArrayList<Object> listaObjeto =(ArrayList<Object>) port.listaUsuarioProcesosPorUsuarioAccion(idUsuario, idAccion).getRetorna();
+        ArrayList<Object> listaObjeto =(ArrayList<Object>) portUsuario().listaUsuarioProcesosPorUsuarioAccion(idUsuario, idAccion).getRetorna();
         for(Object obj:listaObjeto){
             UsuarioProcesoEntity objectusuarioProceso=(UsuarioProcesoEntity) obj;
             listaaux.add(objectusuarioProceso);

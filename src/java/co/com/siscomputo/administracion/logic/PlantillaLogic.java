@@ -1,8 +1,7 @@
 package co.com.siscomputo.administracion.logic;
 
-import co.com.siscomputo.endpoint.Administacion;
-import co.com.siscomputo.endpoint.Administacion_Service;
 import co.com.siscomputo.endpoint.PlantillaEntity;
+import co.com.siscomputo.utilidades.IurlWebService;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,18 +9,10 @@ import java.util.List;
  *
  * @author LENOVO
  */
-public class PlantillaLogic {
-    private Administacion_Service webService;
-    private Administacion port;
+public class PlantillaLogic implements IurlWebService{
+
     private List plantilla;
-    
-    /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
-     */
-    public void webService() {
-        webService = new Administacion_Service();
-        port = webService.getAdministacionPort();
-    }
+ 
 
     public List getPlantilla() {
         return plantilla;
@@ -36,9 +27,9 @@ public class PlantillaLogic {
      * @return 
      */
     public ArrayList<PlantillaEntity> listaPlantilla(){
-        webService();
+        
         ArrayList<PlantillaEntity> listaaux=new ArrayList<>();
-        ArrayList<Object> listaObjeto =(ArrayList<Object>) port.listaPlantilla().getRetorna();
+        ArrayList<Object> listaObjeto =(ArrayList<Object>) portAdministracion().listaPlantilla().getRetorna();
         for(Object obj:listaObjeto){
             PlantillaEntity objectplantilla=(PlantillaEntity) obj;
             listaaux.add(objectplantilla);
@@ -51,10 +42,10 @@ public class PlantillaLogic {
      * @return 
      */
     public PlantillaEntity insertarPlantilla(PlantillaEntity objeto){
-        webService();
+        
         PlantillaEntity dispoRta=null;        
         try {
-            dispoRta = port.insertarPlantilla(objeto);
+            dispoRta = portAdministracion().insertarPlantilla(objeto);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -66,10 +57,10 @@ public class PlantillaLogic {
      * @return 
      */
     public String actualizarPlantilla(PlantillaEntity objeto){
-        webService();
+        
         String rta="";
         try {            
-            if (port.actualizarPlantilla(objeto) != null) {
+            if (portAdministracion().actualizarPlantilla(objeto) != null) {
                 rta = "Ok";
             } else {
                 rta = "Error";
@@ -85,7 +76,7 @@ public class PlantillaLogic {
      * @param idPlantilla
      */
     public PlantillaEntity PlantillaPorId(int idPlantilla){
-        webService();
-        return port.plantillaPorIdlantilla(idPlantilla);
+        
+        return portAdministracion().plantillaPorIdlantilla(idPlantilla);
     }
 }

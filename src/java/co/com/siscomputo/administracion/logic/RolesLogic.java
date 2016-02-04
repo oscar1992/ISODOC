@@ -6,8 +6,7 @@
 package co.com.siscomputo.administracion.logic;
 
 import co.com.siscomputo.endpoint.RolesEntity;
-import co.com.siscomputo.endpoint.Usuario;
-import co.com.siscomputo.endpoint.Usuario_Service;
+import co.com.siscomputo.utilidades.IurlWebService;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,26 +15,19 @@ import java.util.List;
  *
  * @author LENOVO
  */
-public class RolesLogic {
-    private Usuario_Service webService;
-    private Usuario port;
+public class RolesLogic implements IurlWebService{
+
     private List roles;
     
-    /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
-     */
-    public void webService() {
-        webService = new Usuario_Service();
-        port = webService.getUsuarioPort();
-    }
+
 
     public RolesLogic() {
         init();
     }
     
     public void init(){
-        webService();
-        roles=(List)port.listaRoles().getRetorna();
+        
+        roles=(List)portUsuario().listaRoles().getRetorna();
     }
     
     public List getRoles() {
@@ -52,8 +44,8 @@ public class RolesLogic {
     public ArrayList<RolesEntity> listaRoles(){
         ArrayList<RolesEntity> lista=new ArrayList<>();
         ArrayList<Object> listaObjeto;
-        webService();
-        listaObjeto=(ArrayList<Object>)port.listaRoles().getRetorna();
+        
+        listaObjeto=(ArrayList<Object>)portUsuario().listaRoles().getRetorna();
         for(Object item:listaObjeto){
             RolesEntity rol=(RolesEntity)item;
             lista.add(rol);
@@ -66,10 +58,10 @@ public class RolesLogic {
      * @return 
      */
     public RolesEntity ingresarRol(RolesEntity rol){
-        webService();
+        
         RolesEntity rolRta=null;
         try{
-            rolRta=port.ingresarRol(rol);
+            rolRta=portUsuario().ingresarRol(rol);
         }catch(Error e){
             e.printStackTrace();
         }
@@ -81,10 +73,10 @@ public class RolesLogic {
      * @return 
      */
     public String actualizarUsuario(RolesEntity rol){
-        webService();
+        
         String rta="";
         try {
-            if(port.actualizarRol(rol)!=null){
+            if(portUsuario().actualizarRol(rol)!=null){
                 rta="Ok";
             }else{
                 rta="Error";
@@ -101,10 +93,10 @@ public class RolesLogic {
      * @return 
      */
     public RolesEntity rolPorId(int idRol){
-        webService();
+        
         RolesEntity rolRta=null;
         try{
-            rolRta=port.rolPorId(idRol);
+            rolRta=portUsuario().rolPorId(idRol);
         }catch(Error e){
             e.printStackTrace();
         }

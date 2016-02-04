@@ -9,25 +9,21 @@ import co.com.siscomputo.endpoint.MenuModuloEntity;
 import co.com.siscomputo.endpoint.ModuloEntity;
 import co.com.siscomputo.endpoint.Usuario;
 import co.com.siscomputo.endpoint.Usuario_Service;
+import co.com.siscomputo.utilidades.IurlWebService;
+import co.com.siscomputo.utilidades.SingletonDirecciones;
 import java.util.ArrayList;
+import javax.xml.ws.BindingProvider;
 
 /**
  *
  * @author LENOVO
  */
-public class MenuLogic {
-    private Usuario_Service webService;
-    private Usuario port;
-    
-    
-    /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
-     */
-    public void webService() {
-        webService = new Usuario_Service();
-        port = webService.getUsuarioPort();
-    }
+public class MenuLogic implements IurlWebService{
 
+    
+    
+
+    
     
     /**
      * Funcion con la cual obtengo todos los modulos a los cuales el usuario
@@ -40,8 +36,8 @@ public class MenuLogic {
         ArrayList<ModuloEntity> rta = new ArrayList<>();
         ArrayList<Object> listaObjetoModulo=null;
         try {
-            webService();
-            listaObjetoModulo=(ArrayList<Object>) port.listaModulos(idUsuario).getRetorna();
+            
+            listaObjetoModulo=(ArrayList<Object>) portUsuario().listaModulos(idUsuario).getRetorna();
             for(Object item: listaObjetoModulo){
                 ModuloEntity me=(ModuloEntity)item;
                 rta.add(me);
@@ -64,8 +60,8 @@ public class MenuLogic {
     public ArrayList<MenuModuloEntity> obtieneMenuPorUsuario(int idUsuario){
         ArrayList<MenuModuloEntity>rta=null;
         try {
-            webService();
-            rta=(ArrayList<MenuModuloEntity>) port.menuDatosporUsuario(idUsuario);
+            
+            rta=(ArrayList<MenuModuloEntity>) portUsuario().menuDatosporUsuario(idUsuario);
         } catch (Exception e) {
             e.printStackTrace();
         }

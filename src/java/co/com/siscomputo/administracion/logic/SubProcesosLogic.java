@@ -5,10 +5,8 @@
  */
 package co.com.siscomputo.administracion.logic;
 
-import co.com.siscomputo.endpoint.ProcesosEntity;
 import co.com.siscomputo.endpoint.SubprocesoEntity;
-import co.com.siscomputo.endpoint.Usuario;
-import co.com.siscomputo.endpoint.Usuario_Service;
+import co.com.siscomputo.utilidades.IurlWebService;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,18 +14,11 @@ import java.util.List;
  *
  * @author LENOVO
  */
-public class SubProcesosLogic {
-    private Usuario_Service webService;
-    private Usuario port;
+public class SubProcesosLogic implements IurlWebService{
+
     private List subProcesos;
 
-    /**
-     * Funcion con la cual inicializo el service y el port de los WebServices
-     */
-    public void webService() {
-        webService = new Usuario_Service();
-        port = webService.getUsuarioPort();
-    }
+
 
     public List getSubProcesos() {
         return subProcesos;
@@ -44,8 +35,8 @@ public class SubProcesosLogic {
     public ArrayList<SubprocesoEntity> listaSubprocesos(){
         ArrayList<SubprocesoEntity>listaSub= new ArrayList<>();
         ArrayList<Object> listaObjeto;
-        webService();
-        listaObjeto=(ArrayList<Object>) port.listaSubProcesos().getRetorna();
+        
+        listaObjeto=(ArrayList<Object>) portUsuario().listaSubProcesos().getRetorna();
         for(Object obj:listaObjeto){
             SubprocesoEntity subProceso=(SubprocesoEntity)obj;
             listaSub.add(subProceso);
@@ -58,10 +49,10 @@ public class SubProcesosLogic {
      * @return 
      */
     public SubprocesoEntity ingresaProceso(SubprocesoEntity subproc){
-        webService();
+        
         SubprocesoEntity subRta=null;
         try {
-            subRta=port.ingresaSubProceso(subproc);
+            subRta=portUsuario().ingresaSubProceso(subproc);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -73,10 +64,10 @@ public class SubProcesosLogic {
      * @return 
      */
     public String actualizarSubproceso(SubprocesoEntity subproc){
-        webService();
+        
         String rta="";
         try {
-            if(port.actualizaSubProceso(subproc)!=null){
+            if(portUsuario().actualizaSubProceso(subproc)!=null){
                 rta="Ok";
             }else{
                 rta="Error";
@@ -93,7 +84,7 @@ public class SubProcesosLogic {
      * @return 
      */
     public SubprocesoEntity subProcesoPorId(int idsubProceso){
-        webService();
-        return port.subProcesoPorID(idsubProceso);
+        
+        return portUsuario().subProcesoPorID(idsubProceso);
     }
 }
