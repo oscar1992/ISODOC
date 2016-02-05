@@ -3,12 +3,11 @@ package co.com.siscomputo.gestiondocumental.bean;
 import co.com.siscomputo.administracion.bean.ListaAdministracionBean;
 import co.com.siscomputo.administracion.logic.AccionLogic;
 import co.com.siscomputo.administracion.logic.GrupoProcesoLogic;
-import co.com.siscomputo.administracion.logic.MacroProcesosLogic;
+
 import co.com.siscomputo.administracion.logic.NivelLogic;
 import co.com.siscomputo.administracion.logic.PlantillaLogic;
 import co.com.siscomputo.administracion.logic.ProcesoLogic;
-import co.com.siscomputo.administracion.logic.ProcesosLogic;
-import co.com.siscomputo.administracion.logic.SubProcesosLogic;
+
 import co.com.siscomputo.administracion.logic.TiposDocumentalesLogic;
 import co.com.siscomputo.endpoint.AccionEntity;
 import co.com.siscomputo.gestiondocumental.logic.DocumentoLogic;
@@ -395,16 +394,7 @@ public class DocumentoBean implements Serializable {
         objetoDocumento.setPlantilla(plantilla);
         TiposDocumentalesLogic tiposDocumentalesLogic = new TiposDocumentalesLogic();
         TiposDocumentalesEntity tiposDocumentalesEntity = tiposDocumentalesLogic.TipoDocumentalPorId(objetoDocumento.getTipoDocumentalDocumento().getIdTipoDocumental());
-        objetoDocumento.setTipoDocumentalDocumento(tiposDocumentalesEntity);
-        MacroProcesosLogic macroProcesosLogic = new MacroProcesosLogic();
-        MacroprocesosEntity macroprocesosEntity = macroProcesosLogic.macroProcesoPorId(objetoDocumento.getMacroProcesoDocumento().getIdMacroproceso());
-        ProcesosLogic procesosLogic = new ProcesosLogic();
-        ProcesosEntity procesosEntity = procesosLogic.procesoPorId(objetoDocumento.getProcesoProcesoDocumento().getIdProcesos());
-        SubProcesosLogic subProcesosLogic = new SubProcesosLogic();
-        SubprocesoEntity subprocesoEntity = subProcesosLogic.subProcesoPorId(objetoDocumento.getSubProcesoProcesoDocumento().getIdSubproceso());
-        objetoDocumento.setMacroProcesoDocumento(macroprocesosEntity);
-        objetoDocumento.setProcesoProcesoDocumento(procesosEntity);
-        objetoDocumento.setSubProcesoProcesoDocumento(subprocesoEntity);
+        objetoDocumento.setTipoDocumentalDocumento(tiposDocumentalesEntity);        
         lista.add(objetoDocumento);
     }
 
@@ -444,15 +434,7 @@ public class DocumentoBean implements Serializable {
                         TiposDocumentalesLogic tiposDocumentalesLogic = new TiposDocumentalesLogic();
                         TiposDocumentalesEntity tiposDocumentalesEntity = tiposDocumentalesLogic.TipoDocumentalPorId(objetoDocumento.getTipoDocumentalDocumento().getIdTipoDocumental());
                         objetoDocumento.setTipoDocumentalDocumento(tiposDocumentalesEntity);
-                        MacroProcesosLogic macroProcesosLogic = new MacroProcesosLogic();
-                        MacroprocesosEntity macroprocesosEntity = macroProcesosLogic.macroProcesoPorId(objetoDocumento.getMacroProcesoDocumento().getIdMacroproceso());
-                        ProcesosLogic procesosLogic = new ProcesosLogic();
-                        ProcesosEntity procesosEntity = procesosLogic.procesoPorId(objetoDocumento.getProcesoProcesoDocumento().getIdProcesos());
-                        SubProcesosLogic subProcesosLogic = new SubProcesosLogic();
-                        SubprocesoEntity subprocesoEntity = subProcesosLogic.subProcesoPorId(objetoDocumento.getSubProcesoProcesoDocumento().getIdSubproceso());
-                        objetoDocumento.setMacroProcesoDocumento(macroprocesosEntity);
-                        objetoDocumento.setProcesoProcesoDocumento(procesosEntity);
-                        objetoDocumento.setSubProcesoProcesoDocumento(subprocesoEntity);
+                    
                         listaaux.add(objetoDocumento);
                     } else {
                         listaaux.add(item);

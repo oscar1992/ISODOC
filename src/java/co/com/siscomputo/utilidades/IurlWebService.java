@@ -71,7 +71,7 @@ public interface IurlWebService {
         Proveedores port=null;
         try {
             SingletonDirecciones singl= SingletonDirecciones.getDirecciones();
-            String url=singl.getGestion();
+            String url=singl.getProveedrores();
             Proveedores_Service webService=new Proveedores_Service(new URL(url));
             port=webService.getProveedoresPort();
         } catch (Exception e) {

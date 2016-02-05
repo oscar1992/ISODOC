@@ -69,6 +69,14 @@ public class SingletonDirecciones {
         this.administracion = administracion;
     }
 
+    public String getProveedrores() {
+        return proveedrores;
+    }
+
+    public void setProveedrores(String proveedrores) {
+        this.proveedrores = proveedrores;
+    }
+    
     
     
     

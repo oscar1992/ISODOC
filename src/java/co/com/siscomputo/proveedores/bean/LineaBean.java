@@ -120,9 +120,11 @@ public class LineaBean implements Serializable{
             }else{
                 MensajesJSF.muestraMensajes("inserción de Linea del Proveedor incorrecto", "Error");
             }
+            RequestContext.getCurrentInstance().execute("PF('insertarLinea').hide()");
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
     }
     /**
      * Método que añade un Linea del Proveedor visualmente

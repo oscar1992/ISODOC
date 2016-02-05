@@ -33,6 +33,18 @@ import javax.xml.bind.annotation.XmlType;
     "trazaRespuesta"
 })
 @XmlSeeAlso({
+    UsuarioEntity.class,
+    PermisosEntity.class,
+    ObjetoLogin.class,
+    PaisEntity.class,
+    CiudadEntity.class,
+    FestivosEntity.class,
+    ModuloEntity.class,
+    ListaAsignaPermisosModulo.class,
+    RolPermisoEntity.class,
+    AreaEntity.class,
+    UsuarioRolEntity.class,
+    RolesEntity.class,
     ObjetoRetornaEntity.class
 })
 public class ObjetoTraza {

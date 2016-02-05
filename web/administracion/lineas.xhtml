@@ -42,26 +42,25 @@
                         <p:messages autoUpdate="true"/>                        
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
 
-                            <h:outputText value="id del Linea del Proveedor"></h:outputText>
+                            
                             <h:outputText value="tipo del Linea del Proveedor"></h:outputText>
-                            <p:inputText required="true" label="nombre del Linea del Proveedor" value="#{Linea.objetoLinea.tipoLinea}"/>
+                            <p:inputText required="true" label="nombre del Linea del Proveedor" value="#{Linea.objetoLineaInsercion.tipoLinea}"/>
 
                             <h:outputText value="Estado del Linea del Proveedor"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarEstado" value="#{Linea.objetoLinea.estadoLinea}" style="width: 150px;">
+                            <p:selectOneMenu id="desplegableIngresarEstado" value="#{Linea.objetoLineaInsercion.estadoLinea}" style="width: 150px;">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
 
                         </p:panelGrid>                        
-                        <p:commandButton value="Ingresar" update=":LineaForm:tablaLinea,:IngresarModal:insertarLineaModal" actionListener="#{Linea.instertarLinea()}" validateClient="true" class="botonNormal" />
+                        <p:commandButton value="Ingresar" update=":LineaForm:tablaLinea" actionListener="#{Linea.instertarLinea()}" validateClient="true" class="botonNormal" />
                     </p:dialog>
                 </h:form>
                 <h:form id="ActualizarModal">
                     <p:dialog header="Actualizar Linea del Proveedor" widgetVar="actualizarLinea" modal="true" id="actualizarLineaModal" responsive="true">
                         <p:messages autoUpdate="true"/>
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
-                            <h:outputText value="id del Linea del Proveedor"></h:outputText>
-                            <p:inputText required="true" label="nombre del Linea del Proveedor" value="#{Linea.objetoLinea.idLinea}"/>
+                            
                             <h:outputText value="tipo del Linea del Proveedor"></h:outputText>
                             <p:inputText required="true" label="nombre del Linea del Proveedor" value="#{Linea.objetoLinea.tipoLinea}"/>
 
@@ -73,7 +72,7 @@
                             </p:selectOneMenu>
                             <h:inputHidden value="#{Linea.objetoLinea.idLinea}"></h:inputHidden>
                         </p:panelGrid>
-                        <p:commandButton  value="Actualizar" update=":LineaForm:tablaLinea,:ActualizarModal:actualizarLineaModal,LineaForm:msgs" actionListener="#{Linea.actualizarLinea()}" validateClient="true" class="botonNormal" rendered="#{Linea.actualizar}"/>
+                        <p:commandButton  value="Actualizar" update=":LineaForm:tablaLinea,LineaForm:msgs" actionListener="#{Linea.actualizarLinea()}" validateClient="true" class="botonNormal" rendered="#{Linea.actualizar}"/>
                         <p:commandButton value="Eliminar" update=":LineaForm:tablaLinea,:ActualizarModal:actualizarLineaModal,LineaForm:msgs" actionListener="#{Linea.eliminarLinea()}" validateClient="true" class="botonNormal" rendered="#{Linea.eliminar}"/>
                     </p:dialog>
                 </h:form>
