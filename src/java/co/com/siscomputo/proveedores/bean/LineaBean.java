@@ -124,6 +124,8 @@ public class LineaBean implements Serializable{
         } catch (Exception e) {
             e.printStackTrace();
         }
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.update("IngresarModal:insertarLineaModal");
         
     }
     /**

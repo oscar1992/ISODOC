@@ -3,11 +3,9 @@ package co.com.siscomputo.gestiondocumental.bean;
 import co.com.siscomputo.administracion.bean.ListaAdministracionBean;
 import co.com.siscomputo.administracion.logic.AccionLogic;
 import co.com.siscomputo.administracion.logic.GrupoProcesoLogic;
-
 import co.com.siscomputo.administracion.logic.NivelLogic;
 import co.com.siscomputo.administracion.logic.PlantillaLogic;
 import co.com.siscomputo.administracion.logic.ProcesoLogic;
-
 import co.com.siscomputo.administracion.logic.TiposDocumentalesLogic;
 import co.com.siscomputo.endpoint.AccionEntity;
 import co.com.siscomputo.gestiondocumental.logic.DocumentoLogic;
@@ -48,7 +46,6 @@ import org.primefaces.model.DualListModel;
 import org.primefaces.model.TreeNode;
 
 /**
- *
  * @author LENOVO
  */
 @ManagedBean(name = "Documento")
@@ -247,14 +244,16 @@ public class DocumentoBean implements Serializable {
 
     @PostConstruct
     public void init() {
+        Filtro1 = new TiposDocumentalesEntity();
         consultarDocumento();
         permisos();
     }
 
     public DocumentoBean() {
+        System.out.println("Limpia??");
         objetoDocumento = new DocumentoEntity();
         objetoDocumentoInsercion = new DocumentoEntity();
-        Filtro1 = new TiposDocumentalesEntity();
+        
         Filtro2 = new PlantillaEntity();
         Filtro3 = new AccionEntity();
         nuevoDocumentoObjeto();

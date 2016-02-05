@@ -23,14 +23,13 @@
                             <p:inputText id="globalFilter" onkeyup="PF('TablaLinea').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
                             <h:outputText value="Buscar" style="color: #FFF; float: right"/>
                         </f:facet>
-
-                        <p:column headerText="id del Linea del Proveedor" filterBy="#{linea.idLinea}">
-                            <h:outputText value="#{linea.idLinea}"/>
-                        </p:column>
                         <p:column headerText="tipo del Linea del Proveedor" filterBy="#{linea.tipoLinea}">
                             <h:outputText value="#{linea.tipoLinea}"/>
                         </p:column>
-
+                        <p:column headerText="Estado de Linea del Proveedor" filterBy="#{linea.tipoLinea}">
+                            <h:outputText value="Activo" rendered="#{linea.estadoLinea == 'A'}"/>
+                            <h:outputText value="Inactivo" rendered="#{linea.estadoLinea == 'I'}"/> 
+                        </p:column>
                     </p:dataTable>
                     <br/>
                     <p:commandButton value="Insertar" type="button" onclick="PF('insertarLinea').show();" update=":LineaForm:msgs" class="botonNormal" rendered="#{Linea.ingresar}"></p:commandButton>
@@ -40,18 +39,14 @@
                     <p:dialog header="Insertar Linea del Proveedor" widgetVar="insertarLinea" modal="true" id="insertarLineaModal" responsive="true">
                         #{Linea.nuevoLineaObjeto()}                        
                         <p:messages autoUpdate="true"/>                        
-                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
-
-                            
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">                            
                             <h:outputText value="tipo del Linea del Proveedor"></h:outputText>
                             <p:inputText required="true" label="nombre del Linea del Proveedor" value="#{Linea.objetoLineaInsercion.tipoLinea}"/>
-
                             <h:outputText value="Estado del Linea del Proveedor"></h:outputText>
                             <p:selectOneMenu id="desplegableIngresarEstado" value="#{Linea.objetoLineaInsercion.estadoLinea}" style="width: 150px;">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>
-
                         </p:panelGrid>                        
                         <p:commandButton value="Ingresar" update=":LineaForm:tablaLinea" actionListener="#{Linea.instertarLinea()}" validateClient="true" class="botonNormal" />
                     </p:dialog>
@@ -60,7 +55,7 @@
                     <p:dialog header="Actualizar Linea del Proveedor" widgetVar="actualizarLinea" modal="true" id="actualizarLineaModal" responsive="true">
                         <p:messages autoUpdate="true"/>
                         <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
-                            
+
                             <h:outputText value="tipo del Linea del Proveedor"></h:outputText>
                             <p:inputText required="true" label="nombre del Linea del Proveedor" value="#{Linea.objetoLinea.tipoLinea}"/>
 

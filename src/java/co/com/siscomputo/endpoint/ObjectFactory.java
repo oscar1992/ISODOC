@@ -24,116 +24,36 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _IngresarRolPermiso_QNAME = new QName("http://endpoint.siscomputo.com.co/", "ingresarRolPermiso");
-    private final static QName _ActualizaSede_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizaSede");
-    private final static QName _ListaPermisosFiltradosResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaPermisosFiltradosResponse");
-    private final static QName _ActualizarUsuarioResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarUsuarioResponse");
-    private final static QName _IngresarRol_QNAME = new QName("http://endpoint.siscomputo.com.co/", "ingresarRol");
-    private final static QName _InsertarAreaResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarAreaResponse");
-    private final static QName _ListaPais_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaPais");
-    private final static QName _FesttivoPorId_QNAME = new QName("http://endpoint.siscomputo.com.co/", "festtivoPorId");
-    private final static QName _IngresarRolPermisoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "ingresarRolPermisoResponse");
-    private final static QName _ListaUsuarioRol_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaUsuarioRol");
-    private final static QName _DeptoPorIdResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "deptoPorIdResponse");
-    private final static QName _ActualizaSedeEmpresa_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizaSedeEmpresa");
-    private final static QName _InsertarArea_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarArea");
-    private final static QName _InsertarUsuarioRol_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarUsuarioRol");
-    private final static QName _ListaUsuariosResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaUsuariosResponse");
-    private final static QName _ListaEmpresa_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaEmpresa");
-    private final static QName _ListaUsuarioRolResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaUsuarioRolResponse");
-    private final static QName _ListaSedeEmpresa_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaSedeEmpresa");
-    private final static QName _Listafestivos_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listafestivos");
-    private final static QName _ListaModulos_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaModulos");
-    private final static QName _ListaUsuarios_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaUsuarios");
-    private final static QName _ListaAreasResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaAreasResponse");
-    private final static QName _ActualizarPais_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarPais");
-    private final static QName _IngresarRolResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "ingresarRolResponse");
-    private final static QName _InsertarCiudadResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarCiudadResponse");
-    private final static QName _InsertarDepartameno_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarDepartameno");
-    private final static QName _ListaPermisosResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaPermisosResponse");
-    private final static QName _ActualizarUsuarioRolResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarUsuarioRolResponse");
-    private final static QName _IngresarEmpresa_QNAME = new QName("http://endpoint.siscomputo.com.co/", "ingresarEmpresa");
-    private final static QName _LoginResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "loginResponse");
-    private final static QName _IngresaSedeEmpresaResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "ingresaSedeEmpresaResponse");
-    private final static QName _ListaRolesResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaRolesResponse");
-    private final static QName _ActualizaSedeEmpresaResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizaSedeEmpresaResponse");
-    private final static QName _DeptoPorId_QNAME = new QName("http://endpoint.siscomputo.com.co/", "deptoPorId");
-    private final static QName _IngresaFestivoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "ingresaFestivoResponse");
-    private final static QName _ActualizarFestivo_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarFestivo");
-    private final static QName _ActualizarUsuarioRol_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarUsuarioRol");
-    private final static QName _ListaSedeEmpresaResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaSedeEmpresaResponse");
-    private final static QName _InsertarUsuarioRolResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarUsuarioRolResponse");
-    private final static QName _LimpiaUsuarioRoles_QNAME = new QName("http://endpoint.siscomputo.com.co/", "limpiaUsuarioRoles");
-    private final static QName _MenuDatosporUsuarioResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "menuDatosporUsuarioResponse");
-    private final static QName _SedePorIdResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "sedePorIdResponse");
-    private final static QName _ListaCiudadesResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaCiudadesResponse");
-    private final static QName _InsertarPaisResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarPaisResponse");
-    private final static QName _ListaPermisosFiltrados_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaPermisosFiltrados");
-    private final static QName _InsertarCiudad_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarCiudad");
-    private final static QName _InsertarDepartamenoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarDepartamenoResponse");
-    private final static QName _IngresarEmpresaResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "ingresarEmpresaResponse");
-    private final static QName _ListaSedeResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaSedeResponse");
-    private final static QName _ListaPaisResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaPaisResponse");
-    private final static QName _ListaDepartameno_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaDepartameno");
-    private final static QName _ActualizarAreaResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarAreaResponse");
-    private final static QName _ListaCiudades_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaCiudades");
-    private final static QName _ListaSede_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaSede");
-    private final static QName _MenuDatosporUsuario_QNAME = new QName("http://endpoint.siscomputo.com.co/", "menuDatosporUsuario");
-    private final static QName _ListaUsuarioRolporAreaUsuarioResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaUsuarioRolporAreaUsuarioResponse");
-    private final static QName _UsuarioPorId_QNAME = new QName("http://endpoint.siscomputo.com.co/", "usuarioPorId");
-    private final static QName _ListaRolPermisoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaRolPermisoResponse");
-    private final static QName _ActualizaSedeResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizaSedeResponse");
-    private final static QName _UsuariosPorGrupo_QNAME = new QName("http://endpoint.siscomputo.com.co/", "usuariosPorGrupo");
-    private final static QName _LimpiaUsuarioRolesResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "limpiaUsuarioRolesResponse");
-    private final static QName _ActualizarDepartamenoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarDepartamenoResponse");
-    private final static QName _ListaTipoDocuemtal_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaTipoDocuemtal");
-    private final static QName _ListaUsuarioRolporAreaUsuario_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaUsuarioRolporAreaUsuario");
-    private final static QName _ListaEmpresaResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaEmpresaResponse");
-    private final static QName _TiposDocumetalesPorID_QNAME = new QName("http://endpoint.siscomputo.com.co/", "tiposDocumetalesPorID");
-    private final static QName _SedePorId_QNAME = new QName("http://endpoint.siscomputo.com.co/", "sedePorId");
-    private final static QName _ActualizarTipoDocumental_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarTipoDocumental");
-    private final static QName _Login_QNAME = new QName("http://endpoint.siscomputo.com.co/", "login");
-    private final static QName _PaisPorIdResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "paisPorIdResponse");
-    private final static QName _InsertarTiposDocumetales_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarTiposDocumetales");
-    private final static QName _ListaUsuariosPorAccionResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaUsuariosPorAccionResponse");
-    private final static QName _ActualizarPaisResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarPaisResponse");
-    private final static QName _ListaUsuariosPorAccion_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaUsuariosPorAccion");
-    private final static QName _ActualizarRol_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarRol");
-    private final static QName _ActualizarFestivoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarFestivoResponse");
-    private final static QName _ListaPermisos_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaPermisos");
-    private final static QName _ActualizarCiudadResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarCiudadResponse");
-    private final static QName _IngresarUsuario_QNAME = new QName("http://endpoint.siscomputo.com.co/", "ingresarUsuario");
-    private final static QName _ListaPermisosDisponiblesResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaPermisosDisponiblesResponse");
-    private final static QName _ListaTipoDocuemtalResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaTipoDocuemtalResponse");
-    private final static QName _IngresaFestivo_QNAME = new QName("http://endpoint.siscomputo.com.co/", "ingresaFestivo");
-    private final static QName _ListaRolPermiso_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaRolPermiso");
-    private final static QName _ActualizarUsuario_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarUsuario");
-    private final static QName _ActualizarEmpresa_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarEmpresa");
-    private final static QName _ActualizarRolResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarRolResponse");
-    private final static QName _IngresaSede_QNAME = new QName("http://endpoint.siscomputo.com.co/", "ingresaSede");
-    private final static QName _ActualizarDepartameno_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarDepartameno");
-    private final static QName _UsuariosPorGrupoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "usuariosPorGrupoResponse");
-    private final static QName _ActualizarArea_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarArea");
-    private final static QName _InsertarTiposDocumetalesResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarTiposDocumetalesResponse");
-    private final static QName _ActualizarEmpresaResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarEmpresaResponse");
-    private final static QName _PaisPorId_QNAME = new QName("http://endpoint.siscomputo.com.co/", "paisPorId");
-    private final static QName _ListaDepartamenoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaDepartamenoResponse");
-    private final static QName _IngresaSedeResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "ingresaSedeResponse");
-    private final static QName _ListaRoles_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaRoles");
-    private final static QName _IngresarUsuarioResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "ingresarUsuarioResponse");
-    private final static QName _RolPorId_QNAME = new QName("http://endpoint.siscomputo.com.co/", "rolPorId");
-    private final static QName _ListaModulosResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaModulosResponse");
-    private final static QName _ActualizarTipoDocumentalResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarTipoDocumentalResponse");
-    private final static QName _ListaPermisosDisponibles_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaPermisosDisponibles");
-    private final static QName _TiposDocumetalesPorIDResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "tiposDocumetalesPorIDResponse");
-    private final static QName _InsertarPais_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarPais");
-    private final static QName _ListaAreas_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaAreas");
-    private final static QName _IngresaSedeEmpresa_QNAME = new QName("http://endpoint.siscomputo.com.co/", "ingresaSedeEmpresa");
-    private final static QName _RolPorIdResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "rolPorIdResponse");
-    private final static QName _UsuarioPorIdResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "usuarioPorIdResponse");
-    private final static QName _FesttivoPorIdResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "festtivoPorIdResponse");
-    private final static QName _ActualizarCiudad_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarCiudad");
-    private final static QName _ListafestivosResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listafestivosResponse");
+    private final static QName _InsertarTipoDocumento_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarTipoDocumento");
+    private final static QName _ActualizarEstadoProveedor_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarEstadoProveedor");
+    private final static QName _ListaEstadoProveedorResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaEstadoProveedorResponse");
+    private final static QName _ActualizarTipoProveedor_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarTipoProveedor");
+    private final static QName _ListaTipoTributario_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaTipoTributario");
+    private final static QName _InsertarEstadoProveedor_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarEstadoProveedor");
+    private final static QName _ActualizarTipoDocumentoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarTipoDocumentoResponse");
+    private final static QName _ActualizarEstadoProveedorResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarEstadoProveedorResponse");
+    private final static QName _InsertarTipoProveedorResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarTipoProveedorResponse");
+    private final static QName _ListaEstadoProveedor_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaEstadoProveedor");
+    private final static QName _ListaTipoProveedorResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaTipoProveedorResponse");
+    private final static QName _ListaTipoDocumento_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaTipoDocumento");
+    private final static QName _ActualizarTipoDocumento_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarTipoDocumento");
+    private final static QName _ActualizarLinea_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarLinea");
+    private final static QName _InsertarTipoTributario_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarTipoTributario");
+    private final static QName _ActualizarTipoTributarioResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarTipoTributarioResponse");
+    private final static QName _ListaLineaResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaLineaResponse");
+    private final static QName _InsertarLineaResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarLineaResponse");
+    private final static QName _ActualizarLineaResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarLineaResponse");
+    private final static QName _ListaLinea_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaLinea");
+    private final static QName _InsertarEstadoProveedorResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarEstadoProveedorResponse");
+    private final static QName _InsertarLinea_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarLinea");
+    private final static QName _ListaTipoProveedor_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaTipoProveedor");
+    private final static QName _InsertarTipoTributarioResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarTipoTributarioResponse");
+    private final static QName _ListaTipoDocumentoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaTipoDocumentoResponse");
+    private final static QName _ListaTipoTributarioResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaTipoTributarioResponse");
+    private final static QName _ActualizarTipoProveedorResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarTipoProveedorResponse");
+    private final static QName _ActualizarTipoTributario_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarTipoTributario");
+    private final static QName _InsertarTipoProveedor_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarTipoProveedor");
+    private final static QName _InsertarTipoDocumentoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarTipoDocumentoResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: co.com.siscomputo.endpoint
@@ -143,1011 +63,243 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ListaModulosResponse }
+     * Create an instance of {@link InsertarLineaResponse }
      * 
      */
-    public ListaModulosResponse createListaModulosResponse() {
-        return new ListaModulosResponse();
+    public InsertarLineaResponse createInsertarLineaResponse() {
+        return new InsertarLineaResponse();
     }
 
     /**
-     * Create an instance of {@link ActualizarTipoDocumentalResponse }
+     * Create an instance of {@link ActualizarLineaResponse }
      * 
      */
-    public ActualizarTipoDocumentalResponse createActualizarTipoDocumentalResponse() {
-        return new ActualizarTipoDocumentalResponse();
+    public ActualizarLineaResponse createActualizarLineaResponse() {
+        return new ActualizarLineaResponse();
     }
 
     /**
-     * Create an instance of {@link ListaPermisosDisponibles }
+     * Create an instance of {@link ListaLinea }
      * 
      */
-    public ListaPermisosDisponibles createListaPermisosDisponibles() {
-        return new ListaPermisosDisponibles();
+    public ListaLinea createListaLinea() {
+        return new ListaLinea();
     }
 
     /**
-     * Create an instance of {@link TiposDocumetalesPorIDResponse }
+     * Create an instance of {@link InsertarEstadoProveedorResponse }
      * 
      */
-    public TiposDocumetalesPorIDResponse createTiposDocumetalesPorIDResponse() {
-        return new TiposDocumetalesPorIDResponse();
+    public InsertarEstadoProveedorResponse createInsertarEstadoProveedorResponse() {
+        return new InsertarEstadoProveedorResponse();
     }
 
     /**
-     * Create an instance of {@link InsertarPais }
+     * Create an instance of {@link InsertarLinea }
      * 
      */
-    public InsertarPais createInsertarPais() {
-        return new InsertarPais();
+    public InsertarLinea createInsertarLinea() {
+        return new InsertarLinea();
     }
 
     /**
-     * Create an instance of {@link ListaAreas }
+     * Create an instance of {@link ListaTipoProveedor }
      * 
      */
-    public ListaAreas createListaAreas() {
-        return new ListaAreas();
+    public ListaTipoProveedor createListaTipoProveedor() {
+        return new ListaTipoProveedor();
     }
 
     /**
-     * Create an instance of {@link IngresaSedeEmpresa }
+     * Create an instance of {@link InsertarTipoTributarioResponse }
      * 
      */
-    public IngresaSedeEmpresa createIngresaSedeEmpresa() {
-        return new IngresaSedeEmpresa();
+    public InsertarTipoTributarioResponse createInsertarTipoTributarioResponse() {
+        return new InsertarTipoTributarioResponse();
     }
 
     /**
-     * Create an instance of {@link RolPorIdResponse }
+     * Create an instance of {@link ListaTipoDocumentoResponse }
      * 
      */
-    public RolPorIdResponse createRolPorIdResponse() {
-        return new RolPorIdResponse();
+    public ListaTipoDocumentoResponse createListaTipoDocumentoResponse() {
+        return new ListaTipoDocumentoResponse();
     }
 
     /**
-     * Create an instance of {@link UsuarioPorIdResponse }
+     * Create an instance of {@link ListaTipoTributarioResponse }
      * 
      */
-    public UsuarioPorIdResponse createUsuarioPorIdResponse() {
-        return new UsuarioPorIdResponse();
+    public ListaTipoTributarioResponse createListaTipoTributarioResponse() {
+        return new ListaTipoTributarioResponse();
     }
 
     /**
-     * Create an instance of {@link FesttivoPorIdResponse }
+     * Create an instance of {@link ActualizarTipoProveedorResponse }
      * 
      */
-    public FesttivoPorIdResponse createFesttivoPorIdResponse() {
-        return new FesttivoPorIdResponse();
+    public ActualizarTipoProveedorResponse createActualizarTipoProveedorResponse() {
+        return new ActualizarTipoProveedorResponse();
     }
 
     /**
-     * Create an instance of {@link ActualizarCiudad }
+     * Create an instance of {@link ActualizarTipoTributario }
      * 
      */
-    public ActualizarCiudad createActualizarCiudad() {
-        return new ActualizarCiudad();
+    public ActualizarTipoTributario createActualizarTipoTributario() {
+        return new ActualizarTipoTributario();
     }
 
     /**
-     * Create an instance of {@link ListafestivosResponse }
+     * Create an instance of {@link InsertarTipoProveedor }
      * 
      */
-    public ListafestivosResponse createListafestivosResponse() {
-        return new ListafestivosResponse();
+    public InsertarTipoProveedor createInsertarTipoProveedor() {
+        return new InsertarTipoProveedor();
     }
 
     /**
-     * Create an instance of {@link ActualizarFestivoResponse }
+     * Create an instance of {@link InsertarTipoDocumentoResponse }
      * 
      */
-    public ActualizarFestivoResponse createActualizarFestivoResponse() {
-        return new ActualizarFestivoResponse();
+    public InsertarTipoDocumentoResponse createInsertarTipoDocumentoResponse() {
+        return new InsertarTipoDocumentoResponse();
     }
 
     /**
-     * Create an instance of {@link ListaPermisos }
+     * Create an instance of {@link InsertarTipoDocumento }
      * 
      */
-    public ListaPermisos createListaPermisos() {
-        return new ListaPermisos();
+    public InsertarTipoDocumento createInsertarTipoDocumento() {
+        return new InsertarTipoDocumento();
     }
 
     /**
-     * Create an instance of {@link ActualizarCiudadResponse }
+     * Create an instance of {@link ActualizarEstadoProveedor }
      * 
      */
-    public ActualizarCiudadResponse createActualizarCiudadResponse() {
-        return new ActualizarCiudadResponse();
+    public ActualizarEstadoProveedor createActualizarEstadoProveedor() {
+        return new ActualizarEstadoProveedor();
     }
 
     /**
-     * Create an instance of {@link IngresarUsuario }
+     * Create an instance of {@link ListaEstadoProveedorResponse }
      * 
      */
-    public IngresarUsuario createIngresarUsuario() {
-        return new IngresarUsuario();
+    public ListaEstadoProveedorResponse createListaEstadoProveedorResponse() {
+        return new ListaEstadoProveedorResponse();
     }
 
     /**
-     * Create an instance of {@link ListaPermisosDisponiblesResponse }
+     * Create an instance of {@link ActualizarTipoProveedor }
      * 
      */
-    public ListaPermisosDisponiblesResponse createListaPermisosDisponiblesResponse() {
-        return new ListaPermisosDisponiblesResponse();
+    public ActualizarTipoProveedor createActualizarTipoProveedor() {
+        return new ActualizarTipoProveedor();
     }
 
     /**
-     * Create an instance of {@link ListaTipoDocuemtalResponse }
+     * Create an instance of {@link ListaTipoTributario }
      * 
      */
-    public ListaTipoDocuemtalResponse createListaTipoDocuemtalResponse() {
-        return new ListaTipoDocuemtalResponse();
+    public ListaTipoTributario createListaTipoTributario() {
+        return new ListaTipoTributario();
     }
 
     /**
-     * Create an instance of {@link IngresaFestivo }
+     * Create an instance of {@link InsertarEstadoProveedor }
      * 
      */
-    public IngresaFestivo createIngresaFestivo() {
-        return new IngresaFestivo();
+    public InsertarEstadoProveedor createInsertarEstadoProveedor() {
+        return new InsertarEstadoProveedor();
     }
 
     /**
-     * Create an instance of {@link ListaRolPermiso }
+     * Create an instance of {@link ActualizarTipoDocumentoResponse }
      * 
      */
-    public ListaRolPermiso createListaRolPermiso() {
-        return new ListaRolPermiso();
+    public ActualizarTipoDocumentoResponse createActualizarTipoDocumentoResponse() {
+        return new ActualizarTipoDocumentoResponse();
     }
 
     /**
-     * Create an instance of {@link ActualizarUsuario }
+     * Create an instance of {@link ActualizarEstadoProveedorResponse }
      * 
      */
-    public ActualizarUsuario createActualizarUsuario() {
-        return new ActualizarUsuario();
+    public ActualizarEstadoProveedorResponse createActualizarEstadoProveedorResponse() {
+        return new ActualizarEstadoProveedorResponse();
     }
 
     /**
-     * Create an instance of {@link ActualizarEmpresa }
+     * Create an instance of {@link InsertarTipoProveedorResponse }
      * 
      */
-    public ActualizarEmpresa createActualizarEmpresa() {
-        return new ActualizarEmpresa();
+    public InsertarTipoProveedorResponse createInsertarTipoProveedorResponse() {
+        return new InsertarTipoProveedorResponse();
     }
 
     /**
-     * Create an instance of {@link ActualizarRolResponse }
+     * Create an instance of {@link ListaEstadoProveedor }
      * 
      */
-    public ActualizarRolResponse createActualizarRolResponse() {
-        return new ActualizarRolResponse();
+    public ListaEstadoProveedor createListaEstadoProveedor() {
+        return new ListaEstadoProveedor();
     }
 
     /**
-     * Create an instance of {@link IngresaSede }
+     * Create an instance of {@link ListaTipoProveedorResponse }
      * 
      */
-    public IngresaSede createIngresaSede() {
-        return new IngresaSede();
+    public ListaTipoProveedorResponse createListaTipoProveedorResponse() {
+        return new ListaTipoProveedorResponse();
     }
 
     /**
-     * Create an instance of {@link ActualizarDepartameno }
+     * Create an instance of {@link ListaTipoDocumento }
      * 
      */
-    public ActualizarDepartameno createActualizarDepartameno() {
-        return new ActualizarDepartameno();
+    public ListaTipoDocumento createListaTipoDocumento() {
+        return new ListaTipoDocumento();
     }
 
     /**
-     * Create an instance of {@link UsuariosPorGrupoResponse }
+     * Create an instance of {@link ActualizarTipoDocumento }
      * 
      */
-    public UsuariosPorGrupoResponse createUsuariosPorGrupoResponse() {
-        return new UsuariosPorGrupoResponse();
+    public ActualizarTipoDocumento createActualizarTipoDocumento() {
+        return new ActualizarTipoDocumento();
     }
 
     /**
-     * Create an instance of {@link ActualizarArea }
+     * Create an instance of {@link ActualizarLinea }
      * 
      */
-    public ActualizarArea createActualizarArea() {
-        return new ActualizarArea();
+    public ActualizarLinea createActualizarLinea() {
+        return new ActualizarLinea();
     }
 
     /**
-     * Create an instance of {@link InsertarTiposDocumetalesResponse }
+     * Create an instance of {@link InsertarTipoTributario }
      * 
      */
-    public InsertarTiposDocumetalesResponse createInsertarTiposDocumetalesResponse() {
-        return new InsertarTiposDocumetalesResponse();
+    public InsertarTipoTributario createInsertarTipoTributario() {
+        return new InsertarTipoTributario();
     }
 
     /**
-     * Create an instance of {@link ActualizarEmpresaResponse }
+     * Create an instance of {@link ActualizarTipoTributarioResponse }
      * 
      */
-    public ActualizarEmpresaResponse createActualizarEmpresaResponse() {
-        return new ActualizarEmpresaResponse();
+    public ActualizarTipoTributarioResponse createActualizarTipoTributarioResponse() {
+        return new ActualizarTipoTributarioResponse();
     }
 
     /**
-     * Create an instance of {@link PaisPorId }
+     * Create an instance of {@link ListaLineaResponse }
      * 
      */
-    public PaisPorId createPaisPorId() {
-        return new PaisPorId();
-    }
-
-    /**
-     * Create an instance of {@link ListaDepartamenoResponse }
-     * 
-     */
-    public ListaDepartamenoResponse createListaDepartamenoResponse() {
-        return new ListaDepartamenoResponse();
-    }
-
-    /**
-     * Create an instance of {@link IngresaSedeResponse }
-     * 
-     */
-    public IngresaSedeResponse createIngresaSedeResponse() {
-        return new IngresaSedeResponse();
-    }
-
-    /**
-     * Create an instance of {@link ListaRoles }
-     * 
-     */
-    public ListaRoles createListaRoles() {
-        return new ListaRoles();
-    }
-
-    /**
-     * Create an instance of {@link IngresarUsuarioResponse }
-     * 
-     */
-    public IngresarUsuarioResponse createIngresarUsuarioResponse() {
-        return new IngresarUsuarioResponse();
-    }
-
-    /**
-     * Create an instance of {@link RolPorId }
-     * 
-     */
-    public RolPorId createRolPorId() {
-        return new RolPorId();
-    }
-
-    /**
-     * Create an instance of {@link ListaEmpresaResponse }
-     * 
-     */
-    public ListaEmpresaResponse createListaEmpresaResponse() {
-        return new ListaEmpresaResponse();
-    }
-
-    /**
-     * Create an instance of {@link TiposDocumetalesPorID }
-     * 
-     */
-    public TiposDocumetalesPorID createTiposDocumetalesPorID() {
-        return new TiposDocumetalesPorID();
-    }
-
-    /**
-     * Create an instance of {@link SedePorId }
-     * 
-     */
-    public SedePorId createSedePorId() {
-        return new SedePorId();
-    }
-
-    /**
-     * Create an instance of {@link ActualizarTipoDocumental }
-     * 
-     */
-    public ActualizarTipoDocumental createActualizarTipoDocumental() {
-        return new ActualizarTipoDocumental();
-    }
-
-    /**
-     * Create an instance of {@link Login }
-     * 
-     */
-    public Login createLogin() {
-        return new Login();
-    }
-
-    /**
-     * Create an instance of {@link PaisPorIdResponse }
-     * 
-     */
-    public PaisPorIdResponse createPaisPorIdResponse() {
-        return new PaisPorIdResponse();
-    }
-
-    /**
-     * Create an instance of {@link InsertarTiposDocumetales }
-     * 
-     */
-    public InsertarTiposDocumetales createInsertarTiposDocumetales() {
-        return new InsertarTiposDocumetales();
-    }
-
-    /**
-     * Create an instance of {@link ListaUsuariosPorAccionResponse }
-     * 
-     */
-    public ListaUsuariosPorAccionResponse createListaUsuariosPorAccionResponse() {
-        return new ListaUsuariosPorAccionResponse();
-    }
-
-    /**
-     * Create an instance of {@link ActualizarPaisResponse }
-     * 
-     */
-    public ActualizarPaisResponse createActualizarPaisResponse() {
-        return new ActualizarPaisResponse();
-    }
-
-    /**
-     * Create an instance of {@link ListaUsuariosPorAccion }
-     * 
-     */
-    public ListaUsuariosPorAccion createListaUsuariosPorAccion() {
-        return new ListaUsuariosPorAccion();
-    }
-
-    /**
-     * Create an instance of {@link ActualizarRol }
-     * 
-     */
-    public ActualizarRol createActualizarRol() {
-        return new ActualizarRol();
-    }
-
-    /**
-     * Create an instance of {@link ListaCiudades }
-     * 
-     */
-    public ListaCiudades createListaCiudades() {
-        return new ListaCiudades();
-    }
-
-    /**
-     * Create an instance of {@link ListaSede }
-     * 
-     */
-    public ListaSede createListaSede() {
-        return new ListaSede();
-    }
-
-    /**
-     * Create an instance of {@link MenuDatosporUsuario }
-     * 
-     */
-    public MenuDatosporUsuario createMenuDatosporUsuario() {
-        return new MenuDatosporUsuario();
-    }
-
-    /**
-     * Create an instance of {@link ListaUsuarioRolporAreaUsuarioResponse }
-     * 
-     */
-    public ListaUsuarioRolporAreaUsuarioResponse createListaUsuarioRolporAreaUsuarioResponse() {
-        return new ListaUsuarioRolporAreaUsuarioResponse();
-    }
-
-    /**
-     * Create an instance of {@link UsuarioPorId }
-     * 
-     */
-    public UsuarioPorId createUsuarioPorId() {
-        return new UsuarioPorId();
-    }
-
-    /**
-     * Create an instance of {@link ListaRolPermisoResponse }
-     * 
-     */
-    public ListaRolPermisoResponse createListaRolPermisoResponse() {
-        return new ListaRolPermisoResponse();
-    }
-
-    /**
-     * Create an instance of {@link ActualizaSedeResponse }
-     * 
-     */
-    public ActualizaSedeResponse createActualizaSedeResponse() {
-        return new ActualizaSedeResponse();
-    }
-
-    /**
-     * Create an instance of {@link UsuariosPorGrupo }
-     * 
-     */
-    public UsuariosPorGrupo createUsuariosPorGrupo() {
-        return new UsuariosPorGrupo();
-    }
-
-    /**
-     * Create an instance of {@link LimpiaUsuarioRolesResponse }
-     * 
-     */
-    public LimpiaUsuarioRolesResponse createLimpiaUsuarioRolesResponse() {
-        return new LimpiaUsuarioRolesResponse();
-    }
-
-    /**
-     * Create an instance of {@link ActualizarDepartamenoResponse }
-     * 
-     */
-    public ActualizarDepartamenoResponse createActualizarDepartamenoResponse() {
-        return new ActualizarDepartamenoResponse();
-    }
-
-    /**
-     * Create an instance of {@link ListaTipoDocuemtal }
-     * 
-     */
-    public ListaTipoDocuemtal createListaTipoDocuemtal() {
-        return new ListaTipoDocuemtal();
-    }
-
-    /**
-     * Create an instance of {@link ListaUsuarioRolporAreaUsuario }
-     * 
-     */
-    public ListaUsuarioRolporAreaUsuario createListaUsuarioRolporAreaUsuario() {
-        return new ListaUsuarioRolporAreaUsuario();
-    }
-
-    /**
-     * Create an instance of {@link SedePorIdResponse }
-     * 
-     */
-    public SedePorIdResponse createSedePorIdResponse() {
-        return new SedePorIdResponse();
-    }
-
-    /**
-     * Create an instance of {@link ListaCiudadesResponse }
-     * 
-     */
-    public ListaCiudadesResponse createListaCiudadesResponse() {
-        return new ListaCiudadesResponse();
-    }
-
-    /**
-     * Create an instance of {@link InsertarPaisResponse }
-     * 
-     */
-    public InsertarPaisResponse createInsertarPaisResponse() {
-        return new InsertarPaisResponse();
-    }
-
-    /**
-     * Create an instance of {@link ListaPermisosFiltrados }
-     * 
-     */
-    public ListaPermisosFiltrados createListaPermisosFiltrados() {
-        return new ListaPermisosFiltrados();
-    }
-
-    /**
-     * Create an instance of {@link InsertarCiudad }
-     * 
-     */
-    public InsertarCiudad createInsertarCiudad() {
-        return new InsertarCiudad();
-    }
-
-    /**
-     * Create an instance of {@link InsertarDepartamenoResponse }
-     * 
-     */
-    public InsertarDepartamenoResponse createInsertarDepartamenoResponse() {
-        return new InsertarDepartamenoResponse();
-    }
-
-    /**
-     * Create an instance of {@link IngresarEmpresaResponse }
-     * 
-     */
-    public IngresarEmpresaResponse createIngresarEmpresaResponse() {
-        return new IngresarEmpresaResponse();
-    }
-
-    /**
-     * Create an instance of {@link ListaSedeResponse }
-     * 
-     */
-    public ListaSedeResponse createListaSedeResponse() {
-        return new ListaSedeResponse();
-    }
-
-    /**
-     * Create an instance of {@link ListaPaisResponse }
-     * 
-     */
-    public ListaPaisResponse createListaPaisResponse() {
-        return new ListaPaisResponse();
-    }
-
-    /**
-     * Create an instance of {@link ListaDepartameno }
-     * 
-     */
-    public ListaDepartameno createListaDepartameno() {
-        return new ListaDepartameno();
-    }
-
-    /**
-     * Create an instance of {@link ActualizarAreaResponse }
-     * 
-     */
-    public ActualizarAreaResponse createActualizarAreaResponse() {
-        return new ActualizarAreaResponse();
-    }
-
-    /**
-     * Create an instance of {@link IngresarEmpresa }
-     * 
-     */
-    public IngresarEmpresa createIngresarEmpresa() {
-        return new IngresarEmpresa();
-    }
-
-    /**
-     * Create an instance of {@link LoginResponse }
-     * 
-     */
-    public LoginResponse createLoginResponse() {
-        return new LoginResponse();
-    }
-
-    /**
-     * Create an instance of {@link IngresaSedeEmpresaResponse }
-     * 
-     */
-    public IngresaSedeEmpresaResponse createIngresaSedeEmpresaResponse() {
-        return new IngresaSedeEmpresaResponse();
-    }
-
-    /**
-     * Create an instance of {@link ListaRolesResponse }
-     * 
-     */
-    public ListaRolesResponse createListaRolesResponse() {
-        return new ListaRolesResponse();
-    }
-
-    /**
-     * Create an instance of {@link ActualizaSedeEmpresaResponse }
-     * 
-     */
-    public ActualizaSedeEmpresaResponse createActualizaSedeEmpresaResponse() {
-        return new ActualizaSedeEmpresaResponse();
-    }
-
-    /**
-     * Create an instance of {@link DeptoPorId }
-     * 
-     */
-    public DeptoPorId createDeptoPorId() {
-        return new DeptoPorId();
-    }
-
-    /**
-     * Create an instance of {@link IngresaFestivoResponse }
-     * 
-     */
-    public IngresaFestivoResponse createIngresaFestivoResponse() {
-        return new IngresaFestivoResponse();
-    }
-
-    /**
-     * Create an instance of {@link ActualizarFestivo }
-     * 
-     */
-    public ActualizarFestivo createActualizarFestivo() {
-        return new ActualizarFestivo();
-    }
-
-    /**
-     * Create an instance of {@link ActualizarUsuarioRol }
-     * 
-     */
-    public ActualizarUsuarioRol createActualizarUsuarioRol() {
-        return new ActualizarUsuarioRol();
-    }
-
-    /**
-     * Create an instance of {@link ListaSedeEmpresaResponse }
-     * 
-     */
-    public ListaSedeEmpresaResponse createListaSedeEmpresaResponse() {
-        return new ListaSedeEmpresaResponse();
-    }
-
-    /**
-     * Create an instance of {@link InsertarUsuarioRolResponse }
-     * 
-     */
-    public InsertarUsuarioRolResponse createInsertarUsuarioRolResponse() {
-        return new InsertarUsuarioRolResponse();
-    }
-
-    /**
-     * Create an instance of {@link LimpiaUsuarioRoles }
-     * 
-     */
-    public LimpiaUsuarioRoles createLimpiaUsuarioRoles() {
-        return new LimpiaUsuarioRoles();
-    }
-
-    /**
-     * Create an instance of {@link MenuDatosporUsuarioResponse }
-     * 
-     */
-    public MenuDatosporUsuarioResponse createMenuDatosporUsuarioResponse() {
-        return new MenuDatosporUsuarioResponse();
-    }
-
-    /**
-     * Create an instance of {@link ListaSedeEmpresa }
-     * 
-     */
-    public ListaSedeEmpresa createListaSedeEmpresa() {
-        return new ListaSedeEmpresa();
-    }
-
-    /**
-     * Create an instance of {@link Listafestivos }
-     * 
-     */
-    public Listafestivos createListafestivos() {
-        return new Listafestivos();
-    }
-
-    /**
-     * Create an instance of {@link ListaModulos }
-     * 
-     */
-    public ListaModulos createListaModulos() {
-        return new ListaModulos();
-    }
-
-    /**
-     * Create an instance of {@link ListaUsuarios }
-     * 
-     */
-    public ListaUsuarios createListaUsuarios() {
-        return new ListaUsuarios();
-    }
-
-    /**
-     * Create an instance of {@link ListaAreasResponse }
-     * 
-     */
-    public ListaAreasResponse createListaAreasResponse() {
-        return new ListaAreasResponse();
-    }
-
-    /**
-     * Create an instance of {@link ActualizarPais }
-     * 
-     */
-    public ActualizarPais createActualizarPais() {
-        return new ActualizarPais();
-    }
-
-    /**
-     * Create an instance of {@link IngresarRolResponse }
-     * 
-     */
-    public IngresarRolResponse createIngresarRolResponse() {
-        return new IngresarRolResponse();
-    }
-
-    /**
-     * Create an instance of {@link InsertarCiudadResponse }
-     * 
-     */
-    public InsertarCiudadResponse createInsertarCiudadResponse() {
-        return new InsertarCiudadResponse();
-    }
-
-    /**
-     * Create an instance of {@link InsertarDepartameno }
-     * 
-     */
-    public InsertarDepartameno createInsertarDepartameno() {
-        return new InsertarDepartameno();
-    }
-
-    /**
-     * Create an instance of {@link ListaPermisosResponse }
-     * 
-     */
-    public ListaPermisosResponse createListaPermisosResponse() {
-        return new ListaPermisosResponse();
-    }
-
-    /**
-     * Create an instance of {@link ActualizarUsuarioRolResponse }
-     * 
-     */
-    public ActualizarUsuarioRolResponse createActualizarUsuarioRolResponse() {
-        return new ActualizarUsuarioRolResponse();
-    }
-
-    /**
-     * Create an instance of {@link IngresarRolPermiso }
-     * 
-     */
-    public IngresarRolPermiso createIngresarRolPermiso() {
-        return new IngresarRolPermiso();
-    }
-
-    /**
-     * Create an instance of {@link ActualizaSede }
-     * 
-     */
-    public ActualizaSede createActualizaSede() {
-        return new ActualizaSede();
-    }
-
-    /**
-     * Create an instance of {@link ListaPermisosFiltradosResponse }
-     * 
-     */
-    public ListaPermisosFiltradosResponse createListaPermisosFiltradosResponse() {
-        return new ListaPermisosFiltradosResponse();
-    }
-
-    /**
-     * Create an instance of {@link ActualizarUsuarioResponse }
-     * 
-     */
-    public ActualizarUsuarioResponse createActualizarUsuarioResponse() {
-        return new ActualizarUsuarioResponse();
-    }
-
-    /**
-     * Create an instance of {@link IngresarRol }
-     * 
-     */
-    public IngresarRol createIngresarRol() {
-        return new IngresarRol();
-    }
-
-    /**
-     * Create an instance of {@link InsertarAreaResponse }
-     * 
-     */
-    public InsertarAreaResponse createInsertarAreaResponse() {
-        return new InsertarAreaResponse();
-    }
-
-    /**
-     * Create an instance of {@link ListaPais }
-     * 
-     */
-    public ListaPais createListaPais() {
-        return new ListaPais();
-    }
-
-    /**
-     * Create an instance of {@link FesttivoPorId }
-     * 
-     */
-    public FesttivoPorId createFesttivoPorId() {
-        return new FesttivoPorId();
-    }
-
-    /**
-     * Create an instance of {@link IngresarRolPermisoResponse }
-     * 
-     */
-    public IngresarRolPermisoResponse createIngresarRolPermisoResponse() {
-        return new IngresarRolPermisoResponse();
-    }
-
-    /**
-     * Create an instance of {@link ListaUsuarioRol }
-     * 
-     */
-    public ListaUsuarioRol createListaUsuarioRol() {
-        return new ListaUsuarioRol();
-    }
-
-    /**
-     * Create an instance of {@link DeptoPorIdResponse }
-     * 
-     */
-    public DeptoPorIdResponse createDeptoPorIdResponse() {
-        return new DeptoPorIdResponse();
-    }
-
-    /**
-     * Create an instance of {@link ActualizaSedeEmpresa }
-     * 
-     */
-    public ActualizaSedeEmpresa createActualizaSedeEmpresa() {
-        return new ActualizaSedeEmpresa();
-    }
-
-    /**
-     * Create an instance of {@link InsertarArea }
-     * 
-     */
-    public InsertarArea createInsertarArea() {
-        return new InsertarArea();
-    }
-
-    /**
-     * Create an instance of {@link InsertarUsuarioRol }
-     * 
-     */
-    public InsertarUsuarioRol createInsertarUsuarioRol() {
-        return new InsertarUsuarioRol();
-    }
-
-    /**
-     * Create an instance of {@link ListaUsuariosResponse }
-     * 
-     */
-    public ListaUsuariosResponse createListaUsuariosResponse() {
-        return new ListaUsuariosResponse();
-    }
-
-    /**
-     * Create an instance of {@link ListaEmpresa }
-     * 
-     */
-    public ListaEmpresa createListaEmpresa() {
-        return new ListaEmpresa();
-    }
-
-    /**
-     * Create an instance of {@link ListaUsuarioRolResponse }
-     * 
-     */
-    public ListaUsuarioRolResponse createListaUsuarioRolResponse() {
-        return new ListaUsuarioRolResponse();
-    }
-
-    /**
-     * Create an instance of {@link DepartamentoEntity }
-     * 
-     */
-    public DepartamentoEntity createDepartamentoEntity() {
-        return new DepartamentoEntity();
-    }
-
-    /**
-     * Create an instance of {@link UsuarioEntity }
-     * 
-     */
-    public UsuarioEntity createUsuarioEntity() {
-        return new UsuarioEntity();
-    }
-
-    /**
-     * Create an instance of {@link SedeEmpresaEntity }
-     * 
-     */
-    public SedeEmpresaEntity createSedeEmpresaEntity() {
-        return new SedeEmpresaEntity();
-    }
-
-    /**
-     * Create an instance of {@link PermisosEntity }
-     * 
-     */
-    public PermisosEntity createPermisosEntity() {
-        return new PermisosEntity();
-    }
-
-    /**
-     * Create an instance of {@link ObjetoLogin }
-     * 
-     */
-    public ObjetoLogin createObjetoLogin() {
-        return new ObjetoLogin();
-    }
-
-    /**
-     * Create an instance of {@link ObjetoTraza }
-     * 
-     */
-    public ObjetoTraza createObjetoTraza() {
-        return new ObjetoTraza();
-    }
-
-    /**
-     * Create an instance of {@link PaisEntity }
-     * 
-     */
-    public PaisEntity createPaisEntity() {
-        return new PaisEntity();
-    }
-
-    /**
-     * Create an instance of {@link CiudadEntity }
-     * 
-     */
-    public CiudadEntity createCiudadEntity() {
-        return new CiudadEntity();
-    }
-
-    /**
-     * Create an instance of {@link FestivosEntity }
-     * 
-     */
-    public FestivosEntity createFestivosEntity() {
-        return new FestivosEntity();
-    }
-
-    /**
-     * Create an instance of {@link ListaAsignaPermisosPermiso }
-     * 
-     */
-    public ListaAsignaPermisosPermiso createListaAsignaPermisosPermiso() {
-        return new ListaAsignaPermisosPermiso();
-    }
-
-    /**
-     * Create an instance of {@link ModuloEntity }
-     * 
-     */
-    public ModuloEntity createModuloEntity() {
-        return new ModuloEntity();
-    }
-
-    /**
-     * Create an instance of {@link ListaAsignaPermisosModulo }
-     * 
-     */
-    public ListaAsignaPermisosModulo createListaAsignaPermisosModulo() {
-        return new ListaAsignaPermisosModulo();
-    }
-
-    /**
-     * Create an instance of {@link RolPermisoEntity }
-     * 
-     */
-    public RolPermisoEntity createRolPermisoEntity() {
-        return new RolPermisoEntity();
-    }
-
-    /**
-     * Create an instance of {@link EmpresaEntity }
-     * 
-     */
-    public EmpresaEntity createEmpresaEntity() {
-        return new EmpresaEntity();
-    }
-
-    /**
-     * Create an instance of {@link AreaEntity }
-     * 
-     */
-    public AreaEntity createAreaEntity() {
-        return new AreaEntity();
-    }
-
-    /**
-     * Create an instance of {@link UsuarioRolEntity }
-     * 
-     */
-    public UsuarioRolEntity createUsuarioRolEntity() {
-        return new UsuarioRolEntity();
+    public ListaLineaResponse createListaLineaResponse() {
+        return new ListaLineaResponse();
     }
 
     /**
@@ -1159,1033 +311,321 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link MenuPermisosEntity }
+     * Create an instance of {@link ObjetoTraza }
      * 
      */
-    public MenuPermisosEntity createMenuPermisosEntity() {
-        return new MenuPermisosEntity();
+    public ObjetoTraza createObjetoTraza() {
+        return new ObjetoTraza();
     }
 
     /**
-     * Create an instance of {@link MenuModuloEntity }
+     * Create an instance of {@link TipoTributarioEntity }
      * 
      */
-    public MenuModuloEntity createMenuModuloEntity() {
-        return new MenuModuloEntity();
+    public TipoTributarioEntity createTipoTributarioEntity() {
+        return new TipoTributarioEntity();
     }
 
     /**
-     * Create an instance of {@link TiposDocumentalesEntity }
+     * Create an instance of {@link EstadoProveedorEntity }
      * 
      */
-    public TiposDocumentalesEntity createTiposDocumentalesEntity() {
-        return new TiposDocumentalesEntity();
+    public EstadoProveedorEntity createEstadoProveedorEntity() {
+        return new EstadoProveedorEntity();
     }
 
     /**
-     * Create an instance of {@link RolesEntity }
+     * Create an instance of {@link LineaEntity }
      * 
      */
-    public RolesEntity createRolesEntity() {
-        return new RolesEntity();
+    public LineaEntity createLineaEntity() {
+        return new LineaEntity();
     }
 
     /**
-     * Create an instance of {@link SedeEntity }
+     * Create an instance of {@link TipoDocumentoEntity }
      * 
      */
-    public SedeEntity createSedeEntity() {
-        return new SedeEntity();
+    public TipoDocumentoEntity createTipoDocumentoEntity() {
+        return new TipoDocumentoEntity();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link IngresarRolPermiso }{@code >}}
+     * Create an instance of {@link TipoProveedorEntity }
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "ingresarRolPermiso")
-    public JAXBElement<IngresarRolPermiso> createIngresarRolPermiso(IngresarRolPermiso value) {
-        return new JAXBElement<IngresarRolPermiso>(_IngresarRolPermiso_QNAME, IngresarRolPermiso.class, null, value);
+    public TipoProveedorEntity createTipoProveedorEntity() {
+        return new TipoProveedorEntity();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizaSede }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarTipoDocumento }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizaSede")
-    public JAXBElement<ActualizaSede> createActualizaSede(ActualizaSede value) {
-        return new JAXBElement<ActualizaSede>(_ActualizaSede_QNAME, ActualizaSede.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarTipoDocumento")
+    public JAXBElement<InsertarTipoDocumento> createInsertarTipoDocumento(InsertarTipoDocumento value) {
+        return new JAXBElement<InsertarTipoDocumento>(_InsertarTipoDocumento_QNAME, InsertarTipoDocumento.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaPermisosFiltradosResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarEstadoProveedor }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaPermisosFiltradosResponse")
-    public JAXBElement<ListaPermisosFiltradosResponse> createListaPermisosFiltradosResponse(ListaPermisosFiltradosResponse value) {
-        return new JAXBElement<ListaPermisosFiltradosResponse>(_ListaPermisosFiltradosResponse_QNAME, ListaPermisosFiltradosResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarEstadoProveedor")
+    public JAXBElement<ActualizarEstadoProveedor> createActualizarEstadoProveedor(ActualizarEstadoProveedor value) {
+        return new JAXBElement<ActualizarEstadoProveedor>(_ActualizarEstadoProveedor_QNAME, ActualizarEstadoProveedor.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarUsuarioResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListaEstadoProveedorResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarUsuarioResponse")
-    public JAXBElement<ActualizarUsuarioResponse> createActualizarUsuarioResponse(ActualizarUsuarioResponse value) {
-        return new JAXBElement<ActualizarUsuarioResponse>(_ActualizarUsuarioResponse_QNAME, ActualizarUsuarioResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaEstadoProveedorResponse")
+    public JAXBElement<ListaEstadoProveedorResponse> createListaEstadoProveedorResponse(ListaEstadoProveedorResponse value) {
+        return new JAXBElement<ListaEstadoProveedorResponse>(_ListaEstadoProveedorResponse_QNAME, ListaEstadoProveedorResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link IngresarRol }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarTipoProveedor }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "ingresarRol")
-    public JAXBElement<IngresarRol> createIngresarRol(IngresarRol value) {
-        return new JAXBElement<IngresarRol>(_IngresarRol_QNAME, IngresarRol.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarTipoProveedor")
+    public JAXBElement<ActualizarTipoProveedor> createActualizarTipoProveedor(ActualizarTipoProveedor value) {
+        return new JAXBElement<ActualizarTipoProveedor>(_ActualizarTipoProveedor_QNAME, ActualizarTipoProveedor.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarAreaResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListaTipoTributario }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarAreaResponse")
-    public JAXBElement<InsertarAreaResponse> createInsertarAreaResponse(InsertarAreaResponse value) {
-        return new JAXBElement<InsertarAreaResponse>(_InsertarAreaResponse_QNAME, InsertarAreaResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaTipoTributario")
+    public JAXBElement<ListaTipoTributario> createListaTipoTributario(ListaTipoTributario value) {
+        return new JAXBElement<ListaTipoTributario>(_ListaTipoTributario_QNAME, ListaTipoTributario.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaPais }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarEstadoProveedor }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaPais")
-    public JAXBElement<ListaPais> createListaPais(ListaPais value) {
-        return new JAXBElement<ListaPais>(_ListaPais_QNAME, ListaPais.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarEstadoProveedor")
+    public JAXBElement<InsertarEstadoProveedor> createInsertarEstadoProveedor(InsertarEstadoProveedor value) {
+        return new JAXBElement<InsertarEstadoProveedor>(_InsertarEstadoProveedor_QNAME, InsertarEstadoProveedor.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link FesttivoPorId }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarTipoDocumentoResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "festtivoPorId")
-    public JAXBElement<FesttivoPorId> createFesttivoPorId(FesttivoPorId value) {
-        return new JAXBElement<FesttivoPorId>(_FesttivoPorId_QNAME, FesttivoPorId.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarTipoDocumentoResponse")
+    public JAXBElement<ActualizarTipoDocumentoResponse> createActualizarTipoDocumentoResponse(ActualizarTipoDocumentoResponse value) {
+        return new JAXBElement<ActualizarTipoDocumentoResponse>(_ActualizarTipoDocumentoResponse_QNAME, ActualizarTipoDocumentoResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link IngresarRolPermisoResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarEstadoProveedorResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "ingresarRolPermisoResponse")
-    public JAXBElement<IngresarRolPermisoResponse> createIngresarRolPermisoResponse(IngresarRolPermisoResponse value) {
-        return new JAXBElement<IngresarRolPermisoResponse>(_IngresarRolPermisoResponse_QNAME, IngresarRolPermisoResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarEstadoProveedorResponse")
+    public JAXBElement<ActualizarEstadoProveedorResponse> createActualizarEstadoProveedorResponse(ActualizarEstadoProveedorResponse value) {
+        return new JAXBElement<ActualizarEstadoProveedorResponse>(_ActualizarEstadoProveedorResponse_QNAME, ActualizarEstadoProveedorResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaUsuarioRol }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarTipoProveedorResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaUsuarioRol")
-    public JAXBElement<ListaUsuarioRol> createListaUsuarioRol(ListaUsuarioRol value) {
-        return new JAXBElement<ListaUsuarioRol>(_ListaUsuarioRol_QNAME, ListaUsuarioRol.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarTipoProveedorResponse")
+    public JAXBElement<InsertarTipoProveedorResponse> createInsertarTipoProveedorResponse(InsertarTipoProveedorResponse value) {
+        return new JAXBElement<InsertarTipoProveedorResponse>(_InsertarTipoProveedorResponse_QNAME, InsertarTipoProveedorResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link DeptoPorIdResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListaEstadoProveedor }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "deptoPorIdResponse")
-    public JAXBElement<DeptoPorIdResponse> createDeptoPorIdResponse(DeptoPorIdResponse value) {
-        return new JAXBElement<DeptoPorIdResponse>(_DeptoPorIdResponse_QNAME, DeptoPorIdResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaEstadoProveedor")
+    public JAXBElement<ListaEstadoProveedor> createListaEstadoProveedor(ListaEstadoProveedor value) {
+        return new JAXBElement<ListaEstadoProveedor>(_ListaEstadoProveedor_QNAME, ListaEstadoProveedor.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizaSedeEmpresa }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListaTipoProveedorResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizaSedeEmpresa")
-    public JAXBElement<ActualizaSedeEmpresa> createActualizaSedeEmpresa(ActualizaSedeEmpresa value) {
-        return new JAXBElement<ActualizaSedeEmpresa>(_ActualizaSedeEmpresa_QNAME, ActualizaSedeEmpresa.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaTipoProveedorResponse")
+    public JAXBElement<ListaTipoProveedorResponse> createListaTipoProveedorResponse(ListaTipoProveedorResponse value) {
+        return new JAXBElement<ListaTipoProveedorResponse>(_ListaTipoProveedorResponse_QNAME, ListaTipoProveedorResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarArea }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListaTipoDocumento }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarArea")
-    public JAXBElement<InsertarArea> createInsertarArea(InsertarArea value) {
-        return new JAXBElement<InsertarArea>(_InsertarArea_QNAME, InsertarArea.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaTipoDocumento")
+    public JAXBElement<ListaTipoDocumento> createListaTipoDocumento(ListaTipoDocumento value) {
+        return new JAXBElement<ListaTipoDocumento>(_ListaTipoDocumento_QNAME, ListaTipoDocumento.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarUsuarioRol }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarTipoDocumento }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarUsuarioRol")
-    public JAXBElement<InsertarUsuarioRol> createInsertarUsuarioRol(InsertarUsuarioRol value) {
-        return new JAXBElement<InsertarUsuarioRol>(_InsertarUsuarioRol_QNAME, InsertarUsuarioRol.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarTipoDocumento")
+    public JAXBElement<ActualizarTipoDocumento> createActualizarTipoDocumento(ActualizarTipoDocumento value) {
+        return new JAXBElement<ActualizarTipoDocumento>(_ActualizarTipoDocumento_QNAME, ActualizarTipoDocumento.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaUsuariosResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarLinea }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaUsuariosResponse")
-    public JAXBElement<ListaUsuariosResponse> createListaUsuariosResponse(ListaUsuariosResponse value) {
-        return new JAXBElement<ListaUsuariosResponse>(_ListaUsuariosResponse_QNAME, ListaUsuariosResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarLinea")
+    public JAXBElement<ActualizarLinea> createActualizarLinea(ActualizarLinea value) {
+        return new JAXBElement<ActualizarLinea>(_ActualizarLinea_QNAME, ActualizarLinea.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaEmpresa }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarTipoTributario }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaEmpresa")
-    public JAXBElement<ListaEmpresa> createListaEmpresa(ListaEmpresa value) {
-        return new JAXBElement<ListaEmpresa>(_ListaEmpresa_QNAME, ListaEmpresa.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarTipoTributario")
+    public JAXBElement<InsertarTipoTributario> createInsertarTipoTributario(InsertarTipoTributario value) {
+        return new JAXBElement<InsertarTipoTributario>(_InsertarTipoTributario_QNAME, InsertarTipoTributario.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaUsuarioRolResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarTipoTributarioResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaUsuarioRolResponse")
-    public JAXBElement<ListaUsuarioRolResponse> createListaUsuarioRolResponse(ListaUsuarioRolResponse value) {
-        return new JAXBElement<ListaUsuarioRolResponse>(_ListaUsuarioRolResponse_QNAME, ListaUsuarioRolResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarTipoTributarioResponse")
+    public JAXBElement<ActualizarTipoTributarioResponse> createActualizarTipoTributarioResponse(ActualizarTipoTributarioResponse value) {
+        return new JAXBElement<ActualizarTipoTributarioResponse>(_ActualizarTipoTributarioResponse_QNAME, ActualizarTipoTributarioResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaSedeEmpresa }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListaLineaResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaSedeEmpresa")
-    public JAXBElement<ListaSedeEmpresa> createListaSedeEmpresa(ListaSedeEmpresa value) {
-        return new JAXBElement<ListaSedeEmpresa>(_ListaSedeEmpresa_QNAME, ListaSedeEmpresa.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaLineaResponse")
+    public JAXBElement<ListaLineaResponse> createListaLineaResponse(ListaLineaResponse value) {
+        return new JAXBElement<ListaLineaResponse>(_ListaLineaResponse_QNAME, ListaLineaResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Listafestivos }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarLineaResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listafestivos")
-    public JAXBElement<Listafestivos> createListafestivos(Listafestivos value) {
-        return new JAXBElement<Listafestivos>(_Listafestivos_QNAME, Listafestivos.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarLineaResponse")
+    public JAXBElement<InsertarLineaResponse> createInsertarLineaResponse(InsertarLineaResponse value) {
+        return new JAXBElement<InsertarLineaResponse>(_InsertarLineaResponse_QNAME, InsertarLineaResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaModulos }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarLineaResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaModulos")
-    public JAXBElement<ListaModulos> createListaModulos(ListaModulos value) {
-        return new JAXBElement<ListaModulos>(_ListaModulos_QNAME, ListaModulos.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarLineaResponse")
+    public JAXBElement<ActualizarLineaResponse> createActualizarLineaResponse(ActualizarLineaResponse value) {
+        return new JAXBElement<ActualizarLineaResponse>(_ActualizarLineaResponse_QNAME, ActualizarLineaResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaUsuarios }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListaLinea }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaUsuarios")
-    public JAXBElement<ListaUsuarios> createListaUsuarios(ListaUsuarios value) {
-        return new JAXBElement<ListaUsuarios>(_ListaUsuarios_QNAME, ListaUsuarios.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaLinea")
+    public JAXBElement<ListaLinea> createListaLinea(ListaLinea value) {
+        return new JAXBElement<ListaLinea>(_ListaLinea_QNAME, ListaLinea.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaAreasResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarEstadoProveedorResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaAreasResponse")
-    public JAXBElement<ListaAreasResponse> createListaAreasResponse(ListaAreasResponse value) {
-        return new JAXBElement<ListaAreasResponse>(_ListaAreasResponse_QNAME, ListaAreasResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarEstadoProveedorResponse")
+    public JAXBElement<InsertarEstadoProveedorResponse> createInsertarEstadoProveedorResponse(InsertarEstadoProveedorResponse value) {
+        return new JAXBElement<InsertarEstadoProveedorResponse>(_InsertarEstadoProveedorResponse_QNAME, InsertarEstadoProveedorResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarPais }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarLinea }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarPais")
-    public JAXBElement<ActualizarPais> createActualizarPais(ActualizarPais value) {
-        return new JAXBElement<ActualizarPais>(_ActualizarPais_QNAME, ActualizarPais.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarLinea")
+    public JAXBElement<InsertarLinea> createInsertarLinea(InsertarLinea value) {
+        return new JAXBElement<InsertarLinea>(_InsertarLinea_QNAME, InsertarLinea.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link IngresarRolResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListaTipoProveedor }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "ingresarRolResponse")
-    public JAXBElement<IngresarRolResponse> createIngresarRolResponse(IngresarRolResponse value) {
-        return new JAXBElement<IngresarRolResponse>(_IngresarRolResponse_QNAME, IngresarRolResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaTipoProveedor")
+    public JAXBElement<ListaTipoProveedor> createListaTipoProveedor(ListaTipoProveedor value) {
+        return new JAXBElement<ListaTipoProveedor>(_ListaTipoProveedor_QNAME, ListaTipoProveedor.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarCiudadResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarTipoTributarioResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarCiudadResponse")
-    public JAXBElement<InsertarCiudadResponse> createInsertarCiudadResponse(InsertarCiudadResponse value) {
-        return new JAXBElement<InsertarCiudadResponse>(_InsertarCiudadResponse_QNAME, InsertarCiudadResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarTipoTributarioResponse")
+    public JAXBElement<InsertarTipoTributarioResponse> createInsertarTipoTributarioResponse(InsertarTipoTributarioResponse value) {
+        return new JAXBElement<InsertarTipoTributarioResponse>(_InsertarTipoTributarioResponse_QNAME, InsertarTipoTributarioResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarDepartameno }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListaTipoDocumentoResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarDepartameno")
-    public JAXBElement<InsertarDepartameno> createInsertarDepartameno(InsertarDepartameno value) {
-        return new JAXBElement<InsertarDepartameno>(_InsertarDepartameno_QNAME, InsertarDepartameno.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaTipoDocumentoResponse")
+    public JAXBElement<ListaTipoDocumentoResponse> createListaTipoDocumentoResponse(ListaTipoDocumentoResponse value) {
+        return new JAXBElement<ListaTipoDocumentoResponse>(_ListaTipoDocumentoResponse_QNAME, ListaTipoDocumentoResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaPermisosResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListaTipoTributarioResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaPermisosResponse")
-    public JAXBElement<ListaPermisosResponse> createListaPermisosResponse(ListaPermisosResponse value) {
-        return new JAXBElement<ListaPermisosResponse>(_ListaPermisosResponse_QNAME, ListaPermisosResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaTipoTributarioResponse")
+    public JAXBElement<ListaTipoTributarioResponse> createListaTipoTributarioResponse(ListaTipoTributarioResponse value) {
+        return new JAXBElement<ListaTipoTributarioResponse>(_ListaTipoTributarioResponse_QNAME, ListaTipoTributarioResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarUsuarioRolResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarTipoProveedorResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarUsuarioRolResponse")
-    public JAXBElement<ActualizarUsuarioRolResponse> createActualizarUsuarioRolResponse(ActualizarUsuarioRolResponse value) {
-        return new JAXBElement<ActualizarUsuarioRolResponse>(_ActualizarUsuarioRolResponse_QNAME, ActualizarUsuarioRolResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarTipoProveedorResponse")
+    public JAXBElement<ActualizarTipoProveedorResponse> createActualizarTipoProveedorResponse(ActualizarTipoProveedorResponse value) {
+        return new JAXBElement<ActualizarTipoProveedorResponse>(_ActualizarTipoProveedorResponse_QNAME, ActualizarTipoProveedorResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link IngresarEmpresa }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarTipoTributario }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "ingresarEmpresa")
-    public JAXBElement<IngresarEmpresa> createIngresarEmpresa(IngresarEmpresa value) {
-        return new JAXBElement<IngresarEmpresa>(_IngresarEmpresa_QNAME, IngresarEmpresa.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarTipoTributario")
+    public JAXBElement<ActualizarTipoTributario> createActualizarTipoTributario(ActualizarTipoTributario value) {
+        return new JAXBElement<ActualizarTipoTributario>(_ActualizarTipoTributario_QNAME, ActualizarTipoTributario.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link LoginResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarTipoProveedor }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "loginResponse")
-    public JAXBElement<LoginResponse> createLoginResponse(LoginResponse value) {
-        return new JAXBElement<LoginResponse>(_LoginResponse_QNAME, LoginResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarTipoProveedor")
+    public JAXBElement<InsertarTipoProveedor> createInsertarTipoProveedor(InsertarTipoProveedor value) {
+        return new JAXBElement<InsertarTipoProveedor>(_InsertarTipoProveedor_QNAME, InsertarTipoProveedor.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link IngresaSedeEmpresaResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarTipoDocumentoResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "ingresaSedeEmpresaResponse")
-    public JAXBElement<IngresaSedeEmpresaResponse> createIngresaSedeEmpresaResponse(IngresaSedeEmpresaResponse value) {
-        return new JAXBElement<IngresaSedeEmpresaResponse>(_IngresaSedeEmpresaResponse_QNAME, IngresaSedeEmpresaResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaRolesResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaRolesResponse")
-    public JAXBElement<ListaRolesResponse> createListaRolesResponse(ListaRolesResponse value) {
-        return new JAXBElement<ListaRolesResponse>(_ListaRolesResponse_QNAME, ListaRolesResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizaSedeEmpresaResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizaSedeEmpresaResponse")
-    public JAXBElement<ActualizaSedeEmpresaResponse> createActualizaSedeEmpresaResponse(ActualizaSedeEmpresaResponse value) {
-        return new JAXBElement<ActualizaSedeEmpresaResponse>(_ActualizaSedeEmpresaResponse_QNAME, ActualizaSedeEmpresaResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link DeptoPorId }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "deptoPorId")
-    public JAXBElement<DeptoPorId> createDeptoPorId(DeptoPorId value) {
-        return new JAXBElement<DeptoPorId>(_DeptoPorId_QNAME, DeptoPorId.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link IngresaFestivoResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "ingresaFestivoResponse")
-    public JAXBElement<IngresaFestivoResponse> createIngresaFestivoResponse(IngresaFestivoResponse value) {
-        return new JAXBElement<IngresaFestivoResponse>(_IngresaFestivoResponse_QNAME, IngresaFestivoResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarFestivo }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarFestivo")
-    public JAXBElement<ActualizarFestivo> createActualizarFestivo(ActualizarFestivo value) {
-        return new JAXBElement<ActualizarFestivo>(_ActualizarFestivo_QNAME, ActualizarFestivo.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarUsuarioRol }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarUsuarioRol")
-    public JAXBElement<ActualizarUsuarioRol> createActualizarUsuarioRol(ActualizarUsuarioRol value) {
-        return new JAXBElement<ActualizarUsuarioRol>(_ActualizarUsuarioRol_QNAME, ActualizarUsuarioRol.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaSedeEmpresaResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaSedeEmpresaResponse")
-    public JAXBElement<ListaSedeEmpresaResponse> createListaSedeEmpresaResponse(ListaSedeEmpresaResponse value) {
-        return new JAXBElement<ListaSedeEmpresaResponse>(_ListaSedeEmpresaResponse_QNAME, ListaSedeEmpresaResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarUsuarioRolResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarUsuarioRolResponse")
-    public JAXBElement<InsertarUsuarioRolResponse> createInsertarUsuarioRolResponse(InsertarUsuarioRolResponse value) {
-        return new JAXBElement<InsertarUsuarioRolResponse>(_InsertarUsuarioRolResponse_QNAME, InsertarUsuarioRolResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link LimpiaUsuarioRoles }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "limpiaUsuarioRoles")
-    public JAXBElement<LimpiaUsuarioRoles> createLimpiaUsuarioRoles(LimpiaUsuarioRoles value) {
-        return new JAXBElement<LimpiaUsuarioRoles>(_LimpiaUsuarioRoles_QNAME, LimpiaUsuarioRoles.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link MenuDatosporUsuarioResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "menuDatosporUsuarioResponse")
-    public JAXBElement<MenuDatosporUsuarioResponse> createMenuDatosporUsuarioResponse(MenuDatosporUsuarioResponse value) {
-        return new JAXBElement<MenuDatosporUsuarioResponse>(_MenuDatosporUsuarioResponse_QNAME, MenuDatosporUsuarioResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SedePorIdResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "sedePorIdResponse")
-    public JAXBElement<SedePorIdResponse> createSedePorIdResponse(SedePorIdResponse value) {
-        return new JAXBElement<SedePorIdResponse>(_SedePorIdResponse_QNAME, SedePorIdResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaCiudadesResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaCiudadesResponse")
-    public JAXBElement<ListaCiudadesResponse> createListaCiudadesResponse(ListaCiudadesResponse value) {
-        return new JAXBElement<ListaCiudadesResponse>(_ListaCiudadesResponse_QNAME, ListaCiudadesResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarPaisResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarPaisResponse")
-    public JAXBElement<InsertarPaisResponse> createInsertarPaisResponse(InsertarPaisResponse value) {
-        return new JAXBElement<InsertarPaisResponse>(_InsertarPaisResponse_QNAME, InsertarPaisResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaPermisosFiltrados }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaPermisosFiltrados")
-    public JAXBElement<ListaPermisosFiltrados> createListaPermisosFiltrados(ListaPermisosFiltrados value) {
-        return new JAXBElement<ListaPermisosFiltrados>(_ListaPermisosFiltrados_QNAME, ListaPermisosFiltrados.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarCiudad }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarCiudad")
-    public JAXBElement<InsertarCiudad> createInsertarCiudad(InsertarCiudad value) {
-        return new JAXBElement<InsertarCiudad>(_InsertarCiudad_QNAME, InsertarCiudad.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarDepartamenoResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarDepartamenoResponse")
-    public JAXBElement<InsertarDepartamenoResponse> createInsertarDepartamenoResponse(InsertarDepartamenoResponse value) {
-        return new JAXBElement<InsertarDepartamenoResponse>(_InsertarDepartamenoResponse_QNAME, InsertarDepartamenoResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link IngresarEmpresaResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "ingresarEmpresaResponse")
-    public JAXBElement<IngresarEmpresaResponse> createIngresarEmpresaResponse(IngresarEmpresaResponse value) {
-        return new JAXBElement<IngresarEmpresaResponse>(_IngresarEmpresaResponse_QNAME, IngresarEmpresaResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaSedeResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaSedeResponse")
-    public JAXBElement<ListaSedeResponse> createListaSedeResponse(ListaSedeResponse value) {
-        return new JAXBElement<ListaSedeResponse>(_ListaSedeResponse_QNAME, ListaSedeResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaPaisResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaPaisResponse")
-    public JAXBElement<ListaPaisResponse> createListaPaisResponse(ListaPaisResponse value) {
-        return new JAXBElement<ListaPaisResponse>(_ListaPaisResponse_QNAME, ListaPaisResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaDepartameno }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaDepartameno")
-    public JAXBElement<ListaDepartameno> createListaDepartameno(ListaDepartameno value) {
-        return new JAXBElement<ListaDepartameno>(_ListaDepartameno_QNAME, ListaDepartameno.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarAreaResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarAreaResponse")
-    public JAXBElement<ActualizarAreaResponse> createActualizarAreaResponse(ActualizarAreaResponse value) {
-        return new JAXBElement<ActualizarAreaResponse>(_ActualizarAreaResponse_QNAME, ActualizarAreaResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaCiudades }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaCiudades")
-    public JAXBElement<ListaCiudades> createListaCiudades(ListaCiudades value) {
-        return new JAXBElement<ListaCiudades>(_ListaCiudades_QNAME, ListaCiudades.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaSede }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaSede")
-    public JAXBElement<ListaSede> createListaSede(ListaSede value) {
-        return new JAXBElement<ListaSede>(_ListaSede_QNAME, ListaSede.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link MenuDatosporUsuario }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "menuDatosporUsuario")
-    public JAXBElement<MenuDatosporUsuario> createMenuDatosporUsuario(MenuDatosporUsuario value) {
-        return new JAXBElement<MenuDatosporUsuario>(_MenuDatosporUsuario_QNAME, MenuDatosporUsuario.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaUsuarioRolporAreaUsuarioResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaUsuarioRolporAreaUsuarioResponse")
-    public JAXBElement<ListaUsuarioRolporAreaUsuarioResponse> createListaUsuarioRolporAreaUsuarioResponse(ListaUsuarioRolporAreaUsuarioResponse value) {
-        return new JAXBElement<ListaUsuarioRolporAreaUsuarioResponse>(_ListaUsuarioRolporAreaUsuarioResponse_QNAME, ListaUsuarioRolporAreaUsuarioResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link UsuarioPorId }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "usuarioPorId")
-    public JAXBElement<UsuarioPorId> createUsuarioPorId(UsuarioPorId value) {
-        return new JAXBElement<UsuarioPorId>(_UsuarioPorId_QNAME, UsuarioPorId.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaRolPermisoResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaRolPermisoResponse")
-    public JAXBElement<ListaRolPermisoResponse> createListaRolPermisoResponse(ListaRolPermisoResponse value) {
-        return new JAXBElement<ListaRolPermisoResponse>(_ListaRolPermisoResponse_QNAME, ListaRolPermisoResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizaSedeResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizaSedeResponse")
-    public JAXBElement<ActualizaSedeResponse> createActualizaSedeResponse(ActualizaSedeResponse value) {
-        return new JAXBElement<ActualizaSedeResponse>(_ActualizaSedeResponse_QNAME, ActualizaSedeResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link UsuariosPorGrupo }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "usuariosPorGrupo")
-    public JAXBElement<UsuariosPorGrupo> createUsuariosPorGrupo(UsuariosPorGrupo value) {
-        return new JAXBElement<UsuariosPorGrupo>(_UsuariosPorGrupo_QNAME, UsuariosPorGrupo.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link LimpiaUsuarioRolesResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "limpiaUsuarioRolesResponse")
-    public JAXBElement<LimpiaUsuarioRolesResponse> createLimpiaUsuarioRolesResponse(LimpiaUsuarioRolesResponse value) {
-        return new JAXBElement<LimpiaUsuarioRolesResponse>(_LimpiaUsuarioRolesResponse_QNAME, LimpiaUsuarioRolesResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarDepartamenoResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarDepartamenoResponse")
-    public JAXBElement<ActualizarDepartamenoResponse> createActualizarDepartamenoResponse(ActualizarDepartamenoResponse value) {
-        return new JAXBElement<ActualizarDepartamenoResponse>(_ActualizarDepartamenoResponse_QNAME, ActualizarDepartamenoResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaTipoDocuemtal }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaTipoDocuemtal")
-    public JAXBElement<ListaTipoDocuemtal> createListaTipoDocuemtal(ListaTipoDocuemtal value) {
-        return new JAXBElement<ListaTipoDocuemtal>(_ListaTipoDocuemtal_QNAME, ListaTipoDocuemtal.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaUsuarioRolporAreaUsuario }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaUsuarioRolporAreaUsuario")
-    public JAXBElement<ListaUsuarioRolporAreaUsuario> createListaUsuarioRolporAreaUsuario(ListaUsuarioRolporAreaUsuario value) {
-        return new JAXBElement<ListaUsuarioRolporAreaUsuario>(_ListaUsuarioRolporAreaUsuario_QNAME, ListaUsuarioRolporAreaUsuario.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaEmpresaResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaEmpresaResponse")
-    public JAXBElement<ListaEmpresaResponse> createListaEmpresaResponse(ListaEmpresaResponse value) {
-        return new JAXBElement<ListaEmpresaResponse>(_ListaEmpresaResponse_QNAME, ListaEmpresaResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link TiposDocumetalesPorID }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "tiposDocumetalesPorID")
-    public JAXBElement<TiposDocumetalesPorID> createTiposDocumetalesPorID(TiposDocumetalesPorID value) {
-        return new JAXBElement<TiposDocumetalesPorID>(_TiposDocumetalesPorID_QNAME, TiposDocumetalesPorID.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SedePorId }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "sedePorId")
-    public JAXBElement<SedePorId> createSedePorId(SedePorId value) {
-        return new JAXBElement<SedePorId>(_SedePorId_QNAME, SedePorId.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarTipoDocumental }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarTipoDocumental")
-    public JAXBElement<ActualizarTipoDocumental> createActualizarTipoDocumental(ActualizarTipoDocumental value) {
-        return new JAXBElement<ActualizarTipoDocumental>(_ActualizarTipoDocumental_QNAME, ActualizarTipoDocumental.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Login }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "login")
-    public JAXBElement<Login> createLogin(Login value) {
-        return new JAXBElement<Login>(_Login_QNAME, Login.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link PaisPorIdResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "paisPorIdResponse")
-    public JAXBElement<PaisPorIdResponse> createPaisPorIdResponse(PaisPorIdResponse value) {
-        return new JAXBElement<PaisPorIdResponse>(_PaisPorIdResponse_QNAME, PaisPorIdResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarTiposDocumetales }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarTiposDocumetales")
-    public JAXBElement<InsertarTiposDocumetales> createInsertarTiposDocumetales(InsertarTiposDocumetales value) {
-        return new JAXBElement<InsertarTiposDocumetales>(_InsertarTiposDocumetales_QNAME, InsertarTiposDocumetales.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaUsuariosPorAccionResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaUsuariosPorAccionResponse")
-    public JAXBElement<ListaUsuariosPorAccionResponse> createListaUsuariosPorAccionResponse(ListaUsuariosPorAccionResponse value) {
-        return new JAXBElement<ListaUsuariosPorAccionResponse>(_ListaUsuariosPorAccionResponse_QNAME, ListaUsuariosPorAccionResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarPaisResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarPaisResponse")
-    public JAXBElement<ActualizarPaisResponse> createActualizarPaisResponse(ActualizarPaisResponse value) {
-        return new JAXBElement<ActualizarPaisResponse>(_ActualizarPaisResponse_QNAME, ActualizarPaisResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaUsuariosPorAccion }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaUsuariosPorAccion")
-    public JAXBElement<ListaUsuariosPorAccion> createListaUsuariosPorAccion(ListaUsuariosPorAccion value) {
-        return new JAXBElement<ListaUsuariosPorAccion>(_ListaUsuariosPorAccion_QNAME, ListaUsuariosPorAccion.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarRol }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarRol")
-    public JAXBElement<ActualizarRol> createActualizarRol(ActualizarRol value) {
-        return new JAXBElement<ActualizarRol>(_ActualizarRol_QNAME, ActualizarRol.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarFestivoResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarFestivoResponse")
-    public JAXBElement<ActualizarFestivoResponse> createActualizarFestivoResponse(ActualizarFestivoResponse value) {
-        return new JAXBElement<ActualizarFestivoResponse>(_ActualizarFestivoResponse_QNAME, ActualizarFestivoResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaPermisos }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaPermisos")
-    public JAXBElement<ListaPermisos> createListaPermisos(ListaPermisos value) {
-        return new JAXBElement<ListaPermisos>(_ListaPermisos_QNAME, ListaPermisos.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarCiudadResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarCiudadResponse")
-    public JAXBElement<ActualizarCiudadResponse> createActualizarCiudadResponse(ActualizarCiudadResponse value) {
-        return new JAXBElement<ActualizarCiudadResponse>(_ActualizarCiudadResponse_QNAME, ActualizarCiudadResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link IngresarUsuario }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "ingresarUsuario")
-    public JAXBElement<IngresarUsuario> createIngresarUsuario(IngresarUsuario value) {
-        return new JAXBElement<IngresarUsuario>(_IngresarUsuario_QNAME, IngresarUsuario.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaPermisosDisponiblesResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaPermisosDisponiblesResponse")
-    public JAXBElement<ListaPermisosDisponiblesResponse> createListaPermisosDisponiblesResponse(ListaPermisosDisponiblesResponse value) {
-        return new JAXBElement<ListaPermisosDisponiblesResponse>(_ListaPermisosDisponiblesResponse_QNAME, ListaPermisosDisponiblesResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaTipoDocuemtalResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaTipoDocuemtalResponse")
-    public JAXBElement<ListaTipoDocuemtalResponse> createListaTipoDocuemtalResponse(ListaTipoDocuemtalResponse value) {
-        return new JAXBElement<ListaTipoDocuemtalResponse>(_ListaTipoDocuemtalResponse_QNAME, ListaTipoDocuemtalResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link IngresaFestivo }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "ingresaFestivo")
-    public JAXBElement<IngresaFestivo> createIngresaFestivo(IngresaFestivo value) {
-        return new JAXBElement<IngresaFestivo>(_IngresaFestivo_QNAME, IngresaFestivo.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaRolPermiso }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaRolPermiso")
-    public JAXBElement<ListaRolPermiso> createListaRolPermiso(ListaRolPermiso value) {
-        return new JAXBElement<ListaRolPermiso>(_ListaRolPermiso_QNAME, ListaRolPermiso.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarUsuario }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarUsuario")
-    public JAXBElement<ActualizarUsuario> createActualizarUsuario(ActualizarUsuario value) {
-        return new JAXBElement<ActualizarUsuario>(_ActualizarUsuario_QNAME, ActualizarUsuario.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarEmpresa }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarEmpresa")
-    public JAXBElement<ActualizarEmpresa> createActualizarEmpresa(ActualizarEmpresa value) {
-        return new JAXBElement<ActualizarEmpresa>(_ActualizarEmpresa_QNAME, ActualizarEmpresa.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarRolResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarRolResponse")
-    public JAXBElement<ActualizarRolResponse> createActualizarRolResponse(ActualizarRolResponse value) {
-        return new JAXBElement<ActualizarRolResponse>(_ActualizarRolResponse_QNAME, ActualizarRolResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link IngresaSede }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "ingresaSede")
-    public JAXBElement<IngresaSede> createIngresaSede(IngresaSede value) {
-        return new JAXBElement<IngresaSede>(_IngresaSede_QNAME, IngresaSede.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarDepartameno }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarDepartameno")
-    public JAXBElement<ActualizarDepartameno> createActualizarDepartameno(ActualizarDepartameno value) {
-        return new JAXBElement<ActualizarDepartameno>(_ActualizarDepartameno_QNAME, ActualizarDepartameno.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link UsuariosPorGrupoResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "usuariosPorGrupoResponse")
-    public JAXBElement<UsuariosPorGrupoResponse> createUsuariosPorGrupoResponse(UsuariosPorGrupoResponse value) {
-        return new JAXBElement<UsuariosPorGrupoResponse>(_UsuariosPorGrupoResponse_QNAME, UsuariosPorGrupoResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarArea }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarArea")
-    public JAXBElement<ActualizarArea> createActualizarArea(ActualizarArea value) {
-        return new JAXBElement<ActualizarArea>(_ActualizarArea_QNAME, ActualizarArea.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarTiposDocumetalesResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarTiposDocumetalesResponse")
-    public JAXBElement<InsertarTiposDocumetalesResponse> createInsertarTiposDocumetalesResponse(InsertarTiposDocumetalesResponse value) {
-        return new JAXBElement<InsertarTiposDocumetalesResponse>(_InsertarTiposDocumetalesResponse_QNAME, InsertarTiposDocumetalesResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarEmpresaResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarEmpresaResponse")
-    public JAXBElement<ActualizarEmpresaResponse> createActualizarEmpresaResponse(ActualizarEmpresaResponse value) {
-        return new JAXBElement<ActualizarEmpresaResponse>(_ActualizarEmpresaResponse_QNAME, ActualizarEmpresaResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link PaisPorId }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "paisPorId")
-    public JAXBElement<PaisPorId> createPaisPorId(PaisPorId value) {
-        return new JAXBElement<PaisPorId>(_PaisPorId_QNAME, PaisPorId.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaDepartamenoResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaDepartamenoResponse")
-    public JAXBElement<ListaDepartamenoResponse> createListaDepartamenoResponse(ListaDepartamenoResponse value) {
-        return new JAXBElement<ListaDepartamenoResponse>(_ListaDepartamenoResponse_QNAME, ListaDepartamenoResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link IngresaSedeResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "ingresaSedeResponse")
-    public JAXBElement<IngresaSedeResponse> createIngresaSedeResponse(IngresaSedeResponse value) {
-        return new JAXBElement<IngresaSedeResponse>(_IngresaSedeResponse_QNAME, IngresaSedeResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaRoles }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaRoles")
-    public JAXBElement<ListaRoles> createListaRoles(ListaRoles value) {
-        return new JAXBElement<ListaRoles>(_ListaRoles_QNAME, ListaRoles.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link IngresarUsuarioResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "ingresarUsuarioResponse")
-    public JAXBElement<IngresarUsuarioResponse> createIngresarUsuarioResponse(IngresarUsuarioResponse value) {
-        return new JAXBElement<IngresarUsuarioResponse>(_IngresarUsuarioResponse_QNAME, IngresarUsuarioResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link RolPorId }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "rolPorId")
-    public JAXBElement<RolPorId> createRolPorId(RolPorId value) {
-        return new JAXBElement<RolPorId>(_RolPorId_QNAME, RolPorId.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaModulosResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaModulosResponse")
-    public JAXBElement<ListaModulosResponse> createListaModulosResponse(ListaModulosResponse value) {
-        return new JAXBElement<ListaModulosResponse>(_ListaModulosResponse_QNAME, ListaModulosResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarTipoDocumentalResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarTipoDocumentalResponse")
-    public JAXBElement<ActualizarTipoDocumentalResponse> createActualizarTipoDocumentalResponse(ActualizarTipoDocumentalResponse value) {
-        return new JAXBElement<ActualizarTipoDocumentalResponse>(_ActualizarTipoDocumentalResponse_QNAME, ActualizarTipoDocumentalResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaPermisosDisponibles }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaPermisosDisponibles")
-    public JAXBElement<ListaPermisosDisponibles> createListaPermisosDisponibles(ListaPermisosDisponibles value) {
-        return new JAXBElement<ListaPermisosDisponibles>(_ListaPermisosDisponibles_QNAME, ListaPermisosDisponibles.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link TiposDocumetalesPorIDResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "tiposDocumetalesPorIDResponse")
-    public JAXBElement<TiposDocumetalesPorIDResponse> createTiposDocumetalesPorIDResponse(TiposDocumetalesPorIDResponse value) {
-        return new JAXBElement<TiposDocumetalesPorIDResponse>(_TiposDocumetalesPorIDResponse_QNAME, TiposDocumetalesPorIDResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarPais }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarPais")
-    public JAXBElement<InsertarPais> createInsertarPais(InsertarPais value) {
-        return new JAXBElement<InsertarPais>(_InsertarPais_QNAME, InsertarPais.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaAreas }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaAreas")
-    public JAXBElement<ListaAreas> createListaAreas(ListaAreas value) {
-        return new JAXBElement<ListaAreas>(_ListaAreas_QNAME, ListaAreas.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link IngresaSedeEmpresa }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "ingresaSedeEmpresa")
-    public JAXBElement<IngresaSedeEmpresa> createIngresaSedeEmpresa(IngresaSedeEmpresa value) {
-        return new JAXBElement<IngresaSedeEmpresa>(_IngresaSedeEmpresa_QNAME, IngresaSedeEmpresa.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link RolPorIdResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "rolPorIdResponse")
-    public JAXBElement<RolPorIdResponse> createRolPorIdResponse(RolPorIdResponse value) {
-        return new JAXBElement<RolPorIdResponse>(_RolPorIdResponse_QNAME, RolPorIdResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link UsuarioPorIdResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "usuarioPorIdResponse")
-    public JAXBElement<UsuarioPorIdResponse> createUsuarioPorIdResponse(UsuarioPorIdResponse value) {
-        return new JAXBElement<UsuarioPorIdResponse>(_UsuarioPorIdResponse_QNAME, UsuarioPorIdResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link FesttivoPorIdResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "festtivoPorIdResponse")
-    public JAXBElement<FesttivoPorIdResponse> createFesttivoPorIdResponse(FesttivoPorIdResponse value) {
-        return new JAXBElement<FesttivoPorIdResponse>(_FesttivoPorIdResponse_QNAME, FesttivoPorIdResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarCiudad }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarCiudad")
-    public JAXBElement<ActualizarCiudad> createActualizarCiudad(ActualizarCiudad value) {
-        return new JAXBElement<ActualizarCiudad>(_ActualizarCiudad_QNAME, ActualizarCiudad.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListafestivosResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listafestivosResponse")
-    public JAXBElement<ListafestivosResponse> createListafestivosResponse(ListafestivosResponse value) {
-        return new JAXBElement<ListafestivosResponse>(_ListafestivosResponse_QNAME, ListafestivosResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarTipoDocumentoResponse")
+    public JAXBElement<InsertarTipoDocumentoResponse> createInsertarTipoDocumentoResponse(InsertarTipoDocumentoResponse value) {
+        return new JAXBElement<InsertarTipoDocumentoResponse>(_InsertarTipoDocumentoResponse_QNAME, InsertarTipoDocumentoResponse.class, null, value);
     }
 
 }

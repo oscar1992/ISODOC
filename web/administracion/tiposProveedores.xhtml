@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition template="/plantillas/PlantillaAdministracion.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form id="TipoProveedorForm">
+                    <div class="prueba" style="color: white; ">
+                        <p:growl id="msgs" showDetail="true" life="3000" autoUpdate="true"/>
+                    </div>
+                    <p:dataTable var="tipoProveedor" value="#{TipoProveedor.lista}" reflow="true" widgetVar="TablaTipoProveedor" id="tablaTipoProveedor" selectionMode="single"
+                                 selection="#{TipoProveedor.objetoTipoProveedor}" rowKey="#{tipoProveedor.idTipoProveedor}" class="TABLA" paginator="true" rows="7">
+                        <p:ajax event="rowSelect" listener="#{TipoProveedor.onRowSelect}" update=":TipoProveedorForm:msgs,:ActualizarModal:actualizarTipoProveedorModal" oncomplete="PF('actualizarTipoProveedor').show()"/>
+                        <f:facet name="header">
+                            <h:outputText value="CONSULTA DE TIPO DE PROVEEDOR" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                            <p:inputText id="globalFilter" onkeyup="PF('TablaTipoProveedor').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                            <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                        </f:facet>
+
+                        <p:column headerText="nombre del Tipo de Proveedor" filterBy="#{tipoProveedor.nombreTipoProveedor}">
+                            <h:outputText value="#{tipoProveedor.nombreTipoProveedor}"/>
+                        </p:column>
+                        <p:column headerText="estado del Tipo de Proveedor" filterBy="#{tipoProveedor.estadoTipoProveedor}">
+                            <h:outputText value="Activo" rendered="#{tipoProveedor.estadoTipoProveedor == 'A'}"/>
+                            <h:outputText value="Inctivo" rendered="#{tipoProveedor.estadoTipoProveedor == 'I'}"/> </p:column>
+
+                    </p:dataTable>
+                    <br/>
+                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarTipoProveedor').show();" update=":TipoProveedorForm:msgs" class="botonNormal" rendered="#{TipoProveedor.ingresar}"></p:commandButton>
+
+                </h:form>
+                <h:form id="IngresarModal">
+                    <p:dialog header="Insertar Tipo de Proveedor" widgetVar="insertarTipoProveedor" modal="true" id="insertarTipoProveedorModal" responsive="true">
+                        #{TipoProveedor.nuevoTipoProveedorObjeto()}                        
+                        <p:messages autoUpdate="true"/>                        
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            <h:outputText value="nombre del Tipo de Proveedor"></h:outputText>
+                            <p:inputText required="true" label="nombre del Tipo de Proveedor" value="#{TipoProveedor.objetoTipoProveedorInsercion.nombreTipoProveedor}"/>
+                            <h:outputText value="Estado del Tipo de Proveedor"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarEstado" value="#{TipoProveedor.objetoTipoProveedorInsercion.estadoTipoProveedor}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>                        
+                        <p:commandButton value="Ingresar" update=":TipoProveedorForm:tablaTipoProveedor" actionListener="#{TipoProveedor.instertarTipoProveedor()}" validateClient="true" class="botonNormal" />
+                    </p:dialog>
+                </h:form>
+                <h:form id="ActualizarModal">
+                    <p:dialog header="Actualizar Tipo de Proveedor" widgetVar="actualizarTipoProveedor" modal="true" id="actualizarTipoProveedorModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            <h:outputText value="nombre del Tipo de Proveedor"></h:outputText>
+                            <p:inputText required="true" label="nombre del Tipo de Proveedor" value="#{TipoProveedor.objetoTipoProveedor.nombreTipoProveedor}"/>
+                            <h:outputText value="Estado del Tipo de Proveedor"></h:outputText>
+                            <p:selectOneMenu id="desplegableActualizarEstado" value="#{TipoProveedor.objetoTipoProveedor.estadoTipoProveedor}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Tipo de Proveedor" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+                            <h:inputHidden value="#{TipoProveedor.objetoTipoProveedor.idTipoProveedor}"></h:inputHidden>
+                        </p:panelGrid>
+                        <p:commandButton  value="Actualizar" update=":TipoProveedorForm:tablaTipoProveedor,TipoProveedorForm:msgs" actionListener="#{TipoProveedor.actualizarTipoProveedor()}" validateClient="true" class="botonNormal" rendered="#{TipoProveedor.actualizar}"/>
+                        <p:commandButton value="Eliminar" update=":TipoProveedorForm:tablaTipoProveedor,:ActualizarModal:actualizarTipoProveedorModal,TipoProveedorForm:msgs" actionListener="#{TipoProveedor.eliminarTipoProveedor()}" validateClient="true" class="botonNormal" rendered="#{TipoProveedor.eliminar}"/>
+                    </p:dialog>
+                </h:form>
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>
