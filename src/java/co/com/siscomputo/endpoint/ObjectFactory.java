@@ -24,36 +24,34 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _InsertarTipoDocumento_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarTipoDocumento");
-    private final static QName _ActualizarEstadoProveedor_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarEstadoProveedor");
-    private final static QName _ListaEstadoProveedorResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaEstadoProveedorResponse");
-    private final static QName _ActualizarTipoProveedor_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarTipoProveedor");
-    private final static QName _ListaTipoTributario_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaTipoTributario");
-    private final static QName _InsertarEstadoProveedor_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarEstadoProveedor");
-    private final static QName _ActualizarTipoDocumentoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarTipoDocumentoResponse");
-    private final static QName _ActualizarEstadoProveedorResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarEstadoProveedorResponse");
-    private final static QName _InsertarTipoProveedorResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarTipoProveedorResponse");
-    private final static QName _ListaEstadoProveedor_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaEstadoProveedor");
-    private final static QName _ListaTipoProveedorResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaTipoProveedorResponse");
-    private final static QName _ListaTipoDocumento_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaTipoDocumento");
-    private final static QName _ActualizarTipoDocumento_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarTipoDocumento");
-    private final static QName _ActualizarLinea_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarLinea");
-    private final static QName _InsertarTipoTributario_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarTipoTributario");
-    private final static QName _ActualizarTipoTributarioResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarTipoTributarioResponse");
-    private final static QName _ListaLineaResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaLineaResponse");
-    private final static QName _InsertarLineaResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarLineaResponse");
-    private final static QName _ActualizarLineaResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarLineaResponse");
-    private final static QName _ListaLinea_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaLinea");
-    private final static QName _InsertarEstadoProveedorResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarEstadoProveedorResponse");
-    private final static QName _InsertarLinea_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarLinea");
-    private final static QName _ListaTipoProveedor_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaTipoProveedor");
-    private final static QName _InsertarTipoTributarioResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarTipoTributarioResponse");
-    private final static QName _ListaTipoDocumentoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaTipoDocumentoResponse");
-    private final static QName _ListaTipoTributarioResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaTipoTributarioResponse");
-    private final static QName _ActualizarTipoProveedorResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarTipoProveedorResponse");
-    private final static QName _ActualizarTipoTributario_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarTipoTributario");
-    private final static QName _InsertarTipoProveedor_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarTipoProveedor");
-    private final static QName _InsertarTipoDocumentoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarTipoDocumentoResponse");
+    private final static QName _InsertarDocumentoRolResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarDocumentoRolResponse");
+    private final static QName _ListaDocumentoPorAccionResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaDocumentoPorAccionResponse");
+    private final static QName _InsertarDocumento_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarDocumento");
+    private final static QName _ListaDocumentoRol_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaDocumentoRol");
+    private final static QName _ActualizarDocumento_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarDocumento");
+    private final static QName _InsertarDocumentoRol_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarDocumentoRol");
+    private final static QName _InsertarDocumentoProcesoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarDocumentoProcesoResponse");
+    private final static QName _ListaDocumento_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaDocumento");
+    private final static QName _InsertarUsuarioDocumento_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarUsuarioDocumento");
+    private final static QName _ActualizarUsuarioDocumentoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarUsuarioDocumentoResponse");
+    private final static QName _ListaDocumentoProceso_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaDocumentoProceso");
+    private final static QName _InsertarUsuarioDocumentoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarUsuarioDocumentoResponse");
+    private final static QName _ActualizarDocumentoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarDocumentoResponse");
+    private final static QName _InsertarDocumentoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarDocumentoResponse");
+    private final static QName _ActualizarDocumentoProcesoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarDocumentoProcesoResponse");
+    private final static QName _ActualizarUsuarioDocumento_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarUsuarioDocumento");
+    private final static QName _ListaDocumentoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaDocumentoResponse");
+    private final static QName _ActualizarDocumentoRol_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarDocumentoRol");
+    private final static QName _InsertarDocumentoProceso_QNAME = new QName("http://endpoint.siscomputo.com.co/", "insertarDocumentoProceso");
+    private final static QName _DocumetosFiltradosResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "documetosFiltradosResponse");
+    private final static QName _ListaDocumentoRolResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaDocumentoRolResponse");
+    private final static QName _ListaUsuarioDocumento_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaUsuarioDocumento");
+    private final static QName _ListaDocumentoPorAccion_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaDocumentoPorAccion");
+    private final static QName _DocumetosFiltrados_QNAME = new QName("http://endpoint.siscomputo.com.co/", "documetosFiltrados");
+    private final static QName _ListaDocumentoProcesoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaDocumentoProcesoResponse");
+    private final static QName _ActualizarDocumentoRolResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarDocumentoRolResponse");
+    private final static QName _ActualizarDocumentoProceso_QNAME = new QName("http://endpoint.siscomputo.com.co/", "actualizarDocumentoProceso");
+    private final static QName _ListaUsuarioDocumentoResponse_QNAME = new QName("http://endpoint.siscomputo.com.co/", "listaUsuarioDocumentoResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: co.com.siscomputo.endpoint
@@ -63,243 +61,227 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link InsertarLineaResponse }
+     * Create an instance of {@link ListaDocumentoResponse }
      * 
      */
-    public InsertarLineaResponse createInsertarLineaResponse() {
-        return new InsertarLineaResponse();
+    public ListaDocumentoResponse createListaDocumentoResponse() {
+        return new ListaDocumentoResponse();
     }
 
     /**
-     * Create an instance of {@link ActualizarLineaResponse }
+     * Create an instance of {@link ActualizarDocumentoRol }
      * 
      */
-    public ActualizarLineaResponse createActualizarLineaResponse() {
-        return new ActualizarLineaResponse();
+    public ActualizarDocumentoRol createActualizarDocumentoRol() {
+        return new ActualizarDocumentoRol();
     }
 
     /**
-     * Create an instance of {@link ListaLinea }
+     * Create an instance of {@link InsertarDocumentoProceso }
      * 
      */
-    public ListaLinea createListaLinea() {
-        return new ListaLinea();
+    public InsertarDocumentoProceso createInsertarDocumentoProceso() {
+        return new InsertarDocumentoProceso();
     }
 
     /**
-     * Create an instance of {@link InsertarEstadoProveedorResponse }
+     * Create an instance of {@link DocumetosFiltradosResponse }
      * 
      */
-    public InsertarEstadoProveedorResponse createInsertarEstadoProveedorResponse() {
-        return new InsertarEstadoProveedorResponse();
+    public DocumetosFiltradosResponse createDocumetosFiltradosResponse() {
+        return new DocumetosFiltradosResponse();
     }
 
     /**
-     * Create an instance of {@link InsertarLinea }
+     * Create an instance of {@link ListaDocumentoRolResponse }
      * 
      */
-    public InsertarLinea createInsertarLinea() {
-        return new InsertarLinea();
+    public ListaDocumentoRolResponse createListaDocumentoRolResponse() {
+        return new ListaDocumentoRolResponse();
     }
 
     /**
-     * Create an instance of {@link ListaTipoProveedor }
+     * Create an instance of {@link ListaUsuarioDocumento }
      * 
      */
-    public ListaTipoProveedor createListaTipoProveedor() {
-        return new ListaTipoProveedor();
+    public ListaUsuarioDocumento createListaUsuarioDocumento() {
+        return new ListaUsuarioDocumento();
     }
 
     /**
-     * Create an instance of {@link InsertarTipoTributarioResponse }
+     * Create an instance of {@link ListaDocumentoPorAccion }
      * 
      */
-    public InsertarTipoTributarioResponse createInsertarTipoTributarioResponse() {
-        return new InsertarTipoTributarioResponse();
+    public ListaDocumentoPorAccion createListaDocumentoPorAccion() {
+        return new ListaDocumentoPorAccion();
     }
 
     /**
-     * Create an instance of {@link ListaTipoDocumentoResponse }
+     * Create an instance of {@link DocumetosFiltrados }
      * 
      */
-    public ListaTipoDocumentoResponse createListaTipoDocumentoResponse() {
-        return new ListaTipoDocumentoResponse();
+    public DocumetosFiltrados createDocumetosFiltrados() {
+        return new DocumetosFiltrados();
     }
 
     /**
-     * Create an instance of {@link ListaTipoTributarioResponse }
+     * Create an instance of {@link ListaDocumentoProcesoResponse }
      * 
      */
-    public ListaTipoTributarioResponse createListaTipoTributarioResponse() {
-        return new ListaTipoTributarioResponse();
+    public ListaDocumentoProcesoResponse createListaDocumentoProcesoResponse() {
+        return new ListaDocumentoProcesoResponse();
     }
 
     /**
-     * Create an instance of {@link ActualizarTipoProveedorResponse }
+     * Create an instance of {@link ActualizarDocumentoRolResponse }
      * 
      */
-    public ActualizarTipoProveedorResponse createActualizarTipoProveedorResponse() {
-        return new ActualizarTipoProveedorResponse();
+    public ActualizarDocumentoRolResponse createActualizarDocumentoRolResponse() {
+        return new ActualizarDocumentoRolResponse();
     }
 
     /**
-     * Create an instance of {@link ActualizarTipoTributario }
+     * Create an instance of {@link ActualizarDocumentoProceso }
      * 
      */
-    public ActualizarTipoTributario createActualizarTipoTributario() {
-        return new ActualizarTipoTributario();
+    public ActualizarDocumentoProceso createActualizarDocumentoProceso() {
+        return new ActualizarDocumentoProceso();
     }
 
     /**
-     * Create an instance of {@link InsertarTipoProveedor }
+     * Create an instance of {@link ListaUsuarioDocumentoResponse }
      * 
      */
-    public InsertarTipoProveedor createInsertarTipoProveedor() {
-        return new InsertarTipoProveedor();
+    public ListaUsuarioDocumentoResponse createListaUsuarioDocumentoResponse() {
+        return new ListaUsuarioDocumentoResponse();
     }
 
     /**
-     * Create an instance of {@link InsertarTipoDocumentoResponse }
+     * Create an instance of {@link InsertarDocumentoRolResponse }
      * 
      */
-    public InsertarTipoDocumentoResponse createInsertarTipoDocumentoResponse() {
-        return new InsertarTipoDocumentoResponse();
+    public InsertarDocumentoRolResponse createInsertarDocumentoRolResponse() {
+        return new InsertarDocumentoRolResponse();
     }
 
     /**
-     * Create an instance of {@link InsertarTipoDocumento }
+     * Create an instance of {@link ListaDocumentoPorAccionResponse }
      * 
      */
-    public InsertarTipoDocumento createInsertarTipoDocumento() {
-        return new InsertarTipoDocumento();
+    public ListaDocumentoPorAccionResponse createListaDocumentoPorAccionResponse() {
+        return new ListaDocumentoPorAccionResponse();
     }
 
     /**
-     * Create an instance of {@link ActualizarEstadoProveedor }
+     * Create an instance of {@link InsertarDocumento }
      * 
      */
-    public ActualizarEstadoProveedor createActualizarEstadoProveedor() {
-        return new ActualizarEstadoProveedor();
+    public InsertarDocumento createInsertarDocumento() {
+        return new InsertarDocumento();
     }
 
     /**
-     * Create an instance of {@link ListaEstadoProveedorResponse }
+     * Create an instance of {@link ListaDocumentoRol }
      * 
      */
-    public ListaEstadoProveedorResponse createListaEstadoProveedorResponse() {
-        return new ListaEstadoProveedorResponse();
+    public ListaDocumentoRol createListaDocumentoRol() {
+        return new ListaDocumentoRol();
     }
 
     /**
-     * Create an instance of {@link ActualizarTipoProveedor }
+     * Create an instance of {@link ActualizarDocumento }
      * 
      */
-    public ActualizarTipoProveedor createActualizarTipoProveedor() {
-        return new ActualizarTipoProveedor();
+    public ActualizarDocumento createActualizarDocumento() {
+        return new ActualizarDocumento();
     }
 
     /**
-     * Create an instance of {@link ListaTipoTributario }
+     * Create an instance of {@link InsertarDocumentoRol }
      * 
      */
-    public ListaTipoTributario createListaTipoTributario() {
-        return new ListaTipoTributario();
+    public InsertarDocumentoRol createInsertarDocumentoRol() {
+        return new InsertarDocumentoRol();
     }
 
     /**
-     * Create an instance of {@link InsertarEstadoProveedor }
+     * Create an instance of {@link InsertarDocumentoProcesoResponse }
      * 
      */
-    public InsertarEstadoProveedor createInsertarEstadoProveedor() {
-        return new InsertarEstadoProveedor();
+    public InsertarDocumentoProcesoResponse createInsertarDocumentoProcesoResponse() {
+        return new InsertarDocumentoProcesoResponse();
     }
 
     /**
-     * Create an instance of {@link ActualizarTipoDocumentoResponse }
+     * Create an instance of {@link ListaDocumento }
      * 
      */
-    public ActualizarTipoDocumentoResponse createActualizarTipoDocumentoResponse() {
-        return new ActualizarTipoDocumentoResponse();
+    public ListaDocumento createListaDocumento() {
+        return new ListaDocumento();
     }
 
     /**
-     * Create an instance of {@link ActualizarEstadoProveedorResponse }
+     * Create an instance of {@link InsertarUsuarioDocumento }
      * 
      */
-    public ActualizarEstadoProveedorResponse createActualizarEstadoProveedorResponse() {
-        return new ActualizarEstadoProveedorResponse();
+    public InsertarUsuarioDocumento createInsertarUsuarioDocumento() {
+        return new InsertarUsuarioDocumento();
     }
 
     /**
-     * Create an instance of {@link InsertarTipoProveedorResponse }
+     * Create an instance of {@link ActualizarUsuarioDocumentoResponse }
      * 
      */
-    public InsertarTipoProveedorResponse createInsertarTipoProveedorResponse() {
-        return new InsertarTipoProveedorResponse();
+    public ActualizarUsuarioDocumentoResponse createActualizarUsuarioDocumentoResponse() {
+        return new ActualizarUsuarioDocumentoResponse();
     }
 
     /**
-     * Create an instance of {@link ListaEstadoProveedor }
+     * Create an instance of {@link ListaDocumentoProceso }
      * 
      */
-    public ListaEstadoProveedor createListaEstadoProveedor() {
-        return new ListaEstadoProveedor();
+    public ListaDocumentoProceso createListaDocumentoProceso() {
+        return new ListaDocumentoProceso();
     }
 
     /**
-     * Create an instance of {@link ListaTipoProveedorResponse }
+     * Create an instance of {@link InsertarUsuarioDocumentoResponse }
      * 
      */
-    public ListaTipoProveedorResponse createListaTipoProveedorResponse() {
-        return new ListaTipoProveedorResponse();
+    public InsertarUsuarioDocumentoResponse createInsertarUsuarioDocumentoResponse() {
+        return new InsertarUsuarioDocumentoResponse();
     }
 
     /**
-     * Create an instance of {@link ListaTipoDocumento }
+     * Create an instance of {@link ActualizarDocumentoResponse }
      * 
      */
-    public ListaTipoDocumento createListaTipoDocumento() {
-        return new ListaTipoDocumento();
+    public ActualizarDocumentoResponse createActualizarDocumentoResponse() {
+        return new ActualizarDocumentoResponse();
     }
 
     /**
-     * Create an instance of {@link ActualizarTipoDocumento }
+     * Create an instance of {@link InsertarDocumentoResponse }
      * 
      */
-    public ActualizarTipoDocumento createActualizarTipoDocumento() {
-        return new ActualizarTipoDocumento();
+    public InsertarDocumentoResponse createInsertarDocumentoResponse() {
+        return new InsertarDocumentoResponse();
     }
 
     /**
-     * Create an instance of {@link ActualizarLinea }
+     * Create an instance of {@link ActualizarDocumentoProcesoResponse }
      * 
      */
-    public ActualizarLinea createActualizarLinea() {
-        return new ActualizarLinea();
+    public ActualizarDocumentoProcesoResponse createActualizarDocumentoProcesoResponse() {
+        return new ActualizarDocumentoProcesoResponse();
     }
 
     /**
-     * Create an instance of {@link InsertarTipoTributario }
+     * Create an instance of {@link ActualizarUsuarioDocumento }
      * 
      */
-    public InsertarTipoTributario createInsertarTipoTributario() {
-        return new InsertarTipoTributario();
-    }
-
-    /**
-     * Create an instance of {@link ActualizarTipoTributarioResponse }
-     * 
-     */
-    public ActualizarTipoTributarioResponse createActualizarTipoTributarioResponse() {
-        return new ActualizarTipoTributarioResponse();
-    }
-
-    /**
-     * Create an instance of {@link ListaLineaResponse }
-     * 
-     */
-    public ListaLineaResponse createListaLineaResponse() {
-        return new ListaLineaResponse();
+    public ActualizarUsuarioDocumento createActualizarUsuarioDocumento() {
+        return new ActualizarUsuarioDocumento();
     }
 
     /**
@@ -311,6 +293,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link UsuarioDocumentoEntity }
+     * 
+     */
+    public UsuarioDocumentoEntity createUsuarioDocumentoEntity() {
+        return new UsuarioDocumentoEntity();
+    }
+
+    /**
      * Create an instance of {@link ObjetoTraza }
      * 
      */
@@ -319,313 +309,343 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link TipoTributarioEntity }
+     * Create an instance of {@link UsuarioEntity }
      * 
      */
-    public TipoTributarioEntity createTipoTributarioEntity() {
-        return new TipoTributarioEntity();
+    public UsuarioEntity createUsuarioEntity() {
+        return new UsuarioEntity();
     }
 
     /**
-     * Create an instance of {@link EstadoProveedorEntity }
+     * Create an instance of {@link DocumentoRolEntity }
      * 
      */
-    public EstadoProveedorEntity createEstadoProveedorEntity() {
-        return new EstadoProveedorEntity();
+    public DocumentoRolEntity createDocumentoRolEntity() {
+        return new DocumentoRolEntity();
     }
 
     /**
-     * Create an instance of {@link LineaEntity }
+     * Create an instance of {@link TiposDocumentalesEntity }
      * 
      */
-    public LineaEntity createLineaEntity() {
-        return new LineaEntity();
+    public TiposDocumentalesEntity createTiposDocumentalesEntity() {
+        return new TiposDocumentalesEntity();
     }
 
     /**
-     * Create an instance of {@link TipoDocumentoEntity }
+     * Create an instance of {@link ProcesoEntity }
      * 
      */
-    public TipoDocumentoEntity createTipoDocumentoEntity() {
-        return new TipoDocumentoEntity();
+    public ProcesoEntity createProcesoEntity() {
+        return new ProcesoEntity();
     }
 
     /**
-     * Create an instance of {@link TipoProveedorEntity }
+     * Create an instance of {@link RolesEntity }
      * 
      */
-    public TipoProveedorEntity createTipoProveedorEntity() {
-        return new TipoProveedorEntity();
+    public RolesEntity createRolesEntity() {
+        return new RolesEntity();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarTipoDocumento }{@code >}}
+     * Create an instance of {@link DocumentoProcesoEntity }
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarTipoDocumento")
-    public JAXBElement<InsertarTipoDocumento> createInsertarTipoDocumento(InsertarTipoDocumento value) {
-        return new JAXBElement<InsertarTipoDocumento>(_InsertarTipoDocumento_QNAME, InsertarTipoDocumento.class, null, value);
+    public DocumentoProcesoEntity createDocumentoProcesoEntity() {
+        return new DocumentoProcesoEntity();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarEstadoProveedor }{@code >}}
+     * Create an instance of {@link AccionEntity }
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarEstadoProveedor")
-    public JAXBElement<ActualizarEstadoProveedor> createActualizarEstadoProveedor(ActualizarEstadoProveedor value) {
-        return new JAXBElement<ActualizarEstadoProveedor>(_ActualizarEstadoProveedor_QNAME, ActualizarEstadoProveedor.class, null, value);
+    public AccionEntity createAccionEntity() {
+        return new AccionEntity();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaEstadoProveedorResponse }{@code >}}
+     * Create an instance of {@link PlantillaEntity }
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaEstadoProveedorResponse")
-    public JAXBElement<ListaEstadoProveedorResponse> createListaEstadoProveedorResponse(ListaEstadoProveedorResponse value) {
-        return new JAXBElement<ListaEstadoProveedorResponse>(_ListaEstadoProveedorResponse_QNAME, ListaEstadoProveedorResponse.class, null, value);
+    public PlantillaEntity createPlantillaEntity() {
+        return new PlantillaEntity();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarTipoProveedor }{@code >}}
+     * Create an instance of {@link DocumentoEntity }
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarTipoProveedor")
-    public JAXBElement<ActualizarTipoProveedor> createActualizarTipoProveedor(ActualizarTipoProveedor value) {
-        return new JAXBElement<ActualizarTipoProveedor>(_ActualizarTipoProveedor_QNAME, ActualizarTipoProveedor.class, null, value);
+    public DocumentoEntity createDocumentoEntity() {
+        return new DocumentoEntity();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaTipoTributario }{@code >}}
+     * Create an instance of {@link NivelEntity }
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaTipoTributario")
-    public JAXBElement<ListaTipoTributario> createListaTipoTributario(ListaTipoTributario value) {
-        return new JAXBElement<ListaTipoTributario>(_ListaTipoTributario_QNAME, ListaTipoTributario.class, null, value);
+    public NivelEntity createNivelEntity() {
+        return new NivelEntity();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarEstadoProveedor }{@code >}}
+     * Create an instance of {@link EmpresaEntity }
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarEstadoProveedor")
-    public JAXBElement<InsertarEstadoProveedor> createInsertarEstadoProveedor(InsertarEstadoProveedor value) {
-        return new JAXBElement<InsertarEstadoProveedor>(_InsertarEstadoProveedor_QNAME, InsertarEstadoProveedor.class, null, value);
+    public EmpresaEntity createEmpresaEntity() {
+        return new EmpresaEntity();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarTipoDocumentoResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarDocumentoRolResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarTipoDocumentoResponse")
-    public JAXBElement<ActualizarTipoDocumentoResponse> createActualizarTipoDocumentoResponse(ActualizarTipoDocumentoResponse value) {
-        return new JAXBElement<ActualizarTipoDocumentoResponse>(_ActualizarTipoDocumentoResponse_QNAME, ActualizarTipoDocumentoResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarDocumentoRolResponse")
+    public JAXBElement<InsertarDocumentoRolResponse> createInsertarDocumentoRolResponse(InsertarDocumentoRolResponse value) {
+        return new JAXBElement<InsertarDocumentoRolResponse>(_InsertarDocumentoRolResponse_QNAME, InsertarDocumentoRolResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarEstadoProveedorResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListaDocumentoPorAccionResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarEstadoProveedorResponse")
-    public JAXBElement<ActualizarEstadoProveedorResponse> createActualizarEstadoProveedorResponse(ActualizarEstadoProveedorResponse value) {
-        return new JAXBElement<ActualizarEstadoProveedorResponse>(_ActualizarEstadoProveedorResponse_QNAME, ActualizarEstadoProveedorResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaDocumentoPorAccionResponse")
+    public JAXBElement<ListaDocumentoPorAccionResponse> createListaDocumentoPorAccionResponse(ListaDocumentoPorAccionResponse value) {
+        return new JAXBElement<ListaDocumentoPorAccionResponse>(_ListaDocumentoPorAccionResponse_QNAME, ListaDocumentoPorAccionResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarTipoProveedorResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarDocumento }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarTipoProveedorResponse")
-    public JAXBElement<InsertarTipoProveedorResponse> createInsertarTipoProveedorResponse(InsertarTipoProveedorResponse value) {
-        return new JAXBElement<InsertarTipoProveedorResponse>(_InsertarTipoProveedorResponse_QNAME, InsertarTipoProveedorResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarDocumento")
+    public JAXBElement<InsertarDocumento> createInsertarDocumento(InsertarDocumento value) {
+        return new JAXBElement<InsertarDocumento>(_InsertarDocumento_QNAME, InsertarDocumento.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaEstadoProveedor }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListaDocumentoRol }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaEstadoProveedor")
-    public JAXBElement<ListaEstadoProveedor> createListaEstadoProveedor(ListaEstadoProveedor value) {
-        return new JAXBElement<ListaEstadoProveedor>(_ListaEstadoProveedor_QNAME, ListaEstadoProveedor.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaDocumentoRol")
+    public JAXBElement<ListaDocumentoRol> createListaDocumentoRol(ListaDocumentoRol value) {
+        return new JAXBElement<ListaDocumentoRol>(_ListaDocumentoRol_QNAME, ListaDocumentoRol.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaTipoProveedorResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarDocumento }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaTipoProveedorResponse")
-    public JAXBElement<ListaTipoProveedorResponse> createListaTipoProveedorResponse(ListaTipoProveedorResponse value) {
-        return new JAXBElement<ListaTipoProveedorResponse>(_ListaTipoProveedorResponse_QNAME, ListaTipoProveedorResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarDocumento")
+    public JAXBElement<ActualizarDocumento> createActualizarDocumento(ActualizarDocumento value) {
+        return new JAXBElement<ActualizarDocumento>(_ActualizarDocumento_QNAME, ActualizarDocumento.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaTipoDocumento }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarDocumentoRol }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaTipoDocumento")
-    public JAXBElement<ListaTipoDocumento> createListaTipoDocumento(ListaTipoDocumento value) {
-        return new JAXBElement<ListaTipoDocumento>(_ListaTipoDocumento_QNAME, ListaTipoDocumento.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarDocumentoRol")
+    public JAXBElement<InsertarDocumentoRol> createInsertarDocumentoRol(InsertarDocumentoRol value) {
+        return new JAXBElement<InsertarDocumentoRol>(_InsertarDocumentoRol_QNAME, InsertarDocumentoRol.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarTipoDocumento }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarDocumentoProcesoResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarTipoDocumento")
-    public JAXBElement<ActualizarTipoDocumento> createActualizarTipoDocumento(ActualizarTipoDocumento value) {
-        return new JAXBElement<ActualizarTipoDocumento>(_ActualizarTipoDocumento_QNAME, ActualizarTipoDocumento.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarDocumentoProcesoResponse")
+    public JAXBElement<InsertarDocumentoProcesoResponse> createInsertarDocumentoProcesoResponse(InsertarDocumentoProcesoResponse value) {
+        return new JAXBElement<InsertarDocumentoProcesoResponse>(_InsertarDocumentoProcesoResponse_QNAME, InsertarDocumentoProcesoResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarLinea }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListaDocumento }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarLinea")
-    public JAXBElement<ActualizarLinea> createActualizarLinea(ActualizarLinea value) {
-        return new JAXBElement<ActualizarLinea>(_ActualizarLinea_QNAME, ActualizarLinea.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaDocumento")
+    public JAXBElement<ListaDocumento> createListaDocumento(ListaDocumento value) {
+        return new JAXBElement<ListaDocumento>(_ListaDocumento_QNAME, ListaDocumento.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarTipoTributario }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarUsuarioDocumento }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarTipoTributario")
-    public JAXBElement<InsertarTipoTributario> createInsertarTipoTributario(InsertarTipoTributario value) {
-        return new JAXBElement<InsertarTipoTributario>(_InsertarTipoTributario_QNAME, InsertarTipoTributario.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarUsuarioDocumento")
+    public JAXBElement<InsertarUsuarioDocumento> createInsertarUsuarioDocumento(InsertarUsuarioDocumento value) {
+        return new JAXBElement<InsertarUsuarioDocumento>(_InsertarUsuarioDocumento_QNAME, InsertarUsuarioDocumento.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarTipoTributarioResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarUsuarioDocumentoResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarTipoTributarioResponse")
-    public JAXBElement<ActualizarTipoTributarioResponse> createActualizarTipoTributarioResponse(ActualizarTipoTributarioResponse value) {
-        return new JAXBElement<ActualizarTipoTributarioResponse>(_ActualizarTipoTributarioResponse_QNAME, ActualizarTipoTributarioResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarUsuarioDocumentoResponse")
+    public JAXBElement<ActualizarUsuarioDocumentoResponse> createActualizarUsuarioDocumentoResponse(ActualizarUsuarioDocumentoResponse value) {
+        return new JAXBElement<ActualizarUsuarioDocumentoResponse>(_ActualizarUsuarioDocumentoResponse_QNAME, ActualizarUsuarioDocumentoResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaLineaResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListaDocumentoProceso }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaLineaResponse")
-    public JAXBElement<ListaLineaResponse> createListaLineaResponse(ListaLineaResponse value) {
-        return new JAXBElement<ListaLineaResponse>(_ListaLineaResponse_QNAME, ListaLineaResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaDocumentoProceso")
+    public JAXBElement<ListaDocumentoProceso> createListaDocumentoProceso(ListaDocumentoProceso value) {
+        return new JAXBElement<ListaDocumentoProceso>(_ListaDocumentoProceso_QNAME, ListaDocumentoProceso.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarLineaResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarUsuarioDocumentoResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarLineaResponse")
-    public JAXBElement<InsertarLineaResponse> createInsertarLineaResponse(InsertarLineaResponse value) {
-        return new JAXBElement<InsertarLineaResponse>(_InsertarLineaResponse_QNAME, InsertarLineaResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarUsuarioDocumentoResponse")
+    public JAXBElement<InsertarUsuarioDocumentoResponse> createInsertarUsuarioDocumentoResponse(InsertarUsuarioDocumentoResponse value) {
+        return new JAXBElement<InsertarUsuarioDocumentoResponse>(_InsertarUsuarioDocumentoResponse_QNAME, InsertarUsuarioDocumentoResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarLineaResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarDocumentoResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarLineaResponse")
-    public JAXBElement<ActualizarLineaResponse> createActualizarLineaResponse(ActualizarLineaResponse value) {
-        return new JAXBElement<ActualizarLineaResponse>(_ActualizarLineaResponse_QNAME, ActualizarLineaResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarDocumentoResponse")
+    public JAXBElement<ActualizarDocumentoResponse> createActualizarDocumentoResponse(ActualizarDocumentoResponse value) {
+        return new JAXBElement<ActualizarDocumentoResponse>(_ActualizarDocumentoResponse_QNAME, ActualizarDocumentoResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaLinea }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarDocumentoResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaLinea")
-    public JAXBElement<ListaLinea> createListaLinea(ListaLinea value) {
-        return new JAXBElement<ListaLinea>(_ListaLinea_QNAME, ListaLinea.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarDocumentoResponse")
+    public JAXBElement<InsertarDocumentoResponse> createInsertarDocumentoResponse(InsertarDocumentoResponse value) {
+        return new JAXBElement<InsertarDocumentoResponse>(_InsertarDocumentoResponse_QNAME, InsertarDocumentoResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarEstadoProveedorResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarDocumentoProcesoResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarEstadoProveedorResponse")
-    public JAXBElement<InsertarEstadoProveedorResponse> createInsertarEstadoProveedorResponse(InsertarEstadoProveedorResponse value) {
-        return new JAXBElement<InsertarEstadoProveedorResponse>(_InsertarEstadoProveedorResponse_QNAME, InsertarEstadoProveedorResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarDocumentoProcesoResponse")
+    public JAXBElement<ActualizarDocumentoProcesoResponse> createActualizarDocumentoProcesoResponse(ActualizarDocumentoProcesoResponse value) {
+        return new JAXBElement<ActualizarDocumentoProcesoResponse>(_ActualizarDocumentoProcesoResponse_QNAME, ActualizarDocumentoProcesoResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarLinea }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarUsuarioDocumento }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarLinea")
-    public JAXBElement<InsertarLinea> createInsertarLinea(InsertarLinea value) {
-        return new JAXBElement<InsertarLinea>(_InsertarLinea_QNAME, InsertarLinea.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarUsuarioDocumento")
+    public JAXBElement<ActualizarUsuarioDocumento> createActualizarUsuarioDocumento(ActualizarUsuarioDocumento value) {
+        return new JAXBElement<ActualizarUsuarioDocumento>(_ActualizarUsuarioDocumento_QNAME, ActualizarUsuarioDocumento.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaTipoProveedor }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListaDocumentoResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaTipoProveedor")
-    public JAXBElement<ListaTipoProveedor> createListaTipoProveedor(ListaTipoProveedor value) {
-        return new JAXBElement<ListaTipoProveedor>(_ListaTipoProveedor_QNAME, ListaTipoProveedor.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaDocumentoResponse")
+    public JAXBElement<ListaDocumentoResponse> createListaDocumentoResponse(ListaDocumentoResponse value) {
+        return new JAXBElement<ListaDocumentoResponse>(_ListaDocumentoResponse_QNAME, ListaDocumentoResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarTipoTributarioResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarDocumentoRol }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarTipoTributarioResponse")
-    public JAXBElement<InsertarTipoTributarioResponse> createInsertarTipoTributarioResponse(InsertarTipoTributarioResponse value) {
-        return new JAXBElement<InsertarTipoTributarioResponse>(_InsertarTipoTributarioResponse_QNAME, InsertarTipoTributarioResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarDocumentoRol")
+    public JAXBElement<ActualizarDocumentoRol> createActualizarDocumentoRol(ActualizarDocumentoRol value) {
+        return new JAXBElement<ActualizarDocumentoRol>(_ActualizarDocumentoRol_QNAME, ActualizarDocumentoRol.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaTipoDocumentoResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarDocumentoProceso }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaTipoDocumentoResponse")
-    public JAXBElement<ListaTipoDocumentoResponse> createListaTipoDocumentoResponse(ListaTipoDocumentoResponse value) {
-        return new JAXBElement<ListaTipoDocumentoResponse>(_ListaTipoDocumentoResponse_QNAME, ListaTipoDocumentoResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarDocumentoProceso")
+    public JAXBElement<InsertarDocumentoProceso> createInsertarDocumentoProceso(InsertarDocumentoProceso value) {
+        return new JAXBElement<InsertarDocumentoProceso>(_InsertarDocumentoProceso_QNAME, InsertarDocumentoProceso.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ListaTipoTributarioResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link DocumetosFiltradosResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaTipoTributarioResponse")
-    public JAXBElement<ListaTipoTributarioResponse> createListaTipoTributarioResponse(ListaTipoTributarioResponse value) {
-        return new JAXBElement<ListaTipoTributarioResponse>(_ListaTipoTributarioResponse_QNAME, ListaTipoTributarioResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "documetosFiltradosResponse")
+    public JAXBElement<DocumetosFiltradosResponse> createDocumetosFiltradosResponse(DocumetosFiltradosResponse value) {
+        return new JAXBElement<DocumetosFiltradosResponse>(_DocumetosFiltradosResponse_QNAME, DocumetosFiltradosResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarTipoProveedorResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListaDocumentoRolResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarTipoProveedorResponse")
-    public JAXBElement<ActualizarTipoProveedorResponse> createActualizarTipoProveedorResponse(ActualizarTipoProveedorResponse value) {
-        return new JAXBElement<ActualizarTipoProveedorResponse>(_ActualizarTipoProveedorResponse_QNAME, ActualizarTipoProveedorResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaDocumentoRolResponse")
+    public JAXBElement<ListaDocumentoRolResponse> createListaDocumentoRolResponse(ListaDocumentoRolResponse value) {
+        return new JAXBElement<ListaDocumentoRolResponse>(_ListaDocumentoRolResponse_QNAME, ListaDocumentoRolResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarTipoTributario }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListaUsuarioDocumento }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarTipoTributario")
-    public JAXBElement<ActualizarTipoTributario> createActualizarTipoTributario(ActualizarTipoTributario value) {
-        return new JAXBElement<ActualizarTipoTributario>(_ActualizarTipoTributario_QNAME, ActualizarTipoTributario.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaUsuarioDocumento")
+    public JAXBElement<ListaUsuarioDocumento> createListaUsuarioDocumento(ListaUsuarioDocumento value) {
+        return new JAXBElement<ListaUsuarioDocumento>(_ListaUsuarioDocumento_QNAME, ListaUsuarioDocumento.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarTipoProveedor }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListaDocumentoPorAccion }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarTipoProveedor")
-    public JAXBElement<InsertarTipoProveedor> createInsertarTipoProveedor(InsertarTipoProveedor value) {
-        return new JAXBElement<InsertarTipoProveedor>(_InsertarTipoProveedor_QNAME, InsertarTipoProveedor.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaDocumentoPorAccion")
+    public JAXBElement<ListaDocumentoPorAccion> createListaDocumentoPorAccion(ListaDocumentoPorAccion value) {
+        return new JAXBElement<ListaDocumentoPorAccion>(_ListaDocumentoPorAccion_QNAME, ListaDocumentoPorAccion.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link InsertarTipoDocumentoResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link DocumetosFiltrados }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "insertarTipoDocumentoResponse")
-    public JAXBElement<InsertarTipoDocumentoResponse> createInsertarTipoDocumentoResponse(InsertarTipoDocumentoResponse value) {
-        return new JAXBElement<InsertarTipoDocumentoResponse>(_InsertarTipoDocumentoResponse_QNAME, InsertarTipoDocumentoResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "documetosFiltrados")
+    public JAXBElement<DocumetosFiltrados> createDocumetosFiltrados(DocumetosFiltrados value) {
+        return new JAXBElement<DocumetosFiltrados>(_DocumetosFiltrados_QNAME, DocumetosFiltrados.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListaDocumentoProcesoResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaDocumentoProcesoResponse")
+    public JAXBElement<ListaDocumentoProcesoResponse> createListaDocumentoProcesoResponse(ListaDocumentoProcesoResponse value) {
+        return new JAXBElement<ListaDocumentoProcesoResponse>(_ListaDocumentoProcesoResponse_QNAME, ListaDocumentoProcesoResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarDocumentoRolResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarDocumentoRolResponse")
+    public JAXBElement<ActualizarDocumentoRolResponse> createActualizarDocumentoRolResponse(ActualizarDocumentoRolResponse value) {
+        return new JAXBElement<ActualizarDocumentoRolResponse>(_ActualizarDocumentoRolResponse_QNAME, ActualizarDocumentoRolResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ActualizarDocumentoProceso }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "actualizarDocumentoProceso")
+    public JAXBElement<ActualizarDocumentoProceso> createActualizarDocumentoProceso(ActualizarDocumentoProceso value) {
+        return new JAXBElement<ActualizarDocumentoProceso>(_ActualizarDocumentoProceso_QNAME, ActualizarDocumentoProceso.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListaUsuarioDocumentoResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.siscomputo.com.co/", name = "listaUsuarioDocumentoResponse")
+    public JAXBElement<ListaUsuarioDocumentoResponse> createListaUsuarioDocumentoResponse(ListaUsuarioDocumentoResponse value) {
+        return new JAXBElement<ListaUsuarioDocumentoResponse>(_ListaUsuarioDocumentoResponse_QNAME, ListaUsuarioDocumentoResponse.class, null, value);
     }
 
 }

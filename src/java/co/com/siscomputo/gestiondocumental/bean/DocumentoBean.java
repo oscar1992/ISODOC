@@ -22,9 +22,12 @@ import co.com.siscomputo.endpoint.ProcesoEntity;
 import co.com.siscomputo.endpoint.ProcesosEntity;
 import co.com.siscomputo.endpoint.SubprocesoEntity;
 import co.com.siscomputo.endpoint.TiposDocumentalesEntity;
+import co.com.siscomputo.endpoint.UsuarioEntity;
 import co.com.siscomputo.gestiondocumental.entities.GrupoUsuarioAccionProcesoEntity;
 import co.com.siscomputo.gestiondocumental.logic.GrupoDocumentoLogic;
+import co.com.siscomputo.utilidades.MensajesJSF;
 import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
+import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,6 +36,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -63,6 +68,7 @@ public class DocumentoBean implements Serializable {
     private TreeNode raiz;
     private Integer tope;
     private Integer idProceso;
+    private Integer idUsuario;
     private String consecutivo;
     private HashMap<String, GrupoUsuariosEntity> mapaGrupos;
     private ArrayList<GrupoUsuarioAccionProcesoEntity> usuarioAccionProcesoEntity;
@@ -70,6 +76,9 @@ public class DocumentoBean implements Serializable {
     private TiposDocumentalesEntity Filtro1;
     private PlantillaEntity Filtro2;
     private AccionEntity Filtro3;
+    private String Filtro4;
+    private String Filtro5;
+
     private boolean ingresar;
     private boolean actualizar;
     private boolean eliminar;
@@ -178,6 +187,14 @@ public class DocumentoBean implements Serializable {
         this.idProceso = idProceso;
     }
 
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
     public ArrayList<HashMap<String, Integer>> getDesplegablesProcesos() {
         return desplegablesProcesos;
     }
@@ -218,6 +235,22 @@ public class DocumentoBean implements Serializable {
         this.Filtro3 = Filtro3;
     }
 
+    public String getFiltro4() {
+        return Filtro4;
+    }
+
+    public void setFiltro4(String Filtro4) {
+        this.Filtro4 = Filtro4;
+    }
+
+    public String getFiltro5() {
+        return Filtro5;
+    }
+
+    public void setFiltro5(String Filtro5) {
+        this.Filtro5 = Filtro5;
+    }
+
     public boolean isIngresar() {
         return ingresar;
     }
@@ -245,17 +278,20 @@ public class DocumentoBean implements Serializable {
     @PostConstruct
     public void init() {
         Filtro1 = new TiposDocumentalesEntity();
-        consultarDocumento();
+        //consultarDocumento();
         permisos();
+
     }
 
     public DocumentoBean() {
         System.out.println("Limpia??");
         objetoDocumento = new DocumentoEntity();
         objetoDocumentoInsercion = new DocumentoEntity();
-        
+        Filtro1 = new TiposDocumentalesEntity();
         Filtro2 = new PlantillaEntity();
         Filtro3 = new AccionEntity();
+        Filtro4 = "";
+        Filtro5 = "";
         nuevoDocumentoObjeto();
     }
 
@@ -272,7 +308,6 @@ public class DocumentoBean implements Serializable {
             ProcesoLogic procesoLogic = new ProcesoLogic();
             listaProcesosTodos = procesoLogic.listaProceso();
             listaProcesos = new ArrayList<>();
-
             Collections.reverse(listaNivel);
             for (NivelEntity nivel : listaNivel) {
                 ArrayList<ProcesoEntity> lista = new ArrayList<>();
@@ -368,9 +403,10 @@ public class DocumentoBean implements Serializable {
             //System.out.println("OBJ: "+objetoDocumentoInsercion.getTipoDocumentalDocumento().getNombreTipoDocumental());
             FacesMessage msg = null;
             if (documentoEntity != null) {
-                msg = new FacesMessage("", "inserción de Documento correcto");
+                MensajesJSF.muestraMensajes("Documento insertado Correctamente: " + documentoEntity.getTituloDocumento(), "Mensaje");
                 adicionarMetodoPtoteccionLista(documentoEntity);
             } else {
+                MensajesJSF.muestraMensajes("Documento insertado Incorrectamente: " + documentoEntity.getTituloDocumento(), "Error");
                 msg = new FacesMessage("", "inserción de Documento incorrecto");
             }
             usuarioAccionProcesoEntity = new ArrayList<>();
@@ -393,7 +429,7 @@ public class DocumentoBean implements Serializable {
         objetoDocumento.setPlantilla(plantilla);
         TiposDocumentalesLogic tiposDocumentalesLogic = new TiposDocumentalesLogic();
         TiposDocumentalesEntity tiposDocumentalesEntity = tiposDocumentalesLogic.TipoDocumentalPorId(objetoDocumento.getTipoDocumentalDocumento().getIdTipoDocumental());
-        objetoDocumento.setTipoDocumentalDocumento(tiposDocumentalesEntity);        
+        objetoDocumento.setTipoDocumentalDocumento(tiposDocumentalesEntity);
         lista.add(objetoDocumento);
     }
 
@@ -405,13 +441,16 @@ public class DocumentoBean implements Serializable {
         String valida = metodoRecuperacionLogic.actualizarDocumento(objetoDocumento);
         FacesMessage msg = null;
         if ("Ok".equalsIgnoreCase(valida)) {
-            msg = new FacesMessage("", "actualización de Documento correcto");
+            MensajesJSF.muestraMensajes("Documento actualizado Correctamente: " + objetoDocumento.getTituloDocumento(), "Mensaje");
             actualizarDocumentoLista(objetoDocumento);
         } else {
-            msg = new FacesMessage("", "actualización de Documento incorrecto");
+            MensajesJSF.muestraMensajes("Documento actualizado Incorrectamente: " + objetoDocumento.getTituloDocumento(), "Error");
         }
         nuevoDocumentoObjeto();
         RequestContext.getCurrentInstance().execute("PF('actualizarDocumento').hide()");
+        RequestContext conte = RequestContext.getCurrentInstance();
+        conte.update(":ActualizarModal:actualizarDocumentoModal");
+
     }
 
     /**
@@ -433,7 +472,7 @@ public class DocumentoBean implements Serializable {
                         TiposDocumentalesLogic tiposDocumentalesLogic = new TiposDocumentalesLogic();
                         TiposDocumentalesEntity tiposDocumentalesEntity = tiposDocumentalesLogic.TipoDocumentalPorId(objetoDocumento.getTipoDocumentalDocumento().getIdTipoDocumental());
                         objetoDocumento.setTipoDocumentalDocumento(tiposDocumentalesEntity);
-                    
+
                         listaaux.add(objetoDocumento);
                     } else {
                         listaaux.add(item);
@@ -454,6 +493,13 @@ public class DocumentoBean implements Serializable {
      */
     public void onRowSelect(SelectEvent event) {
         objetoDocumento = (DocumentoEntity) event.getObject();
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("documento", objetoDocumento);
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("documento.jsf");
+        } catch (IOException ex) {
+            Logger.getLogger(DocumentoBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //FacesContext.getCurrentInstance().responseComplete();
         //System.out.println("select: "+objetoDocumento.getTituloDocumento());
     }
 
@@ -503,12 +549,7 @@ public class DocumentoBean implements Serializable {
         subprocesoEntity.setIdSubproceso(-1);
         EmpresaEntity empresaEntity = new EmpresaEntity();
         empresaEntity.setIdEmpresa(-1);
-        objetoDocumento.setMacroProcesoDocumento(macroprocesosEntity);
-        objetoDocumento.setProcesoProcesoDocumento(procesosEntity);
-        objetoDocumento.setSubProcesoProcesoDocumento(subprocesoEntity);
-        objetoDocumentoInsercion.setMacroProcesoDocumento(macroprocesosEntity);
-        objetoDocumentoInsercion.setProcesoProcesoDocumento(procesosEntity);
-        objetoDocumentoInsercion.setSubProcesoProcesoDocumento(subprocesoEntity);
+
         objetoDocumento.setTipoDocumentalDocumento(tiposDocumentalesEntity);
         objetoDocumento.setPlantilla(plantillaEntity);
         objetoDocumentoInsercion.setPlantilla(plantillaEntity);
@@ -594,15 +635,18 @@ public class DocumentoBean implements Serializable {
         System.out.println("F1: " + Filtro1.getIdTipoDocumental());
         System.out.println("F2: " + Filtro2.getIdPlantilla());
         System.out.println("F3: " + Filtro3.getIdAccion());
+
         ArrayList<DocumentoEntity> listaaux = new ArrayList<>();
         ArrayList<DocumentoEntity> listaaux2 = new ArrayList<>();
         ArrayList<DocumentoEntity> listaaux3 = new ArrayList<>();
-        boolean nulo1=false;
-        boolean nulo2=false;
-        boolean nulo3=false;
-        if (Filtro1 == null||Filtro1.getIdTipoDocumental()==0) {
+        ArrayList<DocumentoEntity> listaaux4 = new ArrayList<>();
+        boolean nulo1 = false;
+        boolean nulo2 = false;
+        boolean nulo3 = false;
+        boolean nulo4 = false;
+        if (Filtro1 == null || Filtro1.getIdTipoDocumental() == 0) {
             listaaux = lista;
-            nulo1=true;
+            nulo1 = true;
         } else {
             for (DocumentoEntity documento : lista) {
                 if (documento.getTipoDocumentalDocumento().getIdTipoDocumental() == Filtro1.getIdTipoDocumental()) {
@@ -611,9 +655,9 @@ public class DocumentoBean implements Serializable {
             }
         }
 
-        if (Filtro2 == null||Filtro2.getIdPlantilla()==0) {
-            listaaux2=listaaux;
-            nulo2=true;
+        if (Filtro2 == null || Filtro2.getIdPlantilla() == 0) {
+            listaaux2 = listaaux;
+            nulo2 = true;
         } else {
             for (DocumentoEntity documento : listaaux) {
                 if (documento.getPlantilla().getIdPlantilla() == Filtro2.getIdPlantilla()) {
@@ -621,20 +665,70 @@ public class DocumentoBean implements Serializable {
                 }
             }
         }
-        if (Filtro3 == null||Filtro3.getIdAccion()==0) {
-            listaaux3=listaaux2;
-            nulo3=true;
+        if (Filtro3 == null || Filtro3.getIdAccion() == 0) {
+            listaaux3 = listaaux2;
+            nulo3 = true;
         } else {
-            for(DocumentoEntity documento:listaaux2){
-                if(documento.getAccionDocumento().getIdAccion()==Filtro3.getIdAccion()){
+            for (DocumentoEntity documento : listaaux2) {
+                if (documento.getAccionDocumento().getIdAccion() == Filtro3.getIdAccion()) {
                     listaaux3.add(documento);
                 }
             }
         }
-        lista=listaaux3;
-        if(nulo1&&nulo2&&nulo3){
+        if (Filtro4 == null || Filtro4.length() < 10) {
+            listaaux4 = listaaux3;
+            nulo4 = true;
+        } else {
+
+            for (DocumentoEntity documento : listaaux3) {
+                int ano = Integer.parseInt(documento.getFechaDocumento().substring(0, 4));
+                int mes = Integer.parseInt(documento.getFechaDocumento().substring(6, 7));
+                int dia = Integer.parseInt(documento.getFechaDocumento().substring(9, 10));
+                int dia2 = Integer.parseInt(Filtro4.substring(0, 2));
+                int mes2 = Integer.parseInt(Filtro4.substring(3, 4));
+                int ano2 = Integer.parseInt(Filtro4.substring(6, 10));
+                System.out.println("FECHA d: " + documento.getFechaDocumento());
+                System.out.println("FECHA: " + Filtro4);
+                Date fecha = new Date(ano, mes, dia);
+                Date fecha2 = new Date(ano2, mes2, dia2);
+
+                System.out.println("Fecha 1: " + fecha.getTime());
+                System.out.println("Fecha 2: " + fecha2.getTime());
+                if (fecha.getTime() > fecha2.getTime()) {
+                    System.out.println("Está después");
+                    listaaux4.add(documento);
+                } else {
+                    System.out.println("Esta antes");
+                }
+            }
+        }
+        lista = listaaux4;
+        if (nulo1 && nulo2 && nulo3 && nulo4) {
             consultarDocumento();
         }
+    }
+
+    public void Filtrar2() {
+        DocumentoLogic documentoLogic = new DocumentoLogic();
+        if (Filtro1 == null) {
+
+        }
+        if (Filtro2 == null) {
+
+        }
+        if (Filtro3 == null) {
+
+        }
+        System.out.println("F1: " + Filtro1.getIdTipoDocumental());
+        lista = documentoLogic.documetosFiltrados(Filtro1.getIdTipoDocumental(), Filtro2.getIdPlantilla(), Filtro3.getIdAccion());
+    }
+
+    public HashMap<String, Integer> listaAccionesPorUsuario() {
+        ListaGestionDocumentalBean listaGestionDocumentalBean = new ListaGestionDocumentalBean();
+        idUsuario = ((UsuarioEntity) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario")).getIdUsuario();
+        //System.out.println("idUsuario: " + idUsuario);
+        listaGestionDocumentalBean.accionPorUsuario(idUsuario);
+        return (HashMap<String, Integer>) listaGestionDocumentalBean.getListaAccionesPorUsuario();
     }
 
     /**

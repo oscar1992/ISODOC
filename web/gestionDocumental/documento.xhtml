@@ -11,143 +11,104 @@
     <ui:composition template="/plantillas/PlantillaGestionDocumental.xhtml">
         <ui:define name="content">
             <h:body>
-
                 <h:form id="IngresarModal">
-
-                    #{Documento.nuevoDocumentoObjeto()}                        
-
-                    <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="4" id="datos">
-
-
-                        <h:outputText value="Título del Documento"></h:outputText>
-                        <p:inputText id="nombre" required="true" label="nombre del Documento" value="#{Documento.objetoDocumentoInsercion.tituloDocumento}"/>
-
-                        <h:outputText value="Tipo Documental del Documento"></h:outputText>                            
-                        <p:selectOneMenu id="desplegableIngresarTipoD" value="#{Documento.objetoDocumentoInsercion.tipoDocumentalDocumento.idTipoDocumental}" style="width: 150px;">
-                            <p:ajax listener="#{Documento.traeConsecutivo()}" update="version"/>
+                    <h:outputText value="#{DatosDocumento.objetoDocumento.tituloDocumento}"/>
+                </h:form>
+                <h:form id="MoverDocumento"> 
+                    <p:messages autoUpdate="true"/>
+                    <p:panelGrid style="margin-top: 20px; width: 50%" styleClass="table table-bordered" columns="2">
+                        <h:outputText value="titulo del Documento"></h:outputText>
+                        <p:inputText required="true" label="titulo del Documento" value="#{DatosDocumento.objetoDocumento.tituloDocumento}"/>
+                        <h:outputText value="tipoDocumental del Documento"></h:outputText>
+                        <p:selectOneMenu required="true" id="desplegableIngresarTipoD" value="#{DatosDocumento.objetoDocumento.tipoDocumentalDocumento.idTipoDocumental}" style="width: 250px;" requiredMessage="Se necesita un Tipo Documental">
                             <f:selectItem itemLabel="Selecione Tipo Documento" itemValue="" noSelectionOption="true"/>
                             <f:selectItems value="#{ListaAdministracionBean.listaTipoDocumento}"/>
                         </p:selectOneMenu>
-
-                        <h:outputText value="Plantilla del Documento"></h:outputText>
-                        <p:selectOneMenu label="Plantilla" required="true" id="desplegableIngresarPlantilla" value="#{Documento.objetoDocumentoInsercion.plantilla.idPlantilla}" style="width: 150px;">
+                        <h:outputText value="plantilla del Documento"></h:outputText>
+                        <p:selectOneMenu required="true" id="desplegableIngresarPlantilla" value="#{DatosDocumento.objetoDocumento.plantilla.idPlantilla}" style="width: 250px;" requiredMessage="Se necesita una plantilla de Documento">
                             <f:selectItem itemLabel="Selecione la Plantilla del Documento" itemValue="" noSelectionOption="true"/>
                             <f:selectItems value="#{ListaAdministracionBean.listaPlantillas}"/>
                         </p:selectOneMenu>
-
-                        <h:outputText value="Version del Documento"></h:outputText>
-                        <p:inputMask required="true" id="version" label="nombre del Documento" value="#{Documento.objetoDocumentoInsercion.versionDocumento}" mask="#{Documento.consecutivo}-0000" maxlength="4"/>
-
-
+                        <h:outputText value="version del Documento"></h:outputText>
+                        <p:inputText required="true" label="version del Documento" value="#{DatosDocumento.objetoDocumento.versionDocumento}"/>
                         <h:outputText value="Estado del Documento"></h:outputText>
-                        <p:selectOneMenu id="desplegableIngresarEstado" value="#{Documento.objetoDocumentoInsercion.estadoDocumento}" style="width: 150px;">                            
-                            <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                        <p:selectOneMenu required="true" id="desplegableActualizarEstado" value="#{DatosDocumento.objetoDocumento.estadoDocumento}" style="width: 250px;" requiredMessage="Se necesita un estado de Documento">
+                            <f:selectItem itemLabel="Selecione Documento" itemValue="" noSelectionOption="true"/>
                             <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                         </p:selectOneMenu>
-
-                        <h:outputText value="Empresa"></h:outputText>
-                        <p:selectOneMenu id="desplegableIngresarEmpresa" value="#{Documento.objetoDocumentoInsercion.empresaDocumento.idEmpresa}" style="width: 150px;">
-                            <f:selectItem itemLabel="Selecione una Empresa" itemValue="#{-1}" noSelectionOption="true"/>
-                            <f:selectItems value="#{ListaAdministracionBean.listaEmpresas}"/>
-                        </p:selectOneMenu> 
-
-                        <ui:repeat var="nivel" value="#{Nivel.lista}">     
-                            <p:spacer width="50"/>
-                            <p:row>
-                                <h:outputText value="#{nivel.nombreNivel}"/><br/>
-                                <p:selectOneMenu id="desplegable#{nivel.nombreNivel}" value="#{Documento.objetoDocumentoInsercion.macroProcesoDocumento.idMacroproceso}" style="width: 150px;">                                    
-                                    <f:selectItem itemLabel="Selecione #{nivel.nombreNivel}" itemValue="" noSelectionOption="true"/>
-                                    <f:selectItems value="#{Documento.ProcesosPorNivelAsociado(nivel.secuenciaNivel, null)}"/>
-                                </p:selectOneMenu>
-                            </p:row>
-              
-                        </ui:repeat>
-
-                        <h:outputText value="MacroProceso del Documento"></h:outputText>
-                        <p:selectOneMenu id="desplegableIngresarMacro" value="#{Documento.objetoDocumentoInsercion.macroProcesoDocumento.idMacroproceso}" style="width: 150px;">
-                            <p:ajax listener="#{ListaAdministracionBean.idMacrio(Documento.objetoDocumentoInsercion.macroProcesoDocumento.idMacroproceso)}" update=":IngresarModal:desplegableIngresarProceso"/>
-                            <f:selectItem itemLabel="Selecione Macro Proceso" itemValue="" noSelectionOption="true"/>
-                            <f:selectItems value="#{ListaAdministracionBean.listaMacroProcesos}"/>
-                        </p:selectOneMenu>
-
-                        <h:outputText value="Proceso del Documento"></h:outputText>
-                        <p:selectOneMenu id="desplegableIngresarProceso" value="#{Documento.objetoDocumentoInsercion.procesoProcesoDocumento.idProcesos}" style="width: 150px;">
-                            <p:ajax listener="#{ListaAdministracionBean.idCambiaProceso(Documento.objetoDocumentoInsercion.procesoProcesoDocumento.idProcesos)}" update=":IngresarModal:desplegableIngresarSubproceso"/>
-                            <f:selectItem itemLabel="Selecione Proceso" itemValue="#{-1}" noSelectionOption="true"/>
-                            <f:selectItems value="#{ListaAdministracionBean.listaProcesos}"/>
-                        </p:selectOneMenu>
-
-                        <h:outputText value="SubProceso del Documento"></h:outputText>
-                        <p:selectOneMenu id="desplegableIngresarSubproceso" value="#{Documento.objetoDocumentoInsercion.subProcesoProcesoDocumento.idSubproceso}" style="width: 150px;">
-                            <f:selectItem itemLabel="Selecione un SubProceso" itemValue="#{-1}" noSelectionOption="true"/>
-                            <f:selectItems value="#{ListaAdministracionBean.listaSubProcesos}"/>
-                        </p:selectOneMenu>   
-
-
-                    </p:panelGrid>    
-                    <h:outputText value="Selecione un Proceso"/>
-                    <p:tree value="#{Documento.raiz}" var="nodo" selection="#{Documento.arbolaux}" selectionMode="single" required="true" id="Proceso">
-                        <p:treeNode>
-                            <h:outputText value="#{nodo.nombreProceso}"/>
-                        </p:treeNode>
-                    </p:tree>
-                    <p:commandButton value="Asignar Usuarios" update=":IngresarModal:asignados" process="@this,nombre,desplegableIngresarPlantilla,Proceso,version" actionListener="#{Documento.evalua(Documento.arbolaux)}" class="botonNormal" />
-
-                    <p:panelGrid class="TABLA" id="asignados">
-                        <f:facet name="header">
-                            <p:row>
-                                <p:column colspan="5">Plan de trabajo para la Elaboración del Documento</p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column></p:column>
-                                <p:column>Hasta</p:column>
-                                <p:column>Fecha</p:column>
-
-                            </p:row>
-                        </f:facet>
-                        <ui:repeat value="#{Documento.usuarioAccionProcesoEntity}" var="acciones2">
-                            <p:row>
-                                <p:column>
-                                    <h:outputText value="#{acciones2.accion.nombreAccion}"/>
-                                </p:column>      
-                                <p:column>
-                                    <p:pickList label="Grupos de Usuarios" id="listausuarioProceso" value="#{acciones2.seleccionDual}" var="usupro" itemLabel="#{usupro}" itemValue="#{usupro}" required="true">
-                                        <f:facet name="sourceCaption">Usuarios disponibles</f:facet>
-                                        <f:facet name="targetCaption">Usuarios de la Acción</f:facet>
-                                    </p:pickList>                                    
-                                </p:column>
-                                <p:column>
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class='col-sm-6'>
-                                                <div class="form-group">
-                                                    <div class='input-group date' id='datetimepicker#{acciones2.accion.idAccion}'>
-                                                        <p:inputText class="form-control" value="#{acciones2.fechaLimite}"/>                                                        
-                                                        <span class="input-group-addon">
-                                                            <span class="glyphicon glyphicon-calendar"></span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <script type="text/javascript">
-                                                $(function () {
-                                                    $('#datetimepicker#{acciones2.accion.idAccion}').datetimepicker({
-                                                        locale: 'es'
-                                                    });
-                                                });
-                                            </script>
-                                        </div>
-                                    </div>
-                                                                                                                        <!--<p:calendar label="Fecha Límite" id="multi" value="#{acciones2.fechaLimite}" pages="3" pattern="dd.MM.yyyy"></p:calendar>-->
-
-                                </p:column>
-                            </p:row>
-                        </ui:repeat>
                     </p:panelGrid>
+                    <h:inputHidden value="#{DatosDocumento.objetoDocumento.idDocumento}"></h:inputHidden>
+                    <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="4">
+                        <h:outputText value="Título del Documento"></h:outputText>
+                        <h:outputText value="#{DatosDocumento.objetoDocumento.tituloDocumento}"></h:outputText>
 
-                    <p:commandButton id="Ingresar" value="Ingresar" update=":DocumentoForm:tablaDocumento,:IngresarModal:asignados" actionListener="#{Documento.instertarDocumento()}" validateClient="true" class="botonNormal" ajax="false"/>
+                        <h:outputText value="Tipo Documental del Documento"></h:outputText>                            
+                        <h:outputText value="#{DatosDocumento.objetoDocumento.tipoDocumentalDocumento.nombreTipoDocumental}"></h:outputText>
 
-                </h:form>             
+                        <h:outputText value="Plantilla del Documento"></h:outputText>
+                        <h:outputText value="#{DatosDocumento.objetoDocumento.plantilla.nombrePlantilla}"></h:outputText>
+
+                        <h:outputText value="Version del Documento"></h:outputText>
+                        <h:outputText value="#{DatosDocumento.objetoDocumento.versionDocumento}"></h:outputText>
+
+                        <h:outputText value="Estado del Documento"></h:outputText>                            
+                        <h:outputText value="Activo" rendered="#{DatosDocumento.objetoDocumento.estadoDocumento == 'A'}"/>
+                        <h:outputText value="Inctivo" rendered="#{DatosDocumento.objetoDocumento.estadoDocumento == 'I'}"/>
+
+                    </p:panelGrid>
+                    <p:commandButton value="Actualizar" actionListener="#{DatosDocumento.actualizarDocumento()}" validateClient="true" class="botonNormal" rendered="#{Documento.actualizar}"/>
+                    <p:commandButton value="Enviar a #{DatosDocumento.nombreSiguiente}" actionListener="#{DatosDocumento.siguienteAccion()}"  rendered="#{DatosDocumento.botonSiguiente}" class="botonNormal"  ajax="false" update=":DocumentoAccion:tablaDocumento"></p:commandButton>
+                    <p:commandButton value="Lista de Distribución" update=":AsociarDocumento:ListaDistribucion"   class="botonNormal" rendered="#{PorEstado.botonSiguiente}" ajax="true" oncomplete="PF('listaDistribucion').show()"></p:commandButton>
+                    <h:inputHidden value="#{DatosDocumento.objetoDocumento.idDocumento}"></h:inputHidden>
+
+                </h:form>
+                <h:form id="AsociarDocumento">
+                    <p:dialog header="Lista Distribución" widgetVar="listaDistribucion" modal="true" id="ListaDistribucion" responsive="true">
+                        <p:dataTable var="doc2" value="#{DocumentoRol.lista}" widgetVar="TablaDistribucion" id="tablaDistribucion" 
+                                     rowKey="#{doc.idDocumentoRol}" class="TABLA" paginator="true" rows="7">
+                            <f:facet name="header">
+                                <h:outputText value="CONSULTA DE DOCUMENTO-ROL" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                                <p:inputText id="globalFilter" onkeyup="PF('TablaDistribucion').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                                <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                            </f:facet>
+                            <p:column headerText="Rol Asociado" filterBy="#{doc2.rolesentityDocumentoRol.nombreRol}">
+                                <h:outputText value="#{doc2.rolesentityDocumentoRol.nombreRol}"/>
+                            </p:column>
+                            <p:column headerText="Numero Copia" filterBy="#{doc2.copiaDocumentoRol}">
+                                <h:outputText value="#{doc2.copiaDocumentoRol}"/>
+                            </p:column>
+                        </p:dataTable>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="3">
+                            <f:facet name="header">
+                                <p:row style="background: #0071bc">
+                                    <p:column colspan="3">
+                                        LISTADO DE DISTRIBUCIÓN de #{PorEstado.objetoDocumento.idDocumento}
+                                    </p:column>
+                                </p:row>
+                            </f:facet>
+                            <p:row>
+                                <p:column colspan="3">Ingrese el cargo y tipo en que se distribuirá el doc </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>Número de Copia</p:column>
+                                <p:column>Cargo</p:column>
+                                <p:column>Tipo de Control</p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:inputText value="#{DocumentoRol.objetoDocumentoRolInsercion.copiaDocumentoRol}"/></p:column>
+                                <p:column><p:selectOneMenu id="desplegableIngresarRol" value="#{DocumentoRol.objetoDocumentoRolInsercion.rolesentityDocumentoRol.idRol}" style="width: 150px;">                            
+                                        <f:selectItem itemLabel="Selecione Cargo" itemValue="" noSelectionOption="true"/>
+                                        <f:selectItems value="#{ListaAdministracionBean.listaRoles}"/>
+                                    </p:selectOneMenu></p:column>
+                                <p:column><p:selectOneMenu id="desplegableIngresarTipo" value="#{DocumentoRol.objetoDocumentoRolInsercion.controlDocumentoRol}" style="width: 150px;">                            
+                                        <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                        <f:selectItems value="#{ListaGestionDocumentalBean.listaTipoControl}"/>
+                                    </p:selectOneMenu></p:column>
+                            </p:row>
+                        </p:panelGrid>
+                        <p:commandButton value="Agregar" update=":AsociarDocumento:ListaDistribucion" actionListener="#{DocumentoRol.instertarDocumentoRol()}"  class="botonNormal"  ajax="true"></p:commandButton>
+                    </p:dialog>
+                </h:form>
             </h:body>
         </ui:define>
     </ui:composition>

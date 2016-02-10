@@ -234,4 +234,46 @@ public interface Proveedores {
         @WebParam(name = "objeto", targetNamespace = "")
         TipoProveedorEntity objeto);
 
+    /**
+     * 
+     * @param objeto
+     * @return
+     *     returns co.com.siscomputo.endpoint.CuentasProveedoresEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "actualizarCuentasProveedores", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarCuentasProveedores")
+    @ResponseWrapper(localName = "actualizarCuentasProveedoresResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ActualizarCuentasProveedoresResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Proveedores/actualizarCuentasProveedoresRequest", output = "http://endpoint.siscomputo.com.co/Proveedores/actualizarCuentasProveedoresResponse")
+    public CuentasProveedoresEntity actualizarCuentasProveedores(
+        @WebParam(name = "objeto", targetNamespace = "")
+        CuentasProveedoresEntity objeto);
+
+    /**
+     * 
+     * @return
+     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "listaCuentasProveedores", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaCuentasProveedores")
+    @ResponseWrapper(localName = "listaCuentasProveedoresResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaCuentasProveedoresResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Proveedores/listaCuentasProveedoresRequest", output = "http://endpoint.siscomputo.com.co/Proveedores/listaCuentasProveedoresResponse")
+    public ObjetoRetornaEntity listaCuentasProveedores();
+
+    /**
+     * 
+     * @param objeto
+     * @return
+     *     returns co.com.siscomputo.endpoint.CuentasProveedoresEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "insertarCuentasProveedores", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.InsertarCuentasProveedores")
+    @ResponseWrapper(localName = "insertarCuentasProveedoresResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.InsertarCuentasProveedoresResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/Proveedores/insertarCuentasProveedoresRequest", output = "http://endpoint.siscomputo.com.co/Proveedores/insertarCuentasProveedoresResponse")
+    public CuentasProveedoresEntity insertarCuentasProveedores(
+        @WebParam(name = "objeto", targetNamespace = "")
+        CuentasProveedoresEntity objeto);
+
 }

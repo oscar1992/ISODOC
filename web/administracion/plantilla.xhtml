@@ -58,7 +58,7 @@
                             <h:outputText value="nombre de la Plantilla de Gestión Documental"></h:outputText>
                             <p:inputText required="true" label="nombre del Plantilla de Gestión Documental" value="#{Plantilla.objetoPlantillaInsercion.nombrePlantilla}"/>
                             <h:outputText value="ruta de la Plantilla de Gestión Documental"></h:outputText>
-                            <p:fileUpload mode="advanced" skinSimple="true" dragDropSupport="true" uploadLabel="Subir" cancelLabel="Cancelar" allowTypes="/(\.|\/)(gif#{Plantilla.extensiones})$/" invalidFileMessage="Archivo Inváulido" multiple="false" fileUploadListener="#{Plantilla.subriArchivo}" label="Subir"/>
+                            <p:fileUpload mode="advanced" skinSimple="true" dragDropSupport="true" uploadLabel="Subir" cancelLabel="Cancelar" allowTypes="/(\.|\/)(gif#{Plantilla.extensiones})$/" invalidFileMessage="Archivo Inválido" multiple="false" fileUploadListener="#{Plantilla.subriArchivo}" label="Subir"/>
                             <h:outputText value="Estado de la Plantilla de Gestión Documental"></h:outputText>
                             <p:selectOneMenu id="desplegableIngresarEstado" value="#{Plantilla.objetoPlantillaInsercion.estadoPlantilla}" style="width: 150px;">
                                 <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>

@@ -227,8 +227,11 @@ public class PorEstadoBean implements Serializable {
             lista = documentoLogic.documetosPorAccion(objetoAccion);
         }
     }
-
+    /**
+     * Método que pasa un documento de acción
+     */
     public void siguienteAccion() {
+        
         objetoDocumento.setAccionDocumento(accionSiguiente);
         int id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idDocumento");
         objetoDocumento.setIdDocumento(id);

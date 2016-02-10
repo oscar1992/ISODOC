@@ -10,6 +10,7 @@ import co.com.siscomputo.administracion.logic.AccionLogic;
 import co.com.siscomputo.administracion.logic.GrupoProcesoLogic;
 import co.com.siscomputo.administracion.logic.NivelLogic;
 import co.com.siscomputo.administracion.logic.ProcesoLogic;
+import co.com.siscomputo.administracion.logic.RutasLogic;
 import co.com.siscomputo.administracion.logic.TiposDocumentalesLogic;
 import co.com.siscomputo.administracion.logic.UsuarioLogic;
 import co.com.siscomputo.endpoint.AccionEntity;
@@ -33,6 +34,12 @@ import co.com.siscomputo.gestiondocumental.logic.DocumentoLogic;
 import co.com.siscomputo.gestiondocumental.logic.GrupoDocumentoLogic;
 import co.com.siscomputo.gestiondocumental.logic.UsuarioDocumentoLogic;
 import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -47,8 +54,10 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.xml.datatype.XMLGregorianCalendar;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.TransferEvent;
 import org.primefaces.model.DualListModel;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -77,6 +86,7 @@ public class crearDocumentoBean implements Serializable {
     private ArrayList<GrupoUsuarioAccionProcesoEntity> usuarioAccionProcesoEntity;
     private ArrayList<ProcesoEntity> listaSeleccion;
     private HashMap<String, Integer> listaIdsUsuarios;
+    private UploadedFile archivo;
 
     private boolean ingresar;
     private boolean actualizar;
@@ -210,6 +220,14 @@ public class crearDocumentoBean implements Serializable {
         this.listaIdsUsuarios = listaIdsUsuarios;
     }
 
+    public UploadedFile getArchivo() {
+        return archivo;
+    }
+
+    public void setArchivo(UploadedFile archivo) {
+        this.archivo = archivo;
+    }
+
     public boolean isIngresar() {
         return ingresar;
     }
@@ -333,6 +351,8 @@ public class crearDocumentoBean implements Serializable {
             objetoDocumentoInsercion.setProcesoDocumento(procesoSeleccion);
             DocumentoLogic documentoLogic = new DocumentoLogic();
             DocumentoEntity documentoEntity = documentoLogic.insertarDocumento(objetoDocumentoInsercion);
+            documentoEntity.setFechaDocumento(""+new java.sql.Date(System.currentTimeMillis()));
+            
             GrupoDocumentoLogic grupoDocumentoLogic = new GrupoDocumentoLogic();
             GrupoDocumentoEntity grupoDocumentoEntity = new GrupoDocumentoEntity();
             for (GrupoUsuarioAccionProcesoEntity listaUAPE : usuarioAccionProcesoEntity) {
@@ -372,7 +392,8 @@ public class crearDocumentoBean implements Serializable {
                     grupoDocumentoLogic.insertarGrupoDocumento(grupoDocumentoEntity);
                 }
             }
-
+            
+            //documentoEntity.setRutaDocumento(alamcenarArchivo(archivo.getFileName(), archivo.getInputstream()));
             //System.out.println("OBJ: "+objetoDocumentoInsercion.getTipoDocumentalDocumento().getNombreTipoDocumental());
             FacesMessage msg = null;
             if (documentoEntity != null) {
@@ -409,12 +430,6 @@ public class crearDocumentoBean implements Serializable {
         subprocesoEntity.setIdSubproceso(-1);
         EmpresaEntity empresaEntity = new EmpresaEntity();
         empresaEntity.setIdEmpresa(-1);
-        objetoDocumento.setMacroProcesoDocumento(macroprocesosEntity);
-        objetoDocumento.setProcesoProcesoDocumento(procesosEntity);
-        objetoDocumento.setSubProcesoProcesoDocumento(subprocesoEntity);
-        objetoDocumentoInsercion.setMacroProcesoDocumento(macroprocesosEntity);
-        objetoDocumentoInsercion.setProcesoProcesoDocumento(procesosEntity);
-        objetoDocumentoInsercion.setSubProcesoProcesoDocumento(subprocesoEntity);
         objetoDocumento.setTipoDocumentalDocumento(tiposDocumentalesEntity);
         objetoDocumento.setPlantilla(plantillaEntity);
         objetoDocumentoInsercion.setPlantilla(plantillaEntity);
@@ -423,6 +438,7 @@ public class crearDocumentoBean implements Serializable {
         objetoDocumentoInsercion.setEmpresaDocumento(empresaEntity);
         NivelLogic nivelLogic = new NivelLogic();
         listaNivel = nivelLogic.listaNivel();
+        
     }
 
     /**
@@ -677,7 +693,50 @@ public class crearDocumentoBean implements Serializable {
             }
         }
     }
-
+    
+    public void subriArchivo(FileUploadEvent event){
+        System.out.println("sub");
+        if (event.getFile().getSize() > 0) {
+                try {
+                    archivo=event.getFile();
+                    
+                    alamcenarArchivo(event.getFile().getFileName(), event.getFile().getInputstream());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+    }
+    
+    /**
+     * Método que permite almacenar un archivo
+     * @param nombre
+     * @param in
+     * @throws java.io.FileNotFoundException
+     */
+    public String alamcenarArchivo(String nombre, InputStream in) throws FileNotFoundException, IOException {
+        String ruta="";
+        try {
+            RutasLogic rutasLogic=new RutasLogic();
+            ruta = rutasLogic.rutasPorTipo("DOCUMENTOS").getCarpetaRutas();
+            ruta += nombre;
+            System.out.println("RUTA: " + ruta);
+            OutputStream out = new FileOutputStream(new File(ruta));
+            int read = 0;
+            byte[] bytes = new byte[2048];
+            while ((read = in.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+            in.close();
+            out.flush();
+            out.close();
+            System.out.println("Archivo Guardado");
+            objetoDocumentoInsercion.setRutaDocumento(ruta);
+        } catch (IOException iOException) {
+            iOException.printStackTrace();
+        }
+        return ruta;
+    }
+    
     public void inicializa() {
         objetoProceso = new ProcesoEntity();
         flag = true;

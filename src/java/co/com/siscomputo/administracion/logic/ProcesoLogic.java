@@ -1,13 +1,9 @@
 package co.com.siscomputo.administracion.logic;
 
-import co.com.siscomputo.endpoint.Administacion;
-import co.com.siscomputo.endpoint.Administacion_Service;
 import co.com.siscomputo.endpoint.ProcesoEntity;
 import co.com.siscomputo.utilidades.IurlWebService;
-import co.com.siscomputo.utilidades.SingletonDirecciones;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.ws.BindingProvider;
 
 /**
  *

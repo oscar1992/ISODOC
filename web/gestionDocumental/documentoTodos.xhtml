@@ -10,16 +10,21 @@
 
     <ui:composition template="/plantillas/PlantillaGestionDocumental.xhtml">
         <ui:define name="content">
+            <h:head>
+                <script src="/ISODOC/js/es.js" type="text/javascript"></script>
+            </h:head>
             <h:body>
                 <h:form id="DocumentoForm">
                     <div class="prueba" style="color: white; ">
-                        <p:growl id="msgs" showDetail="true" life="3000" />
+                        <p:growl id="msgs" showDetail="false" life="3000" />
                     </div>
                     <p:panel header="Filtros">
-                        <h:panelGrid columns="3">
+                        <h:panelGrid columns="5">
                             <h:outputText value="Tipo de Documento"/>
                             <h:outputText value="Tipo de Plantilla"/>
                             <h:outputText value="Estado de Documento"/>
+                            <h:outputText value="Fecha Inicial"/>
+                            <h:outputText value="Fecha Final"/>
                             <p:selectOneMenu value="#{Documento.filtro1.idTipoDocumental}">
                                 <f:selectItem itemLabel="Selecione Tipo Documento" itemValue="" noSelectionOption="true"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaTipoDocumento}"/>
@@ -30,15 +35,49 @@
                             </p:selectOneMenu>
                             <p:selectOneMenu value="#{Documento.filtro3.idAccion}">
                                 <f:selectItem itemLabel="Selecione el Estado del Documento" itemValue="" noSelectionOption="true"/>
-                                <f:selectItems value="#{ListaAdministracionBean.listaAcciones}"/>
+                                <f:selectItems value="#{Documento.listaAccionesPorUsuario()}"/>
                             </p:selectOneMenu>
-                            
+                            <p:column>
+                                <div class='input-group date' id='datetimepicker' >
+                                    <p:inputText class="form-control" value="#{Documento.filtro4}"/>                                                        
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                    <script type="text/javascript">
+                                        // debugger;
+
+                                        $('#datetimepicker').datetimepicker({
+                                            isRTL: false,
+                                            format: 'dd/mm/yyyy',
+                                            autoclose: true
+                                        });
+                                    </script>
+                                </div>
+                            </p:column>
+                            <p:column>
+                                <div class='input-group date' id='datetimepicker2' >
+                                    <p:inputText class="form-control" value="#{Documento.filtro5}"/>                                                        
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                    <script type="text/javascript">
+                                        // debugger;
+
+                                        $('#datetimepicker2').datetimepicker({
+                                            isRTL: false,
+                                            format: 'dd/mm/yyyy',
+                                            autoclose: true
+                                        });
+                                    </script>
+                                </div>
+                            </p:column>
                         </h:panelGrid>
-                        <p:commandButton  value="Filtar" actionListener="#{Documento.Filtrar()}" validateClient="true" class="botonNormal" rendered="#{Documento.actualizar}" update="tablaDocumento"/>
+                        <p:commandButton  value="Filtar" actionListener="#{Documento.Filtrar2()}" validateClient="true" class="botonNormal" rendered="#{Documento.actualizar}" update="tablaDocumento"/>
                     </p:panel>
+                    <br/>
                     <p:dataTable var="documento" value="#{Documento.lista}" reflow="true" widgetVar="TablaDocumento" id="tablaDocumento" selectionMode="single"
                                  selection="#{Documento.objetoDocumento}" rowKey="#{documento.idDocumento}" class="TABLA" paginator="true" rows="7">
-                        <p:ajax event="rowSelect" listener="#{Documento.onRowSelect}" update=":DocumentoForm:msgs,:ActualizarModal:actualizarDocumentoModal" oncomplete="PF('actualizarDocumento').show()"/>
+                        <p:ajax event="rowSelect" listener="#{Documento.onRowSelect}" update=":DocumentoForm:msgs" />
                         <f:facet name="header">
                             <h:outputText value="CONSULTA DE DOCUMENTO" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
                             <p:inputText id="globalFilter" onkeyup="PF('TablaDocumento').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
@@ -73,42 +112,11 @@
                     <!--<p:commandButton value="Insertar" type="button" onclick="PF('insertarDocumento').show();" update=":DocumentoForm:msgs" class="botonNormal" rendered="#{Documento.ingresar}"></p:commandButton>-->
 
                 </h:form>
-                <h:form id="ActualizarModal">
-                    <p:dialog header="Actualizar Documento" widgetVar="actualizarDocumento" modal="true" id="actualizarDocumentoModal" responsive="true">
-                        <p:messages autoUpdate="true"/>
-                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
-
-
-                            <h:outputText value="titulo del Documento"></h:outputText>
-                            <p:inputText required="true" label="titulo del Documento" value="#{Documento.objetoDocumento.tituloDocumento}"/>
-                            <h:outputText value="tipoDocumental del Documento"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarTipoD" value="#{Documento.objetoDocumento.tipoDocumentalDocumento.idTipoDocumental}" style="width: 150px;">
-                                <f:selectItem itemLabel="Selecione Tipo Documento" itemValue="" noSelectionOption="true"/>
-                                <f:selectItems value="#{ListaAdministracionBean.listaTipoDocumento}"/>
-                            </p:selectOneMenu>
-
-                            <h:outputText value="plantilla del Documento"></h:outputText>
-                            <p:selectOneMenu id="desplegableIngresarPlantilla" value="#{Documento.objetoDocumento.plantilla.idPlantilla}" style="width: 150px;">
-                                <f:selectItem itemLabel="Selecione la Plantilla del Documento" itemValue="" noSelectionOption="true"/>
-                                <f:selectItems value="#{ListaAdministracionBean.listaPlantillas}"/>
-                            </p:selectOneMenu>
-                            <h:outputText value="version del Documento"></h:outputText>
-                            <p:inputText required="true" label="version del Documento" value="#{Documento.objetoDocumento.versionDocumento}"/>
-
-
-                            <h:outputText value="Estado del Documento"></h:outputText>
-                            <p:selectOneMenu id="desplegableActualizarEstado" value="#{Documento.objetoDocumento.estadoDocumento}" style="width: 150px;">
-                                <f:selectItem itemLabel="Selecione Documento" itemValue="" noSelectionOption="true"/>
-                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
-                            </p:selectOneMenu>
-
-                            <h:inputHidden value="#{Documento.objetoDocumento.idDocumento}"></h:inputHidden>
-                        </p:panelGrid>
-                        <p:commandButton  value="Actualizar" update=":DocumentoForm:tablaDocumento,:ActualizarModal:actualizarDocumentoModal,DocumentoForm:msgs" actionListener="#{Documento.actualizarDocumento()}" validateClient="true" class="botonNormal" rendered="#{Documento.actualizar}"/>
-                        <p:commandButton value="Eliminar" update=":DocumentoForm:tablaDocumento,:ActualizarModal:actualizarDocumentoModal,DocumentoForm:msgs" actionListener="#{Documento.eliminarDocumento()}" validateClient="true" class="botonNormal" rendered="#{Documento.eliminar}"/>
-                    </p:dialog>
-
-                </h:form>
+                
+                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">                    
+                    <img src="/ISODOC/imagenes/buttons/Cargando.gif"/>
+                </p:dialog>
             </h:body>
         </ui:define>
     </ui:composition>

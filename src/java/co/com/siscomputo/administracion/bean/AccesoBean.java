@@ -68,7 +68,7 @@ public class AccesoBean {
         String url = "";
         LoginLogic loginLogic = new LoginLogic();
         try {
-            String validaIngreso = loginLogic.ingresar(this.nombreUsuario, this.claveUsuario);
+             String validaIngreso = loginLogic.ingresar(this.nombreUsuario, this.claveUsuario);
             if ("Ok".equalsIgnoreCase(validaIngreso)) {
                 objetoLogin = loginLogic.getObjetoLogin();
                 if ("InicioNuevo".equalsIgnoreCase(objetoLogin.getTrazaRespuesta())) {

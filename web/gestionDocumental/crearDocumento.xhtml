@@ -16,44 +16,47 @@
             <h:body>
                 <h:form id="IngresarModal">
                     <div class="prueba" style="color: white; ">
-                        <p:growl id="msgs"  life="300000" autoUpdate="true"/>
+                        <p:growl id="msgs"  life="3000" autoUpdate="true"/>
                     </div>
                     #{CrearDocumento.nuevoDocumentoObjeto()}  
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-12">
                             <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="4" id="datosDocumento">
                                 <h:outputText value="Título del Documento" ></h:outputText>
-                                <p:inputText id="nombre" label="Nombre" required="true" requiredMessage="Se necesita un nombre del Documento" value="#{CrearDocumento.objetoDocumentoInsercion.tituloDocumento}"/>
+                                <p:inputText id="nombre" label="Nombre" required="true" requiredMessage="Se necesita un nombre del Documento" value="#{CrearDocumento.objetoDocumentoInsercion.tituloDocumento}" style="width: 100%"/>
                                 <h:outputText value="Tipo Documental del Documento"></h:outputText>                            
-                                <p:selectOneMenu required="true" id="desplegableIngresarTipoD" requiredMessage="Debe seleccionar Un Tipo Documental" value="#{CrearDocumento.objetoDocumentoInsercion.tipoDocumentalDocumento.idTipoDocumental}" style="width: 150px;">
+                                <p:selectOneMenu required="true" id="desplegableIngresarTipoD" requiredMessage="Debe seleccionar Un Tipo Documental" value="#{CrearDocumento.objetoDocumentoInsercion.tipoDocumentalDocumento.idTipoDocumental}">
                                     <p:ajax listener="#{CrearDocumento.traeConsecutivo()}" update="version"/>
                                     <f:selectItem itemLabel="Selecione Tipo Documento" itemValue="" noSelectionOption="true"/>
                                     <f:selectItems value="#{ListaAdministracionBean.listaTipoDocumento}"/>
                                 </p:selectOneMenu>
                                 <h:outputText value="Plantilla del Documento"></h:outputText>
-                                <p:selectOneMenu required="true" id="desplegableIngresarPlantilla" requiredMessage="Debe seleccionar una Plantilla" value="#{CrearDocumento.objetoDocumentoInsercion.plantilla.idPlantilla}" style="width: 150px;">
+                                <p:selectOneMenu required="true" id="desplegableIngresarPlantilla" requiredMessage="Debe seleccionar una Plantilla" value="#{CrearDocumento.objetoDocumentoInsercion.plantilla.idPlantilla}">
                                     <f:selectItem itemLabel="Selecione la Plantilla del Documento" itemValue="" noSelectionOption="true"/>
                                     <f:selectItems value="#{ListaAdministracionBean.listaPlantillas}"/>
                                 </p:selectOneMenu>
                                 <h:outputText value="Version del Documento"></h:outputText>
-                                <p:inputMask required="true" id="version" label="nombre del Documento" value="#{CrearDocumento.objetoDocumentoInsercion.versionDocumento}" mask="#{CrearDocumento.consecutivo}-0000" maxlength="4"/>
+                                <p:inputMask required="true" id="version" label="nombre del Documento" value="#{CrearDocumento.objetoDocumentoInsercion.versionDocumento}" mask="#{CrearDocumento.consecutivo}-0000" maxlength="4" style="width: 100%"/>
                                 <h:outputText value="Estado del Documento"></h:outputText>
-                                <p:selectOneMenu     required="true" requiredMessage="Se necesita un estado" id="desplegableIngresarEstado" value="#{CrearDocumento.objetoDocumentoInsercion.estadoDocumento}" style="width: 150px;">                            
+                                <p:selectOneMenu required="true" requiredMessage="Se necesita un estado" id="desplegableIngresarEstado" value="#{CrearDocumento.objetoDocumentoInsercion.estadoDocumento}">                            
                                     <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
                                     <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                                 </p:selectOneMenu>
                                 <h:outputText value="Empresa"></h:outputText>
-                                <p:selectOneMenu required="true" requiredMessage="Debe seleccionar una Empresa" id="desplegableIngresarEmpresa"  value="#{CrearDocumento.objetoDocumentoInsercion.empresaDocumento.idEmpresa}" style="width: 150px;">
+                                <p:selectOneMenu required="true" requiredMessage="Debe seleccionar una Empresa" id="desplegableIngresarEmpresa"  value="#{CrearDocumento.objetoDocumentoInsercion.empresaDocumento.idEmpresa}">
                                     <f:selectItem itemLabel="Selecione una Empresa" itemValue="" noSelectionOption="true"/>
                                     <f:selectItems value="#{ListaAdministracionBean.listaEmpresas}"/>
                                 </p:selectOneMenu> 
+                                #{Plantilla.limitaExtensiones()}
+                                <p:fileUpload id="subirArchivo" required="true" requiredMessage="debe subir un archivo" uploadLabel="Subir" cancelLabel="Cancelar" allowTypes="/(\.|\/)(gif#{Plantilla.extensiones})$/" invalidFileMessage="Archivo Inválido" multiple="false" fileUploadListener="#{CrearDocumento.subriArchivo}" label="Subir"/>
                             </p:panelGrid>
                         </div>
                     </div>
                     <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="4" id="datos">
-
                         <p:dataTable var="nivel" value="#{Nivel.lista}" id="tabla">
-
+                            <p:column>  
+                                <h:outputText value="#{nivel.nombreNivel}"/>
+                            </p:column>
                             <p:column id="col">
                                 <div class="ui-grid-row">
                                     <div class="ui-grid-col-4">
@@ -65,21 +68,14 @@
                                     </div>
                                 </div>
                             </p:column>
-
-                            <p:column>  
-                                <h:outputText value="#{nivel.nombreNivel}"/>
-                            </p:column>
                             <p:columnGroup type="header">
                                 <p:row>
                                     <p:column colspan="2" headerText="Selecione el Proceso"/>                                        
                                 </p:row>
                             </p:columnGroup>
                         </p:dataTable>
-
                     </p:panelGrid>   
-
-                    <p:commandButton value="Asignar Usuarios" update=":IngresarModal:asignados" process="@this,nombre,desplegableIngresarPlantilla,version,desplegableIngresarEstado,desplegableIngresarEmpresa,desplegableIngresarTipoD" actionListener="#{CrearDocumento.evalua()}" class="botonNormal" validateClient="true" />
-
+                    <p:commandButton value="Asignar Usuarios" update=":IngresarModal:asignados" process="@this,nombre,desplegableIngresarPlantilla,version,desplegableIngresarEstado,desplegableIngresarEmpresa,desplegableIngresarTipoD,subirArchivo" actionListener="#{CrearDocumento.evalua()}" class="botonNormal" validateClient="true" />
                     <p:panelGrid class="TABLA" id="asignados">
                         <f:facet name="header">
                             <p:row>
@@ -130,12 +126,14 @@
                             </p:row>
                         </ui:repeat>
                     </p:panelGrid>
-
-                    <p:commandButton id="Ingresar" value="Ingresar" update=":DocumentoForm:tablaDocumento,:IngresarModal:asignados" actionListener="#{CrearDocumento.instertarDocumento()}" validateClient="true" class="botonNormal" ajax="false"/>
-
+                    <p:commandButton id="Ingresar" value="Ingresar" update=":IngresarModal,:IngresarModal:msgs" actionListener="#{CrearDocumento.instertarDocumento()}" validateClient="true" class="botonNormal" ajax="true"/>
                     <br/>
 
                 </h:form>
+                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">                    
+                    <img src="/ISODOC/imagenes/buttons/Cargando.gif"/>
+                </p:dialog>
             </h:body>
         </ui:define>
     </ui:composition>

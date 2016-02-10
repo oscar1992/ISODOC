@@ -86,21 +86,23 @@ public class AccionLogic implements IurlWebService{
     }
     /**
      * Método que trae una lista de acciones por ID
-     * @param idAccion
+     * @param idUsuario
      * @return 
      */
     public ArrayList<AccionEntity> accionPorUsuario(Integer idUsuario){
-        
+        System.out.println("UU");
         ArrayList<AccionEntity> accionEntity=new ArrayList<>();
         ArrayList<Object> listaObjeto=new ArrayList<>();
         try {
-            listaObjeto=(ArrayList<Object>) portAdministracion().accionPorUsuario(idUsuario).getRetorna();
+            listaObjeto=(ArrayList<Object>) portAdministracion().accionesPorUsuario(idUsuario).getRetorna();
+            System.out.println("UU2"+listaObjeto.size());
             for(Object obj:listaObjeto){
                 AccionEntity accionEntity1=(AccionEntity) obj;
-                accionEntity.add(accionEntity1);
-            }
+                accionEntity.add(accionEntity1);                
+            }            
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("EE: "+e);
         }
         return accionEntity;
     }

@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition template="/plantillas/PlantillaAdministracion.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form id="CuentasProveedoresForm">
+                    <div class="prueba" style="color: white; ">
+                        <p:growl id="msgs" showDetail="true" life="3000" autoUpdate="true"/>
+                    </div>
+                    <p:dataTable var="cuentasProveedores" value="#{CuentasProveedores.lista}" reflow="true" widgetVar="TablaCuentasProveedores" id="tablaCuentasProveedores" selectionMode="single"
+                                 selection="#{CuentasProveedores.objetoCuentasProveedores}" rowKey="#{cuentasProveedores.idCuentasProveedores}" class="TABLA" paginator="true" rows="7">
+                        <p:ajax event="rowSelect" listener="#{CuentasProveedores.onRowSelect}" update=":CuentasProveedoresForm:msgs,:ActualizarModal:actualizarCuentasProveedoresModal" oncomplete="PF('actualizarCuentasProveedores').show()"/>
+                        <f:facet name="header">
+                            <h:outputText value="CONSULTA DE TIPO DE CUENTA DE PROVEEDOR" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                            <p:inputText id="globalFilter" onkeyup="PF('TablaCuentasProveedores').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                            <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                        </f:facet>
+                        <p:column headerText="nombre del Tipo de Cuenta de Proveedor" filterBy="#{cuentasProveedores.nombreCuentasProveedores}">
+                            <h:outputText value="#{cuentasProveedores.nombreCuentasProveedores}"/>
+                        </p:column>
+                        <p:column headerText="estado del Tipo de Cuenta de Proveedor" filterBy="#{cuentasProveedores.estadoCuentasProveedores}">
+                            <h:outputText value="Activo" rendered="#{cuentasProveedores.estadoCuentasProveedores == 'A'}"/>
+                            <h:outputText value="Inctivo" rendered="#{cuentasProveedores.estadoCuentasProveedores == 'I'}"/> 
+                        </p:column>
+                    </p:dataTable>
+                    <br/>
+                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarCuentasProveedores').show();" update=":CuentasProveedoresForm:msgs" class="botonNormal" rendered="#{CuentasProveedores.ingresar}"></p:commandButton>
+
+                </h:form>
+                <h:form id="IngresarModal">
+                    <p:dialog header="Insertar Tipo de Cuenta de Proveedor" widgetVar="insertarCuentasProveedores" modal="true" id="insertarCuentasProveedoresModal" responsive="true">
+                        #{CuentasProveedores.nuevoCuentasProveedoresObjeto()}                        
+                        <p:messages autoUpdate="true"/>                        
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+
+                            
+                            <h:outputText value="nombre del Tipo de Cuenta de Proveedor"></h:outputText>
+
+                            <p:inputText required="true" label="nombre del Tipo de Cuenta de Proveedor" value="#{CuentasProveedores.objetoCuentasProveedoresInsercion.nombreCuentasProveedores}"/>
+
+                            <h:outputText value="Estado del Tipo de Cuenta de Proveedor"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarEstado" value="#{CuentasProveedores.objetoCuentasProveedores.estadoCuentasProveedores}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+
+                        </p:panelGrid>                        
+                        <p:commandButton value="Ingresar" update=":CuentasProveedoresForm:tablaCuentasProveedores" actionListener="#{CuentasProveedores.instertarCuentasProveedores()}" validateClient="true" class="botonNormal" />
+                    </p:dialog>
+                </h:form>
+                <h:form id="ActualizarModal">
+                    <p:dialog header="Actualizar Tipo de Cuenta de Proveedor" widgetVar="actualizarCuentasProveedores" modal="true" id="actualizarCuentasProveedoresModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            
+                            <h:outputText value="nombre del Tipo de Cuenta de Proveedor"></h:outputText>
+                            <p:inputText required="true" label="nombre del Tipo de Cuenta de Proveedor" value="#{CuentasProveedores.objetoCuentasProveedores.nombreCuentasProveedores}"/>
+
+
+                            <h:outputText value="Estado del Tipo de Cuenta de Proveedor"></h:outputText>
+                            <p:selectOneMenu id="desplegableActualizarEstado" value="#{CuentasProveedores.objetoCuentasProveedores.estadoCuentasProveedores}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Tipo de Cuenta de Proveedor" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+                            <h:inputHidden value="#{CuentasProveedores.objetoCuentasProveedores.idCuentasProveedores}"></h:inputHidden>
+                        </p:panelGrid>
+                        <p:commandButton  value="Actualizar" update=":CuentasProveedoresForm:tablaCuentasProveedores,CuentasProveedoresForm:msgs" actionListener="#{CuentasProveedores.actualizarCuentasProveedores()}" validateClient="true" class="botonNormal" rendered="#{CuentasProveedores.actualizar}"/>
+                        <p:commandButton value="Eliminar" update=":CuentasProveedoresForm:tablaCuentasProveedores,:ActualizarModal:actualizarCuentasProveedoresModal,CuentasProveedoresForm:msgs" actionListener="#{CuentasProveedores.eliminarCuentasProveedores()}" validateClient="true" class="botonNormal" rendered="#{CuentasProveedores.eliminar}"/>
+                    </p:dialog>
+                </h:form>
+
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>

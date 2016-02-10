@@ -524,7 +524,20 @@
     height: 16px;
     background-position-x: 3px;
 }
+.ui-panel{
+    background: #cccccc;
+    border-radius: 4px;
+}
 
+.ui-panel .ui-panel-title{
+    color: #FFF;
+    font-family: Trebuchet MS;
+    
+}
+
+.ui-panel .ui-panel-titlebar{
+    background-color: #0071bc;
+}
 /* Grid CSS */
 .ui-grid{
     clear:both;

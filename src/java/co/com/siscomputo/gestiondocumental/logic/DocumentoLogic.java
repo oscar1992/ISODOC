@@ -78,12 +78,34 @@ public class DocumentoLogic implements IurlWebService{
         return rta;
     }
     
-    public ArrayList<DocumentoEntity> documetosPorAccion(AccionEntity accion){
-        
+    public ArrayList<DocumentoEntity> documetosPorAccion(AccionEntity accion){        
         ArrayList<DocumentoEntity> listaretorna=new ArrayList<>();
         try {
             ArrayList<Object>listaObjeto=new ArrayList<>();
             listaObjeto=(ArrayList<Object>) portGestion().listaDocumentoPorAccion(accion).getRetorna();
+            for(Object obj:listaObjeto){
+                DocumentoEntity documentoEntity=(DocumentoEntity) obj;
+                listaretorna.add(documentoEntity);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listaretorna;
+    }
+    /**
+     * Llamado al web service que trae la lista de documentos filtrados
+     * @param idTipoDocumental
+     * @param idPlantilla
+     * @param idAccion
+     * @return 
+     */
+    public ArrayList<DocumentoEntity>documetosFiltrados(Integer idTipoDocumental, Integer idPlantilla, Integer idAccion){
+        
+        ArrayList<DocumentoEntity> listaretorna=new ArrayList<>();
+        try {
+            System.out.println("F1: "+idTipoDocumental);
+            ArrayList<Object>listaObjeto=new ArrayList<>();
+            listaObjeto=(ArrayList<Object>) portGestion().documetosFiltrados(idTipoDocumental, idPlantilla, idAccion).getRetorna();
             for(Object obj:listaObjeto){
                 DocumentoEntity documentoEntity=(DocumentoEntity) obj;
                 listaretorna.add(documentoEntity);

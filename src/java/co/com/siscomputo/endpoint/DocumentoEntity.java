@@ -19,12 +19,11 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="accionDocumento" type="{http://endpoint.siscomputo.com.co/}accionEntity" minOccurs="0"/>
  *         &lt;element name="empresaDocumento" type="{http://endpoint.siscomputo.com.co/}empresaEntity" minOccurs="0"/>
  *         &lt;element name="estadoDocumento" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="fechaDocumento" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="idDocumento" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="macroProcesoDocumento" type="{http://endpoint.siscomputo.com.co/}macroprocesosEntity" minOccurs="0"/>
  *         &lt;element name="plantilla" type="{http://endpoint.siscomputo.com.co/}plantillaEntity" minOccurs="0"/>
  *         &lt;element name="procesoDocumento" type="{http://endpoint.siscomputo.com.co/}procesoEntity" minOccurs="0"/>
- *         &lt;element name="procesoProcesoDocumento" type="{http://endpoint.siscomputo.com.co/}procesosEntity" minOccurs="0"/>
- *         &lt;element name="subProcesoProcesoDocumento" type="{http://endpoint.siscomputo.com.co/}subprocesoEntity" minOccurs="0"/>
+ *         &lt;element name="rutaDocumento" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="tipoDocumentalDocumento" type="{http://endpoint.siscomputo.com.co/}tiposDocumentalesEntity" minOccurs="0"/>
  *         &lt;element name="tituloDocumento" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="versionDocumento" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -41,12 +40,11 @@ import javax.xml.bind.annotation.XmlType;
     "accionDocumento",
     "empresaDocumento",
     "estadoDocumento",
+    "fechaDocumento",
     "idDocumento",
-    "macroProcesoDocumento",
     "plantilla",
     "procesoDocumento",
-    "procesoProcesoDocumento",
-    "subProcesoProcesoDocumento",
+    "rutaDocumento",
     "tipoDocumentalDocumento",
     "tituloDocumento",
     "versionDocumento"
@@ -58,12 +56,11 @@ public class DocumentoEntity
     protected AccionEntity accionDocumento;
     protected EmpresaEntity empresaDocumento;
     protected String estadoDocumento;
+    protected String fechaDocumento;
     protected int idDocumento;
-    protected MacroprocesosEntity macroProcesoDocumento;
     protected PlantillaEntity plantilla;
     protected ProcesoEntity procesoDocumento;
-    protected ProcesosEntity procesoProcesoDocumento;
-    protected SubprocesoEntity subProcesoProcesoDocumento;
+    protected String rutaDocumento;
     protected TiposDocumentalesEntity tipoDocumentalDocumento;
     protected String tituloDocumento;
     protected String versionDocumento;
@@ -141,6 +138,30 @@ public class DocumentoEntity
     }
 
     /**
+     * Obtiene el valor de la propiedad fechaDocumento.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getFechaDocumento() {
+        return fechaDocumento;
+    }
+
+    /**
+     * Define el valor de la propiedad fechaDocumento.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setFechaDocumento(String value) {
+        this.fechaDocumento = value;
+    }
+
+    /**
      * Obtiene el valor de la propiedad idDocumento.
      * 
      */
@@ -154,30 +175,6 @@ public class DocumentoEntity
      */
     public void setIdDocumento(int value) {
         this.idDocumento = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad macroProcesoDocumento.
-     * 
-     * @return
-     *     possible object is
-     *     {@link MacroprocesosEntity }
-     *     
-     */
-    public MacroprocesosEntity getMacroProcesoDocumento() {
-        return macroProcesoDocumento;
-    }
-
-    /**
-     * Define el valor de la propiedad macroProcesoDocumento.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link MacroprocesosEntity }
-     *     
-     */
-    public void setMacroProcesoDocumento(MacroprocesosEntity value) {
-        this.macroProcesoDocumento = value;
     }
 
     /**
@@ -229,51 +226,27 @@ public class DocumentoEntity
     }
 
     /**
-     * Obtiene el valor de la propiedad procesoProcesoDocumento.
+     * Obtiene el valor de la propiedad rutaDocumento.
      * 
      * @return
      *     possible object is
-     *     {@link ProcesosEntity }
+     *     {@link String }
      *     
      */
-    public ProcesosEntity getProcesoProcesoDocumento() {
-        return procesoProcesoDocumento;
+    public String getRutaDocumento() {
+        return rutaDocumento;
     }
 
     /**
-     * Define el valor de la propiedad procesoProcesoDocumento.
+     * Define el valor de la propiedad rutaDocumento.
      * 
      * @param value
      *     allowed object is
-     *     {@link ProcesosEntity }
+     *     {@link String }
      *     
      */
-    public void setProcesoProcesoDocumento(ProcesosEntity value) {
-        this.procesoProcesoDocumento = value;
-    }
-
-    /**
-     * Obtiene el valor de la propiedad subProcesoProcesoDocumento.
-     * 
-     * @return
-     *     possible object is
-     *     {@link SubprocesoEntity }
-     *     
-     */
-    public SubprocesoEntity getSubProcesoProcesoDocumento() {
-        return subProcesoProcesoDocumento;
-    }
-
-    /**
-     * Define el valor de la propiedad subProcesoProcesoDocumento.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link SubprocesoEntity }
-     *     
-     */
-    public void setSubProcesoProcesoDocumento(SubprocesoEntity value) {
-        this.subProcesoProcesoDocumento = value;
+    public void setRutaDocumento(String value) {
+        this.rutaDocumento = value;
     }
 
     /**
