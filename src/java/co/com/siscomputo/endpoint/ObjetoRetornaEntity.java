@@ -34,16 +34,11 @@ import javax.xml.bind.annotation.XmlType;
     "retorna"
 })
 @XmlSeeAlso({
-    UsuarioDocumentoEntity.class,
-    DocumentoRolEntity.class,
+    DepartamentoEntity.class,
+    SedeEmpresaEntity.class,
+    EmpresaEntity.class,
     TiposDocumentalesEntity.class,
-    ProcesoEntity.class,
-    DocumentoProcesoEntity.class,
-    AccionEntity.class,
-    PlantillaEntity.class,
-    DocumentoEntity.class,
-    NivelEntity.class,
-    EmpresaEntity.class
+    SedeEntity.class
 })
 public class ObjetoRetornaEntity
     extends ObjetoTraza
