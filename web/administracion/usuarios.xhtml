@@ -149,7 +149,7 @@
                             </p:inputText>
                             <h:outputText value="Estado"></h:outputText>
                             <p:selectOneMenu id="desplegableIngresarusuario" value="#{Usuario.usuarioObjeto.estado}" style="width: 150px;" >
-                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="false"/>
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="A" noSelectionOption="false"/>
                                 <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
                             </p:selectOneMenu>   
                         </p:panelGrid>
@@ -158,7 +158,7 @@
                                 <p:commandButton  value="Actualizar" update=":UsuarioForm:tablaUsuarios,:IngresarModal:insertarUsuarioModal,UsuarioForm:msgs" actionListener="#{Usuario.actualizarUsuario()}" validateClient="true" class="botonNormal" rendered="#{Usuario.actualizar}"/>
                             </div>
                             <div style="float: right">
-                                <p:commandButton value="Eliminar" update=":UsuarioForm:tablaUsuarios,:IngresarModal:insertarUsuarioModal,UsuarioForm:msgs" actionListener="#{Usuario.eliminarUsuario()}" validateClient="true" class="botonNormal" rendered="#{Usuario.eliminar}"/>
+                                <p:commandButton value="EliminarA" class="botonNormal" oncomplete="PF('confirmar').show()"/>
                             </div>
                         </div>
                         <h:inputHidden  value="#{Usuario.usuarioObjeto.idUsuario}"></h:inputHidden>          
@@ -186,6 +186,14 @@
                     </p:dialog>
                 </h:form>
             </h:body>
+            <h:form id="confirmar">
+                <p:dialog header="Comfirmar" widgetVar="confirmar" modal="true" id="Confirmar" responsive="true">
+                    <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                        <h:outputText value="Desea elimiar el elemento?"/>
+                    </p:panelGrid>
+                    <p:commandButton value="Eliminar" update=":UsuarioForm:tablaUsuarios,:IngresarModal:insertarUsuarioModal,UsuarioForm:msgs" actionListener="#{Usuario.eliminarUsuario()}" validateClient="true" class="botonNormal" />
+                </p:dialog>
+            </h:form>
         </ui:define>
     </ui:composition>
 </html>

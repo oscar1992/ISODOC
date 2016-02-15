@@ -59,8 +59,7 @@ public class MenuLogic implements IurlWebService{
     
     public ArrayList<MenuModuloEntity> obtieneMenuPorUsuario(int idUsuario){
         ArrayList<MenuModuloEntity>rta=null;
-        try {
-            
+        try {            
             rta=(ArrayList<MenuModuloEntity>) portUsuario().menuDatosporUsuario(idUsuario);
         } catch (Exception e) {
             e.printStackTrace();

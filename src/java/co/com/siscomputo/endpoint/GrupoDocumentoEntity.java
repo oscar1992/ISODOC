@@ -3,7 +3,9 @@ package co.com.siscomputo.endpoint;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
@@ -18,7 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="accionGrupoDocumento" type="{http://endpoint.siscomputo.com.co/}accionEntity" minOccurs="0"/>
  *         &lt;element name="documentoGrupoDocumento" type="{http://endpoint.siscomputo.com.co/}documentoEntity" minOccurs="0"/>
- *         &lt;element name="fecha" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="fecha" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
  *         &lt;element name="grupousuariosGrupoDocumento" type="{http://endpoint.siscomputo.com.co/}grupoUsuariosEntity" minOccurs="0"/>
  *         &lt;element name="idGrupoDocumento" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
@@ -43,7 +45,8 @@ public class GrupoDocumentoEntity
 
     protected AccionEntity accionGrupoDocumento;
     protected DocumentoEntity documentoGrupoDocumento;
-    protected String fecha;
+    @XmlSchemaType(name = "dateTime")
+    protected XMLGregorianCalendar fecha;
     protected GrupoUsuariosEntity grupousuariosGrupoDocumento;
     protected int idGrupoDocumento;
 
@@ -100,10 +103,10 @@ public class GrupoDocumentoEntity
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link XMLGregorianCalendar }
      *     
      */
-    public String getFecha() {
+    public XMLGregorianCalendar getFecha() {
         return fecha;
     }
 
@@ -112,10 +115,10 @@ public class GrupoDocumentoEntity
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setFecha(String value) {
+    public void setFecha(XMLGregorianCalendar value) {
         this.fecha = value;
     }
 

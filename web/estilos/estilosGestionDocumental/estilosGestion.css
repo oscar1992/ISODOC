@@ -276,14 +276,14 @@
     font-weight: bolder;
 }
 
-.ui-icon{
+/*.ui-icon{
     height: 16px;
     width: 16px;
     text-indent: -99999px;
     overflow: hidden;
     //background-image: url(/ISODOC/imagenes/buttons/flechaPequeña.png);
 }
-
+*/
 .ui-dialog-titlebar-close{
     background-image: url(/ISODOC/imagenes/buttons/cerrar.png);
     background-size: 100% 100%;
@@ -428,25 +428,25 @@
 }
 
 .ui-picklist-button-add-all{
-    background-image: url(/ISODOC/imagenes/buttons/flecha2.png);
+    background-image: url(/ISODOC/imagenes/buttons/f3.png);
     background-repeat: no-repeat;
     width: 26px;
     height: 26px;
 }
 .ui-picklist-button-remove-all{
-    background-image: url(/ISODOC/imagenes/buttons/flecha2.png);
+    background-image: url(/ISODOC/imagenes/buttons/f4.png);
     background-repeat: no-repeat;
     width: 26px;
     height: 26px;
 }
 .ui-picklist-button-add{
-    background-image: url(/ISODOC/imagenes/buttons/flecha2.png);
+    background-image: url(/ISODOC/imagenes/buttons/f2.png);
     background-repeat: no-repeat;
     width: 26px;
     height: 26px;
 }
 .ui-picklist-button-remove{
-    background-image: url(/ISODOC/imagenes/buttons/flecha2.png);
+    background-image: url(/ISODOC/imagenes/buttons/f1.png);
     background-repeat: no-repeat;
     width: 26px;
     height: 26px;

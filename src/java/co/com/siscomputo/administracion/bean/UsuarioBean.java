@@ -131,6 +131,7 @@ public class UsuarioBean implements Serializable {
         }
         usuarioObjeto = new UsuarioEntity();
         RequestContext.getCurrentInstance().execute("PF('actualizarUsuario').hide()");
+        
     }
 
     /**
@@ -193,6 +194,7 @@ public class UsuarioBean implements Serializable {
         eliminarUsuarioLista(usuarioObjeto);
         usuarioObjeto = new UsuarioEntity();
         RequestContext.getCurrentInstance().execute("PF('actualizarUsuario').hide()");
+        RequestContext.getCurrentInstance().execute("PF('confirmar').hide()");
         MensajesJSF.muestraMensajes( "Usuario eliminado correctamente: " + (usuarioObjeto.getNombre()), "Mensaje");
     }
 

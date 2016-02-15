@@ -3,7 +3,9 @@ package co.com.siscomputo.endpoint;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
@@ -19,7 +21,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="accionDocumento" type="{http://endpoint.siscomputo.com.co/}accionEntity" minOccurs="0"/>
  *         &lt;element name="empresaDocumento" type="{http://endpoint.siscomputo.com.co/}empresaEntity" minOccurs="0"/>
  *         &lt;element name="estadoDocumento" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="fechaDocumento" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="fechaDocumento" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
  *         &lt;element name="idDocumento" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="plantilla" type="{http://endpoint.siscomputo.com.co/}plantillaEntity" minOccurs="0"/>
  *         &lt;element name="procesoDocumento" type="{http://endpoint.siscomputo.com.co/}procesoEntity" minOccurs="0"/>
@@ -56,7 +58,8 @@ public class DocumentoEntity
     protected AccionEntity accionDocumento;
     protected EmpresaEntity empresaDocumento;
     protected String estadoDocumento;
-    protected String fechaDocumento;
+    @XmlSchemaType(name = "dateTime")
+    protected XMLGregorianCalendar fechaDocumento;
     protected int idDocumento;
     protected PlantillaEntity plantilla;
     protected ProcesoEntity procesoDocumento;
@@ -142,10 +145,10 @@ public class DocumentoEntity
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link XMLGregorianCalendar }
      *     
      */
-    public String getFechaDocumento() {
+    public XMLGregorianCalendar getFechaDocumento() {
         return fechaDocumento;
     }
 
@@ -154,10 +157,10 @@ public class DocumentoEntity
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setFechaDocumento(String value) {
+    public void setFechaDocumento(XMLGregorianCalendar value) {
         this.fechaDocumento = value;
     }
 

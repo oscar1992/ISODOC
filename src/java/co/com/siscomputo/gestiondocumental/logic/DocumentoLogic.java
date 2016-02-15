@@ -105,7 +105,7 @@ public class DocumentoLogic implements IurlWebService{
         try {
             System.out.println("F1: "+idTipoDocumental);
             ArrayList<Object>listaObjeto=new ArrayList<>();
-            listaObjeto=(ArrayList<Object>) portGestion().documetosFiltrados(idTipoDocumental, idPlantilla, idAccion).getRetorna();
+            listaObjeto=(ArrayList<Object>) portGestion().documetosFiltrados(idTipoDocumental, idPlantilla, idAccion,"","").getRetorna();
             for(Object obj:listaObjeto){
                 DocumentoEntity documentoEntity=(DocumentoEntity) obj;
                 listaretorna.add(documentoEntity);

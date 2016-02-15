@@ -25,6 +25,7 @@ import co.com.siscomputo.endpoint.TiposDocumentalesEntity;
 import co.com.siscomputo.endpoint.UsuarioEntity;
 import co.com.siscomputo.gestiondocumental.entities.GrupoUsuarioAccionProcesoEntity;
 import co.com.siscomputo.gestiondocumental.logic.GrupoDocumentoLogic;
+import co.com.siscomputo.utilidades.DateToCalendar;
 import co.com.siscomputo.utilidades.MensajesJSF;
 import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
 import java.io.IOException;
@@ -387,7 +388,7 @@ public class DocumentoBean implements Serializable {
                 calendar.setDay(Integer.parseInt(listaUAPE.getFechaLimite().substring(0, 2)));
 
                 //grupoDocumentoEntity.setFecha(calendar);  
-                grupoDocumentoEntity.setFecha(listaUAPE.getFechaLimite());
+                grupoDocumentoEntity.setFecha(calendar);
                 //System.out.println("CALENDAR: "+grupoDocumentoEntity.getFecha().toString());
                 //System.out.println("Lista: "+listaUAPE.getAccion().getNombreAccion());
                 //System.out.println("TTT: "+listaUAPE.getFechaLimite());
@@ -681,15 +682,16 @@ public class DocumentoBean implements Serializable {
         } else {
 
             for (DocumentoEntity documento : listaaux3) {
-                int ano = Integer.parseInt(documento.getFechaDocumento().substring(0, 4));
+                /*int ano = Integer.parseInt(documento.getFechaDocumento().substring(0, 4));
                 int mes = Integer.parseInt(documento.getFechaDocumento().substring(6, 7));
-                int dia = Integer.parseInt(documento.getFechaDocumento().substring(9, 10));
+                int dia = Integer.parseInt(documento.getFechaDocumento().substring(9, 10));*/
                 int dia2 = Integer.parseInt(Filtro4.substring(0, 2));
                 int mes2 = Integer.parseInt(Filtro4.substring(3, 4));
                 int ano2 = Integer.parseInt(Filtro4.substring(6, 10));
                 System.out.println("FECHA d: " + documento.getFechaDocumento());
                 System.out.println("FECHA: " + Filtro4);
-                Date fecha = new Date(ano, mes, dia);
+                DateToCalendar dateToCalendar=new DateToCalendar();
+                Date fecha = dateToCalendar.convertirInverso(documento.getFechaDocumento());
                 Date fecha2 = new Date(ano2, mes2, dia2);
 
                 System.out.println("Fecha 1: " + fecha.getTime());

@@ -148,10 +148,37 @@ public interface GestionDocumental {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "listaDocumento", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaDocumento")
-    @ResponseWrapper(localName = "listaDocumentoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaDocumentoResponse")
-    @Action(input = "http://endpoint.siscomputo.com.co/GestionDocumental/listaDocumentoRequest", output = "http://endpoint.siscomputo.com.co/GestionDocumental/listaDocumentoResponse")
-    public ObjetoRetornaEntity listaDocumento();
+    @RequestWrapper(localName = "listaDocumentoProceso", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaDocumentoProceso")
+    @ResponseWrapper(localName = "listaDocumentoProcesoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaDocumentoProcesoResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/GestionDocumental/listaDocumentoProcesoRequest", output = "http://endpoint.siscomputo.com.co/GestionDocumental/listaDocumentoProcesoResponse")
+    public ObjetoRetornaEntity listaDocumentoProceso();
+
+    /**
+     * 
+     * @param idTipoDoc
+     * @param idAccion
+     * @param fecha1
+     * @param fecha2
+     * @param idPlantilla
+     * @return
+     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "documetosFiltrados", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.DocumetosFiltrados")
+    @ResponseWrapper(localName = "documetosFiltradosResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.DocumetosFiltradosResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/GestionDocumental/documetosFiltradosRequest", output = "http://endpoint.siscomputo.com.co/GestionDocumental/documetosFiltradosResponse")
+    public ObjetoRetornaEntity documetosFiltrados(
+        @WebParam(name = "idTipoDoc", targetNamespace = "")
+        Integer idTipoDoc,
+        @WebParam(name = "idPlantilla", targetNamespace = "")
+        Integer idPlantilla,
+        @WebParam(name = "idAccion", targetNamespace = "")
+        Integer idAccion,
+        @WebParam(name = "fecha1", targetNamespace = "")
+        String fecha1,
+        @WebParam(name = "fecha2", targetNamespace = "")
+        String fecha2);
 
     /**
      * 
@@ -202,30 +229,9 @@ public interface GestionDocumental {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "listaDocumentoProceso", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaDocumentoProceso")
-    @ResponseWrapper(localName = "listaDocumentoProcesoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaDocumentoProcesoResponse")
-    @Action(input = "http://endpoint.siscomputo.com.co/GestionDocumental/listaDocumentoProcesoRequest", output = "http://endpoint.siscomputo.com.co/GestionDocumental/listaDocumentoProcesoResponse")
-    public ObjetoRetornaEntity listaDocumentoProceso();
-
-    /**
-     * 
-     * @param idTipoDoc
-     * @param idAccion
-     * @param idPlantilla
-     * @return
-     *     returns co.com.siscomputo.endpoint.ObjetoRetornaEntity
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "documetosFiltrados", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.DocumetosFiltrados")
-    @ResponseWrapper(localName = "documetosFiltradosResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.DocumetosFiltradosResponse")
-    @Action(input = "http://endpoint.siscomputo.com.co/GestionDocumental/documetosFiltradosRequest", output = "http://endpoint.siscomputo.com.co/GestionDocumental/documetosFiltradosResponse")
-    public ObjetoRetornaEntity documetosFiltrados(
-        @WebParam(name = "idTipoDoc", targetNamespace = "")
-        Integer idTipoDoc,
-        @WebParam(name = "idPlantilla", targetNamespace = "")
-        Integer idPlantilla,
-        @WebParam(name = "idAccion", targetNamespace = "")
-        Integer idAccion);
+    @RequestWrapper(localName = "listaDocumento", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaDocumento")
+    @ResponseWrapper(localName = "listaDocumentoResponse", targetNamespace = "http://endpoint.siscomputo.com.co/", className = "co.com.siscomputo.endpoint.ListaDocumentoResponse")
+    @Action(input = "http://endpoint.siscomputo.com.co/GestionDocumental/listaDocumentoRequest", output = "http://endpoint.siscomputo.com.co/GestionDocumental/listaDocumentoResponse")
+    public ObjetoRetornaEntity listaDocumento();
 
 }

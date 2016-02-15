@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition template="/plantillas/PlantillaAdministracion.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form id="TipoCuentaForm">
+                    <div class="prueba" style="color: white; ">
+                        <p:growl id="msgs" showDetail="true" life="3000" autoUpdate="true"/>
+                    </div>
+                    <p:dataTable var="tipoCuenta" value="#{TipoCuenta.lista}" reflow="true" widgetVar="TablaTipoCuenta" id="tablaTipoCuenta" selectionMode="single"
+                                 selection="#{TipoCuenta.objetoTipoCuenta}" rowKey="#{tipoCuenta.idTipoCuenta}" class="TABLA" paginator="true" rows="7">
+                        <p:ajax event="rowSelect" listener="#{TipoCuenta.onRowSelect}" update=":TipoCuentaForm:msgs,:ActualizarModal:actualizarTipoCuentaModal" oncomplete="PF('actualizarTipoCuenta').show()"/>
+                        <f:facet name="header">
+                            <h:outputText value="CONSULTA DE TIPO DE CUENTA" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                            <p:inputText id="globalFilter" onkeyup="PF('TablaTipoCuenta').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                            <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                        </f:facet>
+
+                        <p:column headerText="Nombre del Tipo de Cuenta" filterBy="#{tipoCuenta.tipoTipoCuenta}">
+                            <h:outputText value="#{tipoCuenta.tipoTipoCuenta}"/>
+                        </p:column>
+                        <p:column headerText="estado del Tipo de Cuenta" filterBy="#{tipoCuenta.estadoTipoCuenta}">
+                            <h:outputText value="Activo" rendered="#{tipoCuenta.estadoTipoCuenta == 'A'}"/>
+                            <h:outputText value="Inctivo" rendered="#{tipoCuenta.estadoTipoCuenta == 'I'}"/> </p:column>
+
+                    </p:dataTable>
+                    <br/>
+                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarTipoCuenta').show();" update=":TipoCuentaForm:msgs" class="botonNormal" rendered="#{TipoCuenta.ingresar}"></p:commandButton>
+
+                </h:form>
+                <h:form id="IngresarModal">
+                    <p:dialog header="Insertar Tipo de Cuenta" widgetVar="insertarTipoCuenta" modal="true" id="insertarTipoCuentaModal" responsive="true">
+                        #{TipoCuenta.nuevoTipoCuentaObjeto()}                        
+                        <p:messages autoUpdate="true"/>                        
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+
+   
+                            <h:outputText value="Nombre del Tipo de Cuenta"></h:outputText>
+                            <p:inputText required="true" label="nombre del Tipo de Cuenta" value="#{TipoCuenta.objetoTipoCuentaInsercion.tipoTipoCuenta}"/>
+
+                            <h:outputText value="Estado del Tipo de Cuenta"></h:outputText>
+                            <p:selectOneMenu required="true" id="desplegableIngresarEstado" value="#{TipoCuenta.objetoTipoCuentaInsercion.estadoTipoCuenta}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+
+                        </p:panelGrid>                        
+                        <p:commandButton value="Ingresar" update=":TipoCuentaForm:tablaTipoCuenta" actionListener="#{TipoCuenta.instertarTipoCuenta()}" validateClient="true" class="botonNormal" />
+                    </p:dialog>
+                </h:form>
+                <h:form id="ActualizarModal">
+                    <p:dialog header="Actualizar Tipo de Cuenta" widgetVar="actualizarTipoCuenta" modal="true" id="actualizarTipoCuentaModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            
+                            <h:outputText value="tipo del Tipo de Cuenta"></h:outputText>
+                            <p:inputText required="true" label="nombre del Tipo de Cuenta" value="#{TipoCuenta.objetoTipoCuenta.tipoTipoCuenta}"/>
+
+
+                            <h:outputText value="Estado del Tipo de Cuenta"></h:outputText>
+                            <p:selectOneMenu required="true" id="desplegableActualizarEstado" value="#{TipoCuenta.objetoTipoCuenta.estadoTipoCuenta}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Tipo de Cuenta" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+                            <h:inputHidden value="#{TipoCuenta.objetoTipoCuenta.idTipoCuenta}"></h:inputHidden>
+                        </p:panelGrid>
+                        <p:commandButton  value="Actualizar" update=":TipoCuentaForm:tablaTipoCuenta,TipoCuentaForm:msgs" actionListener="#{TipoCuenta.actualizarTipoCuenta()}" validateClient="true" class="botonNormal" rendered="#{TipoCuenta.actualizar}"/>
+                        <p:commandButton value="Eliminar" update=":TipoCuentaForm:tablaTipoCuenta,:ActualizarModal:actualizarTipoCuentaModal,TipoCuentaForm:msgs" actionListener="#{TipoCuenta.eliminarTipoCuenta()}" validateClient="true" class="botonNormal" rendered="#{TipoCuenta.eliminar}"/>
+                    </p:dialog>
+                </h:form>
+
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>

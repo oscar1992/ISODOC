@@ -6,13 +6,9 @@
 package co.com.siscomputo.administracion.logic;
 
 import co.com.siscomputo.endpoint.CiudadEntity;
-import co.com.siscomputo.endpoint.Usuario;
-import co.com.siscomputo.endpoint.Usuario_Service;
 import co.com.siscomputo.utilidades.IurlWebService;
-import co.com.siscomputo.utilidades.SingletonDirecciones;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.ws.BindingProvider;
 
 /**
  *
@@ -84,5 +80,16 @@ public class CiudadLogic implements IurlWebService{
             rta="Exception";
         }
         return rta;
+    }
+    
+    public ArrayList<CiudadEntity> ciudadPorPais(int idPais){
+        ArrayList<CiudadEntity> lista=new ArrayList<>();
+        ArrayList<Object> listaObjeto=new ArrayList<>();        
+        listaObjeto=(ArrayList<Object>) portUsuario().ciudadesPorPais(idPais).getRetorna();
+        for(Object item:listaObjeto){
+            CiudadEntity ciudad=(CiudadEntity)item;
+            lista.add(ciudad);
+        }
+        return lista;
     }
 }

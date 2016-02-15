@@ -16,6 +16,7 @@ import co.com.siscomputo.administracion.logic.ProcesoLogic;
 import co.com.siscomputo.administracion.logic.RolesLogic;
 import co.com.siscomputo.administracion.logic.SedesLogic;
 import co.com.siscomputo.administracion.logic.TiposDocumentalesLogic;
+import co.com.siscomputo.administracion.logic.UsuarioLogic;
 import co.com.siscomputo.endpoint.AccionEntity;
 import co.com.siscomputo.endpoint.AreaEntity;
 import co.com.siscomputo.endpoint.DepartamentoEntity;
@@ -29,6 +30,7 @@ import co.com.siscomputo.endpoint.ProcesoEntity;
 import co.com.siscomputo.endpoint.RolesEntity;
 import co.com.siscomputo.endpoint.SedeEntity;
 import co.com.siscomputo.endpoint.TiposDocumentalesEntity;
+import co.com.siscomputo.endpoint.UsuarioEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,9 +50,6 @@ public class ListaAdministracionBean implements Serializable {
     private Map<String, Integer> listaPaises;
     private Map<String, Integer> listaDepartamentos;
     private Map<String, Integer> listaRoles;
-    private Map<String, Integer> listaMacroProcesos;
-    private Map<String, Integer> listaProcesos;
-    private Map<String, Integer> listaSubProcesos;
     private Map<String, Integer> listaAreas;
     private Map<String, String> listaGeneracionTipoDocumental;
     private Map<String, Integer> listaTipoDocumento;
@@ -60,6 +59,7 @@ public class ListaAdministracionBean implements Serializable {
     private Map<String, Integer> listaAcciones;
     private Map<String, Integer> listaProceso;
     private Map<String, Integer> listaEmpresas;
+    private Map<String, Integer> listaUsuarios;
 
     private int seleccion;
     private Integer idMacroProceso;
@@ -206,16 +206,6 @@ public class ListaAdministracionBean implements Serializable {
     }
 
 
-    public void setListamacroProcesos(Map<String, Integer> listamacroProcesos) {
-        this.listaMacroProcesos = listamacroProcesos;
-    }
-    
-
-    public void setListaProcesos(Map<String, Integer> listaProcesos) {
-        this.listaProcesos = listaProcesos;
-    }
-
-
     public Map<String, Integer> getListaAreas() {
         iniciarAreas();
         return listaAreas;
@@ -290,11 +280,6 @@ public class ListaAdministracionBean implements Serializable {
         for (PlantillaEntity plantilla : listaPlantillaWS) {
             listaPlantillas.put(plantilla.getNombrePlantilla(), plantilla.getIdPlantilla());
         }
-    }
-
-
-    public void setListaSubProcesos(Map<String, Integer> listaSubProcesos) {
-        this.listaSubProcesos = listaSubProcesos;
     }
 
     public Map<String, Integer> getListaNivelProceso() {
@@ -405,5 +390,24 @@ public class ListaAdministracionBean implements Serializable {
         for (EmpresaEntity empresa : listaEmpresasWS) {
             listaEmpresas.put(empresa.getNombreEmpresa(), empresa.getIdEmpresa());
         }
+    }
+
+    public Map<String, Integer> getListaUsuarios() {
+        iniciaListaUsuarios();
+        return listaUsuarios;
+    }
+
+    public void setListaUsuarios(Map<String, Integer> listaUsuarios) {
+        this.listaUsuarios = listaUsuarios;
+    }
+    
+    public void iniciaListaUsuarios(){
+        listaUsuarios=new HashMap<String, Integer>();
+        UsuarioLogic usuarioLogic=new UsuarioLogic();
+        ArrayList<UsuarioEntity>listaUsuariosWS=usuarioLogic.listaUsuarios();
+        for(UsuarioEntity usuario:listaUsuariosWS){
+            listaUsuarios.put(usuario.getNombreUsuario(), usuario.getIdUsuario());
+        }
+        
     }
 }

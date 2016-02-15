@@ -9,6 +9,7 @@ import co.com.siscomputo.administracion.bean.ListaAdministracionBean;
 import co.com.siscomputo.administracion.logic.AccionLogic;
 import co.com.siscomputo.administracion.logic.GrupoProcesoLogic;
 import co.com.siscomputo.administracion.logic.NivelLogic;
+import co.com.siscomputo.administracion.logic.PlantillaLogic;
 import co.com.siscomputo.administracion.logic.ProcesoLogic;
 import co.com.siscomputo.administracion.logic.RutasLogic;
 import co.com.siscomputo.administracion.logic.TiposDocumentalesLogic;
@@ -33,8 +34,10 @@ import co.com.siscomputo.gestiondocumental.entities.GrupoUsuarioAccionProcesoEnt
 import co.com.siscomputo.gestiondocumental.logic.DocumentoLogic;
 import co.com.siscomputo.gestiondocumental.logic.GrupoDocumentoLogic;
 import co.com.siscomputo.gestiondocumental.logic.UsuarioDocumentoLogic;
+import co.com.siscomputo.utilidades.DateToCalendar;
 import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -43,20 +46,26 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import static java.util.Arrays.stream;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
+import static java.util.stream.StreamSupport.stream;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 import javax.xml.datatype.XMLGregorianCalendar;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.TransferEvent;
+import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.DualListModel;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 /**
@@ -87,6 +96,7 @@ public class crearDocumentoBean implements Serializable {
     private ArrayList<ProcesoEntity> listaSeleccion;
     private HashMap<String, Integer> listaIdsUsuarios;
     private UploadedFile archivo;
+    private StreamedContent archivo2;
 
     private boolean ingresar;
     private boolean actualizar;
@@ -228,6 +238,16 @@ public class crearDocumentoBean implements Serializable {
         this.archivo = archivo;
     }
 
+    public StreamedContent getArchivo2() {
+        return archivo2;
+    }
+
+    public void setArchivo2(StreamedContent archivo2) {
+        this.archivo2 = archivo2;
+    }
+    
+    
+
     public boolean isIngresar() {
         return ingresar;
     }
@@ -351,7 +371,8 @@ public class crearDocumentoBean implements Serializable {
             objetoDocumentoInsercion.setProcesoDocumento(procesoSeleccion);
             DocumentoLogic documentoLogic = new DocumentoLogic();
             DocumentoEntity documentoEntity = documentoLogic.insertarDocumento(objetoDocumentoInsercion);
-            documentoEntity.setFechaDocumento(""+new java.sql.Date(System.currentTimeMillis()));
+            DateToCalendar dateToCalendar=new DateToCalendar();
+            documentoEntity.setFechaDocumento(dateToCalendar.convertir(new java.util.Date(System.currentTimeMillis())));
             
             GrupoDocumentoLogic grupoDocumentoLogic = new GrupoDocumentoLogic();
             GrupoDocumentoEntity grupoDocumentoEntity = new GrupoDocumentoEntity();
@@ -364,13 +385,16 @@ public class crearDocumentoBean implements Serializable {
                     documentoEntity.setAccionDocumento(listaUAPE.getAccion());
                     documentoLogic.actualizarDocumento(documentoEntity);
                 }
+                
                 XMLGregorianCalendar calendar = new XMLGregorianCalendarImpl();
-                calendar.setYear(Integer.parseInt(listaUAPE.getFechaLimite().substring(6, 10)));
+                //calendar.setYear();
                 calendar.setMonth(Integer.parseInt(listaUAPE.getFechaLimite().substring(3, 5)));
                 calendar.setDay(Integer.parseInt(listaUAPE.getFechaLimite().substring(0, 2)));
-
+                Date fechaaux=new Date(Integer.parseInt(listaUAPE.getFechaLimite().substring(6, 10)), Integer.parseInt(listaUAPE.getFechaLimite().substring(3, 5)), Integer.parseInt(listaUAPE.getFechaLimite().substring(0, 2)));
                 //grupoDocumentoEntity.setFecha(calendar);  
-                grupoDocumentoEntity.setFecha(listaUAPE.getFechaLimite());
+                
+                grupoDocumentoEntity.setFecha(dateToCalendar.convertir(fechaaux));
+                System.out.println("FECHA: "+grupoDocumentoEntity.getFecha().toString());
                 //System.out.println("CALENDAR: "+grupoDocumentoEntity.getFecha().toString());
                 System.out.println("Lista: " + listaUAPE.getAccion().getNombreAccion());
                 //System.out.println("TTT: "+listaUAPE.getFechaLimite());}
@@ -705,6 +729,7 @@ public class crearDocumentoBean implements Serializable {
                     e.printStackTrace();
                 }
             }
+        RequestContext.getCurrentInstance().execute("PF('subir').hide()");
     }
     
     /**
@@ -716,8 +741,10 @@ public class crearDocumentoBean implements Serializable {
     public String alamcenarArchivo(String nombre, InputStream in) throws FileNotFoundException, IOException {
         String ruta="";
         try {
-            RutasLogic rutasLogic=new RutasLogic();
-            ruta = rutasLogic.rutasPorTipo("DOCUMENTOS").getCarpetaRutas();
+            //RutasLogic rutasLogic=new RutasLogic();
+            //ruta = rutasLogic.rutasPorTipo("DOCUMENTOS").getCarpetaRutas();
+            ResourceBundle rb=ResourceBundle.getBundle("co.com.siscomputo.archivos.RUTAS");
+            ruta=rb.getString("DOCUMENTOS").trim();
             ruta += nombre;
             System.out.println("RUTA: " + ruta);
             OutputStream out = new FileOutputStream(new File(ruta));
@@ -741,7 +768,27 @@ public class crearDocumentoBean implements Serializable {
         objetoProceso = new ProcesoEntity();
         flag = true;
     }
-
+    /**
+     * Método que selecciona un archivo de plantilla para descargar
+     */
+   public void seleccionaDescarga() throws FileNotFoundException{
+       PlantillaLogic plantillaLogic=new PlantillaLogic();
+       PlantillaEntity plantillaEntity=plantillaLogic.PlantillaPorId(objetoDocumentoInsercion.getPlantilla().getIdPlantilla());
+       System.out.println("RUTA: "+plantillaEntity.getRutaPlantilla()+" NOM: "+plantillaEntity.getNombrePlantilla());
+       InputStream stream=new FileInputStream(plantillaEntity.getRutaPlantilla());               
+       archivo2=new DefaultStreamedContent(stream, "", nombreArchivo(plantillaEntity.getRutaPlantilla()));  
+   }
+    
+   public String nombreArchivo(String url){
+       String aux = null;
+       for(int i=url.length()-1;i>=0;i--){
+           if(url.charAt(i)=='/'){
+               aux=url.substring(i, url.length());
+           }
+       }
+       return aux;
+   }
+   
     /**
      * Método que evalua los accesos al formulario
      */

@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition template="/plantillas/PlantillaAdministracion.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form id="FormasPagoForm">
+                    <div class="prueba" style="color: white; ">
+                        <p:growl id="msgs" showDetail="true" life="3000" autoUpdate="true"/>
+                    </div>
+                    <p:dataTable var="formasPago" value="#{FormasPago.lista}" reflow="true" widgetVar="TablaFormasPago" id="tablaFormasPago" selectionMode="single"
+                                 selection="#{FormasPago.objetoFormasPago}" rowKey="#{formasPago.idFormasPagos}" class="TABLA" paginator="true" rows="7">
+                        <p:ajax event="rowSelect" listener="#{FormasPago.onRowSelect}" update=":FormasPagoForm:msgs,:ActualizarModal:actualizarFormasPagoModal" oncomplete="PF('actualizarFormasPago').show()"/>
+                        <f:facet name="header">
+                            <h:outputText value="CONSULTA DE FORMA DE PAGO" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                            <p:inputText id="globalFilter" onkeyup="PF('TablaFormasPago').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                            <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                        </f:facet>
+
+                        <p:column headerText="tipo del Forma de Pago" filterBy="#{formasPago.tipoFormaPago}">
+                            <h:outputText value="#{formasPago.tipoFormaPago}"/>
+                        </p:column>
+                        <p:column headerText="estado del Forma de Pago" filterBy="#{formasPago.estadoFormaPago}">
+                            <h:outputText value="Activo" rendered="#{formasPago.estadoFormaPago == 'A'}"/>
+                            <h:outputText value="Inctivo" rendered="#{formasPago.estadoFormaPago == 'I'}"/> </p:column>
+
+                    </p:dataTable>
+                    <br/>
+                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarFormasPago').show();" update=":FormasPagoForm:msgs" class="botonNormal" rendered="#{FormasPago.ingresar}"></p:commandButton>
+
+                </h:form>
+                <h:form id="IngresarModal">
+                    <p:dialog header="Insertar Forma de Pago" widgetVar="insertarFormasPago" modal="true" id="insertarFormasPagoModal" responsive="true">
+                        #{FormasPago.nuevoFormasPagoObjeto()}                        
+                        <p:messages autoUpdate="true"/>                        
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+
+                    
+                            <h:outputText value="tipo del Forma de Pago"></h:outputText>
+
+                            <p:inputText required="true" label="nombre del Forma de Pago" value="#{FormasPago.objetoFormasPagoInsercion.tipoFormaPago}"/>
+
+                            <h:outputText value="Estado del Forma de Pago"></h:outputText>
+                            <p:selectOneMenu required="true" id="desplegableIngresarEstado" value="#{FormasPago.objetoFormasPagoInsercion.estadoFormaPago}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+
+                        </p:panelGrid>                        
+                        <p:commandButton value="Ingresar" update=":FormasPagoForm:tablaFormasPago" actionListener="#{FormasPago.instertarFormasPago()}" validateClient="true" class="botonNormal" />
+                    </p:dialog>
+                </h:form>
+                <h:form id="ActualizarModal">
+                    <p:dialog header="Actualizar Forma de Pago" widgetVar="actualizarFormasPago" modal="true" id="actualizarFormasPagoModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            <h:outputText value="tipo del Forma de Pago"></h:outputText>
+                            <p:inputText required="true" label="nombre del Forma de Pago" value="#{FormasPago.objetoFormasPago.tipoFormaPago}"/>
+
+
+                            <h:outputText value="Estado del Forma de Pago"></h:outputText>
+                            <p:selectOneMenu required="true" id="desplegableActualizarEstado" value="#{FormasPago.objetoFormasPago.estadoFormaPago}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Forma de Pago" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+                            <h:inputHidden value="#{FormasPago.objetoFormasPago.idFormasPagos}"></h:inputHidden>
+                        </p:panelGrid>
+                        <p:commandButton  value="Actualizar" update=":FormasPagoForm:tablaFormasPago,FormasPagoForm:msgs" actionListener="#{FormasPago.actualizarFormasPago()}" validateClient="true" class="botonNormal" rendered="#{FormasPago.actualizar}"/>
+                        <p:commandButton value="Eliminar" update=":FormasPagoForm:tablaFormasPago,:ActualizarModal:actualizarFormasPagoModal,FormasPagoForm:msgs" actionListener="#{FormasPago.eliminarFormasPago()}" validateClient="true" class="botonNormal" rendered="#{FormasPago.eliminar}"/>
+                    </p:dialog>
+                </h:form>
+
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>

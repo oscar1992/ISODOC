@@ -16,6 +16,7 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -277,8 +278,10 @@ public class PlantillaBean implements Serializable {
      */
     public void alamcenarArchivo(String nombre, InputStream in) throws FileNotFoundException, IOException {
         try {
-            RutasLogic rutasLogic=new RutasLogic();
-            String ruta = rutasLogic.rutasPorTipo("PRUEBA").getCarpetaRutas();
+            //RutasLogic rutasLogic=new RutasLogic();
+            //String ruta = rutasLogic.rutasPorTipo("PRUEBA").getCarpetaRutas();
+            ResourceBundle rb=ResourceBundle.getBundle("co.com.siscomputo.archivos.RUTAS");
+            String ruta=rb.getString("PRUEBA").trim();
             ruta += nombre;
             System.out.println("RUTA: " + ruta);
             OutputStream out = new FileOutputStream(new File(ruta));

@@ -82,7 +82,7 @@ public class AccesoBean {
                             objetoUsuario = loginLogic.getUsuarioObject();
                         }
                         url = "/inicio/principal";
-                        MensajesJSF.muestraMensajes("Bienvenido", "Mensaje");
+                        MensajesJSF.muestraMensajes("Bienvenido", "Mensaje");                        
                         MenuLogic menuLogic = new MenuLogic();
                         ArrayList<MenuModuloEntity> menu = menuLogic.obtieneMenuPorUsuario(objetoLogin.getIdUsuario());
                         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idUsuario", objetoLogin.getIdUsuario());
@@ -101,6 +101,7 @@ public class AccesoBean {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("ENTRA: "+url);
         return url;
     }
 

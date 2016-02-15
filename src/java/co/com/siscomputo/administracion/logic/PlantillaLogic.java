@@ -74,6 +74,7 @@ public class PlantillaLogic implements IurlWebService{
     /**
      * Método que devuelve una plantilla seleccionada por su ID
      * @param idPlantilla
+     * @return 
      */
     public PlantillaEntity PlantillaPorId(int idPlantilla){
         

@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition template="/plantillas/PlantillaProveedores.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form id="ProveedoresForm">
+                    <div class="prueba" style="color: white; ">
+                        <p:growl id="msgs" showDetail="true" life="3000" autoUpdate="true"/>
+                    </div>
+                    :V
+                    <h:outputText value="ABC"/>         
+                    #{Plantilla.limitaExtensiones()}
+                    <p:panelGrid columns="4" layout="tabular">
+                        <f:facet name="header">
+                            <p:row>
+                                <p:column colspan="4" style="border-width: 1px">Proveedores</p:column>
+                            </p:row>
+                        </f:facet>
+                        <h:outputText value="Fecha de Creación" />
+                        <h:outputText value="#{Proveedores.fechaActual}"/>
+                        <h:outputText value="Estado"/>
+                        <p:selectOneMenu value="#{Proveedores.objetoProveedoresInsercion.estadoProveedor}" style="width: 150px">
+                            <f:selectItems value="#{Proveedores.listaEstados}" itemValue="#{lestados}" itemLabel="#{lestados.tipoEstadoProveedor}" var="lestados"/>
+                        </p:selectOneMenu>                        
+                        <h:outputText value="Razón social o nombres y apellidos:*"/>
+                        <p:inputText value="#{Proveedores.objetoProveedoresInsercion.nombreProveedor}"/>
+                        <h:outputText value="Tipo Documento:*"/>
+                        <p:inputText value="#{Proveedores.objetoProveedoresInsercion.tipoDocumentoProveedor}"/>
+                        <h:outputText value="País"/>
+                        <p:selectOneMenu value="#{Proveedores.pais.idPais}" style="width: 150px">
+                            <p:ajax listener="#{Proveedores.cargaCiudad}" update=":ProveedoresForm:lciu"/>
+                            <f:selectItems value="#{Proveedores.listaPais}" itemValue="#{lpais.idPais}" itemLabel="#{lpais.nombrePais}" var="lpais"/>
+                        </p:selectOneMenu>
+                        <h:outputText value="Ciudad"/>
+                        <p:selectOneMenu id="lciu" value="#{Proveedores.objetoProveedoresInsercion.ciudadProveedor}" style="width: 150px">
+                            <f:selectItems value="#{Proveedores.listaCiudad}" itemValue="#{lciud.idCiudad}" itemLabel="#{lciud.nombreCiudad}" var="lciud"/>
+                        </p:selectOneMenu>
+                        <h:outputText value="Teléfono"/>
+                        <p:inputText value="#{Proveedores.objetoProveedoresInsercion.telefonoProveedor}"/>
+                        <h:outputText value="Dirección"/>
+                        <p:inputText value="#{Proveedores.objetoProveedoresInsercion.direccionProveedor}"/>
+                        <h:outputText value="Celular"/>
+                        <p:inputText value="#{Proveedores.objetoProveedoresInsercion.celularProveedor}"/>
+                        <h:outputText value="Página Web"/>
+                        <p:inputText value="#{Proveedores.objetoProveedoresInsercion.paginaWebProveedor}"/>
+                        <h:outputText value="Correo Electrónico"/>
+                        <p:inputText value="#{Proveedores.objetoProveedoresInsercion.emailProveedor}"/>
+                        <h:outputText value="Línea"/>                
+                        <p:selectOneMenu id="lclin" value="#{Proveedores.objetoProveedoresInsercion.lineaProveedores.idLinea}" style="width: 150px">
+                            <f:selectItems value="#{ListaProveedoresBean.listaLineas}" />
+                        </p:selectOneMenu>
+                        <h:outputText value="Empresa"/>                
+                        <p:selectOneMenu id="lempr" value="#{Proveedores.objetoProveedoresInsercion.empresaProveedor.idEmpresa}" style="width: 150px">
+                            <f:selectItems value="#{ListaAdministracionBean.listaEmpresas}" />
+                        </p:selectOneMenu>
+                        <h:outputText value="responsable"/>
+                        <p:selectOneMenu id="lusua" value="#{Proveedores.objetoProveedoresInsercion.usuarioResponsable.idUsuario}" style="width: 150px">
+                            <f:selectItems value="#{ListaAdministracionBean.listaUsuarios}" />
+                        </p:selectOneMenu>
+                        <h:outputText value="anexos:"/>
+                        <p:fileUpload id="subirArchivo" required="true" requiredMessage="debe subir un archivo" uploadLabel="Subir" cancelLabel="Cancelar" allowTypes="/(\.|\/)(gif#{Plantilla.extensiones})$/" invalidFileMessage="Archivo Inválido" multiple="false" fileUploadListener="#{Proveedores.subriArchivo}" label="Subir"/>
+
+
+                    </p:panelGrid>  
+                    <br/>
+                    <p:panelGrid columns="4" layout="tabular">
+                        <f:facet name="header">
+                            <p:row>
+                                <p:column colspan="4" style="border-width: 1px">Contacto</p:column>
+                            </p:row>
+                        </f:facet>
+                        <h:outputText value="Nombres y Apellidos:"/>
+                        <p:inputText value="#{Proveedores.objetoProveedoresInsercion.nombreContacto}"/>
+                        <h:outputText value="Cargo en la empresa:"/>
+                        <p:inputText value="#{Proveedores.objetoProveedoresInsercion.cargoContacto}"/>
+                        <h:outputText value="Teléfono:"/>
+                        <p:inputText value="#{Proveedores.objetoProveedoresInsercion.telefonoContacto}"/>
+                        <h:outputText value="Email:"/>
+                        <p:inputText value="#{Proveedores.objetoProveedoresInsercion.emailContacto}"/>
+                    </p:panelGrid>
+                    <p:panelGrid columns="4" layout="tabular">
+                        <h:outputText value="Tipo de Proveedor"/>
+                        <p:selectOneMenu id="lusua" value="#{Proveedores.objetoProveedoresInsercion.idTipoProveedor.idTipoProveedor}" style="width: 150px">
+                            <f:selectItems value="#{ListaProveedoresBean.listaTipoProveedor}" />
+                        </p:selectOneMenu>
+                        <h:outputText value="Información Básica Tributaria"/>
+                        <p:selectOneMenu id="lusua" value="#{Proveedores.objetoProveedoresInsercion.idTipoProveedor.idTipoProveedor}" style="width: 150px">
+                            <f:selectItems value="#{ListaProveedoresBean.listaTipoProveedor}" />
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                </h:form>
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>

@@ -32,6 +32,7 @@
                                 </p:selectOneMenu>
                                 <h:outputText value="Plantilla del Documento"></h:outputText>
                                 <p:selectOneMenu required="true" id="desplegableIngresarPlantilla" requiredMessage="Debe seleccionar una Plantilla" value="#{CrearDocumento.objetoDocumentoInsercion.plantilla.idPlantilla}">
+                                    <p:ajax listener="#{CrearDocumento.seleccionaDescarga}" update="descarga"/>
                                     <f:selectItem itemLabel="Selecione la Plantilla del Documento" itemValue="" noSelectionOption="true"/>
                                     <f:selectItems value="#{ListaAdministracionBean.listaPlantillas}"/>
                                 </p:selectOneMenu>
@@ -47,8 +48,10 @@
                                     <f:selectItem itemLabel="Selecione una Empresa" itemValue="" noSelectionOption="true"/>
                                     <f:selectItems value="#{ListaAdministracionBean.listaEmpresas}"/>
                                 </p:selectOneMenu> 
-                                #{Plantilla.limitaExtensiones()}
-                                <p:fileUpload id="subirArchivo" required="true" requiredMessage="debe subir un archivo" uploadLabel="Subir" cancelLabel="Cancelar" allowTypes="/(\.|\/)(gif#{Plantilla.extensiones})$/" invalidFileMessage="Archivo Inválido" multiple="false" fileUploadListener="#{CrearDocumento.subriArchivo}" label="Subir"/>
+                                <h:outputText value="Plantilla"></h:outputText>
+                                <p:commandButton id="descarga" value="Descargar" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+                                    <p:fileDownload value="#{CrearDocumento.archivo2}" />
+                                </p:commandButton>
                             </p:panelGrid>
                         </div>
                     </div>
@@ -75,7 +78,7 @@
                             </p:columnGroup>
                         </p:dataTable>
                     </p:panelGrid>   
-                    <p:commandButton value="Asignar Usuarios" update=":IngresarModal:asignados" process="@this,nombre,desplegableIngresarPlantilla,version,desplegableIngresarEstado,desplegableIngresarEmpresa,desplegableIngresarTipoD,subirArchivo" actionListener="#{CrearDocumento.evalua()}" class="botonNormal" validateClient="true" />
+                    <p:commandButton value="Asignar Usuarios" update=":IngresarModal:asignados" process="@this,nombre,desplegableIngresarPlantilla,version,desplegableIngresarEstado,desplegableIngresarEmpresa,desplegableIngresarTipoD" actionListener="#{CrearDocumento.evalua()}" class="botonNormal" validateClient="true" />
                     <p:panelGrid class="TABLA" id="asignados">
                         <f:facet name="header">
                             <p:row>
@@ -126,13 +129,22 @@
                             </p:row>
                         </ui:repeat>
                     </p:panelGrid>
-                    <p:commandButton id="Ingresar" value="Ingresar" update=":IngresarModal,:IngresarModal:msgs" actionListener="#{CrearDocumento.instertarDocumento()}" validateClient="true" class="botonNormal" ajax="true"/>
+                    <p:commandButton id="Ingresar" value="Ingresar" update=":IngresarModal,:IngresarModal:msgs" actionListener="#{CrearDocumento.instertarDocumento()}" validateClient="true" class="botonNormal" ajax="true" onstart="PF('subir').show()"/>
                     <br/>
 
                 </h:form>
+                <h:form id="subirA">
+                    <p:dialog widgetVar="subir" id="Subir" modal="true" draggable="false" closable="false" resizable="false" >
+                        <p:panelGrid>
+                            #{Plantilla.limitaExtensiones()}
+                            <p:fileUpload id="subirArchivo" required="true" requiredMessage="debe subir un archivo" uploadLabel="Subir" cancelLabel="Cancelar" allowTypes="/(\.|\/)(gif#{Plantilla.extensiones})$/" invalidFileMessage="Archivo Inválido" multiple="false" fileUploadListener="#{CrearDocumento.subriArchivo}" label="Subir"/>
+                        </p:panelGrid>
+                    </p:dialog>
+                </h:form>
                 <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
                 <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">                    
-                    <img src="/ISODOC/imagenes/buttons/Cargando.gif"/>
+                    
+                    <img src="/ISODOC/imagenes/buttons/carga2.gif" style="opacity:0.4;"/>
                 </p:dialog>
             </h:body>
         </ui:define>
