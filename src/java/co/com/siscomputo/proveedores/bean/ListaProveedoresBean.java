@@ -5,10 +5,14 @@
  */
 package co.com.siscomputo.proveedores.bean;
 
+import co.com.siscomputo.endpoint.FormasPagoEntity;
 import co.com.siscomputo.endpoint.LineaEntity;
+import co.com.siscomputo.endpoint.TipoCuentaEntity;
 import co.com.siscomputo.endpoint.TipoProveedorEntity;
 import co.com.siscomputo.endpoint.TipoTributarioEntity;
+import co.com.siscomputo.proveedores.logic.FormasPagoLogic;
 import co.com.siscomputo.proveedores.logic.LineaLogic;
+import co.com.siscomputo.proveedores.logic.TipoCuentaLogic;
 import co.com.siscomputo.proveedores.logic.TipoProveedorLogic;
 import co.com.siscomputo.proveedores.logic.TipoTributarioLogic;
 import java.io.Serializable;
@@ -25,6 +29,8 @@ public class ListaProveedoresBean implements Serializable{
     private HashMap<String, Integer>listaLineas;
     private HashMap<String, Integer>listaTipoProveedor;
     private HashMap<String, Integer>listaTipoTributaria;
+    private HashMap<String, Integer>listaTipoCuenta;
+    private HashMap<String, Integer>listaFormaPago;
     
     
 
@@ -65,6 +71,7 @@ public class ListaProveedoresBean implements Serializable{
     }
 
     public HashMap<String, Integer> getListaTipoTributaria() {
+        iniciaListaTipoTributaria();
         return listaTipoTributaria;
     }
 
@@ -77,7 +84,43 @@ public class ListaProveedoresBean implements Serializable{
         TipoTributarioLogic tipoTributarioLogicLogic=new TipoTributarioLogic();
         ArrayList<TipoTributarioEntity>listaTipoTributariaWS=tipoTributarioLogicLogic.listaTipoTributario();
         for(TipoTributarioEntity tipo:listaTipoTributariaWS){
-            listaTipoProveedor.put(tipo.getNombreTipoTributario(), tipo.getIdTipoTributario());
+            listaTipoTributaria.put(tipo.getNombreTipoTributario(), tipo.getIdTipoTributario());
+        }
+    }
+
+    public HashMap<String, Integer> getListaTipoCuenta() {
+        iniciaListaTipoCuenta();
+        return listaTipoCuenta;
+    }
+
+    public void setListaTipoCuenta(HashMap<String, Integer> listaTipoCuenta) {
+        this.listaTipoCuenta = listaTipoCuenta;
+    }
+    
+    public void iniciaListaTipoCuenta(){
+        listaTipoCuenta=new HashMap<String, Integer>();
+        TipoCuentaLogic tipoCuentaLogic=new TipoCuentaLogic();
+        ArrayList<TipoCuentaEntity>listaTipoCuentaWS=tipoCuentaLogic.listaTipoCuenta();
+        for(TipoCuentaEntity tipo:listaTipoCuentaWS){
+            listaTipoCuenta.put(tipo.getTipoTipoCuenta(), tipo.getIdTipoCuenta());
+        }
+    }
+
+    public HashMap<String, Integer> getListaFormaPago() {
+        iniciaListaFormaPago();
+        return listaFormaPago;
+    }
+
+    public void setListaFormaPago(HashMap<String, Integer> listaFormaPago) {
+        this.listaFormaPago = listaFormaPago;
+    }
+    
+    public void iniciaListaFormaPago(){
+        listaFormaPago=new HashMap<String, Integer>();
+        FormasPagoLogic formasPagoLogic=new FormasPagoLogic();
+        ArrayList<FormasPagoEntity>listaFormaPagoWS=formasPagoLogic.listaFormasPago();
+        for(FormasPagoEntity pago:listaFormaPagoWS){
+            listaFormaPago.put(pago.getTipoFormaPago(), pago.getIdFormasPagos());
         }
     }
 }

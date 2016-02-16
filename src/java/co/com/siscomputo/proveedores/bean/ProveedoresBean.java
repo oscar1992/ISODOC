@@ -3,17 +3,24 @@ package co.com.siscomputo.proveedores.bean;
 import co.com.siscomputo.administracion.logic.CiudadLogic;
 import co.com.siscomputo.administracion.logic.PaisesLogic;
 import co.com.siscomputo.endpoint.AnexoProveedorEntity;
+import co.com.siscomputo.endpoint.CertificadoCalidadEntity;
 import co.com.siscomputo.endpoint.CiudadEntity;
 import co.com.siscomputo.endpoint.EmpresaEntity;
 import co.com.siscomputo.endpoint.EstadoProveedorEntity;
+import co.com.siscomputo.endpoint.FormasPagoEntity;
 import co.com.siscomputo.endpoint.LineaEntity;
 import co.com.siscomputo.proveedores.logic.ProveedoresLogic;
 import co.com.siscomputo.endpoint.ProveedoresEntity;
 import co.com.siscomputo.endpoint.MenuPermisosEntity;
 import co.com.siscomputo.endpoint.PaisEntity;
+import co.com.siscomputo.endpoint.TipoCuentaEntity;
+import co.com.siscomputo.endpoint.TipoProveedorEntity;
+import co.com.siscomputo.endpoint.TipoTributarioEntity;
 import co.com.siscomputo.endpoint.UsuarioEntity;
 import co.com.siscomputo.proveedores.logic.AnexoProveedorLogic;
+import co.com.siscomputo.proveedores.logic.CertificadoCalidadLogic;
 import co.com.siscomputo.proveedores.logic.EstadoProveedorLogic;
+import co.com.siscomputo.utilidades.DateToCalendar;
 import co.com.siscomputo.utilidades.MensajesJSF;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,9 +31,12 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -34,6 +44,7 @@ import javax.faces.bean.ViewScoped;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import javax.faces.context.FacesContext;
+import javax.xml.datatype.DatatypeConfigurationException;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
@@ -56,6 +67,10 @@ public class ProveedoresBean implements Serializable {
     private PaisEntity pais;
     private UploadedFile archivo;
     private String ruta;
+    private boolean certificado;
+    private ArrayList<CertificadoCalidadEntity>listaCertificados;
+    private CertificadoCalidadEntity objetoCertificado;
+    private String fechaAux;
 
     private boolean ingresar;
     private boolean actualizar;
@@ -141,6 +156,41 @@ public class ProveedoresBean implements Serializable {
         this.archivo = archivo;
     }
 
+    public boolean isCertificado() {
+        return certificado;
+    }
+
+    public void setCertificado(boolean certificado) {
+        this.certificado = certificado;
+    }
+
+    public ArrayList<CertificadoCalidadEntity> getListaCertificados() {
+        return listaCertificados;
+    }
+
+    public void setListaCertificados(ArrayList<CertificadoCalidadEntity> listaCertificados) {
+        this.listaCertificados = listaCertificados;
+    }
+
+    public CertificadoCalidadEntity getObjetoCertificado() {
+        return objetoCertificado;
+    }
+
+    public void setObjetoCertificado(CertificadoCalidadEntity objetoCertificado) {
+        this.objetoCertificado = objetoCertificado;
+    }
+
+    public String getFechaAux() {
+        return fechaAux;
+    }
+
+    public void setFechaAux(String fechaAux) {
+        this.fechaAux = fechaAux;
+    }
+    
+    
+    
+
     public boolean isIngresar() {
         return ingresar;
     }
@@ -178,6 +228,8 @@ public class ProveedoresBean implements Serializable {
         cargaCiudad();
         nuevoProveedoresObjeto();
         pais = new PaisEntity();
+        listaCertificados=new ArrayList<>();
+        
     }
 
     /**
@@ -198,7 +250,18 @@ public class ProveedoresBean implements Serializable {
     public void instertarProveedores() {
         try {
             ProveedoresLogic proveedoresLogic = new ProveedoresLogic();
+            Date fecha=new Date(System.currentTimeMillis());
+            DateToCalendar dateToCalendar=new DateToCalendar();
+            objetoProveedoresInsercion.setFechaCreacion(dateToCalendar.convertir(fecha));
             ProveedoresEntity proveedoresEntity = proveedoresLogic.insertarProveedores(objetoProveedoresInsercion);
+            if(certificado){
+                CertificadoCalidadLogic certificadoCalidadLogic=new CertificadoCalidadLogic();
+                for(CertificadoCalidadEntity cert:listaCertificados){
+                    cert.setIdProveedor(proveedoresEntity);
+                    cert.setEstadoCertificado("A");
+                    certificadoCalidadLogic.insertarCertificadoCalidad(cert);
+                }
+            }
             FacesMessage msg = null;
             if (proveedoresEntity != null) {
                 MensajesJSF.muestraMensajes("inserción de Proveedor correcto", "Mensaje");
@@ -208,7 +271,7 @@ public class ProveedoresBean implements Serializable {
                 anexoProveedorEntity.setIdAnexoProveedor(proveedoresEntity.getIdProveedor());
                 anexoProveedorEntity.setRutaAnexoProveedor(ruta);
                 if (anexoProveedorLogic.insertarAnexoProveedor(anexoProveedorEntity) != null) {
-                    System.out.println("Ingreso OK");
+                    //Systemut.println("Ingreso OK");
                 }
             } else {
                 MensajesJSF.muestraMensajes("inserción de Proveedor incorrecto", "Error");
@@ -216,9 +279,9 @@ public class ProveedoresBean implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        RequestContext.getCurrentInstance().execute("PF('insertarProveedores').hide()");
+        
         RequestContext context = RequestContext.getCurrentInstance();
-        context.update("IngresarModal:insertarProveedoresModal");
+        context.update(":ProveedoresForm");
     }
 
     /**
@@ -313,11 +376,36 @@ public class ProveedoresBean implements Serializable {
      * Método que reinicia el objeto Proveedor
      */
     public void nuevoProveedoresObjeto() {
+        DateToCalendar dateToCalendar=new DateToCalendar();
+        Date fecha=new Date(System.currentTimeMillis());
+        objetoCertificado=new CertificadoCalidadEntity();
+        try {
+            objetoCertificado.setFechacertificado(dateToCalendar.convertir(fecha));
+        } catch (DatatypeConfigurationException ex) {
+            Logger.getLogger(ProveedoresBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
         objetoProveedores = new ProveedoresEntity();
         objetoProveedoresInsercion = new ProveedoresEntity();
         LineaEntity lineaEntity = new LineaEntity();
         EmpresaEntity empresaEntity = new EmpresaEntity();
         UsuarioEntity usuarioEntity = new UsuarioEntity();
+        TipoProveedorEntity tipoProveedorEntity=new TipoProveedorEntity();
+        TipoTributarioEntity tipoTributarioEntity=new TipoTributarioEntity();
+        TipoCuentaEntity tipoCuentaEntity=new TipoCuentaEntity();
+        FormasPagoEntity formasPagoEntity=new FormasPagoEntity();
+        EstadoProveedorEntity estadoProveedorEntity=new EstadoProveedorEntity();
+        objetoProveedores.setEstadoProveedor(estadoProveedorEntity);
+        objetoProveedoresInsercion.setEstadoProveedor(estadoProveedorEntity);
+        objetoProveedores.setEstadoProveedores("A");
+        objetoProveedoresInsercion.setEstadoProveedores("A");
+        objetoProveedores.setIdFormaPago(formasPagoEntity);
+        objetoProveedoresInsercion.setIdFormaPago(formasPagoEntity);
+        objetoProveedores.setIdTipocuenta(tipoCuentaEntity);
+        objetoProveedoresInsercion.setIdTipocuenta(tipoCuentaEntity);
+        objetoProveedores.setIdTipoTributario(tipoTributarioEntity);
+        objetoProveedoresInsercion.setIdTipoTributario(tipoTributarioEntity);
+        objetoProveedores.setIdTipoProveedor(tipoProveedorEntity);
+        objetoProveedoresInsercion.setIdTipoProveedor(tipoProveedorEntity);
         objetoProveedores.setUsuarioResponsable(usuarioEntity);
         objetoProveedoresInsercion.setUsuarioResponsable(usuarioEntity);
         objetoProveedores.setEmpresaProveedor(empresaEntity);
@@ -347,18 +435,18 @@ public class ProveedoresBean implements Serializable {
 
     public void cargaCiudad() {
         if (pais != null) {
-            System.out.println("pais no nulo");
+            //Systemut.println("pais no nulo");
             CiudadLogic ciudadLogic = new CiudadLogic();
             listaCiudad = ciudadLogic.ciudadPorPais(pais.getIdPais());
         } else {
-            System.out.println("pais nulo");
+            //Systemut.println("pais nulo");
             CiudadLogic ciudadLogic = new CiudadLogic();
             listaCiudad = ciudadLogic.listaCiudades();
         }
     }
 
     public void subriArchivo(FileUploadEvent event) {
-        System.out.println("sub");
+        //Systemut.println("sub");
         if (event.getFile().getSize() > 0) {
             try {
                 archivo = event.getFile();
@@ -386,7 +474,7 @@ public class ProveedoresBean implements Serializable {
             ResourceBundle rb = ResourceBundle.getBundle("co.com.siscomputo.archivos.RUTAS");
             ruta = rb.getString("PROVEEDORES").trim();
             ruta += nombre;
-            System.out.println("RUTA: " + ruta);
+            //Systemut.println("RUTA: " + ruta);
             OutputStream out = new FileOutputStream(new File(ruta));
             int read = 0;
             byte[] bytes = new byte[2048];
@@ -396,7 +484,7 @@ public class ProveedoresBean implements Serializable {
             in.close();
             out.flush();
             out.close();
-            System.out.println("Archivo Guardado");
+            //Systemut.println("Archivo Guardado");
 
             //objetoDocumentoInsercion.setRutaDocumento(ruta);
         } catch (IOException iOException) {
@@ -404,7 +492,43 @@ public class ProveedoresBean implements Serializable {
         }
         return ruta;
     }
-
+    
+    public void despliega(){
+        //Systemut.println("BBBBB: "+certificado);
+    }
+    /**
+     * Método que limpia el objeto de certificado
+     */
+    public void reCertificado(){
+       
+        int anio=Integer.parseInt(fechaAux.substring(6, 10));
+        int mes=Integer.parseInt(fechaAux.substring(3, 5));
+        int dia=Integer.parseInt(fechaAux.substring(0, 2));
+        //Systemut.println("Día: "+dia);
+        //Systemut.println("Mes: "+mes);
+        //Systemut.println("Año: "+anio);
+        Calendar cal=Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_MONTH, dia);
+        cal.set(Calendar.MONTH, mes-1);
+        cal.set(Calendar.YEAR, anio);
+        /*fecha.setYear(anio);
+        fecha.setMonth(mes);
+        fecha.setDate(dia);
+        
+        //Systemut.println("DATE 1: "+fecha.toString());*/
+        Date fecha2=cal.getTime();
+        //Systemut.println("DATE 2: "+fecha2.toString());
+        DateToCalendar dateToCalendar=new DateToCalendar();
+        try {            
+            objetoCertificado.setFechacertificado(dateToCalendar.convertir(fecha2 ));
+        } catch (DatatypeConfigurationException ex) {
+            //Systemut.println("ERRO");
+            Logger.getLogger(ProveedoresBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //listaCertificados.add(objetoCertificado);
+        objetoCertificado=new CertificadoCalidadEntity();     
+        //Systemut.println("AGREGA");
+    }
     /**
      * Método que evalua los accesos al formulario
      */
@@ -417,7 +541,7 @@ public class ProveedoresBean implements Serializable {
             for (MenuPermisosEntity nivel1 : permisoObj.getSubNivel()) {
                 for (MenuPermisosEntity nivel2 : nivel1.getSubNivel()) {
                     int idPer = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idPermiso");
-                    System.out.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
+                    //Systemut.println("nn: " + nivel2.getNombrePermiso() + "-" + nivel2.getAsociadoMenu() + " - " + idPer);
                     if (idPer == nivel2.getAsociadoMenu()) {
                         switch (nivel2.getNombrePermiso()) {
                             case "insert":

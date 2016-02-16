@@ -43,7 +43,7 @@ public class DocumentoLogic implements IurlWebService{
         return listaaux;
     }
 /**
-     * Método que permite ingresar un Documentonuevo
+     * Método que permite ingresar un Documentos nuevos
      * @param objeto
      * @return 
      */

@@ -49,6 +49,8 @@ import javax.xml.bind.annotation.XmlType;
     PolizasEntity.class,
     TipoMonedaEntity.class,
     EmpresaEntity.class,
+    AnexoContratoEntity.class,
+    TipoEvaluacionEntity.class,
     SedeEntity.class
 })
 public class ObjetoRetornaEntity

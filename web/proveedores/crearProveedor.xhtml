@@ -18,7 +18,7 @@
                     :V
                     <h:outputText value="ABC"/>         
                     #{Plantilla.limitaExtensiones()}
-                    <p:panelGrid columns="4" layout="tabular">
+                    <p:panelGrid columns="4" layout="tabular" style="width: 75%">
                         <f:facet name="header">
                             <p:row>
                                 <p:column colspan="4" style="border-width: 1px">Proveedores</p:column>
@@ -27,24 +27,28 @@
                         <h:outputText value="Fecha de Creación" />
                         <h:outputText value="#{Proveedores.fechaActual}"/>
                         <h:outputText value="Estado"/>
-                        <p:selectOneMenu value="#{Proveedores.objetoProveedoresInsercion.estadoProveedor}" style="width: 150px">
-                            <f:selectItems value="#{Proveedores.listaEstados}" itemValue="#{lestados}" itemLabel="#{lestados.tipoEstadoProveedor}" var="lestados"/>
+                        <p:selectOneMenu value="#{Proveedores.objetoProveedoresInsercion.estadoProveedor.idEstadoProveedor}" style="width: 100%">
+                            <f:selectItems value="#{Proveedores.listaEstados}" itemValue="#{lestados.idEstadoProveedor}" itemLabel="#{lestados.tipoEstadoProveedor}" var="lestados"/>
                         </p:selectOneMenu>                        
                         <h:outputText value="Razón social o nombres y apellidos:*"/>
                         <p:inputText value="#{Proveedores.objetoProveedoresInsercion.nombreProveedor}"/>
                         <h:outputText value="Tipo Documento:*"/>
                         <p:inputText value="#{Proveedores.objetoProveedoresInsercion.tipoDocumentoProveedor}"/>
                         <h:outputText value="País"/>
-                        <p:selectOneMenu value="#{Proveedores.pais.idPais}" style="width: 150px">
+                        <p:selectOneMenu value="#{Proveedores.pais.idPais}" style="width: 100%">
                             <p:ajax listener="#{Proveedores.cargaCiudad}" update=":ProveedoresForm:lciu"/>
                             <f:selectItems value="#{Proveedores.listaPais}" itemValue="#{lpais.idPais}" itemLabel="#{lpais.nombrePais}" var="lpais"/>
                         </p:selectOneMenu>
                         <h:outputText value="Ciudad"/>
-                        <p:selectOneMenu id="lciu" value="#{Proveedores.objetoProveedoresInsercion.ciudadProveedor}" style="width: 150px">
+                        <p:selectOneMenu id="lciu" value="#{Proveedores.objetoProveedoresInsercion.ciudadProveedor}" style="width: 100%">
                             <f:selectItems value="#{Proveedores.listaCiudad}" itemValue="#{lciud.idCiudad}" itemLabel="#{lciud.nombreCiudad}" var="lciud"/>
                         </p:selectOneMenu>
                         <h:outputText value="Teléfono"/>
                         <p:inputText value="#{Proveedores.objetoProveedoresInsercion.telefonoProveedor}"/>
+                        <h:outputText value="Certificado de Calidad"/>
+                        <p:inputSwitch value="#{Proveedores.certificado}">
+                            <p:ajax listener="#{Proveedores.despliega()}" update="contenedor"/>
+                        </p:inputSwitch>
                         <h:outputText value="Dirección"/>
                         <p:inputText value="#{Proveedores.objetoProveedoresInsercion.direccionProveedor}"/>
                         <h:outputText value="Celular"/>
@@ -54,24 +58,68 @@
                         <h:outputText value="Correo Electrónico"/>
                         <p:inputText value="#{Proveedores.objetoProveedoresInsercion.emailProveedor}"/>
                         <h:outputText value="Línea"/>                
-                        <p:selectOneMenu id="lclin" value="#{Proveedores.objetoProveedoresInsercion.lineaProveedores.idLinea}" style="width: 150px">
+                        <p:selectOneMenu id="lclin" value="#{Proveedores.objetoProveedoresInsercion.lineaProveedores.idLinea}" style="width: 100%">
                             <f:selectItems value="#{ListaProveedoresBean.listaLineas}" />
                         </p:selectOneMenu>
                         <h:outputText value="Empresa"/>                
-                        <p:selectOneMenu id="lempr" value="#{Proveedores.objetoProveedoresInsercion.empresaProveedor.idEmpresa}" style="width: 150px">
+                        <p:selectOneMenu id="lempr" value="#{Proveedores.objetoProveedoresInsercion.empresaProveedor.idEmpresa}" style="width: 100%">
                             <f:selectItems value="#{ListaAdministracionBean.listaEmpresas}" />
                         </p:selectOneMenu>
                         <h:outputText value="responsable"/>
-                        <p:selectOneMenu id="lusua" value="#{Proveedores.objetoProveedoresInsercion.usuarioResponsable.idUsuario}" style="width: 150px">
+                        <p:selectOneMenu id="lusua" value="#{Proveedores.objetoProveedoresInsercion.usuarioResponsable.idUsuario}" style="width: 100%">
                             <f:selectItems value="#{ListaAdministracionBean.listaUsuarios}" />
                         </p:selectOneMenu>
                         <h:outputText value="anexos:"/>
                         <p:fileUpload id="subirArchivo" required="true" requiredMessage="debe subir un archivo" uploadLabel="Subir" cancelLabel="Cancelar" allowTypes="/(\.|\/)(gif#{Plantilla.extensiones})$/" invalidFileMessage="Archivo Inválido" multiple="false" fileUploadListener="#{Proveedores.subriArchivo}" label="Subir"/>
-
-
-                    </p:panelGrid>  
+                    </p:panelGrid>
                     <br/>
-                    <p:panelGrid columns="4" layout="tabular">
+                    <h:panelGroup id="contenedor" layout="block">
+                        <p:panelGrid columns="4" layout="tabular" style="width: 75%" rendered="#{Proveedores.certificado}" id="certificsdo">
+                            <f:facet name="header">
+                                <p:row>
+                                    <p:column colspan="4" style="border-width: 1px">Certificados de Calidad</p:column>
+                                </p:row>
+                            </f:facet>
+                            <h:outputText value="Tipo de Certificado:"/>
+                            <p:inputText value="#{Proveedores.objetoCertificado.tipoCertificado}"/>
+                            <h:outputText value="Fecha de Vencimiento:"/>
+                            <p:column>
+                            <div class='input-group date' id='datetimepicker' >
+                                <p:inputText class="form-control" value="#{Proveedores.fechaAux}"></p:inputText>                                                        
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                                <script type="text/javascript">
+                                    // debugger;
+
+                                    $('#datetimepicker').datetimepicker({
+                                        isRTL: false,
+                                        format: 'dd/mm/yyyy',
+                                        autoclose: true
+                                    });
+                                </script>
+                            </div>
+                            </p:column>
+                            
+                            <p:commandButton value="Agregar" update="certs" action="#{Proveedores.reCertificado()}">
+                                <p:collector value="#{Proveedores.objetoCertificado}" addTo="#{Proveedores.listaCertificados}" unique="true"/>
+                            </p:commandButton>
+                            <p:outputPanel id="certs" >
+                                <p:column colspan="2">
+                                <p:dataTable value="#{Proveedores.listaCertificados}" var="certificado" id="tabalcert">
+                                    <p:column headerText="Tipo Certificado">
+                                        <h:outputText value="#{certificado.tipoCertificado}"/>
+                                    </p:column>
+                                    <p:column headerText="Fecha de Vencimiento">
+                                        <h:outputText value="#{certificado.fechacertificado}"/>
+                                    </p:column>
+                                </p:dataTable>
+                                    </p:column>
+                            </p:outputPanel>
+                        </p:panelGrid>                    
+                    </h:panelGroup>
+                    <br/>
+                    <p:panelGrid columns="4" layout="tabular" style="width: 75%">
                         <f:facet name="header">
                             <p:row>
                                 <p:column colspan="4" style="border-width: 1px">Contacto</p:column>
@@ -86,16 +134,48 @@
                         <h:outputText value="Email:"/>
                         <p:inputText value="#{Proveedores.objetoProveedoresInsercion.emailContacto}"/>
                     </p:panelGrid>
-                    <p:panelGrid columns="4" layout="tabular">
+                    <br/>
+                    <p:panelGrid columns="2" layout="tabular" style="width: 75%">
+                        <f:facet name="header">
+                            <p:row>
+                                <p:column colspan="2" style="border-width: 1px">Actividad</p:column>
+                            </p:row>
+                        </f:facet>
                         <h:outputText value="Tipo de Proveedor"/>
-                        <p:selectOneMenu id="lusua" value="#{Proveedores.objetoProveedoresInsercion.idTipoProveedor.idTipoProveedor}" style="width: 150px">
+                        <p:selectOneMenu id="ltipr" value="#{Proveedores.objetoProveedoresInsercion.idTipoProveedor.idTipoProveedor}" style="width: 100%">
                             <f:selectItems value="#{ListaProveedoresBean.listaTipoProveedor}" />
                         </p:selectOneMenu>
                         <h:outputText value="Información Básica Tributaria"/>
-                        <p:selectOneMenu id="lusua" value="#{Proveedores.objetoProveedoresInsercion.idTipoProveedor.idTipoProveedor}" style="width: 150px">
-                            <f:selectItems value="#{ListaProveedoresBean.listaTipoProveedor}" />
+                        <p:selectOneMenu id="ltrib" value="#{Proveedores.objetoProveedoresInsercion.idTipoTributario.idTipoTributario}" style="width: 100%">
+                            <f:selectItems value="#{ListaProveedoresBean.listaTipoTributaria}" />
                         </p:selectOneMenu>
+                        <h:outputText value="Breve descipción actividad económica principal:"/>
+                        <p:inputTextarea value="#{Proveedores.objetoProveedoresInsercion.actividadEconomicaProveedor}" style="width: 100%"/>
+
                     </p:panelGrid>
+                    <br/>
+                    <p:panelGrid columns="4" layout="tabular" style="width: 75%">
+                        <f:facet name="header">
+                            <p:row>
+                                <p:column colspan="2" style="border-width: 1px">Formas de Pago</p:column>
+                            </p:row>
+                        </f:facet>
+                        <h:outputText value="Formato abono en cuenta:*"/>
+                        <p:selectOneMenu id="ltcue" value="#{Proveedores.objetoProveedoresInsercion.idTipocuenta.idTipoCuenta}" style="width: 100%">
+                            <f:selectItems value="#{ListaProveedoresBean.listaTipoCuenta}"/>
+                        </p:selectOneMenu>
+                        <h:outputText value="Forma de Pago:*"/>
+                        <p:selectOneMenu id="lform" value="#{Proveedores.objetoProveedoresInsercion.idFormaPago.idFormasPagos}" style="width: 100%">
+                            <f:selectItems value="#{ListaProveedoresBean.listaFormaPago}"/>
+                        </p:selectOneMenu>
+                        <h:outputText value="Titular de la cuenta:*"/>
+                        <p:inputText value="#{Proveedores.objetoProveedoresInsercion.titularProveedor}"/>
+                        <h:outputText value="Número de la cuenta:*"/>
+                        <p:inputText value="#{Proveedores.objetoProveedoresInsercion.ncuentaProveedor}"/>
+                        <h:outputText value="Entidad Bancaria*"/>
+                        <p:inputText value="#{Proveedores.objetoProveedoresInsercion.bancoProveedor}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="Ingresar" update=":ProveedoresForm" actionListener="#{Proveedores.instertarProveedores()}" validateClient="true" class="botonNormal" />
                 </h:form>
             </h:body>
         </ui:define>

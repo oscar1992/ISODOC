@@ -3,7 +3,9 @@ package co.com.siscomputo.endpoint;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
@@ -17,6 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;extension base="{http://endpoint.siscomputo.com.co/}objetoRetornaEntity">
  *       &lt;sequence>
  *         &lt;element name="actividadEconomicaProveedor" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="bancoProveedor" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="cargoContacto" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="celularProveedor" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="certificadoCalidadProveedor" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -27,19 +30,21 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="empresaProveedor" type="{http://endpoint.siscomputo.com.co/}empresaEntity" minOccurs="0"/>
  *         &lt;element name="estadoProveedor" type="{http://endpoint.siscomputo.com.co/}estadoProveedorEntity" minOccurs="0"/>
  *         &lt;element name="estadoProveedores" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="fechaCreacion" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="fechaCreacion" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
  *         &lt;element name="idFormaPago" type="{http://endpoint.siscomputo.com.co/}formasPagoEntity" minOccurs="0"/>
  *         &lt;element name="idProveedor" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="idTipoProveedor" type="{http://endpoint.siscomputo.com.co/}tipoProveedorEntity" minOccurs="0"/>
  *         &lt;element name="idTipoTributario" type="{http://endpoint.siscomputo.com.co/}tipoTributarioEntity" minOccurs="0"/>
  *         &lt;element name="idTipocuenta" type="{http://endpoint.siscomputo.com.co/}tipoCuentaEntity" minOccurs="0"/>
  *         &lt;element name="lineaProveedores" type="{http://endpoint.siscomputo.com.co/}lineaEntity" minOccurs="0"/>
+ *         &lt;element name="ncuentaProveedor" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="nombreContacto" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="nombreProveedor" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="paginaWebProveedor" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="telefonoContacto" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="telefonoProveedor" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="tipoDocumentoProveedor" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="titularProveedor" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="urlDocumento" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="usuarioResponsable" type="{http://endpoint.siscomputo.com.co/}usuarioEntity" minOccurs="0"/>
  *       &lt;/sequence>
@@ -53,6 +58,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "proveedoresEntity", propOrder = {
     "actividadEconomicaProveedor",
+    "bancoProveedor",
     "cargoContacto",
     "celularProveedor",
     "certificadoCalidadProveedor",
@@ -70,12 +76,14 @@ import javax.xml.bind.annotation.XmlType;
     "idTipoTributario",
     "idTipocuenta",
     "lineaProveedores",
+    "ncuentaProveedor",
     "nombreContacto",
     "nombreProveedor",
     "paginaWebProveedor",
     "telefonoContacto",
     "telefonoProveedor",
     "tipoDocumentoProveedor",
+    "titularProveedor",
     "urlDocumento",
     "usuarioResponsable"
 })
@@ -84,6 +92,7 @@ public class ProveedoresEntity
 {
 
     protected String actividadEconomicaProveedor;
+    protected String bancoProveedor;
     protected String cargoContacto;
     protected String celularProveedor;
     protected String certificadoCalidadProveedor;
@@ -94,19 +103,22 @@ public class ProveedoresEntity
     protected EmpresaEntity empresaProveedor;
     protected EstadoProveedorEntity estadoProveedor;
     protected String estadoProveedores;
-    protected String fechaCreacion;
+    @XmlSchemaType(name = "dateTime")
+    protected XMLGregorianCalendar fechaCreacion;
     protected FormasPagoEntity idFormaPago;
     protected Integer idProveedor;
     protected TipoProveedorEntity idTipoProveedor;
     protected TipoTributarioEntity idTipoTributario;
     protected TipoCuentaEntity idTipocuenta;
     protected LineaEntity lineaProveedores;
+    protected String ncuentaProveedor;
     protected String nombreContacto;
     protected String nombreProveedor;
     protected String paginaWebProveedor;
     protected String telefonoContacto;
     protected String telefonoProveedor;
     protected String tipoDocumentoProveedor;
+    protected String titularProveedor;
     protected String urlDocumento;
     protected UsuarioEntity usuarioResponsable;
 
@@ -132,6 +144,30 @@ public class ProveedoresEntity
      */
     public void setActividadEconomicaProveedor(String value) {
         this.actividadEconomicaProveedor = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad bancoProveedor.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getBancoProveedor() {
+        return bancoProveedor;
+    }
+
+    /**
+     * Define el valor de la propiedad bancoProveedor.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setBancoProveedor(String value) {
+        this.bancoProveedor = value;
     }
 
     /**
@@ -379,10 +415,10 @@ public class ProveedoresEntity
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link XMLGregorianCalendar }
      *     
      */
-    public String getFechaCreacion() {
+    public XMLGregorianCalendar getFechaCreacion() {
         return fechaCreacion;
     }
 
@@ -391,10 +427,10 @@ public class ProveedoresEntity
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setFechaCreacion(String value) {
+    public void setFechaCreacion(XMLGregorianCalendar value) {
         this.fechaCreacion = value;
     }
 
@@ -543,6 +579,30 @@ public class ProveedoresEntity
     }
 
     /**
+     * Obtiene el valor de la propiedad ncuentaProveedor.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getNcuentaProveedor() {
+        return ncuentaProveedor;
+    }
+
+    /**
+     * Define el valor de la propiedad ncuentaProveedor.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setNcuentaProveedor(String value) {
+        this.ncuentaProveedor = value;
+    }
+
+    /**
      * Obtiene el valor de la propiedad nombreContacto.
      * 
      * @return
@@ -684,6 +744,30 @@ public class ProveedoresEntity
      */
     public void setTipoDocumentoProveedor(String value) {
         this.tipoDocumentoProveedor = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad titularProveedor.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getTitularProveedor() {
+        return titularProveedor;
+    }
+
+    /**
+     * Define el valor de la propiedad titularProveedor.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setTitularProveedor(String value) {
+        this.titularProveedor = value;
     }
 
     /**
