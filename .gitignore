@@ -4,3 +4,4 @@ build.xml
 /dist/
 /nbproject/
 catalog.xml
+*.class

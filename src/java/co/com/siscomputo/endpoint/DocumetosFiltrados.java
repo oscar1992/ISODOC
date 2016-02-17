@@ -3,7 +3,9 @@ package co.com.siscomputo.endpoint;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
@@ -19,8 +21,8 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="idTipoDoc" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="idPlantilla" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="idAccion" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
- *         &lt;element name="fecha1" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="fecha2" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="fecha1" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
+ *         &lt;element name="fecha2" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -42,8 +44,10 @@ public class DocumetosFiltrados {
     protected Integer idTipoDoc;
     protected Integer idPlantilla;
     protected Integer idAccion;
-    protected String fecha1;
-    protected String fecha2;
+    @XmlSchemaType(name = "dateTime")
+    protected XMLGregorianCalendar fecha1;
+    @XmlSchemaType(name = "dateTime")
+    protected XMLGregorianCalendar fecha2;
 
     /**
      * Obtiene el valor de la propiedad idTipoDoc.
@@ -122,10 +126,10 @@ public class DocumetosFiltrados {
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link XMLGregorianCalendar }
      *     
      */
-    public String getFecha1() {
+    public XMLGregorianCalendar getFecha1() {
         return fecha1;
     }
 
@@ -134,10 +138,10 @@ public class DocumetosFiltrados {
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setFecha1(String value) {
+    public void setFecha1(XMLGregorianCalendar value) {
         this.fecha1 = value;
     }
 
@@ -146,10 +150,10 @@ public class DocumetosFiltrados {
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link XMLGregorianCalendar }
      *     
      */
-    public String getFecha2() {
+    public XMLGregorianCalendar getFecha2() {
         return fecha2;
     }
 
@@ -158,10 +162,10 @@ public class DocumetosFiltrados {
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setFecha2(String value) {
+    public void setFecha2(XMLGregorianCalendar value) {
         this.fecha2 = value;
     }
 

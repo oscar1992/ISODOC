@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -683,14 +684,14 @@ public class DocumentoBean implements Serializable {
 
             for (DocumentoEntity documento : listaaux3) {
                 /*int ano = Integer.parseInt(documento.getFechaDocumento().substring(0, 4));
-                int mes = Integer.parseInt(documento.getFechaDocumento().substring(6, 7));
-                int dia = Integer.parseInt(documento.getFechaDocumento().substring(9, 10));*/
+                 int mes = Integer.parseInt(documento.getFechaDocumento().substring(6, 7));
+                 int dia = Integer.parseInt(documento.getFechaDocumento().substring(9, 10));*/
                 int dia2 = Integer.parseInt(Filtro4.substring(0, 2));
                 int mes2 = Integer.parseInt(Filtro4.substring(3, 4));
                 int ano2 = Integer.parseInt(Filtro4.substring(6, 10));
                 System.out.println("FECHA d: " + documento.getFechaDocumento());
                 System.out.println("FECHA: " + Filtro4);
-                DateToCalendar dateToCalendar=new DateToCalendar();
+                DateToCalendar dateToCalendar = new DateToCalendar();
                 Date fecha = dateToCalendar.convertirInverso(documento.getFechaDocumento());
                 Date fecha2 = new Date(ano2, mes2, dia2);
 
@@ -712,6 +713,8 @@ public class DocumentoBean implements Serializable {
 
     public void Filtrar2() {
         DocumentoLogic documentoLogic = new DocumentoLogic();
+        Date fecha = null ;
+        Date fecha2 =null;
         if (Filtro1 == null) {
 
         }
@@ -721,8 +724,51 @@ public class DocumentoBean implements Serializable {
         if (Filtro3 == null) {
 
         }
+        if (Filtro4 == null) {
+
+        } else {
+            int dia2 = 0;
+            int mes2 = 0;
+            int ano2 = 0;
+            try {
+                dia2 = Integer.parseInt(Filtro4.substring(0, 2));
+                mes2 = Integer.parseInt(Filtro4.substring(3, 4));
+                System.out.println("MES: "+mes2);
+                ano2 = Integer.parseInt(Filtro4.substring(6, 10));
+            } catch (Exception e) {
+                dia2=0;
+                mes2=0;
+                ano2=0;
+            }
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.DAY_OF_MONTH, dia2);
+            cal.set(Calendar.MONTH, mes2 - 1);
+            cal.set(Calendar.YEAR, ano2);
+            fecha= cal.getTime();
+        }
+        if (Filtro5 == null) {
+
+        } else {
+            int dia2 = 0;
+            int mes2 = 0;
+            int ano2 = 0;
+            try {
+                dia2 = Integer.parseInt(Filtro5.substring(0, 2));
+                mes2 = Integer.parseInt(Filtro5.substring(3, 4));
+                ano2 = Integer.parseInt(Filtro5.substring(6, 10));
+            } catch (Exception e) {
+                dia2=0;
+                mes2=0;
+                ano2=0;
+            }
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.DAY_OF_MONTH, dia2);
+            cal.set(Calendar.MONTH, mes2 - 1);
+            cal.set(Calendar.YEAR, ano2);
+            fecha2= cal.getTime();
+        }
         System.out.println("F1: " + Filtro1.getIdTipoDocumental());
-        lista = documentoLogic.documetosFiltrados(Filtro1.getIdTipoDocumental(), Filtro2.getIdPlantilla(), Filtro3.getIdAccion());
+        lista = documentoLogic.documetosFiltrados(Filtro1.getIdTipoDocumental(), Filtro2.getIdPlantilla(), Filtro3.getIdAccion(), fecha, fecha2);
     }
 
     public HashMap<String, Integer> listaAccionesPorUsuario() {

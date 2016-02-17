@@ -27,46 +27,46 @@
                         <h:outputText value="Fecha de Creación" />
                         <h:outputText value="#{Proveedores.fechaActual}"/>
                         <h:outputText value="Estado"/>
-                        <p:selectOneMenu value="#{Proveedores.objetoProveedoresInsercion.estadoProveedor.idEstadoProveedor}" style="width: 100%">
+                        <p:selectOneMenu required="true" requiredMessage="Se necesita un estado" value="#{Proveedores.objetoProveedoresInsercion.estadoProveedor.idEstadoProveedor}" style="width: 100%">
                             <f:selectItems value="#{Proveedores.listaEstados}" itemValue="#{lestados.idEstadoProveedor}" itemLabel="#{lestados.tipoEstadoProveedor}" var="lestados"/>
                         </p:selectOneMenu>                        
                         <h:outputText value="Razón social o nombres y apellidos:*"/>
-                        <p:inputText value="#{Proveedores.objetoProveedoresInsercion.nombreProveedor}"/>
+                        <p:inputText required="true" requiredMessage="Se necesita un Nombre" value="#{Proveedores.objetoProveedoresInsercion.nombreProveedor}"/>
                         <h:outputText value="Tipo Documento:*"/>
-                        <p:inputText value="#{Proveedores.objetoProveedoresInsercion.tipoDocumentoProveedor}"/>
+                        <p:inputText required="true" requiredMessage="Se necesita un Tipo de Documento" value="#{Proveedores.objetoProveedoresInsercion.tipoDocumentoProveedor}"/>
                         <h:outputText value="País"/>
-                        <p:selectOneMenu value="#{Proveedores.pais.idPais}" style="width: 100%">
+                        <p:selectOneMenu required="true" requiredMessage="Se necesita un Pais" value="#{Proveedores.pais.idPais}" style="width: 100%">
                             <p:ajax listener="#{Proveedores.cargaCiudad}" update=":ProveedoresForm:lciu"/>
                             <f:selectItems value="#{Proveedores.listaPais}" itemValue="#{lpais.idPais}" itemLabel="#{lpais.nombrePais}" var="lpais"/>
                         </p:selectOneMenu>
                         <h:outputText value="Ciudad"/>
-                        <p:selectOneMenu id="lciu" value="#{Proveedores.objetoProveedoresInsercion.ciudadProveedor}" style="width: 100%">
+                        <p:selectOneMenu required="true" requiredMessage="Se necesita una ciudad" id="lciu" value="#{Proveedores.objetoProveedoresInsercion.ciudadProveedor}" style="width: 100%">
                             <f:selectItems value="#{Proveedores.listaCiudad}" itemValue="#{lciud.idCiudad}" itemLabel="#{lciud.nombreCiudad}" var="lciud"/>
                         </p:selectOneMenu>
                         <h:outputText value="Teléfono"/>
-                        <p:inputText value="#{Proveedores.objetoProveedoresInsercion.telefonoProveedor}"/>
+                        <p:inputText required="true" requiredMessage="Se necesita un teléfono" value="#{Proveedores.objetoProveedoresInsercion.telefonoProveedor}"/>
                         <h:outputText value="Certificado de Calidad"/>
                         <p:inputSwitch value="#{Proveedores.certificado}">
                             <p:ajax listener="#{Proveedores.despliega()}" update="contenedor"/>
                         </p:inputSwitch>
                         <h:outputText value="Dirección"/>
-                        <p:inputText value="#{Proveedores.objetoProveedoresInsercion.direccionProveedor}"/>
+                        <p:inputText required="true" requiredMessage="Se necesita una dirección" value="#{Proveedores.objetoProveedoresInsercion.direccionProveedor}"/>
                         <h:outputText value="Celular"/>
-                        <p:inputText value="#{Proveedores.objetoProveedoresInsercion.celularProveedor}"/>
+                        <p:inputText required="true" requiredMessage="Se necesita un número de celular" value="#{Proveedores.objetoProveedoresInsercion.celularProveedor}"/>
                         <h:outputText value="Página Web"/>
-                        <p:inputText value="#{Proveedores.objetoProveedoresInsercion.paginaWebProveedor}"/>
+                        <p:inputText required="true" requiredMessage="Se necesita una página web" value="#{Proveedores.objetoProveedoresInsercion.paginaWebProveedor}"/>
                         <h:outputText value="Correo Electrónico"/>
-                        <p:inputText value="#{Proveedores.objetoProveedoresInsercion.emailProveedor}"/>
+                        <p:inputText required="true" requiredMessage="Se necesita un correo electrónico" value="#{Proveedores.objetoProveedoresInsercion.emailProveedor}"/>
                         <h:outputText value="Línea"/>                
-                        <p:selectOneMenu id="lclin" value="#{Proveedores.objetoProveedoresInsercion.lineaProveedores.idLinea}" style="width: 100%">
+                        <p:selectOneMenu required="true" requiredMessage="Se necesita una Línea de proveedor" id="lclin" value="#{Proveedores.objetoProveedoresInsercion.lineaProveedores.idLinea}" style="width: 100%">
                             <f:selectItems value="#{ListaProveedoresBean.listaLineas}" />
                         </p:selectOneMenu>
                         <h:outputText value="Empresa"/>                
-                        <p:selectOneMenu id="lempr" value="#{Proveedores.objetoProveedoresInsercion.empresaProveedor.idEmpresa}" style="width: 100%">
+                        <p:selectOneMenu required="true" requiredMessage="Se necesita una empresa" id="lempr" value="#{Proveedores.objetoProveedoresInsercion.empresaProveedor.idEmpresa}" style="width: 100%">
                             <f:selectItems value="#{ListaAdministracionBean.listaEmpresas}" />
                         </p:selectOneMenu>
-                        <h:outputText value="responsable"/>
-                        <p:selectOneMenu id="lusua" value="#{Proveedores.objetoProveedoresInsercion.usuarioResponsable.idUsuario}" style="width: 100%">
+                        <h:outputText value="Responsable"/>
+                        <p:selectOneMenu required="true" requiredMessage="Se necesita un responsable" id="lusua" value="#{Proveedores.objetoProveedoresInsercion.usuarioResponsable.idUsuario}" style="width: 100%">
                             <f:selectItems value="#{ListaAdministracionBean.listaUsuarios}" />
                         </p:selectOneMenu>
                         <h:outputText value="anexos:"/>
@@ -126,13 +126,13 @@
                             </p:row>
                         </f:facet>
                         <h:outputText value="Nombres y Apellidos:"/>
-                        <p:inputText value="#{Proveedores.objetoProveedoresInsercion.nombreContacto}"/>
+                        <p:inputText required="true" requiredMessage="Se necesita un nombre de contacto" value="#{Proveedores.objetoProveedoresInsercion.nombreContacto}"/>
                         <h:outputText value="Cargo en la empresa:"/>
-                        <p:inputText value="#{Proveedores.objetoProveedoresInsercion.cargoContacto}"/>
+                        <p:inputText required="true" requiredMessage="Se necesita un cargo del contacto" value="#{Proveedores.objetoProveedoresInsercion.cargoContacto}"/>
                         <h:outputText value="Teléfono:"/>
-                        <p:inputText value="#{Proveedores.objetoProveedoresInsercion.telefonoContacto}"/>
+                        <p:inputText required="true" requiredMessage="Se necesita un teléfono del contacto" value="#{Proveedores.objetoProveedoresInsercion.telefonoContacto}"/>
                         <h:outputText value="Email:"/>
-                        <p:inputText value="#{Proveedores.objetoProveedoresInsercion.emailContacto}"/>
+                        <p:inputText required="true" requiredMessage="Se necesita un correo del contacto" value="#{Proveedores.objetoProveedoresInsercion.emailContacto}"/>
                     </p:panelGrid>
                     <br/>
                     <p:panelGrid columns="2" layout="tabular" style="width: 75%">
@@ -142,11 +142,11 @@
                             </p:row>
                         </f:facet>
                         <h:outputText value="Tipo de Proveedor"/>
-                        <p:selectOneMenu id="ltipr" value="#{Proveedores.objetoProveedoresInsercion.idTipoProveedor.idTipoProveedor}" style="width: 100%">
+                        <p:selectOneMenu required="true" requiredMessage="Se necesita un Tipo de proveedor" id="ltipr" value="#{Proveedores.objetoProveedoresInsercion.idTipoProveedor.idTipoProveedor}" style="width: 100%">
                             <f:selectItems value="#{ListaProveedoresBean.listaTipoProveedor}" />
                         </p:selectOneMenu>
                         <h:outputText value="Información Básica Tributaria"/>
-                        <p:selectOneMenu id="ltrib" value="#{Proveedores.objetoProveedoresInsercion.idTipoTributario.idTipoTributario}" style="width: 100%">
+                        <p:selectOneMenu required="true" requiredMessage="Se necesita un tipo Tributario" id="ltrib" value="#{Proveedores.objetoProveedoresInsercion.idTipoTributario.idTipoTributario}" style="width: 100%">
                             <f:selectItems value="#{ListaProveedoresBean.listaTipoTributaria}" />
                         </p:selectOneMenu>
                         <h:outputText value="Breve descipción actividad económica principal:"/>
@@ -161,22 +161,27 @@
                             </p:row>
                         </f:facet>
                         <h:outputText value="Formato abono en cuenta:*"/>
-                        <p:selectOneMenu id="ltcue" value="#{Proveedores.objetoProveedoresInsercion.idTipocuenta.idTipoCuenta}" style="width: 100%">
+                        <p:selectOneMenu required="true" requiredMessage="Se necesita un tipo de cuenta" id="ltcue" value="#{Proveedores.objetoProveedoresInsercion.idTipocuenta.idTipoCuenta}" style="width: 100%">
                             <f:selectItems value="#{ListaProveedoresBean.listaTipoCuenta}"/>
                         </p:selectOneMenu>
                         <h:outputText value="Forma de Pago:*"/>
-                        <p:selectOneMenu id="lform" value="#{Proveedores.objetoProveedoresInsercion.idFormaPago.idFormasPagos}" style="width: 100%">
+                        <p:selectOneMenu required="true" requiredMessage="Se necesita una forma de pago" id="lform" value="#{Proveedores.objetoProveedoresInsercion.idFormaPago.idFormasPagos}" style="width: 100%">
                             <f:selectItems value="#{ListaProveedoresBean.listaFormaPago}"/>
                         </p:selectOneMenu>
                         <h:outputText value="Titular de la cuenta:*"/>
-                        <p:inputText value="#{Proveedores.objetoProveedoresInsercion.titularProveedor}"/>
+                        <p:inputText required="true" requiredMessage="Se necesita un Titular de la cuenta" value="#{Proveedores.objetoProveedoresInsercion.titularProveedor}"/>
                         <h:outputText value="Número de la cuenta:*"/>
-                        <p:inputText value="#{Proveedores.objetoProveedoresInsercion.ncuentaProveedor}"/>
+                        <p:inputText required="true" requiredMessage="Se necesita un núemro de cuenta" value="#{Proveedores.objetoProveedoresInsercion.ncuentaProveedor}"/>
                         <h:outputText value="Entidad Bancaria*"/>
-                        <p:inputText value="#{Proveedores.objetoProveedoresInsercion.bancoProveedor}"/>
+                        <p:inputText required="true" requiredMessage="Se necesita una Entida bancaria" value="#{Proveedores.objetoProveedoresInsercion.bancoProveedor}"/>
                     </p:panelGrid>
                     <p:commandButton value="Ingresar" update=":ProveedoresForm" actionListener="#{Proveedores.instertarProveedores()}" validateClient="true" class="botonNormal" />
                 </h:form>
+                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">                    
+                    
+                    <img src="/ISODOC/imagenes/buttons/carga2.gif" style="opacity:0.4;"/>
+                </p:dialog>
             </h:body>
         </ui:define>
     </ui:composition>
