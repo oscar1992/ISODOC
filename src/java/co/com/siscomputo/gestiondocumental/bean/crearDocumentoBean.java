@@ -35,6 +35,7 @@ import co.com.siscomputo.gestiondocumental.logic.DocumentoLogic;
 import co.com.siscomputo.gestiondocumental.logic.GrupoDocumentoLogic;
 import co.com.siscomputo.gestiondocumental.logic.UsuarioDocumentoLogic;
 import co.com.siscomputo.utilidades.DateToCalendar;
+import co.com.siscomputo.utilidades.MensajesJSF;
 import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
 import java.io.File;
 import java.io.FileInputStream;
@@ -47,11 +48,14 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import static java.util.Arrays.stream;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static java.util.stream.StreamSupport.stream;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -59,6 +63,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
+import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.XMLGregorianCalendar;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
@@ -370,20 +375,37 @@ public class crearDocumentoBean implements Serializable {
             }
             objetoDocumentoInsercion.setProcesoDocumento(procesoSeleccion);
             DocumentoLogic documentoLogic = new DocumentoLogic();
-            DocumentoEntity documentoEntity = documentoLogic.insertarDocumento(objetoDocumentoInsercion);
+            
+            Date fechaActual=new Date(System.currentTimeMillis());
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.DAY_OF_MONTH, fechaActual.getDay());
+            cal.set(Calendar.MONTH, fechaActual.getMonth());
+            cal.set(Calendar.YEAR, fechaActual.getYear());    
+            
             DateToCalendar dateToCalendar=new DateToCalendar();
-            documentoEntity.setFechaDocumento(dateToCalendar.convertir(new java.util.Date(System.currentTimeMillis())));
+            try {
+                XMLGregorianCalendar cale=dateToCalendar.convertir(fechaActual);
+                System.out.println("cale: "+cale.toString());
+                objetoDocumentoInsercion.setFechaDocumento(cale);
+            } catch (DatatypeConfigurationException ex) {
+                Logger.getLogger(crearDocumentoBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            DocumentoEntity documentoEntity=new DocumentoEntity();
+            documentoEntity = documentoLogic.insertarDocumento(objetoDocumentoInsercion);
             
             GrupoDocumentoLogic grupoDocumentoLogic = new GrupoDocumentoLogic();
             GrupoDocumentoEntity grupoDocumentoEntity = new GrupoDocumentoEntity();
+            
             for (GrupoUsuarioAccionProcesoEntity listaUAPE : usuarioAccionProcesoEntity) {
                 grupoDocumentoEntity = new GrupoDocumentoEntity();
                 grupoDocumentoEntity.setAccionGrupoDocumento(listaUAPE.getAccion());
                 grupoDocumentoEntity.setDocumentoGrupoDocumento(documentoEntity);
                 //System.out.println("GrupoDocumento: "+documentoEntity);
                 if (Integer.parseInt(listaUAPE.getAccion().getOrdenAccion()) == 1) {
+                    
                     documentoEntity.setAccionDocumento(listaUAPE.getAccion());
                     documentoLogic.actualizarDocumento(documentoEntity);
+                    
                 }
                 
                 XMLGregorianCalendar calendar = new XMLGregorianCalendarImpl();
@@ -421,10 +443,11 @@ public class crearDocumentoBean implements Serializable {
             //System.out.println("OBJ: "+objetoDocumentoInsercion.getTipoDocumentalDocumento().getNombreTipoDocumental());
             FacesMessage msg = null;
             if (documentoEntity != null) {
-                msg = new FacesMessage("", "inserción de Documento correcto");
+                
+                MensajesJSF.muestraMensajes("inserción de Documento correcto", "Mensaje");
 
             } else {
-                msg = new FacesMessage("", "inserción de Documento incorrecto");
+                MensajesJSF.muestraMensajes("inserción de Documento incorrecto", "Error");
             }
             usuarioAccionProcesoEntity = new ArrayList<>();
             RequestContext context = RequestContext.getCurrentInstance();
@@ -433,6 +456,7 @@ public class crearDocumentoBean implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
     }
 
     /**

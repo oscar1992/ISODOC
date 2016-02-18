@@ -279,7 +279,7 @@ public class ProveedoresBean implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+        nuevoProveedoresObjeto();
         RequestContext context = RequestContext.getCurrentInstance();
         context.update(":ProveedoresForm");
     }

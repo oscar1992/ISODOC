@@ -727,24 +727,27 @@ public class DocumentoBean implements Serializable {
         if (Filtro4 == null) {
 
         } else {
-            int dia2 = 0;
-            int mes2 = 0;
-            int ano2 = 0;
+            int dia = 0;
+            int mes = 0;
+            int ano = 0;
             try {
-                dia2 = Integer.parseInt(Filtro4.substring(0, 2));
-                mes2 = Integer.parseInt(Filtro4.substring(3, 4));
-                System.out.println("MES: "+mes2);
-                ano2 = Integer.parseInt(Filtro4.substring(6, 10));
+                dia = Integer.parseInt(Filtro4.substring(0, 2));
+                //System.out.println("DIA: "+dia);
+                mes = Integer.parseInt(Filtro4.substring(3, 5));
+                //System.out.println("MES: "+mes);
+                ano = Integer.parseInt(Filtro4.substring(6, 10));
             } catch (Exception e) {
-                dia2=0;
-                mes2=0;
-                ano2=0;
+                e.printStackTrace();
+                dia=0;
+                mes=0;
+                ano=0;
             }
             Calendar cal = Calendar.getInstance();
-            cal.set(Calendar.DAY_OF_MONTH, dia2);
-            cal.set(Calendar.MONTH, mes2 - 1);
-            cal.set(Calendar.YEAR, ano2);
+            cal.set(Calendar.DAY_OF_MONTH, dia);
+            cal.set(Calendar.MONTH, mes - 1);
+            cal.set(Calendar.YEAR, ano);
             fecha= cal.getTime();
+            System.out.println("FECHA: "+fecha.toString());
         }
         if (Filtro5 == null) {
 
@@ -754,7 +757,7 @@ public class DocumentoBean implements Serializable {
             int ano2 = 0;
             try {
                 dia2 = Integer.parseInt(Filtro5.substring(0, 2));
-                mes2 = Integer.parseInt(Filtro5.substring(3, 4));
+                mes2 = Integer.parseInt(Filtro5.substring(3, 5));
                 ano2 = Integer.parseInt(Filtro5.substring(6, 10));
             } catch (Exception e) {
                 dia2=0;

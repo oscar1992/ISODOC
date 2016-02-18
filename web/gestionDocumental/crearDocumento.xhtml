@@ -52,6 +52,8 @@
                                 <p:commandButton id="descarga" value="Descargar" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
                                     <p:fileDownload value="#{CrearDocumento.archivo2}" />
                                 </p:commandButton>
+                                #{Plantilla.limitaExtensiones()}
+                            <p:fileUpload id="subirArchivo" required="true" requiredMessage="debe subir un archivo" uploadLabel="Subir" cancelLabel="Cancelar" allowTypes="/(\.|\/)(gif#{Plantilla.extensiones})$/" invalidFileMessage="Archivo Inválido" multiple="false" fileUploadListener="#{CrearDocumento.subriArchivo}" label="Subir"/>
                             </p:panelGrid>
                         </div>
                     </div>
@@ -129,7 +131,7 @@
                             </p:row>
                         </ui:repeat>
                     </p:panelGrid>
-                    <p:commandButton id="Ingresar" value="Ingresar" update=":IngresarModal,:IngresarModal:msgs" actionListener="#{CrearDocumento.instertarDocumento()}" validateClient="true" class="botonNormal" ajax="true" onstart="PF('subir').show()"/>
+                    <p:commandButton id="Ingresar" value="Ingresar" update=":IngresarModal,:IngresarModal:msgs" actionListener="#{CrearDocumento.instertarDocumento()}" validateClient="true" class="botonNormal" ajax="true" />
                     <br/>
 
                 </h:form>

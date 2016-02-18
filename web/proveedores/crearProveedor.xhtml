@@ -15,171 +15,326 @@
                     <div class="prueba" style="color: white; ">
                         <p:growl id="msgs" showDetail="true" life="3000" autoUpdate="true"/>
                     </div>
-                    :V
-                    <h:outputText value="ABC"/>         
+
+
                     #{Plantilla.limitaExtensiones()}
-                    <p:panelGrid columns="4" layout="tabular" style="width: 75%">
+                    <p:panelGrid style="width: 75%">
                         <f:facet name="header">
                             <p:row>
                                 <p:column colspan="4" style="border-width: 1px">Proveedores</p:column>
                             </p:row>
                         </f:facet>
-                        <h:outputText value="Fecha de Creación" />
-                        <h:outputText value="#{Proveedores.fechaActual}"/>
-                        <h:outputText value="Estado"/>
-                        <p:selectOneMenu required="true" requiredMessage="Se necesita un estado" value="#{Proveedores.objetoProveedoresInsercion.estadoProveedor.idEstadoProveedor}" style="width: 100%">
-                            <f:selectItems value="#{Proveedores.listaEstados}" itemValue="#{lestados.idEstadoProveedor}" itemLabel="#{lestados.tipoEstadoProveedor}" var="lestados"/>
-                        </p:selectOneMenu>                        
-                        <h:outputText value="Razón social o nombres y apellidos:*"/>
-                        <p:inputText required="true" requiredMessage="Se necesita un Nombre" value="#{Proveedores.objetoProveedoresInsercion.nombreProveedor}"/>
-                        <h:outputText value="Tipo Documento:*"/>
-                        <p:inputText required="true" requiredMessage="Se necesita un Tipo de Documento" value="#{Proveedores.objetoProveedoresInsercion.tipoDocumentoProveedor}"/>
-                        <h:outputText value="País"/>
-                        <p:selectOneMenu required="true" requiredMessage="Se necesita un Pais" value="#{Proveedores.pais.idPais}" style="width: 100%">
-                            <p:ajax listener="#{Proveedores.cargaCiudad}" update=":ProveedoresForm:lciu"/>
-                            <f:selectItems value="#{Proveedores.listaPais}" itemValue="#{lpais.idPais}" itemLabel="#{lpais.nombrePais}" var="lpais"/>
-                        </p:selectOneMenu>
-                        <h:outputText value="Ciudad"/>
-                        <p:selectOneMenu required="true" requiredMessage="Se necesita una ciudad" id="lciu" value="#{Proveedores.objetoProveedoresInsercion.ciudadProveedor}" style="width: 100%">
-                            <f:selectItems value="#{Proveedores.listaCiudad}" itemValue="#{lciud.idCiudad}" itemLabel="#{lciud.nombreCiudad}" var="lciud"/>
-                        </p:selectOneMenu>
-                        <h:outputText value="Teléfono"/>
-                        <p:inputText required="true" requiredMessage="Se necesita un teléfono" value="#{Proveedores.objetoProveedoresInsercion.telefonoProveedor}"/>
-                        <h:outputText value="Certificado de Calidad"/>
-                        <p:inputSwitch value="#{Proveedores.certificado}">
-                            <p:ajax listener="#{Proveedores.despliega()}" update="contenedor"/>
-                        </p:inputSwitch>
-                        <h:outputText value="Dirección"/>
-                        <p:inputText required="true" requiredMessage="Se necesita una dirección" value="#{Proveedores.objetoProveedoresInsercion.direccionProveedor}"/>
-                        <h:outputText value="Celular"/>
-                        <p:inputText required="true" requiredMessage="Se necesita un número de celular" value="#{Proveedores.objetoProveedoresInsercion.celularProveedor}"/>
-                        <h:outputText value="Página Web"/>
-                        <p:inputText required="true" requiredMessage="Se necesita una página web" value="#{Proveedores.objetoProveedoresInsercion.paginaWebProveedor}"/>
-                        <h:outputText value="Correo Electrónico"/>
-                        <p:inputText required="true" requiredMessage="Se necesita un correo electrónico" value="#{Proveedores.objetoProveedoresInsercion.emailProveedor}"/>
-                        <h:outputText value="Línea"/>                
-                        <p:selectOneMenu required="true" requiredMessage="Se necesita una Línea de proveedor" id="lclin" value="#{Proveedores.objetoProveedoresInsercion.lineaProveedores.idLinea}" style="width: 100%">
-                            <f:selectItems value="#{ListaProveedoresBean.listaLineas}" />
-                        </p:selectOneMenu>
-                        <h:outputText value="Empresa"/>                
-                        <p:selectOneMenu required="true" requiredMessage="Se necesita una empresa" id="lempr" value="#{Proveedores.objetoProveedoresInsercion.empresaProveedor.idEmpresa}" style="width: 100%">
-                            <f:selectItems value="#{ListaAdministracionBean.listaEmpresas}" />
-                        </p:selectOneMenu>
-                        <h:outputText value="Responsable"/>
-                        <p:selectOneMenu required="true" requiredMessage="Se necesita un responsable" id="lusua" value="#{Proveedores.objetoProveedoresInsercion.usuarioResponsable.idUsuario}" style="width: 100%">
-                            <f:selectItems value="#{ListaAdministracionBean.listaUsuarios}" />
-                        </p:selectOneMenu>
-                        <h:outputText value="anexos:"/>
-                        <p:fileUpload id="subirArchivo" required="true" requiredMessage="debe subir un archivo" uploadLabel="Subir" cancelLabel="Cancelar" allowTypes="/(\.|\/)(gif#{Plantilla.extensiones})$/" invalidFileMessage="Archivo Inválido" multiple="false" fileUploadListener="#{Proveedores.subriArchivo}" label="Subir"/>
+                        <p:row>
+                            <p:column>
+                                <h:outputText value="Fecha de Creación" />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{Proveedores.fechaActual}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="Estado"/>
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu required="true" requiredMessage="Se necesita un estado" value="#{Proveedores.objetoProveedoresInsercion.estadoProveedor.idEstadoProveedor}" style="width: 100%">
+                                    <f:selectItems value="#{Proveedores.listaEstados}" itemValue="#{lestados.idEstadoProveedor}" itemLabel="#{lestados.tipoEstadoProveedor}" var="lestados"/>
+                                </p:selectOneMenu>    
+                            </p:column>´
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputText value="Razón social o nombres y apellidos:*"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText required="true" requiredMessage="Se necesita un Nombre" value="#{Proveedores.objetoProveedoresInsercion.nombreProveedor}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="Tipo Documento:*"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText required="true" requiredMessage="Se necesita un Tipo de Documento" value="#{Proveedores.objetoProveedoresInsercion.tipoDocumentoProveedor}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputText value="País"/>
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu required="true" requiredMessage="Se necesita un Pais" value="#{Proveedores.pais.idPais}" style="width: 100%">
+                                    <p:ajax listener="#{Proveedores.cargaCiudad}" update=":ProveedoresForm:lciu"/>
+                                    <f:selectItems value="#{Proveedores.listaPais}" itemValue="#{lpais.idPais}" itemLabel="#{lpais.nombrePais}" var="lpais"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="Ciudad"/>
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu required="true" requiredMessage="Se necesita una ciudad" id="lciu" value="#{Proveedores.objetoProveedoresInsercion.ciudadProveedor}" style="width: 100%">
+                                    <f:selectItems value="#{Proveedores.listaCiudad}" itemValue="#{lciud.idCiudad}" itemLabel="#{lciud.nombreCiudad}" var="lciud"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputText value="Teléfono"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText required="true" requiredMessage="Se necesita un teléfono" value="#{Proveedores.objetoProveedoresInsercion.telefonoProveedor}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="Certificado de Calidad"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputSwitch value="#{Proveedores.certificado}">
+                                    <p:ajax listener="#{Proveedores.despliega()}" update="contenedor"/>
+                                </p:inputSwitch>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputText value="Dirección"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText required="true" requiredMessage="Se necesita una dirección" value="#{Proveedores.objetoProveedoresInsercion.direccionProveedor}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="Celular"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText required="true" requiredMessage="Se necesita un número de celular" value="#{Proveedores.objetoProveedoresInsercion.celularProveedor}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputText value="Página Web"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText required="true" requiredMessage="Se necesita una página web" value="#{Proveedores.objetoProveedoresInsercion.paginaWebProveedor}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="Correo Electrónico"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText required="true" requiredMessage="Se necesita un correo electrónico" value="#{Proveedores.objetoProveedoresInsercion.emailProveedor}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputText value="Línea"/>                
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu required="true" requiredMessage="Se necesita una Línea de proveedor" id="lclin" value="#{Proveedores.objetoProveedoresInsercion.lineaProveedores.idLinea}" style="width: 100%">
+                                    <f:selectItems value="#{ListaProveedoresBean.listaLineas}" />
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="Empresa"/>                
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu required="true" requiredMessage="Se necesita una empresa" id="lempr" value="#{Proveedores.objetoProveedoresInsercion.empresaProveedor.idEmpresa}" style="width: 100%">
+                                    <f:selectItems value="#{ListaAdministracionBean.listaEmpresas}" />
+                                </p:selectOneMenu>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputText value="Responsable"/>
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu required="true" requiredMessage="Se necesita un responsable" id="lusua" value="#{Proveedores.objetoProveedoresInsercion.usuarioResponsable.idUsuario}" style="width: 100%">
+                                    <f:selectItems value="#{ListaAdministracionBean.listaUsuarios}" />
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="anexos:"/>
+                            </p:column>
+                            <p:column>
+                                <p:fileUpload id="subirArchivo" required="true" requiredMessage="debe subir un archivo" uploadLabel="Subir" cancelLabel="Cancelar" allowTypes="/(\.|\/)(gif#{Plantilla.extensiones})$/" invalidFileMessage="Archivo Inválido" multiple="false" fileUploadListener="#{Proveedores.subriArchivo}" label="Subir"/>
+                            </p:column>
+                        </p:row>
                     </p:panelGrid>
                     <br/>
                     <h:panelGroup id="contenedor" layout="block">
-                        <p:panelGrid columns="4" layout="tabular" style="width: 75%" rendered="#{Proveedores.certificado}" id="certificsdo">
+                        <p:panelGrid layout="tabular" style="width: 75%" rendered="#{Proveedores.certificado}" id="certificsdo">
+
                             <f:facet name="header">
                                 <p:row>
                                     <p:column colspan="4" style="border-width: 1px">Certificados de Calidad</p:column>
                                 </p:row>
                             </f:facet>
-                            <h:outputText value="Tipo de Certificado:"/>
-                            <p:inputText value="#{Proveedores.objetoCertificado.tipoCertificado}"/>
-                            <h:outputText value="Fecha de Vencimiento:"/>
-                            <p:column>
-                            <div class='input-group date' id='datetimepicker' >
-                                <p:inputText class="form-control" value="#{Proveedores.fechaAux}"></p:inputText>                                                        
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                                <script type="text/javascript">
-                                    // debugger;
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Tipo de Certificado:"/>
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{Proveedores.objetoCertificado.tipoCertificado}"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="Fecha de Vencimiento:"/>
+                                </p:column>
+                                <p:column>
+                                    <div class='input-group date' id='datetimepicker' >
+                                        <p:inputText class="form-control" value="#{Proveedores.fechaAux}"></p:inputText>                                                        
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                        <script type="text/javascript">
+                                            // debugger;
 
-                                    $('#datetimepicker').datetimepicker({
-                                        isRTL: false,
-                                        format: 'dd/mm/yyyy',
-                                        autoclose: true
-                                    });
-                                </script>
-                            </div>
-                            </p:column>
-                            
-                            <p:commandButton value="Agregar" update="certs" action="#{Proveedores.reCertificado()}">
-                                <p:collector value="#{Proveedores.objetoCertificado}" addTo="#{Proveedores.listaCertificados}" unique="true"/>
-                            </p:commandButton>
-                            <p:outputPanel id="certs" >
-                                <p:column colspan="2">
-                                <p:dataTable value="#{Proveedores.listaCertificados}" var="certificado" id="tabalcert">
-                                    <p:column headerText="Tipo Certificado">
-                                        <h:outputText value="#{certificado.tipoCertificado}"/>
-                                    </p:column>
-                                    <p:column headerText="Fecha de Vencimiento">
-                                        <h:outputText value="#{certificado.fechacertificado}"/>
-                                    </p:column>
-                                </p:dataTable>
-                                    </p:column>
-                            </p:outputPanel>
+                                            $('#datetimepicker').datetimepicker({
+                                                isRTL: false,
+                                                format: 'dd/mm/yyyy',
+                                                autoclose: true
+                                            });
+                                        </script>
+                                    </div>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:commandButton value="Agregar" update="certs" action="#{Proveedores.reCertificado()}">
+                                        <p:collector value="#{Proveedores.objetoCertificado}" addTo="#{Proveedores.listaCertificados}" unique="true"/>
+                                    </p:commandButton>
+                                </p:column>
+                                <p:column colspan="3">
+                                    <p:outputPanel id="certs" >
+
+                                        <p:dataTable value="#{Proveedores.listaCertificados}" var="certificado" id="tabalcert">
+                                            <p:column headerText="Tipo Certificado">
+                                                <h:outputText value="#{certificado.tipoCertificado}"/>
+                                            </p:column>
+                                            <p:column headerText="Fecha de Vencimiento">
+                                                <h:outputText value="#{certificado.fechacertificado}"/>
+                                            </p:column>
+                                        </p:dataTable>
+
+                                    </p:outputPanel>
+                                </p:column>
+                            </p:row>
                         </p:panelGrid>                    
                     </h:panelGroup>
                     <br/>
-                    <p:panelGrid columns="4" layout="tabular" style="width: 75%">
+                    <p:panelGrid layout="tabular" style="width: 75%">
                         <f:facet name="header">
                             <p:row>
                                 <p:column colspan="4" style="border-width: 1px">Contacto</p:column>
                             </p:row>
                         </f:facet>
-                        <h:outputText value="Nombres y Apellidos:"/>
-                        <p:inputText required="true" requiredMessage="Se necesita un nombre de contacto" value="#{Proveedores.objetoProveedoresInsercion.nombreContacto}"/>
-                        <h:outputText value="Cargo en la empresa:"/>
-                        <p:inputText required="true" requiredMessage="Se necesita un cargo del contacto" value="#{Proveedores.objetoProveedoresInsercion.cargoContacto}"/>
-                        <h:outputText value="Teléfono:"/>
-                        <p:inputText required="true" requiredMessage="Se necesita un teléfono del contacto" value="#{Proveedores.objetoProveedoresInsercion.telefonoContacto}"/>
-                        <h:outputText value="Email:"/>
-                        <p:inputText required="true" requiredMessage="Se necesita un correo del contacto" value="#{Proveedores.objetoProveedoresInsercion.emailContacto}"/>
+                        <p:row>
+                            <p:column>
+                                <h:outputText value="Nombres y Apellidos:"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText required="true" requiredMessage="Se necesita un nombre de contacto" value="#{Proveedores.objetoProveedoresInsercion.nombreContacto}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="Cargo en la empresa:"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText required="true" requiredMessage="Se necesita un cargo del contacto" value="#{Proveedores.objetoProveedoresInsercion.cargoContacto}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputText value="Teléfono:"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText required="true" requiredMessage="Se necesita un teléfono del contacto" value="#{Proveedores.objetoProveedoresInsercion.telefonoContacto}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="Email:"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText required="true" requiredMessage="Se necesita un correo del contacto" value="#{Proveedores.objetoProveedoresInsercion.emailContacto}"/>
+                            </p:column>
+                        </p:row>
                     </p:panelGrid>
                     <br/>
-                    <p:panelGrid columns="2" layout="tabular" style="width: 75%">
+                    <p:panelGrid layout="tabular" style="width: 75%">
                         <f:facet name="header">
                             <p:row>
-                                <p:column colspan="2" style="border-width: 1px">Actividad</p:column>
+                                <p:column colspan="4" style="border-width: 1px">Actividad</p:column>
                             </p:row>
                         </f:facet>
-                        <h:outputText value="Tipo de Proveedor"/>
-                        <p:selectOneMenu required="true" requiredMessage="Se necesita un Tipo de proveedor" id="ltipr" value="#{Proveedores.objetoProveedoresInsercion.idTipoProveedor.idTipoProveedor}" style="width: 100%">
-                            <f:selectItems value="#{ListaProveedoresBean.listaTipoProveedor}" />
-                        </p:selectOneMenu>
-                        <h:outputText value="Información Básica Tributaria"/>
-                        <p:selectOneMenu required="true" requiredMessage="Se necesita un tipo Tributario" id="ltrib" value="#{Proveedores.objetoProveedoresInsercion.idTipoTributario.idTipoTributario}" style="width: 100%">
-                            <f:selectItems value="#{ListaProveedoresBean.listaTipoTributaria}" />
-                        </p:selectOneMenu>
-                        <h:outputText value="Breve descipción actividad económica principal:"/>
-                        <p:inputTextarea value="#{Proveedores.objetoProveedoresInsercion.actividadEconomicaProveedor}" style="width: 100%"/>
-
+                        <p:row>
+                            <p:column>
+                                <h:outputText value="Tipo de Proveedor"/>
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu required="true" requiredMessage="Se necesita un Tipo de proveedor" id="ltipr" value="#{Proveedores.objetoProveedoresInsercion.idTipoProveedor.idTipoProveedor}" style="width: 100%">
+                                    <f:selectItems value="#{ListaProveedoresBean.listaTipoProveedor}" />
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="Información Básica Tributaria"/>
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu required="true" requiredMessage="Se necesita un tipo Tributario" id="ltrib" value="#{Proveedores.objetoProveedoresInsercion.idTipoTributario.idTipoTributario}" style="width: 100%">
+                                    <f:selectItems value="#{ListaProveedoresBean.listaTipoTributaria}" />
+                                </p:selectOneMenu>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputText value="Breve descipción actividad económica principal:"/>
+                            </p:column>
+                            <p:column colspan="3">
+                                <p:inputTextarea value="#{Proveedores.objetoProveedoresInsercion.actividadEconomicaProveedor}" style="width: 100%"/>
+                            </p:column>
+                        </p:row>
                     </p:panelGrid>
                     <br/>
-                    <p:panelGrid columns="4" layout="tabular" style="width: 75%">
+                    <p:panelGrid layout="tabular" style="width: 75%">
                         <f:facet name="header">
                             <p:row>
-                                <p:column colspan="2" style="border-width: 1px">Formas de Pago</p:column>
+                                <p:column colspan="4" style="border-width: 1px">Formas de Pago</p:column>
                             </p:row>
                         </f:facet>
-                        <h:outputText value="Formato abono en cuenta:*"/>
-                        <p:selectOneMenu required="true" requiredMessage="Se necesita un tipo de cuenta" id="ltcue" value="#{Proveedores.objetoProveedoresInsercion.idTipocuenta.idTipoCuenta}" style="width: 100%">
-                            <f:selectItems value="#{ListaProveedoresBean.listaTipoCuenta}"/>
-                        </p:selectOneMenu>
-                        <h:outputText value="Forma de Pago:*"/>
-                        <p:selectOneMenu required="true" requiredMessage="Se necesita una forma de pago" id="lform" value="#{Proveedores.objetoProveedoresInsercion.idFormaPago.idFormasPagos}" style="width: 100%">
-                            <f:selectItems value="#{ListaProveedoresBean.listaFormaPago}"/>
-                        </p:selectOneMenu>
-                        <h:outputText value="Titular de la cuenta:*"/>
-                        <p:inputText required="true" requiredMessage="Se necesita un Titular de la cuenta" value="#{Proveedores.objetoProveedoresInsercion.titularProveedor}"/>
-                        <h:outputText value="Número de la cuenta:*"/>
-                        <p:inputText required="true" requiredMessage="Se necesita un núemro de cuenta" value="#{Proveedores.objetoProveedoresInsercion.ncuentaProveedor}"/>
-                        <h:outputText value="Entidad Bancaria*"/>
-                        <p:inputText required="true" requiredMessage="Se necesita una Entida bancaria" value="#{Proveedores.objetoProveedoresInsercion.bancoProveedor}"/>
+                        <p:row>
+                            <p:column>
+                                <h:outputText value="Formato abono en cuenta:*"/>
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu required="true" requiredMessage="Se necesita un tipo de cuenta" id="ltcue" value="#{Proveedores.objetoProveedoresInsercion.idTipocuenta.idTipoCuenta}" style="width: 100%">
+                                    <f:selectItems value="#{ListaProveedoresBean.listaTipoCuenta}"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="Forma de Pago:*"/>
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu required="true" requiredMessage="Se necesita una forma de pago" id="lform" value="#{Proveedores.objetoProveedoresInsercion.idFormaPago.idFormasPagos}" style="width: 100%">
+                                    <f:selectItems value="#{ListaProveedoresBean.listaFormaPago}"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputText value="Titular de la cuenta:*"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText required="true" requiredMessage="Se necesita un Titular de la cuenta" value="#{Proveedores.objetoProveedoresInsercion.titularProveedor}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="Número de la cuenta:*"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText required="true" requiredMessage="Se necesita un núemro de cuenta" value="#{Proveedores.objetoProveedoresInsercion.ncuentaProveedor}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputText value="Entidad Bancaria*"/>
+                            </p:column>
+                            <p:column colspan="3">
+                                <p:inputText required="true" requiredMessage="Se necesita una Entida bancaria" value="#{Proveedores.objetoProveedoresInsercion.bancoProveedor}"/>
+                            </p:column>
+                        </p:row>
                     </p:panelGrid>
                     <p:commandButton value="Ingresar" update=":ProveedoresForm" actionListener="#{Proveedores.instertarProveedores()}" validateClient="true" class="botonNormal" />
                 </h:form>
                 <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
                 <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">                    
-                    
+
                     <img src="/ISODOC/imagenes/buttons/carga2.gif" style="opacity:0.4;"/>
                 </p:dialog>
             </h:body>

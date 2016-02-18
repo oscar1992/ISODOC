@@ -2,15 +2,11 @@ package co.com.siscomputo.gestiondocumental.logic;
 
 import co.com.siscomputo.endpoint.AccionEntity;
 import co.com.siscomputo.endpoint.DocumentoEntity;
-import co.com.siscomputo.endpoint.GestionDocumental;
-import co.com.siscomputo.endpoint.GestionDocumental_Service;
 import co.com.siscomputo.utilidades.DateToCalendar;
 import co.com.siscomputo.utilidades.IurlWebService;
-import co.com.siscomputo.utilidades.SingletonDirecciones;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.xml.ws.BindingProvider;
 
 /**
  *
@@ -105,7 +101,7 @@ public class DocumentoLogic implements IurlWebService{
         DateToCalendar dateToCalendar=new DateToCalendar();
         ArrayList<DocumentoEntity> listaretorna=new ArrayList<>();
         try {
-            System.out.println("F1: "+idTipoDocumental);
+            //System.out.println("F1: "+f1.toString());
             ArrayList<Object>listaObjeto=new ArrayList<>();
             listaObjeto=(ArrayList<Object>) portGestion().documetosFiltrados(idTipoDocumental, idPlantilla, idAccion, dateToCalendar.convertir(f1), dateToCalendar.convertir(f2)).getRetorna();
             for(Object obj:listaObjeto){

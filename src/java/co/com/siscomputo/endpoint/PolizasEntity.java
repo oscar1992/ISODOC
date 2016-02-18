@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;extension base="{http://endpoint.siscomputo.com.co/}objetoRetornaEntity">
  *       &lt;sequence>
+ *         &lt;element name="estado" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="idContratoPoliza" type="{http://endpoint.siscomputo.com.co/}contratosEntity" minOccurs="0"/>
  *         &lt;element name="idPoliza" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="numeroPoliza" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -29,6 +30,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "polizasEntity", propOrder = {
+    "estado",
     "idContratoPoliza",
     "idPoliza",
     "numeroPoliza"
@@ -37,9 +39,34 @@ public class PolizasEntity
     extends ObjetoRetornaEntity
 {
 
+    protected String estado;
     protected ContratosEntity idContratoPoliza;
     protected Integer idPoliza;
     protected String numeroPoliza;
+
+    /**
+     * Obtiene el valor de la propiedad estado.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getEstado() {
+        return estado;
+    }
+
+    /**
+     * Define el valor de la propiedad estado.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setEstado(String value) {
+        this.estado = value;
+    }
 
     /**
      * Obtiene el valor de la propiedad idContratoPoliza.

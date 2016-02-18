@@ -8,11 +8,13 @@ package co.com.siscomputo.proveedores.bean;
 import co.com.siscomputo.endpoint.FormasPagoEntity;
 import co.com.siscomputo.endpoint.LineaEntity;
 import co.com.siscomputo.endpoint.TipoCuentaEntity;
+import co.com.siscomputo.endpoint.TipoDocumentoEntity;
 import co.com.siscomputo.endpoint.TipoProveedorEntity;
 import co.com.siscomputo.endpoint.TipoTributarioEntity;
 import co.com.siscomputo.proveedores.logic.FormasPagoLogic;
 import co.com.siscomputo.proveedores.logic.LineaLogic;
 import co.com.siscomputo.proveedores.logic.TipoCuentaLogic;
+import co.com.siscomputo.proveedores.logic.TipoDocumentoLogic;
 import co.com.siscomputo.proveedores.logic.TipoProveedorLogic;
 import co.com.siscomputo.proveedores.logic.TipoTributarioLogic;
 import java.io.Serializable;
@@ -31,6 +33,7 @@ public class ListaProveedoresBean implements Serializable{
     private HashMap<String, Integer>listaTipoTributaria;
     private HashMap<String, Integer>listaTipoCuenta;
     private HashMap<String, Integer>listaFormaPago;
+    private HashMap<String, Integer>listaTipoDocumento;
     
     
 
@@ -121,6 +124,23 @@ public class ListaProveedoresBean implements Serializable{
         ArrayList<FormasPagoEntity>listaFormaPagoWS=formasPagoLogic.listaFormasPago();
         for(FormasPagoEntity pago:listaFormaPagoWS){
             listaFormaPago.put(pago.getTipoFormaPago(), pago.getIdFormasPagos());
+        }
+    }
+
+    public HashMap<String, Integer> getListaTipoDocumento() {
+        return listaTipoDocumento;
+    }
+
+    public void setListaTipoDocumento(HashMap<String, Integer> listaTipoDocumento) {
+        this.listaTipoDocumento = listaTipoDocumento;
+    }
+    
+    public void iniciaListaTipoDocumento(){
+        listaTipoDocumento=new HashMap<String, Integer>();
+        TipoDocumentoLogic tipoDocumentoLogic=new TipoDocumentoLogic();
+        ArrayList<TipoDocumentoEntity>listaTipoDocumentoWS=tipoDocumentoLogic.listaTipoDocumento();
+        for(TipoDocumentoEntity documento:listaTipoDocumentoWS){
+            listaTipoDocumento.put(documento.getTipoTipoDocumento(), documento.getIdTipoDocumento());
         }
     }
 }

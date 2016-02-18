@@ -16,14 +16,20 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * @author LENOVO
  */
 public class DateToCalendar {
-    public XMLGregorianCalendar convertir(Date fecha) throws DatatypeConfigurationException{
-        GregorianCalendar calendar=new GregorianCalendar();
-        calendar.setTime(fecha);
-        return DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
+
+    public XMLGregorianCalendar convertir(Date fecha) throws DatatypeConfigurationException {
+        if (fecha == null) {
+            return null;
+        } else {
+            GregorianCalendar calendar = new GregorianCalendar();
+            calendar.setTime(fecha);
+            return DatatypeFactory.newInstance().newXMLGregorianCalendar(calendar);
+        }
     }
-    public Date convertirInverso(XMLGregorianCalendar fecha){
-        Date retorna=new Date();
-        retorna=fecha.toGregorianCalendar().getTime();
+
+    public Date convertirInverso(XMLGregorianCalendar fecha) {
+        Date retorna = new Date();
+        retorna = fecha.toGregorianCalendar().getTime();
         return retorna;
     }
 }

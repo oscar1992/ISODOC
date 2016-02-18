@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlType;
 })
 @XmlSeeAlso({
     UsuarioEntity.class,
-    RolesEntity.class,
+    AreaEntity.class,
     ObjetoRetornaEntity.class
 })
 public class ObjetoTraza {
