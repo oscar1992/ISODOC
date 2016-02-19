@@ -3,6 +3,7 @@ package co.com.siscomputo.endpoint;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -16,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="objeto" type="{http://endpoint.siscomputo.com.co/}estadoProveedorEntity" minOccurs="0"/>
+ *         &lt;element name="ProveedorObjeto" type="{http://endpoint.siscomputo.com.co/}estadoProveedorEntity" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -27,34 +28,35 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "actualizarEstadoProveedor", propOrder = {
-    "objeto"
+    "proveedorObjeto"
 })
 public class ActualizarEstadoProveedor {
 
-    protected EstadoProveedorEntity objeto;
+    @XmlElement(name = "ProveedorObjeto")
+    protected EstadoProveedorEntity proveedorObjeto;
 
     /**
-     * Obtiene el valor de la propiedad objeto.
+     * Obtiene el valor de la propiedad proveedorObjeto.
      * 
      * @return
      *     possible object is
      *     {@link EstadoProveedorEntity }
      *     
      */
-    public EstadoProveedorEntity getObjeto() {
-        return objeto;
+    public EstadoProveedorEntity getProveedorObjeto() {
+        return proveedorObjeto;
     }
 
     /**
-     * Define el valor de la propiedad objeto.
+     * Define el valor de la propiedad proveedorObjeto.
      * 
      * @param value
      *     allowed object is
      *     {@link EstadoProveedorEntity }
      *     
      */
-    public void setObjeto(EstadoProveedorEntity value) {
-        this.objeto = value;
+    public void setProveedorObjeto(EstadoProveedorEntity value) {
+        this.proveedorObjeto = value;
     }
 
 }

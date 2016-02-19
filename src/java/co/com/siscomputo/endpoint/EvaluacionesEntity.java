@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;extension base="{http://endpoint.siscomputo.com.co/}objetoRetornaEntity">
  *       &lt;sequence>
  *         &lt;element name="anioEvaluaciones" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="contratoEvaluaciones" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="contratoEvaluaciones" type="{http://endpoint.siscomputo.com.co/}contratosEntity" minOccurs="0"/>
  *         &lt;element name="documentoEvaluaciones" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="empresaEvaluaciones" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="estadoProveedorEvaluaciones" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -61,7 +61,7 @@ public class EvaluacionesEntity
 {
 
     protected String anioEvaluaciones;
-    protected String contratoEvaluaciones;
+    protected ContratosEntity contratoEvaluaciones;
     protected String documentoEvaluaciones;
     protected String empresaEvaluaciones;
     protected String estadoProveedorEvaluaciones;
@@ -105,10 +105,10 @@ public class EvaluacionesEntity
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link ContratosEntity }
      *     
      */
-    public String getContratoEvaluaciones() {
+    public ContratosEntity getContratoEvaluaciones() {
         return contratoEvaluaciones;
     }
 
@@ -117,10 +117,10 @@ public class EvaluacionesEntity
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link ContratosEntity }
      *     
      */
-    public void setContratoEvaluaciones(String value) {
+    public void setContratoEvaluaciones(ContratosEntity value) {
         this.contratoEvaluaciones = value;
     }
 

@@ -417,3 +417,17 @@
     width: 130px;
     
 }
+.ui-panel{
+    background: #cccccc;
+    border-radius: 4px;
+}
+
+.ui-panel .ui-panel-title{
+    color: #FFF;
+    font-family: Trebuchet MS;
+    
+}
+
+.ui-panel .ui-panel-titlebar{
+    background-color: #29abe2;
+}

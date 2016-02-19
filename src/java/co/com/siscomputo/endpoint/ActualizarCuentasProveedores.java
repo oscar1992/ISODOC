@@ -3,6 +3,7 @@ package co.com.siscomputo.endpoint;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -16,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="objeto" type="{http://endpoint.siscomputo.com.co/}cuentasProveedoresEntity" minOccurs="0"/>
+ *         &lt;element name="CuentaProveedoresObjeto" type="{http://endpoint.siscomputo.com.co/}cuentasProveedoresEntity" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -27,34 +28,35 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "actualizarCuentasProveedores", propOrder = {
-    "objeto"
+    "cuentaProveedoresObjeto"
 })
 public class ActualizarCuentasProveedores {
 
-    protected CuentasProveedoresEntity objeto;
+    @XmlElement(name = "CuentaProveedoresObjeto")
+    protected CuentasProveedoresEntity cuentaProveedoresObjeto;
 
     /**
-     * Obtiene el valor de la propiedad objeto.
+     * Obtiene el valor de la propiedad cuentaProveedoresObjeto.
      * 
      * @return
      *     possible object is
      *     {@link CuentasProveedoresEntity }
      *     
      */
-    public CuentasProveedoresEntity getObjeto() {
-        return objeto;
+    public CuentasProveedoresEntity getCuentaProveedoresObjeto() {
+        return cuentaProveedoresObjeto;
     }
 
     /**
-     * Define el valor de la propiedad objeto.
+     * Define el valor de la propiedad cuentaProveedoresObjeto.
      * 
      * @param value
      *     allowed object is
      *     {@link CuentasProveedoresEntity }
      *     
      */
-    public void setObjeto(CuentasProveedoresEntity value) {
-        this.objeto = value;
+    public void setCuentaProveedoresObjeto(CuentasProveedoresEntity value) {
+        this.cuentaProveedoresObjeto = value;
     }
 
 }

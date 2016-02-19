@@ -112,6 +112,9 @@ public class UsuarioBean implements Serializable {
         } catch (Error e) {
             e.printStackTrace();
         }
+        nuevoObjetoUsuario();
+        RequestContext conte=RequestContext.getCurrentInstance();
+        conte.update("IngresarModal:insertarUsuarioModal");
     }
 
     /**
@@ -129,7 +132,7 @@ public class UsuarioBean implements Serializable {
         } else {
 
         }
-        usuarioObjeto = new UsuarioEntity();
+        nuevoObjetoUsuario();
         RequestContext.getCurrentInstance().execute("PF('actualizarUsuario').hide()");
         
     }
@@ -229,7 +232,12 @@ public class UsuarioBean implements Serializable {
     public void setEliminar(boolean eliminar) {
         this.eliminar = eliminar;
     }
-
+    
+    public void nuevoObjetoUsuario(){
+        usuarioObjeto=new UsuarioEntity();
+        usuarioObjetoInsercion=new UsuarioEntity();
+    }
+    
     /**
      * Método que recoje el evento de la selecion de la tabla y obtiene el
      * objeto de la selección

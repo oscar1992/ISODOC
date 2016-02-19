@@ -18,6 +18,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *   &lt;complexContent>
  *     &lt;extension base="{http://endpoint.siscomputo.com.co/}objetoRetornaEntity">
  *       &lt;sequence>
+ *         &lt;element name="documentoContrato" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="estadoContrato" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="fechaInicialContrato" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
  *         &lt;element name="fechafinalContrato" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
@@ -30,7 +31,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="idTipoProveedorContrato" type="{http://endpoint.siscomputo.com.co/}tipoProveedorEntity" minOccurs="0"/>
  *         &lt;element name="objetoContrato" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="plazoEjecucion" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
- *         &lt;element name="procesoContrato" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
+ *         &lt;element name="procesoContrato" type="{http://endpoint.siscomputo.com.co/}procesoEntity" minOccurs="0"/>
  *         &lt;element name="supervisorContrato" type="{http://endpoint.siscomputo.com.co/}usuarioEntity" minOccurs="0"/>
  *         &lt;element name="valorContrato" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
@@ -43,6 +44,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "contratosEntity", propOrder = {
+    "documentoContrato",
     "estadoContrato",
     "fechaInicialContrato",
     "fechafinalContrato",
@@ -63,6 +65,7 @@ public class ContratosEntity
     extends ObjetoRetornaEntity
 {
 
+    protected String documentoContrato;
     protected String estadoContrato;
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar fechaInicialContrato;
@@ -78,9 +81,33 @@ public class ContratosEntity
     protected String objetoContrato;
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar plazoEjecucion;
-    protected Integer procesoContrato;
+    protected ProcesoEntity procesoContrato;
     protected UsuarioEntity supervisorContrato;
     protected String valorContrato;
+
+    /**
+     * Obtiene el valor de la propiedad documentoContrato.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getDocumentoContrato() {
+        return documentoContrato;
+    }
+
+    /**
+     * Define el valor de la propiedad documentoContrato.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setDocumentoContrato(String value) {
+        this.documentoContrato = value;
+    }
 
     /**
      * Obtiene el valor de la propiedad estadoContrato.
@@ -375,10 +402,10 @@ public class ContratosEntity
      * 
      * @return
      *     possible object is
-     *     {@link Integer }
+     *     {@link ProcesoEntity }
      *     
      */
-    public Integer getProcesoContrato() {
+    public ProcesoEntity getProcesoContrato() {
         return procesoContrato;
     }
 
@@ -387,10 +414,10 @@ public class ContratosEntity
      * 
      * @param value
      *     allowed object is
-     *     {@link Integer }
+     *     {@link ProcesoEntity }
      *     
      */
-    public void setProcesoContrato(Integer value) {
+    public void setProcesoContrato(ProcesoEntity value) {
         this.procesoContrato = value;
     }
 

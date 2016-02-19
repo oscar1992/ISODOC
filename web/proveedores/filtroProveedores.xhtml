@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition template="/plantillas/PlantillaProveedores.xhtml">
+        <ui:define name="content">
+            <h:head>
+                <script src="/ISODOC/js/es.js" type="text/javascript"></script>
+            </h:head>
+            <h:body>
+                <h:form id="ProveedorForm">
+                    <div class="prueba" style="color: white; ">
+                        <p:growl id="msgs" showDetail="false" life="3000" />
+                    </div>
+                    <p:panel header="Filtros">
+                        <h:panelGrid columns="3">
+                            <h:outputText value="Estados de Proveedores"/>                            
+                            <h:outputText value="Ciudad del Proveedor"/>
+                            <h:outputText value="Línea de Proveedores"/>
+                            <p:selectOneMenu value="#{ProveedoresFiltro.filtro1}" style="width: 320px">
+                                <f:selectItem itemLabel="Selecione Estado de Proveedor" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaProveedoresBean.listaEstadosProveedor}" />
+                            </p:selectOneMenu>
+                            <p:selectOneMenu value="#{ProveedoresFiltro.filtro2}" style="width: 320px">
+                                <f:selectItem itemLabel="Selecione la Ciudad del Proveedor" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaProveedoresBean.listaCiudadesProveedor}" />
+                            </p:selectOneMenu>
+                            <p:selectOneMenu value="#{ProveedoresFiltro.filtro3}" style="width: 320px">
+                                <f:selectItem itemLabel="Selecione la linea de Proveedor" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaProveedoresBean.listaLineas}" />
+                            </p:selectOneMenu>
+                            <h:outputText value="Empresa de Proveedores"/>
+                            <h:outputText value="Responsable de Proveedores"/>    
+                            <h:outputText value="Tipo de Proveedor"/>
+                            <p:selectOneMenu value="#{ProveedoresFiltro.filtro4}" style="width: 320px">
+                                <f:selectItem itemLabel="Selecione la empresa del Proveedor" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEmpresas}" />
+                            </p:selectOneMenu>
+                            <p:selectOneMenu value="#{ProveedoresFiltro.filtro5}" style="width: 320px">
+                                <f:selectItem itemLabel="Selecione el Responsable del proveedor" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaUsuarios}" />
+                            </p:selectOneMenu>
+                            <p:selectOneMenu value="#{ProveedoresFiltro.filtro6}" style="width: 320px">
+                                <f:selectItem itemLabel="Selecione el tipo de Proveedor" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaProveedoresBean.listaTipoProveedor}" />
+                            </p:selectOneMenu>
+                            <h:outputText value="Tipo de información Tributaria"/>
+                            <h:outputText value="Tipo de Cuenta Bancaria"/>
+                            <h:outputText value="Forma de pago"/>
+                            
+                            
+                            
+                            
+                            <p:selectOneMenu value="#{ProveedoresFiltro.filtro7}" style="width: 320px">
+                                <f:selectItem itemLabel="Selecione el tipo de información Tributaria del Proveedor" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaProveedoresBean.listaTipoTributaria}" />
+                            </p:selectOneMenu>
+                            <p:selectOneMenu value="#{ProveedoresFiltro.filtro8}" style="width: 320px">
+                                <f:selectItem itemLabel="Selecione le tipo de cuenta del Proveedor" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaProveedoresBean.listaTipoCuenta}" />
+                            </p:selectOneMenu>
+                            <p:selectOneMenu value="#{ProveedoresFiltro.filtro9}" style="width: 320px">
+                                <f:selectItem itemLabel="Selecione la Forma de Pago del Proveedor" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaProveedoresBean.listaFormaPago}" />
+                            </p:selectOneMenu>
+                            <h:outputText value="Fecha Inicial"/>
+                            <p:column>
+                                <div class='input-group date' id='datetimepicker' >
+                                    <p:inputText class="form-control" value="#{ProveedoresFiltro.filtro10}"/>                                                        
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                    <script type="text/javascript">
+                                        // debugger;
+
+                                        $('#datetimepicker').datetimepicker({
+                                            isRTL: false,
+                                            format: 'dd/mm/yyyy',
+                                            autoclose: true
+                                        });
+                                    </script>
+                                </div>
+                            </p:column>
+                            <h:outputText value="Fecha Final"/>
+                            <p:column>
+                                <div class='input-group date' id='datetimepicker2' >
+                                    <p:inputText class="form-control" value="#{ProveedoresFiltro.filtro11}"/>                                                        
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                    <script type="text/javascript">
+                                        // debugger;
+
+                                        $('#datetimepicker2').datetimepicker({
+                                            isRTL: false,
+                                            format: 'dd/mm/yyyy',
+                                            autoclose: true
+                                        });
+                                    </script>
+                                </div>
+                            </p:column>
+                        </h:panelGrid>
+                        <p:commandButton  value="Filtar" actionListener="#{ProveedoresFiltro.filtro()}" validateClient="true" class="botonNormal" rendered="#{ProveedoresFiltro.actualizar}" update="tablaProveedores"/>
+                    </p:panel>
+                    <br/>
+                    <p:dataTable var="proveedor" value="#{ProveedoresFiltro.lista}" reflow="true" widgetVar="TablaProveedores" id="tablaProveedores" selectionMode="single"
+                                 selection="#{ProveedoresFiltro.objetoProveedores}" rowKey="#{proveedor.idProveedor}" class="TABLA" paginator="true" rows="7">
+                        <p:ajax event="rowSelect" listener="#{ProveedoresFiltro.onRowSelect}" update=":ProveedorForm:msgs" />
+                        <f:facet name="header">
+                            <h:outputText value="CONSULTA DE PROVEEDORES" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                            <p:inputText id="globalFilter" onkeyup="PF('TablaProveedores').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                            <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                        </f:facet>
+
+                        <p:column headerText="Nombre del Proveedor" filterBy="#{proveedor.nombreProveedor}">
+                            <h:outputText value="#{proveedor.nombreProveedor}"/>
+                        </p:column>
+                        <p:column headerText="Estado del Proveedor" filterBy="#{proveedor.estadoProveedor.estadoEstadoProveedor}">
+                            <h:outputText value="#{proveedor.estadoProveedor.estadoEstadoProveedor}"/>
+                        </p:column>
+                        <p:column headerText="plantilla del Documento" filterBy="#{proveedor.lineaProveedores.tipoLinea}">
+                            <h:outputText value="#{proveedor.lineaProveedores.tipoLinea}"/>
+                        </p:column>
+                        <p:column headerText="version del Documento" filterBy="#{proveedor.usuarioResponsable.nombreUsuario}">
+                            <h:outputText value="#{proveedor.usuarioResponsable.nombreUsuario}"/>
+                        </p:column>
+                        <p:column headerText="estado del Documento" filterBy="#{documento.estadoDocumento}">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('TablaProveedores').filter()" >
+                                    <f:selectItem itemLabel="Selecione Estado" itemValue="#{null}" noSelectionOption="false"/>
+                                    <f:selectItems value="#{proveedor.estadoProveedores}"/>
+                                </p:selectOneMenu>
+                            </f:facet>  
+                            <h:outputText value="Activo" rendered="#{documento.estadoDocumento == 'A'}"/>
+                            <h:outputText value="Inactivo" rendered="#{documento.estadoDocumento == 'I'}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                    <br/>
+                    <!--<p:commandButton value="Insertar" type="button" onclick="PF('insertarDocumento').show();" update=":DocumentoForm:msgs" class="botonNormal" rendered="#{Documento.ingresar}"></p:commandButton>-->
+
+                </h:form>
+                
+                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">                    
+                    
+                    <img src="/ISODOC/imagenes/buttons/carga2.gif" style="opacity:0.4;"/>
+                </p:dialog>
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>
+

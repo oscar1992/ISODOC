@@ -3,6 +3,7 @@ package co.com.siscomputo.endpoint;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -16,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="objeto" type="{http://endpoint.siscomputo.com.co/}anexoEvalucionEntity" minOccurs="0"/>
+ *         &lt;element name="AnexoEvaluacionesObj" type="{http://endpoint.siscomputo.com.co/}anexoEvalucionEntity" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -27,34 +28,35 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "actualizarAnexoEvalucion", propOrder = {
-    "objeto"
+    "anexoEvaluacionesObj"
 })
 public class ActualizarAnexoEvalucion {
 
-    protected AnexoEvalucionEntity objeto;
+    @XmlElement(name = "AnexoEvaluacionesObj")
+    protected AnexoEvalucionEntity anexoEvaluacionesObj;
 
     /**
-     * Obtiene el valor de la propiedad objeto.
+     * Obtiene el valor de la propiedad anexoEvaluacionesObj.
      * 
      * @return
      *     possible object is
      *     {@link AnexoEvalucionEntity }
      *     
      */
-    public AnexoEvalucionEntity getObjeto() {
-        return objeto;
+    public AnexoEvalucionEntity getAnexoEvaluacionesObj() {
+        return anexoEvaluacionesObj;
     }
 
     /**
-     * Define el valor de la propiedad objeto.
+     * Define el valor de la propiedad anexoEvaluacionesObj.
      * 
      * @param value
      *     allowed object is
      *     {@link AnexoEvalucionEntity }
      *     
      */
-    public void setObjeto(AnexoEvalucionEntity value) {
-        this.objeto = value;
+    public void setAnexoEvaluacionesObj(AnexoEvalucionEntity value) {
+        this.anexoEvaluacionesObj = value;
     }
 
 }

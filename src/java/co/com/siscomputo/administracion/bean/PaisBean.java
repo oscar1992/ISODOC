@@ -128,7 +128,7 @@ public class PaisBean implements Serializable {
             e.printStackTrace();
         }
         RequestContext.getCurrentInstance().execute("PF('insertarPais').hide()");
-        
+        nuevoPais();
     }
 
     /**

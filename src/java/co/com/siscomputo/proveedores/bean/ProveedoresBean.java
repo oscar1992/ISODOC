@@ -262,7 +262,7 @@ public class ProveedoresBean implements Serializable {
                     certificadoCalidadLogic.insertarCertificadoCalidad(cert);
                 }
             }
-            FacesMessage msg = null;
+             
             if (proveedoresEntity != null) {
                 MensajesJSF.muestraMensajes("inserción de Proveedor correcto", "Mensaje");
                 adicionarMetodoPtoteccionLista(proveedoresEntity);

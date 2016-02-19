@@ -3,7 +3,9 @@ package co.com.siscomputo.endpoint;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
@@ -25,6 +27,8 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="idTibutaria" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="idTipoCuenta" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="idFormaPago" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
+ *         &lt;element name="fechai" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
+ *         &lt;element name="fechaf" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -43,7 +47,9 @@ import javax.xml.bind.annotation.XmlType;
     "idTipoProveedor",
     "idTibutaria",
     "idTipoCuenta",
-    "idFormaPago"
+    "idFormaPago",
+    "fechai",
+    "fechaf"
 })
 public class ProveedoresFiltardos {
 
@@ -56,6 +62,10 @@ public class ProveedoresFiltardos {
     protected Integer idTibutaria;
     protected Integer idTipoCuenta;
     protected Integer idFormaPago;
+    @XmlSchemaType(name = "dateTime")
+    protected XMLGregorianCalendar fechai;
+    @XmlSchemaType(name = "dateTime")
+    protected XMLGregorianCalendar fechaf;
 
     /**
      * Obtiene el valor de la propiedad idTipoEstado.
@@ -271,6 +281,54 @@ public class ProveedoresFiltardos {
      */
     public void setIdFormaPago(Integer value) {
         this.idFormaPago = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad fechai.
+     * 
+     * @return
+     *     possible object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public XMLGregorianCalendar getFechai() {
+        return fechai;
+    }
+
+    /**
+     * Define el valor de la propiedad fechai.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public void setFechai(XMLGregorianCalendar value) {
+        this.fechai = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad fechaf.
+     * 
+     * @return
+     *     possible object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public XMLGregorianCalendar getFechaf() {
+        return fechaf;
+    }
+
+    /**
+     * Define el valor de la propiedad fechaf.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link XMLGregorianCalendar }
+     *     
+     */
+    public void setFechaf(XMLGregorianCalendar value) {
+        this.fechaf = value;
     }
 
 }

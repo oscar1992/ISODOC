@@ -46,6 +46,7 @@ import javax.xml.bind.annotation.XmlType;
     EstadoProveedorEntity.class,
     FormasPagoEntity.class,
     TipoDocumentoEntity.class,
+    NivelEntity.class,
     CuentasProveedoresEntity.class,
     AnexoProveedorEntity.class,
     PolizasEntity.class,
@@ -53,6 +54,7 @@ import javax.xml.bind.annotation.XmlType;
     EvaluacionesEntity.class,
     EmpresaEntity.class,
     TemaEvaluacionEntity.class,
+    ProcesoEntity.class,
     AnexoContratoEntity.class,
     TipoEvaluacionEntity.class,
     SedeEntity.class

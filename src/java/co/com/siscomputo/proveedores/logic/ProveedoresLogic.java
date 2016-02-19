@@ -4,6 +4,7 @@ import co.com.siscomputo.endpoint.ProveedoresEntity;
 import co.com.siscomputo.utilidades.IurlWebService;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 /**
  *
@@ -69,5 +70,15 @@ public class ProveedoresLogic implements IurlWebService{
             e.printStackTrace();            
         }
         return rta;
+    }
+    
+    public ArrayList<ProveedoresEntity> proveedoresFiltro(Integer idEstado, Integer idCiudad, Integer idLinea, Integer idEmpresa, Integer idUsuario, Integer idTipoProve, Integer idTipoTributario, Integer idTipoCuenta, Integer idFormaPago, XMLGregorianCalendar fecha1, XMLGregorianCalendar fecha2){
+        ArrayList<ProveedoresEntity> listaaux=new ArrayList<>();
+        ArrayList<Object> listaObjeto =(ArrayList<Object>) portProveedores().proveedoresFiltardos(idEstado, idCiudad, idLinea, idEmpresa, idUsuario, idTipoProve, idTipoTributario, idTipoCuenta, idFormaPago, fecha1, fecha2).getRetorna();
+        for(Object obj:listaObjeto){
+            ProveedoresEntity objectproveedores=(ProveedoresEntity) obj;
+            listaaux.add(objectproveedores);
+        }
+        return listaaux;
     }
 }

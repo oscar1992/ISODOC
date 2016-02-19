@@ -3,6 +3,7 @@ package co.com.siscomputo.endpoint;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -16,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="objeto" type="{http://endpoint.siscomputo.com.co/}tipoTributarioEntity" minOccurs="0"/>
+ *         &lt;element name="TipoTributarioObjeto" type="{http://endpoint.siscomputo.com.co/}tipoTributarioEntity" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -27,34 +28,35 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "actualizarTipoTributario", propOrder = {
-    "objeto"
+    "tipoTributarioObjeto"
 })
 public class ActualizarTipoTributario {
 
-    protected TipoTributarioEntity objeto;
+    @XmlElement(name = "TipoTributarioObjeto")
+    protected TipoTributarioEntity tipoTributarioObjeto;
 
     /**
-     * Obtiene el valor de la propiedad objeto.
+     * Obtiene el valor de la propiedad tipoTributarioObjeto.
      * 
      * @return
      *     possible object is
      *     {@link TipoTributarioEntity }
      *     
      */
-    public TipoTributarioEntity getObjeto() {
-        return objeto;
+    public TipoTributarioEntity getTipoTributarioObjeto() {
+        return tipoTributarioObjeto;
     }
 
     /**
-     * Define el valor de la propiedad objeto.
+     * Define el valor de la propiedad tipoTributarioObjeto.
      * 
      * @param value
      *     allowed object is
      *     {@link TipoTributarioEntity }
      *     
      */
-    public void setObjeto(TipoTributarioEntity value) {
-        this.objeto = value;
+    public void setTipoTributarioObjeto(TipoTributarioEntity value) {
+        this.tipoTributarioObjeto = value;
     }
 
 }

@@ -1261,6 +1261,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link NivelEntity }
+     * 
+     */
+    public NivelEntity createNivelEntity() {
+        return new NivelEntity();
+    }
+
+    /**
      * Create an instance of {@link CuentasProveedoresEntity }
      * 
      */
@@ -1330,6 +1338,14 @@ public class ObjectFactory {
      */
     public ObjetoRetornaEntity createObjetoRetornaEntity() {
         return new ObjetoRetornaEntity();
+    }
+
+    /**
+     * Create an instance of {@link ProcesoEntity }
+     * 
+     */
+    public ProcesoEntity createProcesoEntity() {
+        return new ProcesoEntity();
     }
 
     /**

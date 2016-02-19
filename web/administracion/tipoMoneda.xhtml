@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition template="/plantillas/PlantillaAdministracion.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form id="TipoMonedaForm">
+                    <div class="prueba" style="color: white; ">
+                        <p:growl id="msgs" showDetail="true" life="3000" autoUpdate="true"/>
+                    </div>
+                    <p:dataTable var="tipoMoneda" value="#{TipoMoneda.lista}" reflow="true" widgetVar="TablaTipoMoneda" id="tablaTipoMoneda" selectionMode="single"
+                                 selection="#{TipoMoneda.objetoTipoMoneda}" rowKey="#{tipoMoneda.idMoneda}" class="TABLA" paginator="true" rows="7">
+                        <p:ajax event="rowSelect" listener="#{TipoMoneda.onRowSelect}" update=":TipoMonedaForm:msgs,:ActualizarModal:actualizarTipoMonedaModal" oncomplete="PF('actualizarTipoMoneda').show()"/>
+                        <f:facet name="header">
+                            <h:outputText value="CONSULTA DE TIPO DE MONEDA" style="color: #FFF; font-weight: bolder; margin-left: 20% "/>
+                            <p:inputText id="globalFilter" onkeyup="PF('TablaTipoMoneda').filter()" style="width: 150px; height: 20px;float: right" placeholder="FiltroGeneral" />
+                            <h:outputText value="Buscar" style="color: #FFF; float: right"/>
+                        </f:facet>
+
+                        <p:column headerText="Nombre del Tipo de Moneda" filterBy="#{tipoMoneda.tipoMoneda}">
+                            <h:outputText value="#{tipoMoneda.tipoMoneda}"/>
+                        </p:column>
+                        <p:column headerText="Valor del Tipo de Moneda" filterBy="#{tipoMoneda.valorMoneda}">
+                            <h:outputText value="#{tipoMoneda.valorMoneda}"/>
+                        </p:column>
+                        <p:column headerText="Estado del Tipo de Moneda" filterBy="#{tipoMoneda.estadoMoneda}">
+                            <h:outputText value="Activo" rendered="#{tipoMoneda.estadoMoneda == 'A'}"/>
+                            <h:outputText value="Inctivo" rendered="#{tipoMoneda.estadoMoneda == 'I'}"/> </p:column>
+
+                    </p:dataTable>
+                    <br/>
+                    <p:commandButton value="Insertar" type="button" onclick="PF('insertarTipoMoneda').show();" update=":TipoMonedaForm:msgs" class="botonNormal" rendered="#{TipoMoneda.ingresar}"></p:commandButton>
+
+                </h:form>
+                <h:form id="IngresarModal">
+                    <p:dialog header="Insertar Tipo de Moneda" widgetVar="insertarTipoMoneda" modal="true" id="insertarTipoMonedaModal" responsive="true">
+                        #{TipoMoneda.nuevoTipoMonedaObjeto()}                        
+                        <p:messages autoUpdate="true"/>                        
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+
+                            
+                            <h:outputText value="Nombre del Tipo de Moneda"></h:outputText>
+                            <p:inputText required="true" label="nombre del Tipo de Moneda" value="#{TipoMoneda.objetoTipoMonedaInsercion.tipoMoneda}"/>
+                            <h:outputText value="Valor del Tipo de Moneda"></h:outputText>
+                            <p:inputText required="true" label="valor del Tipo de Moneda" value="#{TipoMoneda.objetoTipoMonedaInsercion.valorMoneda}"/>
+                            <h:outputText value="Estado del Tipo de Moneda"></h:outputText>
+                            <p:selectOneMenu id="desplegableIngresarEstado" value="#{TipoMoneda.objetoTipoMonedaInsercion.estadoMoneda}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Estado" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+
+                        </p:panelGrid>                        
+                        <p:commandButton value="Ingresar" update=":TipoMonedaForm:tablaTipoMoneda,:IngresarModal:insertarTipoMonedaModal" actionListener="#{TipoMoneda.instertarTipoMoneda()}" validateClient="true" class="botonNormal" />
+                    </p:dialog>
+                </h:form>
+                <h:form id="ActualizarModal">
+                    <p:dialog header="Actualizar Tipo de Moneda" widgetVar="actualizarTipoMoneda" modal="true" id="actualizarTipoMonedaModal" responsive="true">
+                        <p:messages autoUpdate="true"/>
+                        <p:panelGrid style="margin-top: 20px" styleClass="table table-bordered" columns="2">
+                            <h:outputText value="Nombre del Tipo de Moneda"></h:outputText>
+                            <p:inputText required="true" label="nombre del Tipo de Moneda" value="#{TipoMoneda.objetoTipoMoneda.tipoMoneda}"/>
+                            <h:outputText value="Valor del Tipo de Moneda"></h:outputText>
+                            <p:inputText required="true" label="nombre del Tipo de Moneda" value="#{TipoMoneda.objetoTipoMoneda.valorMoneda}"/>
+
+
+                            <h:outputText value="Estado del Tipo de Moneda"></h:outputText>
+                            <p:selectOneMenu id="desplegableActualizarEstado" value="#{TipoMoneda.objetoTipoMoneda.estadoMoneda}" style="width: 150px;">
+                                <f:selectItem itemLabel="Selecione Tipo de Moneda" itemValue="" noSelectionOption="true"/>
+                                <f:selectItems value="#{ListaAdministracionBean.listaEstados}"/>
+                            </p:selectOneMenu>
+                            <h:inputHidden value="#{TipoMoneda.objetoTipoMoneda.idMoneda}"></h:inputHidden>
+                        </p:panelGrid>
+                        <p:commandButton  value="Actualizar" update=":TipoMonedaForm:tablaTipoMoneda,:ActualizarModal:actualizarTipoMonedaModal,TipoMonedaForm:msgs" actionListener="#{TipoMoneda.actualizarTipoMoneda()}" validateClient="true" class="botonNormal" rendered="#{TipoMoneda.actualizar}"/>
+                        <p:commandButton value="Eliminar" update=":TipoMonedaForm:tablaTipoMoneda,:ActualizarModal:actualizarTipoMonedaModal,TipoMonedaForm:msgs" actionListener="#{TipoMoneda.eliminarTipoMoneda()}" validateClient="true" class="botonNormal" rendered="#{TipoMoneda.eliminar}"/>
+                    </p:dialog>
+                </h:form>
+
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>

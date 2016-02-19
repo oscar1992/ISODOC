@@ -3,6 +3,7 @@ package co.com.siscomputo.endpoint;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -16,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="objeto" type="{http://endpoint.siscomputo.com.co/}tipoDocumentoEntity" minOccurs="0"/>
+ *         &lt;element name="TipoDocmento" type="{http://endpoint.siscomputo.com.co/}tipoDocumentoEntity" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -27,34 +28,35 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "actualizarTipoDocumento", propOrder = {
-    "objeto"
+    "tipoDocmento"
 })
 public class ActualizarTipoDocumento {
 
-    protected TipoDocumentoEntity objeto;
+    @XmlElement(name = "TipoDocmento")
+    protected TipoDocumentoEntity tipoDocmento;
 
     /**
-     * Obtiene el valor de la propiedad objeto.
+     * Obtiene el valor de la propiedad tipoDocmento.
      * 
      * @return
      *     possible object is
      *     {@link TipoDocumentoEntity }
      *     
      */
-    public TipoDocumentoEntity getObjeto() {
-        return objeto;
+    public TipoDocumentoEntity getTipoDocmento() {
+        return tipoDocmento;
     }
 
     /**
-     * Define el valor de la propiedad objeto.
+     * Define el valor de la propiedad tipoDocmento.
      * 
      * @param value
      *     allowed object is
      *     {@link TipoDocumentoEntity }
      *     
      */
-    public void setObjeto(TipoDocumentoEntity value) {
-        this.objeto = value;
+    public void setTipoDocmento(TipoDocumentoEntity value) {
+        this.tipoDocmento = value;
     }
 
 }

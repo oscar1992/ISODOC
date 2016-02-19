@@ -3,6 +3,7 @@ package co.com.siscomputo.endpoint;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -16,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="objeto" type="{http://endpoint.siscomputo.com.co/}lineaEntity" minOccurs="0"/>
+ *         &lt;element name="LineaObjeto" type="{http://endpoint.siscomputo.com.co/}lineaEntity" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -27,34 +28,35 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "actualizarLinea", propOrder = {
-    "objeto"
+    "lineaObjeto"
 })
 public class ActualizarLinea {
 
-    protected LineaEntity objeto;
+    @XmlElement(name = "LineaObjeto")
+    protected LineaEntity lineaObjeto;
 
     /**
-     * Obtiene el valor de la propiedad objeto.
+     * Obtiene el valor de la propiedad lineaObjeto.
      * 
      * @return
      *     possible object is
      *     {@link LineaEntity }
      *     
      */
-    public LineaEntity getObjeto() {
-        return objeto;
+    public LineaEntity getLineaObjeto() {
+        return lineaObjeto;
     }
 
     /**
-     * Define el valor de la propiedad objeto.
+     * Define el valor de la propiedad lineaObjeto.
      * 
      * @param value
      *     allowed object is
      *     {@link LineaEntity }
      *     
      */
-    public void setObjeto(LineaEntity value) {
-        this.objeto = value;
+    public void setLineaObjeto(LineaEntity value) {
+        this.lineaObjeto = value;
     }
 
 }

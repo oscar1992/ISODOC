@@ -1,0 +1,212 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <ui:composition template="/plantillas/PlantillaProveedores.xhtml">
+        <ui:define name="content">
+            <h:body>
+                <h:form id="ContratoForm">
+                    <div class="prueba" style="color: white; ">
+                        <p:growl id="msgs" showDetail="true" life="3000" autoUpdate="true"/>
+                    </div>
+
+
+                    #{Plantilla.limitaExtensiones()}
+                    <p:panelGrid style="width: 75%">
+                        <f:facet name="header">
+                            <p:row>
+                                <p:column colspan="4" style="border-width: 1px">Contrato</p:column>
+                            </p:row>
+                        </f:facet>
+                        <p:row>
+                            <p:column>
+                                <h:outputText value="Fecha de Creación" />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{CreaContrato.fechaActual}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="Estado"/>
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu required="true" requiredMessage="Se necesita un estado" value="#{CreaContrato.objetoContratoInsercion.estadoContrato}" style="width: 100%">
+                                    <f:selectItems value="#{ListaProveedoresBean.listaEstadosContrato}"/>
+                                </p:selectOneMenu>    
+                            </p:column>´
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputText value="Proveedor"/>
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu required="true" requiredMessage="Se necesita un estado" value="#{CreaContrato.objetoContratoInsercion.idProveedorContrato}" style="width: 100%">
+                                    <f:selectItems value="#{ListaProveedoresBean.listaProveedores}"/>
+                                </p:selectOneMenu>   
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="Tipo Documento:*"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText required="true" requiredMessage="Se necesita un Tipo de Documento" value="#{CreaContrato.objetoContratoInsercion.documentoContrato}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputText value="Fecha de Creación" />
+                            </p:column>
+                            <p:column>
+                                <div class='input-group date' id='datetimepicker' >
+                                    <p:inputText class="form-control" value="#{CreaContrato.objetoContratoInsercion.fechaInicialContrato}"></p:inputText>                                                        
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                    <script type="text/javascript">
+                                        // debugger;
+
+                                        $('#datetimepicker').datetimepicker({
+                                            isRTL: false,
+                                            format: 'dd/mm/yyyy',
+                                            autoclose: true
+                                        });
+                                    </script>
+                                </div>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="Fecha Vencimiento:*"/>
+                            </p:column>
+                            <p:column>
+                                <div class='input-group date' id='datetimepicker' >
+                                    <p:inputText class="form-control" value="#{CreaContrato.objetoContratoInsercion.fechafinalContrato}"></p:inputText>                                                        
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                    <script type="text/javascript">
+                                        // debugger;
+
+                                        $('#datetimepicker').datetimepicker({
+                                            isRTL: false,
+                                            format: 'dd/mm/yyyy',
+                                            autoclose: true
+                                        });
+                                    </script>
+                                </div>
+                            </p:column>´
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputText value="Plazo de Ejecución:"/>
+                            </p:column>
+                            <p:column>
+                                <div class='input-group date' id='datetimepicker' >
+                                    <p:inputText class="form-control" value="#{CreaContrato.objetoContratoInsercion.plazoEjecucion}"></p:inputText>                                                        
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                    <script type="text/javascript">
+                                        // debugger;
+
+                                        $('#datetimepicker').datetimepicker({
+                                            isRTL: false,
+                                            format: 'dd/mm/yyyy',
+                                            autoclose: true
+                                        });
+                                    </script>
+                                </div>
+                            </p:column>´
+                            <p:column>
+                                <h:outputText value="Supervisor del contrato:*"/>
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu required="true" requiredMessage="Se necesita un supervisor" value="#{CreaContrato.objetoContratoInsercion.supervisorContrato.idUsuario}" style="width: 100%">
+                                    <f:selectItems value="#{ListaAdministracionBean.listaUsuarios}"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                        </p:row>        
+                        <p:row>
+                            <p:column >
+                                <h:outputText value="Tipo Moneda:*"/>
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu required="true" requiredMessage="Se necesita un supervisor" value="#{CreaContrato.objetoContratoInsercion.idTipoMoneda.idMoneda}" style="width: 100%">
+                                    <f:selectItems value="#{ListaProveedoresBean.listaTiposMoneda}"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="Valor Contrato:*"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText required="true" requiredMessage="Se necesita un Valor de Contrato" value="#{CreaContrato.objetoContratoInsercion.valorContrato}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column >
+                                <h:outputText value="Línea:*"/>
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu required="true" requiredMessage="Se necesita un tipo de Linea" value="#{CreaContrato.objetoContratoInsercion.idLineaProveedor.idLinea}" style="width: 100%">
+                                    <f:selectItems value="#{ListaProveedoresBean.listaLineas}"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="Empresa:*"/>
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu required="true" requiredMessage="Se necesita una Empresa" value="#{CreaContrato.objetoContratoInsercion.idLineaProveedor.idLinea}" style="width: 100%">
+                                    <f:selectItems value="#{ListaAdministracionBean.listaEmpresas}"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column >
+                                <h:outputText value="Area Responsable:"/>
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu required="true" requiredMessage="Se necesita un tipo de Linea" value="#{CreaContrato.objetoContratoInsercion.idAreaContrato}" style="width: 100%">
+                                    <f:selectItems value="#{ListaAdministracionBean.listaAreas}"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column >
+                                <h:outputText value="Proceso:"/>
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu required="true" requiredMessage="Se necesita una Empresa" value="#{CreaContrato.objetoContratoInsercion.procesoContrato}" style="width: 100%">
+                                    <f:selectItems value="#{ListaAdministracionBean.listaProceso}"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputText value="Objeto del Contrato:*"/>
+                            </p:column>
+                            <p:column colspan="3">
+                                <p:inputTextarea value="#{CreaContrato.objetoContratoInsercion.objetoContrato}" style="width: 100%"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputText value="Anexar Archivo"/>
+                            </p:column>
+                            <p:column colspan="3">
+                                <p:fileUpload id="subirArchivo" required="true" requiredMessage="debe subir un archivo" uploadLabel="Subir" cancelLabel="Cancelar" allowTypes="/(\.|\/)(gif#{Plantilla.extensiones})$/" invalidFileMessage="Archivo Inválido" multiple="false" fileUploadListener="#{CreaContrato.subriArchivo}" label="Subir"/>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+
+                    
+                    <p:commandButton value="Ingresar" update=":ContratoForm" actionListener="#{Contrato.instertarContrato()}" validateClient="true" class="botonNormal" />
+                </h:form>
+                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">                    
+
+                    <img src="/ISODOC/imagenes/buttons/carga2.gif" style="opacity:0.4;"/>
+                </p:dialog>
+            </h:body>
+        </ui:define>
+    </ui:composition>
+</html>
